@@ -18,7 +18,7 @@ import {
   NonAttribute,
   Sequelize
 } from 'sequelize'
-import { Json } from '../types/types'
+import { Json } from '../../types/types'
 import type { Appointment } from './Appointment'
 import type { Patient } from './Patient'
 

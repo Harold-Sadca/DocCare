@@ -11,9 +11,9 @@ export class Message extends Model<
   InferAttributes<Message>,
   InferCreationAttributes<Message>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare content: string | null
-  declare date: string | null
+  declare date: Date | null
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
   

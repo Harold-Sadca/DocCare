@@ -34,10 +34,11 @@ export class Patient extends Model<
 > {
   declare id: CreationOptional<number>
   declare name: string | null
+  declare email: string | null
   declare password: string | null
   declare phoneNumber: number | null
   declare address: string | null
-  declare dateOfBirth: string | null
+  declare dateOfBirth: Date | null
   declare gender: 'Male' | 'Female' | null
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
@@ -96,6 +97,9 @@ export class Patient extends Model<
         allowNull: false
       },
       name: {
+        type: DataTypes.STRING
+      },
+      email: {
         type: DataTypes.STRING
       },
       password: {
