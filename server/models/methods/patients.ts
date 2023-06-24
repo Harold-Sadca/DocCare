@@ -1,6 +1,5 @@
-
 import { Patient } from '../schema/Patient';
-import { TypePatient } from '../../types/types';
+import { TypeAppointment, TypePatient } from '../../types/types';
 import { Appointment } from '../schema/Appointment';
 
 async function createPatientModel(patient: TypePatient) {
@@ -77,6 +76,27 @@ async function getLastCheckupModel(patientId: string) {
   }
 }
 
+async function createAppointmentModel(appointment: TypeAppointment) {
+  try {
+    const newAppointment = await Appointment.create(appointment);
+    return newAppointment;
+  } catch (error) {
+    throw new Error();
+  }
+}
+
+async function deleteAppointmentModel(appointmentId: string) {
+  try {
+    const appointment = await Appointment.findOne({
+      where: { id: appointmentId },
+    });
+    await appointment?.destroy();
+    return appointment;
+  } catch (error) {
+    throw new Error();
+  }
+}
+
 export {
   createPatientModel,
   getPatientModel,
@@ -84,4 +104,6 @@ export {
   updatePatientModel,
   getLastCheckupModel,
   deletePatientModel,
+  createAppointmentModel,
+  deleteAppointmentModel,
 };
