@@ -27,7 +27,7 @@ export interface TypeDoctor {
   licenseNumber: string;
   gender: 'Male' | 'Female';
   about: string;
-  availability: TypeAvailability;
+  availability?: TypeAvailability;
   createdAt?: Date;
   updatedAt?: Date;
 }
