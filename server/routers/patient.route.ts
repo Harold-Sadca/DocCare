@@ -1,18 +1,18 @@
-import express from "express";
-import { Router } from "express";
-import {  createPatient,
-    getPatient,
-    getPatients,
-    updatePatient,
-    deletePatient,
-    getLastCheckup,} from "../controllers/patient.controller";
-import  {patientAuthMiddleware}  from "../middleware/patient.auth";
-import { Patient } from "../models/schema/Patient";
-
+import express from 'express';
+import { Router } from 'express';
+import {
+  createPatient,
+  getPatient,
+  getPatients,
+  updatePatient,
+  deletePatient,
+  getLastCheckup,
+} from '../controllers/patient.controller';
+import { patientAuthMiddleware } from '../middleware/auth';
+import { Patient } from '../models/schema/Patient';
 
 const app = express();
 const patientRouter = Router();
-
 
 // patientRouter.post("/register", controller.create);
 // patientRouter.post("/login", controller.login);
@@ -26,5 +26,4 @@ patientRouter.put('/patients/:id', updatePatient);
 patientRouter.delete('/patients/:id', deletePatient);
 patientRouter.get('/patients/:id/last-checkup', getLastCheckup);
 
-export {patientRouter};
-  
+export { patientRouter };
