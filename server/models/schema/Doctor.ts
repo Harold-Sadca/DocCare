@@ -18,7 +18,7 @@ import {
   NonAttribute,
   Sequelize
 } from 'sequelize'
-import { Json } from '../../types/types'
+import { TypeAvailability } from '../../types/types'
 import type { Appointment } from './Appointment'
 import type { Patient } from './Patient'
 
@@ -38,7 +38,7 @@ export class Doctor extends Model<
   declare licenseNumber: string | null
   declare gender: 'Male' | 'Female' | null
   declare about: string | null
-  declare availability: Json | null
+  declare availability: TypeAvailability | null
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 
