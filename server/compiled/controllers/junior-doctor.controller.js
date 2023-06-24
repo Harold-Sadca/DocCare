@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJuniorNote = exports.getJuniorDoctor = exports.createJuniorDoctor = void 0;
-const junior_doctors_ts_1 = require("../models/methods/junior-doctors.ts");
+const junior_doctors_1 = require("../models/methods/junior-doctors");
 function createJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -24,7 +24,7 @@ function createJuniorDoctor(req, res) {
                 licenseNumber,
                 gender,
             };
-            const createJuniorDoctor = yield (0, junior_doctors_ts_1.createJuniorDoctorModel)(newJuniorDoctor);
+            const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
             res.status(201).json({
                 message: 'Junior doctor account created successfully',
                 result: createJuniorDoctor,
@@ -40,7 +40,7 @@ function getJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
-            const juniorDoctor = yield (0, junior_doctors_ts_1.getJuniorDoctorModel)(id);
+            const juniorDoctor = yield (0, junior_doctors_1.getJuniorDoctorModel)(id);
             res.status(200).json({
                 message: `Welcome, ${juniorDoctor === null || juniorDoctor === void 0 ? void 0 : juniorDoctor.name}!`,
                 result: juniorDoctor,
@@ -57,7 +57,7 @@ function createJuniorNote(req, res) {
         try {
             const juniorNote = req.body;
             const patientId = req.params.id;
-            const createJuniorNote = yield (0, junior_doctors_ts_1.createJuniorNoteModel)(juniorNote, patientId);
+            const createJuniorNote = yield (0, junior_doctors_1.createJuniorNoteModel)(juniorNote, patientId);
             res.status(201).json({
                 message: 'Junior note created successfully',
                 result: createJuniorNote,

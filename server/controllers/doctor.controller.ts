@@ -7,7 +7,15 @@ import {
   createPatientSummaryModel,
 } from '../models/methods/doctors';
 
-import { TypeDoctor, TypeMedicalInfo } from '../types/types';
+import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
+
+function createEmptyAvailability() {
+  const availability = {} as TypeAvailability;
+  for (let day = 1; day <= 31; day++) {
+    availability[day] = [];
+  }
+  return availability;
+}
 
 async function createDoctor(req: Request, res: Response) {
   try {
@@ -32,6 +40,7 @@ async function createDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
       about,
+      availability: createEmptyAvailability(),
     } as TypeDoctor;
     const createDoctor = await createDoctorModel(newDoctor);
     res.status(201).json({
@@ -65,10 +74,17 @@ async function getDoctors(req: Request, res: Response) {
 
 async function createMedicalInfo(req: Request, res: Response) {
   try {
-    const {prescription, doctorsNotes, patientId} = req.body;
+    const { prescription, doctorsNotes, patientId } = req.body;
     const doctorId = req.params.id;
-    const newMedicalInfo = {prescription, doctorsNotes, doctorId} as TypeMedicalInfo;
-    const createMedicalInfo = await createMedicalInfoModel(newMedicalInfo, patientId);
+    const newMedicalInfo = {
+      prescription,
+      doctorsNotes,
+      doctorId,
+    } as TypeMedicalInfo;
+    const createMedicalInfo = await createMedicalInfoModel(
+      newMedicalInfo,
+      patientId
+    );
     res.status(201).json({
       message: 'Medical info created successfully',
       result: createMedicalInfo,
@@ -80,8 +96,8 @@ async function createMedicalInfo(req: Request, res: Response) {
 
 async function createPatientSummary(req: Request, res: Response) {
   try {
-    const {patientId, patientSummary, doctorName} = req.body;
-    const newSummary = `${patientSummary} by: ${doctorName}`
+    const { patientId, patientSummary, doctorName } = req.body;
+    const newSummary = `${patientSummary} by: ${doctorName}`;
     const createPatientSummary = await createPatientSummaryModel(
       newSummary,
       patientId

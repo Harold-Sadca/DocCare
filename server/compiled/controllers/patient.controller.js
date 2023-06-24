@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.getPatient = exports.createPatient = void 0;
+exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.getPatient = exports.createPatient = void 0;
 const patients_1 = require("../models/methods/patients");
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -118,3 +118,41 @@ function getLastCheckup(req, res) {
     });
 }
 exports.getLastCheckup = getLastCheckup;
+function createAppointment(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { date, time, attended, illness } = req.body;
+            const newAppointment = {
+                date,
+                time,
+                attended,
+                illness,
+            };
+            const createAppointment = yield (0, patients_1.createAppointmentModel)(newAppointment);
+            res.status(201).json({
+                message: 'Appointment created successfully',
+                result: createAppointment,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to create a appointment' });
+        }
+    });
+}
+exports.createAppointment = createAppointment;
+function deleteAppointment(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.body;
+            const deletedAppointment = yield (0, patients_1.deleteAppointmentModel)(id);
+            res.status(200).json({
+                message: 'Appointment deleted successfully',
+                result: deletedAppointment,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to delete appointment' });
+        }
+    });
+}
+exports.deleteAppointment = deleteAppointment;

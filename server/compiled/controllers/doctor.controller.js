@@ -10,7 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummary = exports.createMedicalInfo = exports.getDoctors = exports.getDoctor = exports.createDoctor = void 0;
-const doctors_ts_1 = require("../models/methods/doctors.ts");
+const doctors_1 = require("../models/methods/doctors");
+function createEmptyAvailability() {
+    const availability = {};
+    for (let day = 1; day <= 31; day++) {
+        availability[day] = [];
+    }
+    return availability;
+}
 function createDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -25,8 +32,9 @@ function createDoctor(req, res) {
                 licenseNumber,
                 gender,
                 about,
+                availability: createEmptyAvailability(),
             };
-            const createDoctor = yield (0, doctors_ts_1.createDoctorModel)(newDoctor);
+            const createDoctor = yield (0, doctors_1.createDoctorModel)(newDoctor);
             res.status(201).json({
                 message: 'Doctor account created successfully',
                 result: createDoctor,
@@ -42,9 +50,9 @@ function getDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctorId = req.params.id;
-            const doctor = yield (0, doctors_ts_1.getDoctorModel)(doctorId);
+            const doctor = yield (0, doctors_1.getDoctorModel)(doctorId);
             res.status(200).send({
-                message: `Welcome, ${doctor.name}!`,
+                message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
                 result: doctor,
             });
         }
@@ -57,7 +65,7 @@ exports.getDoctor = getDoctor;
 function getDoctors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctors = yield (0, doctors_ts_1.getDoctorsModel)();
+            const doctors = yield (0, doctors_1.getDoctorsModel)();
             res.status(200).send(doctors);
         }
         catch (error) {
@@ -69,10 +77,14 @@ exports.getDoctors = getDoctors;
 function createMedicalInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { prescription, doctor_notes, patientId } = req.body;
+            const { prescription, doctorsNotes, patientId } = req.body;
             const doctorId = req.params.id;
-            const newMedicalInfo = { prescription, doctor_notes, doctorId, patientId };
-            const createMedicalInfo = yield (0, doctors_ts_1.createMedicalInfoModel)(newMedicalInfo);
+            const newMedicalInfo = {
+                prescription,
+                doctorsNotes,
+                doctorId,
+            };
+            const createMedicalInfo = yield (0, doctors_1.createMedicalInfoModel)(newMedicalInfo, patientId);
             res.status(201).json({
                 message: 'Medical info created successfully',
                 result: createMedicalInfo,
@@ -88,7 +100,8 @@ function createPatientSummary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { patientId, patientSummary, doctorName } = req.body;
-            const createPatientSummary = yield (0, doctors_ts_1.createPatientSummaryModel)(patientSummary, patientId, doctorName);
+            const newSummary = `${patientSummary} by: ${doctorName}`;
+            const createPatientSummary = yield (0, doctors_1.createPatientSummaryModel)(newSummary, patientId);
             res.status(201).json({
                 message: 'Patient summary created successfully',
                 result: createPatientSummary,

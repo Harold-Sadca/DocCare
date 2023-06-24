@@ -9,8 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
+exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
 const Patient_1 = require("../schema/Patient");
+const Appointment_1 = require("../schema/Appointment");
 function createPatientModel(patient) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -99,3 +100,30 @@ function getLastCheckupModel(patientId) {
     });
 }
 exports.getLastCheckupModel = getLastCheckupModel;
+function createAppointmentModel(appointment) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const newAppointment = yield Appointment_1.Appointment.create(appointment);
+            return newAppointment;
+        }
+        catch (error) {
+            throw new Error();
+        }
+    });
+}
+exports.createAppointmentModel = createAppointmentModel;
+function deleteAppointmentModel(appointmentId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const appointment = yield Appointment_1.Appointment.findOne({
+                where: { id: appointmentId },
+            });
+            yield (appointment === null || appointment === void 0 ? void 0 : appointment.destroy());
+            return appointment;
+        }
+        catch (error) {
+            throw new Error();
+        }
+    });
+}
+exports.deleteAppointmentModel = deleteAppointmentModel;
