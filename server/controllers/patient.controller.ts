@@ -13,8 +13,16 @@ import { TypeAppointment } from '../types/types';
 
 async function createPatient(req: Request, res: Response) {
   try {
-    const { name, email, password, phoneNumber, address, dateOfBirth, gender } =
-      req.body;
+    const {
+      name,
+      email,
+      password,
+      phoneNumber,
+      address,
+      dateOfBirth,
+      gender,
+      conditions,
+    } = req.body;
     const newPatient = {
       name,
       email,
@@ -23,6 +31,7 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
+      conditions,
     };
     const createPatient = await createPatientModel(newPatient);
     res.status(201).json({

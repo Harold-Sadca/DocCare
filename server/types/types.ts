@@ -56,17 +56,6 @@ export interface TypeAppointment {
   updatedAt?: Date;
 }
 
-export interface TypeCondition {
-  id?: string;
-  allergies: string;
-  bloodType: string;
-  medications: string;
-  surgicalHistory: string;
-  familyMedicalHistory: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-}
-
 export interface TypeJuniorDoctor {
   id?: string;
   name: string;
@@ -108,6 +97,13 @@ export interface TypePatient {
   gender: 'Male' | 'Female' | null;
   juniorNotes?: string;
   summary?: string;
+  conditions: {
+    allergies: string;
+    bloodType: string;
+    medications: string;
+    surgicalHistory: string;
+    familyMedicalHistory: string;
+  };
   createdAt?: Date;
   updatedAt?: Date;
 }
