@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPatientSummary = exports.createDoctorNote = exports.createPrescription = exports.getDoctors = exports.getDoctor = exports.createDoctor = void 0;
+exports.createPatientSummary = exports.createMedicalInfo = exports.getDoctors = exports.getDoctor = exports.createDoctor = void 0;
 const doctors_ts_1 = require("../models/methods/doctors.ts");
 function createDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -41,8 +41,8 @@ exports.createDoctor = createDoctor;
 function getDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const id = req.params.id;
-            const doctor = yield (0, doctors_ts_1.getDoctorModel)(id);
+            const doctorId = req.params.id;
+            const doctor = yield (0, doctors_ts_1.getDoctorModel)(doctorId);
             res.status(200).send({
                 message: `Welcome, ${doctor.name}!`,
                 result: doctor,
@@ -66,46 +66,29 @@ function getDoctors(req, res) {
     });
 }
 exports.getDoctors = getDoctors;
-function createPrescription(req, res) {
+function createMedicalInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const prescription = req.body;
-            const id = req.params.id;
-            const createPrescription = yield (0, doctors_ts_1.createPrescriptionModel)(prescription, id);
+            const { prescription, doctor_notes, patientId } = req.body;
+            const doctorId = req.params.id;
+            const newMedicalInfo = { prescription, doctor_notes, doctorId, patientId };
+            const createMedicalInfo = yield (0, doctors_ts_1.createMedicalInfoModel)(newMedicalInfo);
             res.status(201).json({
-                message: 'Prescription created successfully',
-                result: createPrescription,
+                message: 'Medical info created successfully',
+                result: createMedicalInfo,
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to create a prescription' });
+            res.status(400).json({ error: 'Failed to create a medical info' });
         }
     });
 }
-exports.createPrescription = createPrescription;
-function createDoctorNote(req, res) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const doctorNote = req.body;
-            const id = req.params.id;
-            const createDoctorNote = yield (0, doctors_ts_1.createDoctorNoteModel)(doctorNote, id);
-            res.status(201).json({
-                message: 'Doctor note created successfully',
-                result: createDoctorNote,
-            });
-        }
-        catch (error) {
-            res.status(400).json({ error: 'Failed to create a doctor note' });
-        }
-    });
-}
-exports.createDoctorNote = createDoctorNote;
+exports.createMedicalInfo = createMedicalInfo;
 function createPatientSummary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patientSummary = req.body;
-            const id = req.params.id;
-            const createPatientSummary = yield (0, doctors_ts_1.createPatientSummaryModel)(patientSummary, id);
+            const { patientId, patientSummary, doctorName } = req.body;
+            const createPatientSummary = yield (0, doctors_ts_1.createPatientSummaryModel)(patientSummary, patientId, doctorName);
             res.status(201).json({
                 message: 'Patient summary created successfully',
                 result: createPatientSummary,

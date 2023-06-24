@@ -9,28 +9,28 @@ class Appointment extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
                 primaryKey: true,
                 autoIncrement: true,
-                allowNull: false
+                allowNull: false,
             },
             date: {
-                type: sequelize_1.DataTypes.DATEONLY
+                type: sequelize_1.DataTypes.DATEONLY,
             },
             time: {
-                type: sequelize_1.DataTypes.DATE
+                type: sequelize_1.DataTypes.TIME,
             },
             attended: {
-                type: sequelize_1.DataTypes.BOOLEAN
+                type: sequelize_1.DataTypes.BOOLEAN,
             },
             illness: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             createdAt: {
-                type: sequelize_1.DataTypes.DATE
+                type: sequelize_1.DataTypes.DATE,
             },
             updatedAt: {
-                type: sequelize_1.DataTypes.DATE
-            }
+                type: sequelize_1.DataTypes.DATE,
+            },
         }, {
-            sequelize
+            sequelize,
         });
         return Appointment;
     }

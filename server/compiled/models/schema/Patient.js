@@ -19,37 +19,43 @@ class Patient extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
                 primaryKey: true,
                 autoIncrement: true,
-                allowNull: false
+                allowNull: false,
             },
             name: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             email: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             password: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             phoneNumber: {
-                type: sequelize_1.DataTypes.INTEGER
+                type: sequelize_1.DataTypes.INTEGER,
             },
             address: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             dateOfBirth: {
-                type: sequelize_1.DataTypes.DATEONLY
+                type: sequelize_1.DataTypes.DATEONLY,
             },
             gender: {
-                type: sequelize_1.DataTypes.ENUM('Male', 'Female')
+                type: sequelize_1.DataTypes.ENUM('Male', 'Female'),
+            },
+            juniorNotes: {
+                type: sequelize_1.DataTypes.STRING,
+            },
+            summary: {
+                type: sequelize_1.DataTypes.STRING,
             },
             createdAt: {
-                type: sequelize_1.DataTypes.DATE
+                type: sequelize_1.DataTypes.DATE,
             },
             updatedAt: {
-                type: sequelize_1.DataTypes.DATE
-            }
+                type: sequelize_1.DataTypes.DATE,
+            },
         }, {
-            sequelize
+            sequelize,
         });
         return Patient;
     }

@@ -9,31 +9,25 @@ class MedicalInfo extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
                 primaryKey: true,
                 autoIncrement: true,
-                allowNull: false
+                allowNull: false,
             },
             prescription: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             doctorNotes: {
-                type: sequelize_1.DataTypes.STRING
-            },
-            juniorNotes: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             doctorId: {
-                type: sequelize_1.DataTypes.STRING
-            },
-            juniorId: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             createdAt: {
-                type: sequelize_1.DataTypes.DATE
+                type: sequelize_1.DataTypes.DATE,
             },
             updatedAt: {
-                type: sequelize_1.DataTypes.DATE
-            }
+                type: sequelize_1.DataTypes.DATE,
+            },
         }, {
-            sequelize
+            sequelize,
         });
         return MedicalInfo;
     }

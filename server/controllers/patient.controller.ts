@@ -4,11 +4,13 @@ import {
   getPatientModel,
   getPatientsModel,
   getLastCheckupModel,
-} from '../models/methods/patients.ts';
+  updatePatientModel,
+  deletePatientModel,
+} from '../models/methods/patients';
 
 async function createPatient(req: Request, res: Response) {
   try {
-    const { name, email, password, phoneNumber, address, date_birth, gender } =
+    const { name, email, password, phoneNumber, address, dateOfBirth, gender } =
       req.body;
     const newPatient = {
       name,
@@ -16,7 +18,7 @@ async function createPatient(req: Request, res: Response) {
       password,
       phoneNumber,
       address,
-      date_birth,
+      dateOfBirth,
       gender,
     };
     const createPatient = await createPatientModel(newPatient);
@@ -33,7 +35,7 @@ async function getPatient(req: Request, res: Response) {
     const id = req.params.id;
     const patient = await getPatientModel(id);
     res.status(200).json({
-      message: `Welcome, ${patient.name}!`,
+      message: `Welcome, ${patient?.name}!`,
       result: patient,
     });
   } catch (error) {
@@ -49,15 +51,45 @@ async function getPatients(req: Request, res: Response) {
   }
 }
 
-async function updatePatient(req: Request, res: Response) {}
-async function deletePatient(req: Request, res: Response) {}
+async function updatePatient(req: Request, res: Response) {
+  try {
+    const patientId = req.params.id;
+    const { name, dateOfBirth, email, password, phoneNumber, address } =
+      req.body;
+    const updatedPatient = {
+      name,
+      dateOfBirth,
+      email,
+      password,
+      phoneNumber,
+      address,
+    };
+    const updatePatient = await updatePatientModel(patientId, updatedPatient);
+    res.status(200).json({
+      message: 'Patient account updated successfully',
+      result: updatePatient,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to update patient account' });
+  }
+}
+async function deletePatient(req: Request, res: Response) {
+  try {
+    const { id } = req.body;
+    const deletedPatient = await deletePatientModel(id);
+    res.status(200).json({
+      message: 'Patient account deleted successfully',
+      result: deletedPatient,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to delete patient account' });
+  }
+}
 
 async function getLastCheckup(req: Request, res: Response) {
   try {
-    //     patient -> appointments -> attended (true) -> get the last date
-    // -> medical-info -> get the notes
-    const id = req.params.id;
-    const patientLastCheckup = await getLastCheckupModel(id);
+    const patientId = req.params.id;
+    const patientLastCheckup = await getLastCheckupModel(patientId);
     res.status(200).send(patientLastCheckup);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patient last checkup' });

@@ -9,72 +9,75 @@ import {
   InferAttributes,
   Model,
   NonAttribute,
-  Sequelize
-} from 'sequelize'
-import type { Doctor } from './Doctor'
-import type { Patient } from './Patient'
+  Sequelize,
+} from 'sequelize';
+import type { Doctor } from './Doctor';
+import type { Patient } from './Patient';
 
-type AppointmentAssociations = 'doctorAppointment' | 'patientAppointment'
+type AppointmentAssociations = 'doctorAppointment' | 'patientAppointment';
 
 export class Appointment extends Model<
-  InferAttributes<Appointment, {omit: AppointmentAssociations}>,
-  InferCreationAttributes<Appointment, {omit: AppointmentAssociations}>
+  InferAttributes<Appointment, { omit: AppointmentAssociations }>,
+  InferCreationAttributes<Appointment, { omit: AppointmentAssociations }>
 > {
-  declare id: CreationOptional<string>
-  declare date: Date | null
-  declare time: Date | null
-  declare attended: boolean | null
-  declare illness: string | null
-  declare createdAt: CreationOptional<Date>
-  declare updatedAt: CreationOptional<Date>
+  declare id: CreationOptional<string>;
+  declare date: string;
+  declare time: string;
+  declare attended: boolean;
+  declare illness: string | null;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 
   // Appointment belongsTo Doctor (as DoctorAppointment)
-  declare doctorAppointment?: NonAttribute<Doctor>
-  declare getDoctorAppointment: BelongsToGetAssociationMixin<Doctor>
-  declare setDoctorAppointment: BelongsToSetAssociationMixin<Doctor, number>
-  declare createDoctorAppointment: BelongsToCreateAssociationMixin<Doctor>
-  
+  declare doctorAppointment?: NonAttribute<Doctor>;
+  declare getDoctorAppointment: BelongsToGetAssociationMixin<Doctor>;
+  declare setDoctorAppointment: BelongsToSetAssociationMixin<Doctor, number>;
+  declare createDoctorAppointment: BelongsToCreateAssociationMixin<Doctor>;
+
   // Appointment belongsTo Patient (as PatientAppointment)
-  declare patientAppointment?: NonAttribute<Patient>
-  declare getPatientAppointment: BelongsToGetAssociationMixin<Patient>
-  declare setPatientAppointment: BelongsToSetAssociationMixin<Patient, number>
-  declare createPatientAppointment: BelongsToCreateAssociationMixin<Patient>
-  
+  declare patientAppointment?: NonAttribute<Patient>;
+  declare getPatientAppointment: BelongsToGetAssociationMixin<Patient>;
+  declare setPatientAppointment: BelongsToSetAssociationMixin<Patient, number>;
+  declare createPatientAppointment: BelongsToCreateAssociationMixin<Patient>;
+
   declare static associations: {
-    doctorAppointment: Association<Appointment, Doctor>,
-    patientAppointment: Association<Appointment, Patient>
-  }
+    doctorAppointment: Association<Appointment, Doctor>;
+    patientAppointment: Association<Appointment, Patient>;
+  };
 
   static initModel(sequelize: Sequelize): typeof Appointment {
-    Appointment.init({
-      id: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
+    Appointment.init(
+      {
+        id: {
+          type: DataTypes.INTEGER.UNSIGNED,
+          primaryKey: true,
+          autoIncrement: true,
+          allowNull: false,
+        },
+        date: {
+          type: DataTypes.DATEONLY,
+        },
+        time: {
+          type: DataTypes.TIME,
+        },
+        attended: {
+          type: DataTypes.BOOLEAN,
+        },
+        illness: {
+          type: DataTypes.STRING,
+        },
+        createdAt: {
+          type: DataTypes.DATE,
+        },
+        updatedAt: {
+          type: DataTypes.DATE,
+        },
       },
-      date: {
-        type: DataTypes.DATEONLY
-      },
-      time: {
-        type: DataTypes.DATE
-      },
-      attended: {
-        type: DataTypes.BOOLEAN
-      },
-      illness: {
-        type: DataTypes.STRING
-      },
-      createdAt: {
-        type: DataTypes.DATE
-      },
-      updatedAt: {
-        type: DataTypes.DATE
+      {
+        sequelize,
       }
-    }, {
-      sequelize
-    })
-    
-    return Appointment
+    );
+
+    return Appointment;
   }
 }
