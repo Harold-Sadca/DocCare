@@ -1,24 +1,34 @@
-export interface JsonMap {
-  [member: string]: string | number | boolean | null | JsonArray | JsonMap;
-}
-
-export interface JsonArray
-  extends Array<string | number | boolean | null | JsonArray | JsonMap> {}
-
-export type Json = JsonMap | JsonArray | string | number | boolean | null;
+export type TypeAvailability = { [day: number]: number[] };
 
 export interface TypeDoctor {
   id?: string;
   name: string;
   email: string;
   password: string;
-  specialisation:'General Practice' | 'Internal Medicine' | 'Pediatrics' | 'Obstetrics and Gynecology' | 'Surgery' | 'Psychiatry' | 'Dermatology' | 'Ophthalmology' | 'Ear Nose and Throat (ENT)' | 'Cardiology' | 'Endocrinology' | 'Gastroenterology' | 'Neurology' | 'Oncology' | null
-  phoneNumber:number;
-  address:string;
-  licenseNumber:string;
-  gender:'Male' | 'Female' | null
-  about:string;
-  availability:Json
+  specialisation:
+    | 'General Practice'
+    | 'Internal Medicine'
+    | 'Pediatrics'
+    | 'Obstetrics and Gynecology'
+    | 'Surgery'
+    | 'Psychiatry'
+    | 'Dermatology'
+    | 'Ophthalmology'
+    | 'Ear'
+    | 'Nose'
+    | 'and Throat (ENT)'
+    | 'Cardiology'
+    | 'Endocrinology'
+    | 'Gastroenterology'
+    | 'Neurology'
+    | 'Oncology'
+    | null;
+  phoneNumber: number;
+  address: string;
+  licenseNumber: string;
+  gender: 'Male' | 'Female' | null;
+  about: string;
+  availability: TypeAvailability;
   createdAt?: Date;
   updatedAt?: Date;
 }
