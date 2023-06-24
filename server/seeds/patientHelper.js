@@ -25,7 +25,16 @@ const patientEmails = [
   "elijah.garcia@example.com"
 ]
 
+const conditions = {
+  allergies: ['dairy', 'nuts'],
+  bloodType: 'AB-',
+  medications: 'N/A',
+  surgicalHistory: 'N/A',
+  familyMedicalHistory: 'N/A'
+}
+
 module.exports = {
   patientNames,
   patientEmails,
+  conditions
 }

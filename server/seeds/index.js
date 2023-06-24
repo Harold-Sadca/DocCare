@@ -10,6 +10,7 @@ const { specialisations,
 const {
   patientNames,
   patientEmails,
+  condition
 } = require('./patientHelper')
 const {
   randomJuniorDoctorNames,
@@ -21,15 +22,15 @@ dotenv.config();
 const dbName = 'DocCare';
 
 const db = new Sequelize(dbName,
-  `${process.env.MYSQL_USERNAME}`,
-  `${process.env.MYSQL_PASSWORD}`,
+  `root`,
+  `howismypasswordtooweak???`,
   {
   host: 'localhost',
   port: 3306,
   dialect: 'mysql',
 });
 
-const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient } = initModels(db);
+const {Doctor, JuniorDoctor, Patient } = initModels(db);
 
 (async function authenticate () {
   try {
@@ -101,6 +102,13 @@ const seedDB = async () => {
       address: addresses[num],
       dateOfBirth: generateRandomDate(new Date(1994, 0, 1), new Date()),
       gender: genders[gen],
+      conditions: {
+        allergies: ['dairy', 'nuts'],
+        bloodType: 'AB-',
+        medications: 'N/A',
+        surgicalHistory: 'N/A',
+        familyMedicalHistory: 'N/A'
+      }
     })
   }
 }

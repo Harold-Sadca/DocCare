@@ -22,6 +22,7 @@ async function getJuniorDoctorModel(juniorId: string) {
       include: {
         model: Message,
         as: 'juniorMessages',
+        required:false
       },
     });
     return juniorDoctor;

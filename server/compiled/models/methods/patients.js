@@ -41,25 +41,30 @@ function getPatientModel(id) {
                     {
                         model: Message_1.Message,
                         as: 'patientMessages',
+                        required: false
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
                         as: 'medicalInfo',
+                        required: false
                     },
                     {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
+                        required: false,
                         include: [
                             {
                                 model: Doctor_1.Doctor,
                                 as: 'doctorAppointment',
                                 attributes: { include: ['name', 'licenseNumber'] },
+                                required: false
                             },
                         ],
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
                         as: 'medicalInfo',
+                        required: false
                     },
                 ],
             });
@@ -79,10 +84,25 @@ function getPatientsModel() {
                     {
                         model: Message_1.Message,
                         as: 'patientMessages',
+                        required: false
+                    },
+                    {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                        required: false
                     },
                     {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
+                        required: false,
+                        include: [
+                            {
+                                model: Doctor_1.Doctor,
+                                as: 'doctorAppointment',
+                                attributes: { include: ['name', 'licenseNumber'] },
+                                required: false
+                            },
+                        ],
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,

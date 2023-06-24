@@ -24,10 +24,12 @@ async function getDoctorModel(id: string) {
         {
           model: Appointment,
           as: 'doctorAppointments',
+          required:false
         },
         {
           model: Patient,
           as: 'patients',
+          required:false
         },
       ],
     });
@@ -44,10 +46,12 @@ async function getDoctorsModel() {
         {
           model: Appointment,
           as: 'doctorAppointments',
+          required:false
         },
         {
           model: Patient,
           as: 'patients',
+          required:false
         },
       ],
     });

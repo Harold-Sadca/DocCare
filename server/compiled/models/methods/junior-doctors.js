@@ -37,6 +37,7 @@ function getJuniorDoctorModel(juniorId) {
                 include: {
                     model: Message_1.Message,
                     as: 'juniorMessages',
+                    required: false
                 },
             });
             return juniorDoctor;

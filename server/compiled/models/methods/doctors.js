@@ -40,10 +40,12 @@ function getDoctorModel(id) {
                     {
                         model: Appointment_1.Appointment,
                         as: 'doctorAppointments',
+                        required: false
                     },
                     {
                         model: Patient_1.Patient,
                         as: 'patients',
+                        required: false
                     },
                 ],
             });
@@ -63,10 +65,12 @@ function getDoctorsModel() {
                     {
                         model: Appointment_1.Appointment,
                         as: 'doctorAppointments',
+                        required: false
                     },
                     {
                         model: Patient_1.Patient,
                         as: 'patients',
+                        required: false
                     },
                 ],
             });

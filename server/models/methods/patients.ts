@@ -26,25 +26,30 @@ async function getPatientModel(id: string) {
         {
           model: Message,
           as: 'patientMessages',
+          required:false
         },
         {
           model: MedicalInfo,
           as: 'medicalInfo',
+          required:false
         },
         {
           model: Appointment,
           as: 'patientAppointments',
+          required:false,
           include: [
             {
               model: Doctor,
               as: 'doctorAppointment',
               attributes: { include: ['name', 'licenseNumber'] },
+              required:false
             },
           ],
         },
         {
           model: MedicalInfo,
           as: 'medicalInfo',
+          required:false
         },
       ],
     });
@@ -61,19 +66,23 @@ async function getPatientsModel() {
         {
           model: Message,
           as: 'patientMessages',
+          required:false
         },
         {
           model: MedicalInfo,
           as: 'medicalInfo',
+          required:false
         },
         {
           model: Appointment,
           as: 'patientAppointments',
+          required:false,
           include: [
             {
               model: Doctor,
               as: 'doctorAppointment',
               attributes: { include: ['name', 'licenseNumber'] },
+              required:false
             },
           ],
         },
