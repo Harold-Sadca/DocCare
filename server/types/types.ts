@@ -1,11 +1,4 @@
-export interface JsonMap {
-  [member: string]: string | number | boolean | null | JsonArray | JsonMap;
-}
-
-export interface JsonArray
-  extends Array<string | number | boolean | null | JsonArray | JsonMap> {}
-
-export type Json = JsonMap | JsonArray | string | number | boolean | null;
+export type TypeAvailability = { [day: number]: number[] };
 
 export interface TypeDoctor {
   id?: string;
@@ -35,7 +28,7 @@ export interface TypeDoctor {
   licenseNumber: string;
   gender: 'Male' | 'Female' | null;
   about: string;
-  availability: Json;
+  availability: TypeAvailability;
   createdAt?: Date;
   updatedAt?: Date;
 }
