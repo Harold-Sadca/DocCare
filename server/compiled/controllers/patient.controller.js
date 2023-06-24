@@ -97,7 +97,7 @@ exports.updatePatient = updatePatient;
 function deletePatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { id } = req.body;
+            const id = req.params.id;
             const deletedPatient = yield (0, patients_1.deletePatientModel)(id);
             res.status(200).json({
                 message: 'Patient account deleted successfully',
@@ -115,6 +115,11 @@ function getLastCheckup(req, res) {
         try {
             const patientId = req.params.id;
             const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
+            if (patientLastCheckup === undefined)
+                res
+                    .status(200)
+                    .json({ message: `You still didn't have any appointment` });
+            console.log(patientLastCheckup);
             res.status(200).send(patientLastCheckup);
         }
         catch (error) {
@@ -126,14 +131,9 @@ exports.getLastCheckup = getLastCheckup;
 function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { date, time, attended, illness } = req.body;
-            const newAppointment = {
-                date,
-                time,
-                attended,
-                illness,
-            };
-            const createAppointment = yield (0, patients_1.createAppointmentModel)(newAppointment);
+            const patientId = req.params.id;
+            const { doctorId, newAppointment } = req.body;
+            const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, newAppointment);
             res.status(201).json({
                 message: 'Appointment created successfully',
                 result: createAppointment,

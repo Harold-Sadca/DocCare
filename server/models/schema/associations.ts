@@ -44,6 +44,7 @@ export function initModels(sequelize: Sequelize) {
     as: 'medicalInfo',
     foreignKey: 'patient_id',
   });
+
   JuniorDoctor.hasMany(Message, {
     as: 'juniorMessages',
     foreignKey: 'junior_doctor_id',

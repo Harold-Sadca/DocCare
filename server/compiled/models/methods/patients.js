@@ -20,6 +20,7 @@ const MedicalInfo_1 = require("../schema/MedicalInfo");
 const Doctor_1 = require("../schema/Doctor");
 const PatientDB = index_1.default.Patient;
 const AppointmentDB = index_1.default.Appointment;
+const DoctorDB = index_1.default.Doctor;
 function createPatientModel(patient) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -43,10 +44,6 @@ function getPatientModel(id) {
                         as: 'patientMessages',
                     },
                     {
-                        model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
-                    },
-                    {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
                         include: [
@@ -57,10 +54,10 @@ function getPatientModel(id) {
                             },
                         ],
                     },
-                    {
-                        model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
-                    },
+                    // {
+                    //   model: MedicalInfo,
+                    //   as: 'medicalInfo',
+                    // },
                 ],
             });
             return patient;
@@ -81,8 +78,19 @@ function getPatientsModel() {
                         as: 'patientMessages',
                     },
                     {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
+                    {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
+                        include: [
+                            {
+                                model: Doctor_1.Doctor,
+                                as: 'doctorAppointment',
+                                attributes: { include: ['name', 'licenseNumber'] },
+                            },
+                        ],
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
@@ -115,7 +123,9 @@ exports.updatePatientModel = updatePatientModel;
 function deletePatientModel(patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(patientId);
             const patient = yield PatientDB.findOne({ where: { id: patientId } });
+            console.log(patient);
             yield (patient === null || patient === void 0 ? void 0 : patient.destroy());
             return patient;
         }
@@ -128,21 +138,47 @@ exports.deletePatientModel = deletePatientModel;
 function getLastCheckupModel(patientId) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
+        console.log('model working');
         try {
             //     patient -> appointments -> attended (true) -> get the last date
             // -> medical-info -> get the notes
-            const patient = yield PatientDB.findOne({ where: { id: patientId } });
-            const appointmentsAttended = (_a = patient === null || patient === void 0 ? void 0 : patient.patientAppointments) === null || _a === void 0 ? void 0 : _a.filter((appointment) => appointment.attended);
-            const doctorNote = (_b = patient === null || patient === void 0 ? void 0 : patient.medicalInfo) === null || _b === void 0 ? void 0 : _b.doctorNotes;
-            const sortedAppointments = appointmentsAttended === null || appointmentsAttended === void 0 ? void 0 : appointmentsAttended.sort((a, b) => {
-                const datesA = a.date;
-                const datesB = b.date;
-                const dateA = new Date(datesA[0]);
-                const dateB = new Date(datesB[0]);
-                return dateA.getTime() - dateB.getTime();
+            const patient = yield PatientDB.findOne({
+                where: { id: patientId },
+                include: [
+                    {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
+                    {
+                        model: Appointment_1.Appointment,
+                        as: 'patientAppointments',
+                        include: [
+                            {
+                                model: Doctor_1.Doctor,
+                                as: 'doctorAppointment',
+                                attributes: { include: ['name', 'licenseNumber'] },
+                            },
+                        ],
+                    },
+                ],
             });
-            const lastDate = sortedAppointments[0];
-            return { doctorNote, lastDate };
+            const appointmentsAttended = (_a = patient === null || patient === void 0 ? void 0 : patient.patientAppointments) === null || _a === void 0 ? void 0 : _a.filter((appointment) => appointment.attended);
+            if (appointmentsAttended) {
+                const doctorNote = (_b = patient === null || patient === void 0 ? void 0 : patient.medicalInfo) === null || _b === void 0 ? void 0 : _b.doctorNote;
+                const sortedAppointments = appointmentsAttended === null || appointmentsAttended === void 0 ? void 0 : appointmentsAttended.sort((a, b) => {
+                    const datesA = a.date;
+                    const datesB = b.date;
+                    const dateA = new Date(datesA[0]);
+                    const dateB = new Date(datesB[0]);
+                    return dateA.getTime() - dateB.getTime();
+                });
+                const lastDate = sortedAppointments[0];
+                console.log(patient === null || patient === void 0 ? void 0 : patient.medicalInfo);
+                console.log(doctorNote);
+                return { doctorNote, lastDate };
+            }
+            else
+                return undefined;
         }
         catch (error) {
             throw new Error();
@@ -150,10 +186,16 @@ function getLastCheckupModel(patientId) {
     });
 }
 exports.getLastCheckupModel = getLastCheckupModel;
-function createAppointmentModel(appointment) {
+function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newAppointment = yield AppointmentDB.create(appointment);
+            const doctor = yield DoctorDB.findOne({ where: { id: doctorId } });
+            const patient = yield PatientDB.findOne({ where: { id: patientId } });
+            doctor === null || doctor === void 0 ? void 0 : doctor.addDoctorAppointment(newAppointment);
+            patient === null || patient === void 0 ? void 0 : patient.addPatientAppointment(newAppointment);
+            yield (doctor === null || doctor === void 0 ? void 0 : doctor.save());
+            yield (patient === null || patient === void 0 ? void 0 : patient.save());
             return newAppointment;
         }
         catch (error) {

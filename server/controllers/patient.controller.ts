@@ -89,7 +89,7 @@ async function updatePatient(req: Request, res: Response) {
 }
 async function deletePatient(req: Request, res: Response) {
   try {
-    const { id } = req.body;
+    const id = req.params.id;
     const deletedPatient = await deletePatientModel(id);
     res.status(200).json({
       message: 'Patient account deleted successfully',
@@ -104,6 +104,11 @@ async function getLastCheckup(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
     const patientLastCheckup = await getLastCheckupModel(patientId);
+    if (patientLastCheckup === undefined)
+      res
+        .status(200)
+        .json({ message: `You still didn't have any appointment` });
+    console.log(patientLastCheckup);
     res.status(200).send(patientLastCheckup);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patient last checkup' });
@@ -112,14 +117,13 @@ async function getLastCheckup(req: Request, res: Response) {
 
 async function createAppointment(req: Request, res: Response) {
   try {
-    const { date, time, attended, illness } = req.body;
-    const newAppointment = {
-      date,
-      time,
-      attended,
-      illness,
-    } as TypeAppointment;
-    const createAppointment = await createAppointmentModel(newAppointment);
+    const patientId = req.params.id;
+    const { doctorId, newAppointment } = req.body;
+    const createAppointment = await createAppointmentModel(
+      patientId,
+      doctorId,
+      newAppointment
+    );
     res.status(201).json({
       message: 'Appointment created successfully',
       result: createAppointment,

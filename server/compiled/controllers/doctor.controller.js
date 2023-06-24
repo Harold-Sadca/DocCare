@@ -76,16 +76,18 @@ function getDoctors(req, res) {
 exports.getDoctors = getDoctors;
 function createMedicalInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log('got here');
+        console.log(req.body);
         try {
-            const { prescription, doctorsNotes, patientId } = req.body;
-            const doctorId = req.params.id;
+            const { prescription, doctorNote, doctorName } = req.body;
+            const patientId = req.params.id;
             const newMedicalInfo = {
                 prescription,
-                doctorsNotes,
-                doctorId,
+                doctorNote,
+                doctorName,
             };
             const createMedicalInfo = yield (0, doctors_1.createMedicalInfoModel)(newMedicalInfo, patientId);
-            res.status(201).json({
+            res.status(200).json({
                 message: 'Medical info created successfully',
                 result: createMedicalInfo,
             });
@@ -99,8 +101,9 @@ exports.createMedicalInfo = createMedicalInfo;
 function createPatientSummary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { patientId, patientSummary, doctorName } = req.body;
-            const newSummary = `${patientSummary} by: ${doctorName}`;
+            const patientId = req.params.id;
+            const { summary, doctorName } = req.body;
+            const newSummary = `${summary} by: ${doctorName}`;
             const createPatientSummary = yield (0, doctors_1.createPatientSummaryModel)(newSummary, patientId);
             res.status(201).json({
                 message: 'Patient summary created successfully',

@@ -19,6 +19,7 @@ function sendMessageModel(message) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newMessage = yield MessageDB.create(message);
+            // const patientId = newMessage.se;
             return newMessage;
         }
         catch (error) {

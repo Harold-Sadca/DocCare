@@ -6,6 +6,7 @@ const MessageDB = db.Message;
 async function sendMessageModel(message: TypeMessage) {
   try {
     const newMessage = await MessageDB.create(message);
+    // const patientId = newMessage.se;
     return newMessage;
   } catch (error) {
     throw new Error();

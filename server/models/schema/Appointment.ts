@@ -45,13 +45,13 @@ export class Appointment extends Model<
   // Appointment belongsTo Doctor (as DoctorAppointment)
   declare doctorAppointment?: NonAttribute<Doctor>;
   declare getDoctorAppointment: BelongsToGetAssociationMixin<Doctor>;
-  declare setDoctorAppointment: BelongsToSetAssociationMixin<Doctor, number>;
+  declare setDoctorAppointment: BelongsToSetAssociationMixin<Doctor, string>;
   declare createDoctorAppointment: BelongsToCreateAssociationMixin<Doctor>;
 
   // Appointment belongsTo Patient (as PatientAppointment)
   declare patientAppointment?: NonAttribute<Patient>;
   declare getPatientAppointment: BelongsToGetAssociationMixin<Patient>;
-  declare setPatientAppointment: BelongsToSetAssociationMixin<Patient, number>;
+  declare setPatientAppointment: BelongsToSetAssociationMixin<Patient, string>;
   declare createPatientAppointment: BelongsToCreateAssociationMixin<Patient>;
 
   declare static associations: {

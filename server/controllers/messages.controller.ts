@@ -3,6 +3,10 @@ import { sendMessageModel, getMessagesModel } from '../models/methods/messages';
 
 async function sendMessage(req: Request, res: Response) {
   try {
+    // TODO:
+    // change based on the population
+    // route: /:id of the sender
+    // body: id of the receiver
     const {
       content,
       sender_id,
