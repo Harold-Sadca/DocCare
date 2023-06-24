@@ -11,7 +11,7 @@ const messagesRouter = Router();
 
 
 
-messagesRouter.post('/messages', sendMessage);
+messagesRouter.post('/message', sendMessage);
 messagesRouter.get('/messages', getMessages);
 
 export {messagesRouter};
