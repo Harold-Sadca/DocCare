@@ -18,10 +18,7 @@ doctorRouter.post('/doctor', createDoctor);
 doctorRouter.get('/doctor/:id', getDoctor);
 doctorRouter.get('/doctors', getDoctors);
 doctorRouter.post('/doctor/:id/medical-info', createMedicalInfo)
-doctorRouter.post('/summaries', createPatientSummary);
+doctorRouter.put('/doctor/summary', createPatientSummary);
 
 export {doctorRouter};
 
-
-//doctorRouter.post('/doctors/:id/prescriptions', createPrescription);
-// doctorRouter.post('/doctors/:id/notes', createDoctorNote);

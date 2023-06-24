@@ -5,14 +5,12 @@ import {
 } from "../controllers/junior-doctor.controller";
 
 
-
-const app = express();
 const juniorDoctorRouter = Router();
 
 
 
-juniorDoctorRouter.post('/junior-doctors', createJuniorDoctor);
-juniorDoctorRouter.get('/junior-doctors/:id', getJuniorDoctor);
-juniorDoctorRouter.post('/junior-doctors/:id/notes', createJuniorNote);
+juniorDoctorRouter.post('/junior-doctor', createJuniorDoctor);
+juniorDoctorRouter.get('/junior-doctor/:id', getJuniorDoctor);
+juniorDoctorRouter.post('/junior-doctor/:id/note', createJuniorNote);
 
 export {juniorDoctorRouter};

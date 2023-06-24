@@ -21,7 +21,7 @@ const patientRouter = Router();
 patientRouter.post('/patient', createPatient);
 patientRouter.get('/patient/:id', getPatient);
 patientRouter.get('/patients', getPatients);
-patientRouter.put('/patients/:id', updatePatient);
+patientRouter.put('/patient/:id', updatePatient);
 patientRouter.delete('/patient/:id', deletePatient);
 patientRouter.get('/patient/:id/last-checkup', getLastCheckup);
 
