@@ -4,9 +4,8 @@ import {
     createDoctor,
   getDoctor,
   getDoctors,
-  createPrescription,
-  createDoctorNote,
   createPatientSummary,
+  createMedicalInfo,
 } from "../controllers/doctor.controller";
 
 
@@ -15,11 +14,14 @@ const app = express();
 const doctorRouter = Router();
 
 
-doctorRouter.post('/doctors', createDoctor);
-doctorRouter.get('/doctors/:id', getDoctor);
+doctorRouter.post('/doctor', createDoctor);
+doctorRouter.get('/doctor/:id', getDoctor);
 doctorRouter.get('/doctors', getDoctors);
-doctorRouter.post('/doctors/:id/prescriptions', createPrescription);
-doctorRouter.post('/doctors/:id/notes', createDoctorNote);
-doctorRouter.post('/doctors/:id/summaries', createPatientSummary);
+doctorRouter.post('/doctor/:id/medical-info', createMedicalInfo)
+doctorRouter.post('/summaries', createPatientSummary);
 
 export {doctorRouter};
+
+
+//doctorRouter.post('/doctors/:id/prescriptions', createPrescription);
+// doctorRouter.post('/doctors/:id/notes', createDoctorNote);
