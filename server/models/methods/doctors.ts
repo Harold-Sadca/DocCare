@@ -35,10 +35,13 @@ async function getDoctorsModel() {
   }
 }
 
-async function createMedicalInfoModel(newMedicalInfo: TypeMedicalInfo) {
+async function createMedicalInfoModel(newMedicalInfo: TypeMedicalInfo, patientId:string) {
   try {
-    const medicalInfo = MedicalInfo.create(newMedicalInfo)
-    return medicalInfo
+    const patient = await Patient.findOne({where:{id: patientId}}) as Patient
+    const medicalInfo = await MedicalInfo.create(newMedicalInfo)
+    patient.medicalInfo = medicalInfo
+    patient.save()
+    return patient
   } catch (error) {
     throw new Error
   }

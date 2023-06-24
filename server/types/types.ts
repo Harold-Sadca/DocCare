@@ -81,7 +81,7 @@ export interface TypePatient {
   password: string;
   phoneNumber: number;
   address: string;
-  dateOfBirth: Date;
+  dateOfBirth: string;
   gender: 'Male' | 'Female' | null;
   juniorNotes?: string;
   summary?: string;

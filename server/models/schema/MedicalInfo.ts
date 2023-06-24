@@ -10,7 +10,7 @@ export class MedicalInfo extends Model<
   InferAttributes<MedicalInfo>,
   InferCreationAttributes<MedicalInfo>
 > {
-  declare id: CreationOptional<number>;
+  declare id: CreationOptional<string>;
   declare prescription: string | null;
   declare doctorNotes: string | null;
   declare doctorId: string | null;
