@@ -20,7 +20,7 @@ export class Appointment extends Model<
   InferAttributes<Appointment, {omit: AppointmentAssociations}>,
   InferCreationAttributes<Appointment, {omit: AppointmentAssociations}>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare date: Date | null
   declare time: Date | null
   declare attended: boolean | null

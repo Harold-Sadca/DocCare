@@ -27,12 +27,21 @@ import type { MedicalInfo } from './MedicalInfo'
 import type { Message } from './Message'
 
 type PatientAssociations = 'condition' | 'patientMessages' | 'patientAppointments' | 'medicalInfo'
-
+// id?: string;
+// name: string;
+// email: string;
+// password: string;
+// phoneNumber:number;
+// address:string;
+// dateOfBirth:Date;
+// gender:string;
+// createdAt?: Date;
+// updatedAt?: Date;
 export class Patient extends Model<
   InferAttributes<Patient, {omit: PatientAssociations}>,
   InferCreationAttributes<Patient, {omit: PatientAssociations}>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare name: string | null
   declare email: string | null
   declare password: string | null

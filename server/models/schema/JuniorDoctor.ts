@@ -26,7 +26,7 @@ export class JuniorDoctor extends Model<
   InferAttributes<JuniorDoctor, {omit: JuniorDoctorAssociations}>,
   InferCreationAttributes<JuniorDoctor, {omit: JuniorDoctorAssociations}>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare name: string | null
   declare email: string | null
   declare password: string | null

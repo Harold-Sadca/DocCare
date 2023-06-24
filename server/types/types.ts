@@ -10,11 +10,11 @@ export interface TypeDoctor {
   name: string;
   email: string;
   password: string;
-  specialisation:string;
+  specialisation:'General Practice' | 'Internal Medicine' | 'Pediatrics' | 'Obstetrics and Gynecology' | 'Surgery' | 'Psychiatry' | 'Dermatology' | 'Ophthalmology' | 'Ear' | 'Nose' | 'and Throat (ENT)' | 'Cardiology' | 'Endocrinology' | 'Gastroenterology' | 'Neurology' | 'Oncology' | null
   phoneNumber:number;
   address:string;
   licenseNumber:string;
-  gender:string;
+  gender:'Male' | 'Female' | null
   about:string;
   availability:Json
   createdAt?: Date;
@@ -49,7 +49,7 @@ export interface TypeJuniorDoctor {
   phoneNumber:number;
   address:string;
   licenseNumber:string;
-  gender:string;
+  gender:'Male' | 'Female' | null
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -81,7 +81,7 @@ export interface TypePatient {
   phoneNumber:number;
   address:string;
   dateOfBirth:Date;
-  gender:string;
+  gender:'Male' | 'Female' | null
   createdAt?: Date;
   updatedAt?: Date;
 }

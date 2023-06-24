@@ -28,11 +28,11 @@ export class Doctor extends Model<
   InferAttributes<Doctor, {omit: DoctorAssociations}>,
   InferCreationAttributes<Doctor, {omit: DoctorAssociations}>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare name: string | null
   declare email: string | null
   declare password: string | null
-  declare specialisation: 'General Practice' | 'Internal Medicine' | 'Pediatrics' | 'Obstetrics and Gynecology' | 'Surgery' | 'Psychiatry' | 'Dermatology' | 'Ophthalmology' | 'Ear' | 'Nose' | 'and Throat (ENT)' | 'Cardiology' | 'Endocrinology' | 'Gastroenterology' | 'Neurology' | 'Oncology' | null
+  declare specialisation: 'General Practice' | 'Internal Medicine' | 'Pediatrics' | 'Obstetrics and Gynecology' | 'Surgery' | 'Psychiatry' | 'Dermatology' | 'Ophthalmology' | 'Ear Nose and Throat (ENT)' | 'Cardiology' | 'Endocrinology' | 'Gastroenterology' | 'Neurology' | 'Oncology' | null
   declare phoneNumber: number | null
   declare address: string | null
   declare licenseNumber: string | null
@@ -91,7 +91,7 @@ export class Doctor extends Model<
         type: DataTypes.STRING
       },
       specialisation: {
-        type: DataTypes.ENUM('General Practice', 'Internal Medicine', 'Pediatrics', 'Obstetrics and Gynecology', 'Surgery', 'Psychiatry', 'Dermatology', 'Ophthalmology', 'Ear', 'Nose', 'and Throat (ENT)', 'Cardiology', 'Endocrinology', 'Gastroenterology', 'Neurology', 'Oncology')
+        type: DataTypes.ENUM('General Practice', 'Internal Medicine', 'Pediatrics', 'Obstetrics and Gynecology', 'Surgery', 'Psychiatry', 'Dermatology', 'Ophthalmology', 'Ear Nose and Throat (ENT)', 'Cardiology', 'Endocrinology', 'Gastroenterology', 'Neurology', 'Oncology')
       },
       phoneNumber: {
         type: DataTypes.INTEGER

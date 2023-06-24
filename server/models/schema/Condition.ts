@@ -11,7 +11,7 @@ export class Condition extends Model<
   InferAttributes<Condition>,
   InferCreationAttributes<Condition>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare allergies: string | null
   declare bloodType: string | null
   declare medications: string | null
