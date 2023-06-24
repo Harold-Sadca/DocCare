@@ -97,7 +97,7 @@ exports.updatePatient = updatePatient;
 function deletePatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { id } = req.body;
+            const id = req.params.id;
             const deletedPatient = yield (0, patients_1.deletePatientModel)(id);
             res.status(200).json({
                 message: 'Patient account deleted successfully',
@@ -113,9 +113,7 @@ exports.deletePatient = deletePatient;
 function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log('controller working');
             const patientId = req.params.id;
-            console.log(patientId);
             const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
             if (patientLastCheckup === undefined)
                 res
@@ -133,7 +131,6 @@ exports.getLastCheckup = getLastCheckup;
 function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(req.body);
             const patientId = req.params.id;
             const { doctorId, newAppointment } = req.body;
             const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, newAppointment);

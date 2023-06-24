@@ -29,10 +29,6 @@ async function getPatientModel(id: string) {
           as: 'patientMessages',
         },
         {
-          model: MedicalInfo,
-          as: 'medicalInfo',
-        },
-        {
           model: Appointment,
           as: 'patientAppointments',
           include: [
@@ -43,10 +39,10 @@ async function getPatientModel(id: string) {
             },
           ],
         },
-        {
-          model: MedicalInfo,
-          as: 'medicalInfo',
-        },
+        // {
+        //   model: MedicalInfo,
+        //   as: 'medicalInfo',
+        // },
       ],
     });
     return patient;
@@ -106,7 +102,9 @@ async function updatePatientModel(
 
 async function deletePatientModel(patientId: string) {
   try {
+    console.log(patientId);
     const patient = await PatientDB.findOne({ where: { id: patientId } });
+    console.log(patient);
     await patient?.destroy();
     return patient;
   } catch (error) {
@@ -119,12 +117,31 @@ async function getLastCheckupModel(patientId: string) {
   try {
     //     patient -> appointments -> attended (true) -> get the last date
     // -> medical-info -> get the notes
-    const patient = await PatientDB.findOne({ where: { id: patientId } });
+    const patient = await PatientDB.findOne({
+      where: { id: patientId },
+      include: [
+        {
+          model: MedicalInfo,
+          as: 'medicalInfo',
+        },
+        {
+          model: Appointment,
+          as: 'patientAppointments',
+          include: [
+            {
+              model: Doctor,
+              as: 'doctorAppointment',
+              attributes: { include: ['name', 'licenseNumber'] },
+            },
+          ],
+        },
+      ],
+    });
     const appointmentsAttended = patient?.patientAppointments?.filter(
       (appointment) => appointment.attended
     );
     if (appointmentsAttended) {
-      const doctorNote = patient?.medicalInfo?.doctorNotes;
+      const doctorNote = patient?.medicalInfo?.doctorNote;
       const sortedAppointments = appointmentsAttended?.sort((a, b) => {
         const datesA = a.date;
         const datesB = b.date;
@@ -133,6 +150,8 @@ async function getLastCheckupModel(patientId: string) {
         return dateA.getTime() - dateB.getTime();
       }) as Appointment[];
       const lastDate = sortedAppointments[0];
+      console.log(patient?.medicalInfo);
+      console.log(doctorNote);
       return { doctorNote, lastDate };
     } else return undefined;
   } catch (error) {

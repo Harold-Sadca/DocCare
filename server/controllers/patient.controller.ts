@@ -89,7 +89,7 @@ async function updatePatient(req: Request, res: Response) {
 }
 async function deletePatient(req: Request, res: Response) {
   try {
-    const { id } = req.body;
+    const id = req.params.id;
     const deletedPatient = await deletePatientModel(id);
     res.status(200).json({
       message: 'Patient account deleted successfully',
@@ -102,9 +102,7 @@ async function deletePatient(req: Request, res: Response) {
 
 async function getLastCheckup(req: Request, res: Response) {
   try {
-    console.log('controller working');
     const patientId = req.params.id;
-    console.log(patientId);
     const patientLastCheckup = await getLastCheckupModel(patientId);
     if (patientLastCheckup === undefined)
       res

@@ -76,18 +76,18 @@ async function createMedicalInfo(req: Request, res: Response) {
   console.log('got here');
   console.log(req.body);
   try {
-    const { prescription, doctorsNotes, patientId } = req.body;
-    const doctorId = req.params.id;
+    const { prescription, doctorNote, doctorName } = req.body;
+    const patientId = req.params.id;
     const newMedicalInfo = {
       prescription,
-      doctorsNotes,
-      doctorId,
+      doctorNote,
+      doctorName,
     } as TypeMedicalInfo;
     const createMedicalInfo = await createMedicalInfoModel(
       newMedicalInfo,
       patientId
     );
-    res.status(201).json({
+    res.status(200).json({
       message: 'Medical info created successfully',
       result: createMedicalInfo,
     });

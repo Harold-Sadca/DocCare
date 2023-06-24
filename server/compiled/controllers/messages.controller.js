@@ -14,6 +14,10 @@ const messages_1 = require("../models/methods/messages");
 function sendMessage(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            // TODO:
+            // change based on the population
+            // route: /:id of the sender
+            // body: id of the receiver
             const { content, sender_id, sender_name, receiver_id, receiver_name, date, } = req.body;
             const newMessage = {
                 content,

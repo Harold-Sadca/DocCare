@@ -79,15 +79,15 @@ function createMedicalInfo(req, res) {
         console.log('got here');
         console.log(req.body);
         try {
-            const { prescription, doctorsNotes, patientId } = req.body;
-            const doctorId = req.params.id;
+            const { prescription, doctorNote, doctorName } = req.body;
+            const patientId = req.params.id;
             const newMedicalInfo = {
                 prescription,
-                doctorsNotes,
-                doctorId,
+                doctorNote,
+                doctorName,
             };
             const createMedicalInfo = yield (0, doctors_1.createMedicalInfoModel)(newMedicalInfo, patientId);
-            res.status(201).json({
+            res.status(200).json({
                 message: 'Medical info created successfully',
                 result: createMedicalInfo,
             });

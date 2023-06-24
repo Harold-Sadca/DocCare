@@ -55,10 +55,17 @@ async function createMedicalInfoModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
+    console.log(newMedicalInfo);
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
+    //TODO:
+    console.log('heeeere');
+    console.log({ medicalInfo });
     patient.medicalInfo = medicalInfo;
-    patient.save();
-    return patient;
+
+    patient.createMedicalInfo(medicalInfo);
+    await patient.save();
+    console.log(patient);
+    return patient.medicalInfo;
   } catch (error) {
     throw new Error();
   }
