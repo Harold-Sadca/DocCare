@@ -34,3 +34,10 @@ async function getPatientsModel() {
     throw new Error;
   }
 }
+
+
+export  {
+  createPatientModel,
+  getPatientModel,
+  getPatientsModel,
+}

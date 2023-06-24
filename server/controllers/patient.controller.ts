@@ -3,8 +3,13 @@ import {
   createPatientModel,
   getPatientModel,
   getPatientsModel,
-  getLastCheckupModel,
-} from '../models/methods/patients.ts';
+} from '../models/methods/patients';
+import { Patient } from '../models/schema/Patient.js'
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const saltRounds = 10;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 async function createPatient(req: Request, res: Response) {
   try {
