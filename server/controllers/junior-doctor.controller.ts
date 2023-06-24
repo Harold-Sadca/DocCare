@@ -39,7 +39,7 @@ async function getJuniorDoctor(req: Request, res: Response) {
     const id = req.params.id;
     const juniorDoctor = await getJuniorDoctorModel(id);
     res.status(200).json({
-      message: `Welcome, ${juniorDoctor.name}!`,
+      message: `Welcome, ${juniorDoctor?.name}!`,
       result: juniorDoctor,
     });
   } catch (error) {
@@ -49,8 +49,8 @@ async function getJuniorDoctor(req: Request, res: Response) {
 async function createJuniorNote(req: Request, res: Response) {
   try {
     const juniorNote = req.body;
-    const id = req.params.id;
-    const createJuniorNote = await createJuniorNoteModel(juniorNote, id);
+    const patientId = req.params.id;
+    const createJuniorNote = await createJuniorNoteModel(juniorNote, patientId);
     res.status(201).json({
       message: 'Junior note created successfully',
       result: createJuniorNote,

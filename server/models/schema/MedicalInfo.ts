@@ -10,13 +10,13 @@ export class MedicalInfo extends Model<
   InferAttributes<MedicalInfo>,
   InferCreationAttributes<MedicalInfo>
 > {
-  declare id: CreationOptional<string>;
+  declare id: CreationOptional<number>;
   declare prescription: string | null;
   declare doctorNotes: string | null;
-  declare doctorName:string | null;
-  declare doctorLicenseNumber:string | null;
+  declare doctorId: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
+
   static initModel(sequelize: Sequelize): typeof MedicalInfo {
     MedicalInfo.init(
       {
@@ -32,10 +32,7 @@ export class MedicalInfo extends Model<
         doctorNotes: {
           type: DataTypes.STRING,
         },
-        doctorName: {
-          type: DataTypes.STRING,
-        },
-        doctorLicenseNumber: {
+        doctorId: {
           type: DataTypes.STRING,
         },
         createdAt: {

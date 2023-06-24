@@ -1,9 +1,11 @@
+export interface JsonMap {
+  [member: string]: string | number | boolean | null | JsonArray | JsonMap;
+}
 
-export interface JsonMap {[member: string]: string | number | boolean | null | JsonArray | JsonMap }
+export interface JsonArray
+  extends Array<string | number | boolean | null | JsonArray | JsonMap> {}
 
-export interface JsonArray extends Array<string | number | boolean | null | JsonArray | JsonMap> {}
-
-export type Json = JsonMap | JsonArray | string | number | boolean | null
+export type Json = JsonMap | JsonArray | string | number | boolean | null;
 
 export interface TypeDoctor {
   id?: string;
@@ -26,18 +28,18 @@ export interface TypeAppointment {
   date: string;
   time: string;
   attended: boolean;
-  illness:string;
+  illness?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface TypeCondition {
   id?: string;
-  allergies:string;
-  bloodType:string;
-  medications:string;
-  surgicalHistory:string;
-  familyMedicalHistory:string;
+  allergies: string;
+  bloodType: string;
+  medications: string;
+  surgicalHistory: string;
+  familyMedicalHistory: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -47,10 +49,10 @@ export interface TypeJuniorDoctor {
   name: string;
   email: string;
   password: string;
-  phoneNumber:number;
-  address:string;
-  licenseNumber:string;
-  gender:'Male' | 'Female' | null
+  phoneNumber: number;
+  address: string;
+  licenseNumber: string;
+  gender: 'Male' | 'Female' | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -58,17 +60,16 @@ export interface TypeJuniorDoctor {
 export interface TypeMedicalInfo {
   id?: string;
   prescription: string;
-  doctorNotes:string;
-  doctorName:string;
-  doctorLicenseNumber:string;
+  doctorsNotes: string;
+  doctorId: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface TypeMessage {
-  id?:string;
-  content:string;
-  date:string;
+  id?: string;
+  content: string;
+  date: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -78,12 +79,12 @@ export interface TypePatient {
   name: string;
   email: string;
   password: string;
-  phoneNumber:number;
-  address:string;
-  dateOfBirth: string;
-  gender:'Male' | 'Female' | null
-  juniorNotes:string;
-  summary?:string
+  phoneNumber: number;
+  address: string;
+  dateOfBirth: Date;
+  gender: 'Male' | 'Female' | null;
+  juniorNotes?: string;
+  summary?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

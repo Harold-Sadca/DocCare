@@ -10,21 +10,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.getPatient = exports.createPatient = void 0;
-const patients_ts_1 = require("../models/methods/patients.ts");
+const patients_1 = require("../models/methods/patients");
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name, email, password, phoneNumber, address, date_birth, gender } = req.body;
+            const { name, email, password, phoneNumber, address, dateOfBirth, gender } = req.body;
             const newPatient = {
                 name,
                 email,
                 password,
                 phoneNumber,
                 address,
-                date_birth,
+                dateOfBirth,
                 gender,
             };
-            const createPatient = yield (0, patients_ts_1.createPatientModel)(newPatient);
+            const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
             res.status(201).json({
                 message: 'Patient account created successfully',
                 result: createPatient,
@@ -40,9 +40,9 @@ function getPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
-            const patient = yield (0, patients_ts_1.getPatientModel)(id);
+            const patient = yield (0, patients_1.getPatientModel)(id);
             res.status(200).json({
-                message: `Welcome, ${patient.name}!`,
+                message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
                 result: patient,
             });
         }
@@ -55,7 +55,7 @@ exports.getPatient = getPatient;
 function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patients = yield (0, patients_ts_1.getPatientsModel)();
+            const patients = yield (0, patients_1.getPatientsModel)();
             res.status(200).send(patients);
         }
         catch (error) {
@@ -65,20 +65,51 @@ function getPatients(req, res) {
 }
 exports.getPatients = getPatients;
 function updatePatient(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const patientId = req.params.id;
+            const { name, dateOfBirth, email, password, phoneNumber, address } = req.body;
+            const updatedPatient = {
+                name,
+                dateOfBirth,
+                email,
+                password,
+                phoneNumber,
+                address,
+            };
+            const updatePatient = yield (0, patients_1.updatePatientModel)(patientId, updatedPatient);
+            res.status(200).json({
+                message: 'Patient account updated successfully',
+                result: updatePatient,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to update patient account' });
+        }
+    });
 }
 exports.updatePatient = updatePatient;
 function deletePatient(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const { id } = req.body;
+            const deletedPatient = yield (0, patients_1.deletePatientModel)(id);
+            res.status(200).json({
+                message: 'Patient account deleted successfully',
+                result: deletedPatient,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to delete patient account' });
+        }
+    });
 }
 exports.deletePatient = deletePatient;
 function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            //     patient -> appointments -> attended (true) -> get the last date
-            // -> medical-info -> get the notes
-            const id = req.params.id;
-            const patientLastCheckup = yield (0, patients_ts_1.getLastCheckupModel)(id);
+            const patientId = req.params.id;
+            const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
             res.status(200).send(patientLastCheckup);
         }
         catch (error) {

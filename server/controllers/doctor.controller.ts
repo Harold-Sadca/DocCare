@@ -3,7 +3,7 @@ import {
   createDoctorModel,
   getDoctorModel,
   getDoctorsModel,
-  createMedicalInfoModel,
+  createMedicalInfoModel
   createPatientSummaryModel,
 } from '../models/methods/doctors';
 
@@ -44,8 +44,8 @@ async function createDoctor(req: Request, res: Response) {
 }
 async function getDoctor(req: Request, res: Response) {
   try {
-    const id = req.params.id;
-    const doctor = await getDoctorModel(id);
+    const doctorId = req.params.id;
+    const doctor = await getDoctorModel(doctorId);
     res.status(200).send({
       message: `Welcome, ${doctor?.name}!`,
       result: doctor,
@@ -64,13 +64,9 @@ async function getDoctors(req: Request, res: Response) {
 }
 async function createMedicalInfo(req: Request, res: Response) {
   try {
-    const {prescription, doctorNotes, doctorName, patientId} = req.body;
-    const newMedicalInfo = {
-      prescription,
-      doctorNotes,
-      doctorName
-    } as TypeMedicalInfo
+    const {prescription, doctor_notes, patientId} = req.body;
     const doctorId = req.params.id;
+    const newMedicalInfo = {prescription, doctor_notes, doctorId, patientId}
     const createMedicalInfo = await createMedicalInfoModel(newMedicalInfo);
     res.status(201).json({
       message: 'Medical info created successfully',
@@ -80,11 +76,15 @@ async function createMedicalInfo(req: Request, res: Response) {
     res.status(400).json({ error: 'Failed to create a medical info' });
   }
 }
+
 async function createPatientSummary(req: Request, res: Response) {
   try {
     const {patientId, patientSummary, doctorName} = req.body;
-    const newPatientSummary = `${patientSummary} by ${doctorName}`
-    const createPatientSummary = await createPatientSummaryModel(newPatientSummary, patientId);
+    const createPatientSummary = await createPatientSummaryModel(
+      patientSummary,
+      patientId,
+      doctorName
+    );
     res.status(201).json({
       message: 'Patient summary created successfully',
       result: createPatientSummary,
