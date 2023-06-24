@@ -67,14 +67,53 @@ function getDoctors(req, res) {
 }
 exports.getDoctors = getDoctors;
 function createPrescription(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const prescription = req.body;
+            const id = req.params.id;
+            const createPrescription = yield (0, doctors_ts_1.createPrescriptionModel)(prescription, id);
+            res.status(201).json({
+                message: 'Prescription created successfully',
+                result: createPrescription,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to create a prescription' });
+        }
+    });
 }
 exports.createPrescription = createPrescription;
 function createDoctorNote(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const doctorNote = req.body;
+            const id = req.params.id;
+            const createDoctorNote = yield (0, doctors_ts_1.createDoctorNoteModel)(doctorNote, id);
+            res.status(201).json({
+                message: 'Doctor note created successfully',
+                result: createDoctorNote,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to create a doctor note' });
+        }
+    });
 }
 exports.createDoctorNote = createDoctorNote;
 function createPatientSummary(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const patientSummary = req.body;
+            const id = req.params.id;
+            const createPatientSummary = yield (0, doctors_ts_1.createPatientSummaryModel)(patientSummary, id);
+            res.status(201).json({
+                message: 'Patient summary created successfully',
+                result: createPatientSummary,
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to create a patient summary' });
+        }
+    });
 }
 exports.createPatientSummary = createPatientSummary;

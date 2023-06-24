@@ -3,6 +3,9 @@ import {
   createDoctorModel,
   getDoctorModel,
   getDoctorsModel,
+  createPrescriptionModel,
+  createDoctorNoteModel,
+  createPatientSummaryModel,
 } from '../models/methods/doctors.ts';
 
 async function createDoctor(req: Request, res: Response) {
@@ -58,9 +61,48 @@ async function getDoctors(req: Request, res: Response) {
     res.status(400).json({ error: 'Failed to get doctors account' });
   }
 }
-async function createPrescription(req: Request, res: Response) {}
-async function createDoctorNote(req: Request, res: Response) {}
-async function createPatientSummary(req: Request, res: Response) {}
+async function createPrescription(req: Request, res: Response) {
+  try {
+    const prescription = req.body;
+    const id = req.params.id;
+    const createPrescription = await createPrescriptionModel(prescription, id);
+    res.status(201).json({
+      message: 'Prescription created successfully',
+      result: createPrescription,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create a prescription' });
+  }
+}
+async function createDoctorNote(req: Request, res: Response) {
+  try {
+    const doctorNote = req.body;
+    const id = req.params.id;
+    const createDoctorNote = await createDoctorNoteModel(doctorNote, id);
+    res.status(201).json({
+      message: 'Doctor note created successfully',
+      result: createDoctorNote,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create a doctor note' });
+  }
+}
+async function createPatientSummary(req: Request, res: Response) {
+  try {
+    const patientSummary = req.body;
+    const id = req.params.id;
+    const createPatientSummary = await createPatientSummaryModel(
+      patientSummary,
+      id
+    );
+    res.status(201).json({
+      message: 'Patient summary created successfully',
+      result: createPatientSummary,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create a patient summary' });
+  }
+}
 
 export {
   createDoctor,

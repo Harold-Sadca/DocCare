@@ -2,6 +2,7 @@ import { Express, Request, Response } from 'express';
 import {
   createJuniorDoctorModel,
   getJuniorDoctorModel,
+  createJuniorNoteModel,
 } from '../models/methods/junior-doctors.ts';
 
 async function createJuniorDoctor(req: Request, res: Response) {
@@ -45,6 +46,18 @@ async function getJuniorDoctor(req: Request, res: Response) {
     res.status(400).json({ error: 'Failed to get the junior doctor account' });
   }
 }
-async function createJuniorNote(req: Request, res: Response) {}
+async function createJuniorNote(req: Request, res: Response) {
+  try {
+    const juniorNote = req.body;
+    const id = req.params.id;
+    const createJuniorNote = await createJuniorNoteModel(juniorNote, id);
+    res.status(201).json({
+      message: 'Junior note created successfully',
+      result: createJuniorNote,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create a junior note' });
+  }
+}
 
 export { createJuniorDoctor, getJuniorDoctor, createJuniorNote };

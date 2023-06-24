@@ -73,6 +73,17 @@ function deletePatient(req, res) {
 }
 exports.deletePatient = deletePatient;
 function getLastCheckup(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            //     patient -> appointments -> attended (true) -> get the last date
+            // -> medical-info -> get the notes
+            const id = req.params.id;
+            const patientLastCheckup = yield (0, patients_ts_1.getLastCheckupModel)(id);
+            res.status(200).send(patientLastCheckup);
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Failed to get patient last checkup' });
+        }
+    });
 }
 exports.getLastCheckup = getLastCheckup;
