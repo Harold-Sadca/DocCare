@@ -39,7 +39,7 @@ async function getJuniorDoctor(req: Request, res: Response) {
     const id = req.params.id;
     const juniorDoctor = await getJuniorDoctorModel(id);
     res.status(200).json({
-      message: `Welcome, ${juniorDoctor.name}!`,
+      message: `Welcome, ${juniorDoctor?.name}!`,
       result: juniorDoctor,
     });
   } catch (error) {

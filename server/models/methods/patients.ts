@@ -1,9 +1,3 @@
-// async function createPatient(req, res) {}
-// async function getPatient(req, res) {}
-// async function getPatients(req, res) {}
-// async function updatePatient(req, res) {}
-// async function deletePatient(req, res) {}
-// async function getLastCheckup(req, res) {}
 
 import { Patient } from '../schema/Patient';
 import { TypePatient } from '../../types/types';

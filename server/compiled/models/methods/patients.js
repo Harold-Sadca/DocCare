@@ -1,10 +1,4 @@
 "use strict";
-// async function createPatient(req, res) {}
-// async function getPatient(req, res) {}
-// async function getPatients(req, res) {}
-// async function updatePatient(req, res) {}
-// async function deletePatient(req, res) {}
-// async function getLastCheckup(req, res) {}
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
