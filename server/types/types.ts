@@ -10,7 +10,7 @@ export interface TypeDoctor {
   name: string;
   email: string;
   password: string;
-  specialisation:'General Practice' | 'Internal Medicine' | 'Pediatrics' | 'Obstetrics and Gynecology' | 'Surgery' | 'Psychiatry' | 'Dermatology' | 'Ophthalmology' | 'Ear' | 'Nose' | 'and Throat (ENT)' | 'Cardiology' | 'Endocrinology' | 'Gastroenterology' | 'Neurology' | 'Oncology' | null
+  specialisation:'General Practice' | 'Internal Medicine' | 'Pediatrics' | 'Obstetrics and Gynecology' | 'Surgery' | 'Psychiatry' | 'Dermatology' | 'Ophthalmology' | 'Ear Nose and Throat (ENT)' | 'Cardiology' | 'Endocrinology' | 'Gastroenterology' | 'Neurology' | 'Oncology' | null
   phoneNumber:number;
   address:string;
   licenseNumber:string;
@@ -23,7 +23,8 @@ export interface TypeDoctor {
 
 export interface TypeAppointment {
   id?: string;
-  date: Date
+  date: string;
+  time: string;
   attended: boolean;
   illness:string;
   createdAt?: Date;
@@ -57,10 +58,9 @@ export interface TypeJuniorDoctor {
 export interface TypeMedicalInfo {
   id?: string;
   prescription: string;
-  doctorsNotes:string;
-  juniorNotes:string;
-  doctorId:string;
-  juniorId:string;
+  doctorNotes:string;
+  doctorName:string;
+  doctorLicenseNumber:string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -68,7 +68,7 @@ export interface TypeMedicalInfo {
 export interface TypeMessage {
   id?:string;
   content:string;
-  date:Date;
+  date:string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -80,8 +80,10 @@ export interface TypePatient {
   password: string;
   phoneNumber:number;
   address:string;
-  dateOfBirth:Date;
+  dateOfBirth: string;
   gender:'Male' | 'Female' | null
+  juniorNotes:string;
+  summary?:string
   createdAt?: Date;
   updatedAt?: Date;
 }

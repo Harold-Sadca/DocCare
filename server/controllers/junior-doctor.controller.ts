@@ -3,7 +3,7 @@ import {
   createJuniorDoctorModel,
   getJuniorDoctorModel,
   createJuniorNoteModel,
-} from '../models/methods/junior-doctors.ts';
+} from '../models/methods/junior-doctors';
 
 async function createJuniorDoctor(req: Request, res: Response) {
   try {

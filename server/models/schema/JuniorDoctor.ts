@@ -19,9 +19,7 @@ import {
   Sequelize
 } from 'sequelize'
 import type { Message } from './Message'
-
 type JuniorDoctorAssociations = 'juniorMessages'
-
 export class JuniorDoctor extends Model<
   InferAttributes<JuniorDoctor, {omit: JuniorDoctorAssociations}>,
   InferCreationAttributes<JuniorDoctor, {omit: JuniorDoctorAssociations}>
@@ -36,7 +34,6 @@ export class JuniorDoctor extends Model<
   declare gender: 'Male' | 'Female' | null
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
-
   // JuniorDoctor hasMany Message (as JuniorMessages)
   declare juniorMessages?: NonAttribute<Message[]>
   declare getJuniorMessages: HasManyGetAssociationsMixin<Message>
@@ -49,11 +46,9 @@ export class JuniorDoctor extends Model<
   declare hasJuniorMessage: HasManyHasAssociationMixin<Message, number>
   declare hasJuniorMessages: HasManyHasAssociationsMixin<Message, number>
   declare countJuniorMessages: HasManyCountAssociationsMixin
-  
   declare static associations: {
     juniorMessages: Association<JuniorDoctor, Message>
   }
-
   static initModel(sequelize: Sequelize): typeof JuniorDoctor {
     JuniorDoctor.init({
       id: {
@@ -92,7 +87,6 @@ export class JuniorDoctor extends Model<
     }, {
       sequelize
     })
-    
     return JuniorDoctor
   }
 }

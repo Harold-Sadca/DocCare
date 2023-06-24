@@ -21,8 +21,8 @@ export class Appointment extends Model<
   InferCreationAttributes<Appointment, {omit: AppointmentAssociations}>
 > {
   declare id: CreationOptional<string>
-  declare date: Date | null
-  declare time: Date | null
+  declare date: string | null
+  declare time: string | null
   declare attended: boolean | null
   declare illness: string | null
   declare createdAt: CreationOptional<Date>
@@ -57,7 +57,7 @@ export class Appointment extends Model<
         type: DataTypes.DATEONLY
       },
       time: {
-        type: DataTypes.DATE
+        type: DataTypes.TIME
       },
       attended: {
         type: DataTypes.BOOLEAN
