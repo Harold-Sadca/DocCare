@@ -1,13 +1,12 @@
 const { Sequelize } = require('sequelize')
-const { initModels } = require('../models/schema/associations');
+const { initModels } = require('../compiled/models/schema/associations');
 const {  specialisations,
   doctorNames,
   doctorLicenseNumbers,
   addresses,
   phoneNumbers,
   doctorEmails,
-  passwords,
-  doctorEmails} = require('./doctorHelper')
+  passwords} = require('./doctorHelper')
 const {
   patientNames,
   patientEmails,
@@ -23,11 +22,11 @@ const dbName = 'DocCare';
 
 const db = new Sequelize(
   dbName,
-  'username',
-  `${process.env.MYSQL_PASSWORD}`,
+  'root',
+  `howismypasswordtooweak???`,
   {
     host: 'localhost',
-    port: 5432,
+    port: 3306,
     dialect: 'mysql',
   }
 );
@@ -42,7 +41,15 @@ const { Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Pati
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
-})();
+})().then(() => {
+  seedDB().then(()=>{
+    db.close()
+  })
+})
+
+// seedDB().then(() => {
+//   db.close();
+// })
 
 const genders = ['Male', 'Female']
 function createEmptyAvailability() {
@@ -74,7 +81,7 @@ const seedDB = async () => {
         address: addresses[num],
         licenseNumber: doctorLicenseNumbers[num],
         gender: genders[gen],
-        about: string,
+        about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         availability: createEmptyAvailability(),
       })
 
@@ -82,13 +89,14 @@ const seedDB = async () => {
         name: randomJuniorDoctorNames[num],
         email: juniorDoctorEmails[num],
         password: passwords[num],
+        licenseNumber: doctorLicenseNumbers[num],
         phoneNumber: phoneNumbers[num],
         address: addresses[num],
         gender: genders[gen],
       })
 
       const patient = await Patient.create({
-        name: doctorNames[num],
+        name: patientNames[num],
         email: patientEmails[num],
         password: passwords[num],
         phoneNumber: phoneNumbers[num],
@@ -99,6 +107,3 @@ const seedDB = async () => {
     }
 }
 
-seedDB().then(() => {
-  db.close();
-})

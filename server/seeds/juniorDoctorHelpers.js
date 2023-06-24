@@ -24,7 +24,7 @@ const juniorDoctorEmails = [
   "nathan.campbell@example.com"
 ]
 
-export {
+module.exports = {
   randomJuniorDoctorNames,
   juniorDoctorEmails
 }

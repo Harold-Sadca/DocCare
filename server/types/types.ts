@@ -20,7 +20,7 @@ export interface TypeDoctor {
     | 'Gastroenterology'
     | 'Neurology'
     | 'Oncology';
-  phoneNumber: number;
+  phoneNumber: string;
   address: string;
   licenseNumber: string;
   gender: 'Male' | 'Female';
@@ -70,7 +70,7 @@ export interface TypeJuniorDoctor {
   name: string;
   email: string;
   password: string;
-  phoneNumber: number;
+  phoneNumber: string;
   address: string;
   licenseNumber: string;
   gender: 'Male' | 'Female' | null;
@@ -100,7 +100,7 @@ export interface TypePatient {
   name: string;
   email: string;
   password: string;
-  phoneNumber: number;
+  phoneNumber: string;
   address: string;
   dateOfBirth: string;
   gender: 'Male' | 'Female' | null;

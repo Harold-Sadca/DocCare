@@ -25,7 +25,7 @@ const patientEmails = [
   "elijah.garcia@example.com"
 ]
 
-export {
+module.exports = {
   patientNames,
   patientEmails,
 }

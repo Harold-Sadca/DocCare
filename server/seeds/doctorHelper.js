@@ -93,7 +93,7 @@ const passwords = [
   "Passw0rd!567"
 ];
 
-export {
+module.exports = {
   specialisations,
   doctorNames,
   doctorLicenseNumbers,
