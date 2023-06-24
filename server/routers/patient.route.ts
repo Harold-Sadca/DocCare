@@ -18,6 +18,13 @@ const patientRouter = Router();
 // patientRouter.post("/login", controller.login);
 // patientRouter.get("/profile",  patientAuthMiddleware , controller.profile);
 // patientRouter.post("/logout", controller.logout);
+// Create a new patient
+patientRouter.post('/patients', createPatient);
+patientRouter.get('/patients/:id', getPatient);
+patientRouter.get('/patients', getPatients);
+patientRouter.put('/patients/:id', updatePatient);
+patientRouter.delete('/patients/:id', deletePatient);
+patientRouter.get('/patients/:id/last-checkup', getLastCheckup);
 
 export {patientRouter};
   
