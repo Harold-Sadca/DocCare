@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getMessages = exports.sendMessage = void 0;
-const messages_ts_1 = require("../models/methods/messages.ts");
+const messages_1 = require("../models/methods/messages");
 function sendMessage(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -23,7 +23,7 @@ function sendMessage(req, res) {
                 receiver_name,
                 date,
             };
-            const createMessage = yield (0, messages_ts_1.createMessageModel)(newMessage);
+            const createMessage = yield (0, messages_1.sendMessageModel)(newMessage);
             res.status(201).json({
                 message: 'Message sent successfully',
                 result: createMessage,
@@ -38,7 +38,7 @@ exports.sendMessage = sendMessage;
 function getMessages(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const message = yield (0, messages_ts_1.getMessagesModel)();
+            const message = yield (0, messages_1.getMessagesModel)();
             res.status(200).send(message);
         }
         catch (error) {
