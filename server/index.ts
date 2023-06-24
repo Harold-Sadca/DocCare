@@ -1,15 +1,27 @@
 import express, { Express } from 'express';
 import cors from 'cors';
-import router from './routers/router';
+import { patientRouter } from './routers/patient.route';
+import { messagesRouter } from './routers/messages.route';
+import { juniorDoctorRouter } from './routers/junior-doctor.route';
+import { doctorRouter } from './routers/doctor.route';
 import dotenv from 'dotenv';
 dotenv.config();
+
+
+const corsConfig = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
 
 const app: Express = express();
 const port = process.env.PORT;
 
-app.use(cors());
+app.use(cors(corsConfig));
 app.use(express.json());
-app.use(router);
+app.use(patientRouter);
+app.use(messagesRouter);
+app.use(juniorDoctorRouter);
+app.use(doctorRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
