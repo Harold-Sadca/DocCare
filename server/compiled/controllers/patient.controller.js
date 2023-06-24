@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.getPatient = exports.createPatient = void 0;
+exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
 const patients_1 = require("../models/methods/patients");
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -52,6 +52,10 @@ function getPatient(req, res) {
     });
 }
 exports.getPatient = getPatient;
+function logout(req, res) {
+    return __awaiter(this, void 0, void 0, function* () { });
+}
+exports.logout = logout;
 function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

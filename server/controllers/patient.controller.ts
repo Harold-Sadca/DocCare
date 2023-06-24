@@ -45,6 +45,8 @@ async function getPatient(req: Request, res: Response) {
     res.status(400).json({ error: 'Failed to get the patient account' });
   }
 }
+
+async function logout(req: Request, res: Response) {}
 async function getPatients(req: Request, res: Response) {
   try {
     const patients = await getPatientsModel();
@@ -133,6 +135,7 @@ async function deleteAppointment(req: Request, res: Response) {
 export {
   createPatient,
   getPatient,
+  logout,
   getPatients,
   updatePatient,
   deletePatient,
