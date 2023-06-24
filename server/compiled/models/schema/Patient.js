@@ -2,16 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Patient = void 0;
 const sequelize_1 = require("sequelize");
-// id?: string;
-// name: string;
-// email: string;
-// password: string;
-// phoneNumber:number;
-// address:string;
-// dateOfBirth:Date;
-// gender:string;
-// createdAt?: Date;
-// updatedAt?: Date;
 class Patient extends sequelize_1.Model {
     static initModel(sequelize) {
         Patient.init({
