@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import cors from 'cors';
-import router from './routers/router.ts';
+import { patientRouter } from './routers/patient.route';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -9,7 +9,7 @@ const port = process.env.PORT;
 
 app.use(cors());
 app.use(express.json());
-app.use(router);
+app.use(patientRouter);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
