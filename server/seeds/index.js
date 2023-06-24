@@ -5,7 +5,7 @@ const {  specialisations,
   doctorLicenseNumbers,
   addresses,
   phoneNumbers,
-  emails,
+  doctorEmails,
   passwords,
   doctorEmails} = require('./doctorHelper')
 const {
@@ -53,31 +53,52 @@ function createEmptyAvailability() {
   return availability;
 }
 
+function generateRandomDate(from, to) {
+  return new Date(
+    from.getTime() +
+      Math.random() * (to.getTime() - from.getTime()),
+  );
+}
+
 const seedDB = async () => {
     for (let i = 0; i < 10; i++) {
       const num = Math.floor(Math.random() * 10);
       const spec = Math.floor(Math.random() * specialisations.length);
       const gen = Math.floor(Math.random()*2)
-      const doctor = new Doctor({
+      const doctor = await Doctor.create({
         name: doctorNames[num],
         email: doctorEmails[num],
         password: passwords[num],
         specialisation:specialisations[spec],
         phoneNumber: phoneNumbers[num],
-        address: doctorNames[num],
+        address: addresses[num],
         licenseNumber: doctorLicenseNumbers[num],
         gender: genders[gen],
         about: string,
         availability: createEmptyAvailability(),
       })
-      await doctor.save();
+
+      const juniorDoctor = await JuniorDoctor.create({
+        name: randomJuniorDoctorNames[num],
+        email: juniorDoctorEmails[num],
+        password: passwords[num],
+        phoneNumber: phoneNumbers[num],
+        address: addresses[num],
+        gender: genders[gen],
+      })
+
+      const patient = await Patient.create({
+        name: doctorNames[num],
+        email: patientEmails[num],
+        password: passwords[num],
+        phoneNumber: phoneNumbers[num],
+        address: addresses[num],
+        dateOfBirth: generateRandomDate(new Date(1994, 0, 1), new Date()),
+        gender: genders[gen],
+      })
     }
 }
 
 seedDB().then(() => {
   db.close();
 })
-
-
-
-export default { db, Message, Appointment, Condition, Doctor, JuniorDoctor, MedicalInfo, Patient };
