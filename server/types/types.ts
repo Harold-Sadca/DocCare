@@ -70,8 +70,8 @@ export interface TypeJuniorDoctor {
 export interface TypeMedicalInfo {
   id?: string;
   prescription: string;
-  doctorsNotes: string;
-  doctorId: string;
+  doctorNote: string;
+  doctorName: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

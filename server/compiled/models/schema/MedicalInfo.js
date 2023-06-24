@@ -14,10 +14,10 @@ class MedicalInfo extends sequelize_1.Model {
             prescription: {
                 type: sequelize_1.DataTypes.STRING,
             },
-            doctorNotes: {
+            doctorNote: {
                 type: sequelize_1.DataTypes.STRING,
             },
-            doctorId: {
+            doctorName: {
                 type: sequelize_1.DataTypes.STRING,
             },
             createdAt: {

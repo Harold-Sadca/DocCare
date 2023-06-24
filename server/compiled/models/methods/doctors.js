@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
-const Patient_1 = require("../schema/Patient");
 const Appointment_1 = require("../schema/Appointment");
 const DoctorDB = index_1.default.Doctor;
 const PatientDB = index_1.default.Patient;
@@ -36,18 +35,11 @@ function getDoctorModel(id) {
         try {
             const doctor = yield DoctorDB.findOne({
                 where: { id: id },
-                include: [
-                    {
-                        model: Appointment_1.Appointment,
-                        as: 'doctorAppointments',
-                        required: false
-                    },
-                    {
-                        model: Patient_1.Patient,
-                        as: 'patients',
-                        required: false
-                    },
-                ],
+                include: {
+                    model: Appointment_1.Appointment,
+                    as: 'doctorAppointments',
+                    required: false,
+                },
             });
             return doctor;
         }
@@ -61,18 +53,11 @@ function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctors = yield DoctorDB.findAll({
-                include: [
-                    {
-                        model: Appointment_1.Appointment,
-                        as: 'doctorAppointments',
-                        required: false
-                    },
-                    {
-                        model: Patient_1.Patient,
-                        as: 'patients',
-                        required: false
-                    },
-                ],
+                include: {
+                    model: Appointment_1.Appointment,
+                    as: 'doctorAppointments',
+                    required: false,
+                },
             });
             return doctors;
         }
@@ -88,10 +73,16 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
+            console.log(newMedicalInfo);
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
+            //TODO:
+            console.log('heeeere');
+            console.log({ medicalInfo });
             patient.medicalInfo = medicalInfo;
-            patient.save();
-            return patient;
+            patient.createMedicalInfo(medicalInfo);
+            yield patient.save();
+            console.log(patient);
+            return patient.medicalInfo;
         }
         catch (error) {
             throw new Error();

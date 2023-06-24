@@ -10,10 +10,10 @@ export class MedicalInfo extends Model<
   InferAttributes<MedicalInfo>,
   InferCreationAttributes<MedicalInfo>
 > {
-  declare id: CreationOptional<string>;
+  declare id?: CreationOptional<string>;
   declare prescription: string | null;
-  declare doctorNotes: string | null;
-  declare doctorId: string | null;
+  declare doctorNote: string | null;
+  declare doctorName: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -29,10 +29,10 @@ export class MedicalInfo extends Model<
         prescription: {
           type: DataTypes.STRING,
         },
-        doctorNotes: {
+        doctorNote: {
           type: DataTypes.STRING,
         },
-        doctorId: {
+        doctorName: {
           type: DataTypes.STRING,
         },
         createdAt: {

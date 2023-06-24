@@ -20,3 +20,4 @@ patientRouter.get('/patients', patient_controller_1.getPatients);
 patientRouter.put('/patient/:id', patient_controller_1.updatePatient);
 patientRouter.delete('/patient/:id', patient_controller_1.deletePatient);
 patientRouter.get('/patient/:id/last-checkup', patient_controller_1.getLastCheckup);
+patientRouter.post('/patient/appointment/:id', patient_controller_1.createAppointment);
