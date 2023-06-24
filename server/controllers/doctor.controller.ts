@@ -73,6 +73,8 @@ async function getDoctors(req: Request, res: Response) {
 }
 
 async function createMedicalInfo(req: Request, res: Response) {
+  console.log('got here');
+  console.log(req.body);
   try {
     const { prescription, doctorsNotes, patientId } = req.body;
     const doctorId = req.params.id;
@@ -96,8 +98,9 @@ async function createMedicalInfo(req: Request, res: Response) {
 
 async function createPatientSummary(req: Request, res: Response) {
   try {
-    const { patientId, patientSummary, doctorName } = req.body;
-    const newSummary = `${patientSummary} by: ${doctorName}`;
+    const patientId = req.params.id;
+    const { summary, doctorName } = req.body;
+    const newSummary = `${summary} by: ${doctorName}`;
     const createPatientSummary = await createPatientSummaryModel(
       newSummary,
       patientId

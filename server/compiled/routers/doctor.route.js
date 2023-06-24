@@ -13,5 +13,5 @@ exports.doctorRouter = doctorRouter;
 doctorRouter.post('/doctor', doctor_controller_1.createDoctor);
 doctorRouter.get('/doctor/:id', doctor_controller_1.getDoctor);
 doctorRouter.get('/doctors', doctor_controller_1.getDoctors);
-doctorRouter.post('/doctor/:id/medical-info', doctor_controller_1.createMedicalInfo);
-doctorRouter.put('/doctor/summary', doctor_controller_1.createPatientSummary);
+doctorRouter.put('/doctor/:id/medical-info', doctor_controller_1.createMedicalInfo);
+doctorRouter.put('/doctor/summary/:id', doctor_controller_1.createPatientSummary);

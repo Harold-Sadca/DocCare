@@ -7,6 +7,7 @@ import {
   updatePatient,
   deletePatient,
   getLastCheckup,
+  createAppointment,
 } from '../controllers/patient.controller';
 import { patientAuthMiddleware } from '../middleware/authentication';
 import { Patient } from '../models/schema/Patient';
@@ -24,5 +25,6 @@ patientRouter.get('/patients', getPatients);
 patientRouter.put('/patient/:id', updatePatient);
 patientRouter.delete('/patient/:id', deletePatient);
 patientRouter.get('/patient/:id/last-checkup', getLastCheckup);
+patientRouter.post('/patient/appointment/:id', createAppointment);
 
 export { patientRouter };

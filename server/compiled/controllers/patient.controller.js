@@ -113,8 +113,15 @@ exports.deletePatient = deletePatient;
 function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log('controller working');
             const patientId = req.params.id;
+            console.log(patientId);
             const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
+            if (patientLastCheckup === undefined)
+                res
+                    .status(200)
+                    .json({ message: `You still didn't have any appointment` });
+            console.log(patientLastCheckup);
             res.status(200).send(patientLastCheckup);
         }
         catch (error) {
@@ -126,14 +133,10 @@ exports.getLastCheckup = getLastCheckup;
 function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { date, time, attended, illness } = req.body;
-            const newAppointment = {
-                date,
-                time,
-                attended,
-                illness,
-            };
-            const createAppointment = yield (0, patients_1.createAppointmentModel)(newAppointment);
+            console.log(req.body);
+            const patientId = req.params.id;
+            const { doctorId, newAppointment } = req.body;
+            const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, newAppointment);
             res.status(201).json({
                 message: 'Appointment created successfully',
                 result: createAppointment,
