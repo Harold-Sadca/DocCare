@@ -6,7 +6,10 @@ import {
   getLastCheckupModel,
   updatePatientModel,
   deletePatientModel,
+  createAppointmentModel,
+  deleteAppointmentModel,
 } from '../models/methods/patients';
+import { TypeAppointment } from '../types/types';
 
 async function createPatient(req: Request, res: Response) {
   try {
@@ -95,6 +98,38 @@ async function getLastCheckup(req: Request, res: Response) {
     res.status(400).json({ error: 'Failed to get patient last checkup' });
   }
 }
+
+async function createAppointment(req: Request, res: Response) {
+  try {
+    const { date, time, attended, illness } = req.body;
+    const newAppointment = {
+      date,
+      time,
+      attended,
+      illness,
+    } as TypeAppointment;
+    const createAppointment = await createAppointmentModel(newAppointment);
+    res.status(201).json({
+      message: 'Appointment created successfully',
+      result: createAppointment,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to create a appointment' });
+  }
+}
+
+async function deleteAppointment(req: Request, res: Response) {
+  try {
+    const { id } = req.body;
+    const deletedAppointment = await deleteAppointmentModel(id);
+    res.status(200).json({
+      message: 'Appointment deleted successfully',
+      result: deletedAppointment,
+    });
+  } catch (error) {
+    res.status(400).json({ error: 'Failed to delete appointment' });
+  }
+}
 export {
   createPatient,
   getPatient,
@@ -102,4 +137,6 @@ export {
   updatePatient,
   deletePatient,
   getLastCheckup,
+  createAppointment,
+  deleteAppointment,
 };

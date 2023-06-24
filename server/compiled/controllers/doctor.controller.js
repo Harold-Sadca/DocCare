@@ -11,6 +11,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummary = exports.createMedicalInfo = exports.getDoctors = exports.getDoctor = exports.createDoctor = void 0;
 const doctors_1 = require("../models/methods/doctors");
+function createEmptyAvailability() {
+    const availability = {};
+    for (let day = 1; day <= 31; day++) {
+        availability[day] = [];
+    }
+    return availability;
+}
 function createDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -25,6 +32,7 @@ function createDoctor(req, res) {
                 licenseNumber,
                 gender,
                 about,
+                availability: createEmptyAvailability(),
             };
             const createDoctor = yield (0, doctors_1.createDoctorModel)(newDoctor);
             res.status(201).json({
@@ -71,7 +79,11 @@ function createMedicalInfo(req, res) {
         try {
             const { prescription, doctorsNotes, patientId } = req.body;
             const doctorId = req.params.id;
-            const newMedicalInfo = { prescription, doctorsNotes, doctorId };
+            const newMedicalInfo = {
+                prescription,
+                doctorsNotes,
+                doctorId,
+            };
             const createMedicalInfo = yield (0, doctors_1.createMedicalInfoModel)(newMedicalInfo, patientId);
             res.status(201).json({
                 message: 'Medical info created successfully',
