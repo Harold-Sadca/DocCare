@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import {
   createPatientModel,
   getPatientModel,
