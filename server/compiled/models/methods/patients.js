@@ -87,17 +87,15 @@ function getPatientsModel() {
                         required: false
                     },
                     {
-                        model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
-                    },
-                    {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
+                        required: false,
                         include: [
                             {
                                 model: Doctor_1.Doctor,
                                 as: 'doctorAppointment',
                                 attributes: { include: ['name', 'licenseNumber'] },
+                                required: false
                             },
                         ],
                     },
