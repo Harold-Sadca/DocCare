@@ -21,8 +21,6 @@ export default function Patient() {
         <DoctorList/>
       </div>
 
-
-
       {/* <Cal cellRender={cellRender} /> */}
     </main>
   );

@@ -1,26 +1,22 @@
 .grid-container{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: (4, 1fr);
+  grid-template-columns: repeat(3, [col-start] 1fr);
 }
 
 
 .profile-box{
-  grid-column: 1 ;
+grid-column: col-start 1/ span 1;
 }
 
 
 .prescriptions-box{
-  grid-column: 2;
-  grid-row: 2; 
+  grid-column:  col-start 3/ span 1;;
 }
 
 .appoitment-box{
-  grid-column: 2;
-  margin-top: 20px;
+  grid-column:  col-start 3/ span 1;
 }
 
 .doctor-list-box{
- grid-column: 3;
- margin-top: 20px;
+ grid-column:col-start 2/ span 1;
 }
