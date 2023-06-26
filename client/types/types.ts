@@ -62,3 +62,5 @@ export type TUser = TypeDoctor | TypePatient | TypeJuniorDoctor
 
 export type TResponseUser = TypeResponseDoctor | TypeResponseJuniorDoctor| TypeResponsePatient
 
+export type TRMedicalSummary = TypeMedicalInfo | TypeSummary
+

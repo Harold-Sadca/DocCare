@@ -14,9 +14,33 @@ import { TypeResponseDoctor,
   TUser,
   TypeResponseJuniorNotes
 } from "@/types/types";
-import { type } from "os";
+
+import logger from '../../server/logger'
 
 const PORT = 'http://localhost:3001'
+
+async function putData(path:string, content:TypePatient| TypeMedicalInfo) {
+  return axios.put(PORT+path,{
+    body: JSON.stringify(content),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    credentials: "include"
+  }).then((res:AxiosResponse<TPatient>) => {
+    return res.data
+  })
+}
+
+async function fetchData(path:string) {
+  return axios.get(PORT+path, {
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  }).then((res:AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
+    logger.info(res.data)
+    return res.data
+  })
+}
 
 
 // messagesRouter.get('/messages', getMessages);
@@ -58,7 +82,7 @@ async function register(user:TUser, type:string):Promise<TResponseUser> {
   })
 }
 
-async function login(user:TUser, type:string):Promise<TResponseUser> {
+async function login(user:TypeLogin, type:string):Promise<TResponseUser> {
   let path
   if(type == 'doctor') {
     path = '/doctor'
@@ -78,17 +102,7 @@ async function login(user:TUser, type:string):Promise<TResponseUser> {
   })
 }
 
-async function fetchData(path:string) {
-  return axios.get(PORT+path, {
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  }).then((res:AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
-    return res.data
-  })
-}
-
-async function getAllDoctors(user:TypeDoctor):Promise<TypeResponseDoctor | TypeResponsePatient> {
+async function getAllDoctors():Promise<TypeResponseDoctor | TypeResponsePatient> {
   return fetchData('/doctors')
 }
 
@@ -112,21 +126,6 @@ async function createPatientSummary (patientId:string, summary:TypeSummary):Prom
     },
     credentials: "include"
   }).then((res:AxiosResponse<TypeResponseSummary>) => {
-    return res.data
-  })
-}
-
-// patientRouter.get('/patient/:id', getPatient);
-
-
-async function putData(path:string, content:TypePatient| TypeMedicalInfo) {
-  return axios.put(PORT+path,{
-    body: JSON.stringify(content),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TPatient>) => {
     return res.data
   })
 }
@@ -187,8 +186,14 @@ async function createJuniorNote (juniorID:string, juniorNote:string):Promise<Typ
 
 export {
   register,
+  login,
   getAllDoctors,
   getAllPatients,
   getMedicalInfo,
-  createPatientSummary
+  createPatientSummary,
+  editPatientDetails,
+  deletePatient,
+  getLastCheckup,
+  createAppointment,
+  createJuniorNote
 }
