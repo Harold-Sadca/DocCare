@@ -189,4 +189,5 @@ export {
   getLastCheckup,
   createAppointment,
   deleteAppointment,
+  loginPatient,
 };

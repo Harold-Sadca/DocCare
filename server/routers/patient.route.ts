@@ -8,6 +8,7 @@ import {
   deletePatient,
   getLastCheckup,
   createAppointment,
+  loginPatient,
 } from '../controllers/patient.controller';
 import { patientAuthMiddleware } from '../middleware/authentication';
 import { Patient } from '../models/schema/Patient';
@@ -15,16 +16,13 @@ import { Patient } from '../models/schema/Patient';
 const app = express();
 const patientRouter = Router();
 
-// patientRouter.post("/register", controller.create);
-// patientRouter.post("/login", controller.login);
-// patientRouter.get("/profile",  patientAuthMiddleware , controller.profile);
-// patientRouter.post("/logout", controller.logout);
-patientRouter.post('/patient', createPatient);
+
+patientRouter.post('/patient/register', createPatient);
+patientRouter.post('/patient/login', loginPatient )
 patientRouter.get('/patient/:id', getPatient);
 patientRouter.get('/patients', getPatients);
 patientRouter.put('/patient/:id', updatePatient);
 patientRouter.delete('/patient/:id', deletePatient);
-patientRouter.get('/patient/:id/last-checkup', getLastCheckup);
-patientRouter.post('/patient/appointment/:id', createAppointment);
+patientRouter.get('/patient/:id/last-checkup', patientAuthMiddleware, getLastCheckup);
 
 export { patientRouter };
