@@ -1,11 +1,11 @@
 'use client';
 import { Form, Input } from 'antd';
 
-const { TextArea } = Input;
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
+import apiService from '@/services/APIservices';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -18,7 +18,35 @@ export default function Login() {
     setComponentSize(size);
   };
 
+  const initialState = { email: '', password: '' };
   const [state, setState] = useState(initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log({ name });
+    console.log({ value });
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
+    // e.preventDefault();
+    const data = await apiService.login(state, 'junior-doctor');
+    const { message, result, error } = data;
+    console.log({ result });
+    if (error) {
+      alert(`${error}`);
+      // setState(initialState);
+    } else {
+      // res = message, result, error
+      // localStorage.setItem('accessToken', result);
+      // setIsAuthenticated(true);
+      // updateUser(user);
+      // navigate('/profile');
+    }
+  };
   return (
     <>
       <Navbar />
@@ -44,16 +72,30 @@ export default function Login() {
               onValuesChange={onFormLayoutChange}
               size={componentSize as SizeType}
               style={{ maxWidth: 900 }}
-              action='/'
+              action='/junior-doctor'
               method='post'
+              onFinish={submitForm}
             >
               <Form.Item label='Email' htmlFor='email'>
-                <Input type='email' id='email' name='email' required />
+                <Input
+                  type='email'
+                  id='email'
+                  name='email'
+                  required
+                  value={state.email}
+                  onChange={(e) => handleChange(e)}
+                />
               </Form.Item>
               <Form.Item label='Password' htmlFor='password'>
-                <Input type='password' id='password' name='password' required />
+                <Input
+                  type='password'
+                  id='password'
+                  name='password'
+                  value={state.password}
+                  onChange={(e) => handleChange(e)}
+                  required
+                />
               </Form.Item>
-
               <button
                 className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
                 type='submit'

@@ -22,6 +22,8 @@
     "jsonwebtoken": "^9.0.0",
     "mysql2": "^3.4.0",
     "nodemon": "^2.0.22",
+    "pino": "^8.14.1",
+    "pino-pretty": "^10.0.0",
     "sequelize": "^6.32.1",
     "uuidv4": "^6.2.13"
   },

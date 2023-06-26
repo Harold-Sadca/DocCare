@@ -9,13 +9,12 @@ import {
 
 import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
 import { Doctor } from '../models/schema/Doctor';
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import logger from '../logger';
 
 const saltRounds = 12;
-const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
-
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 function createEmptyAvailability() {
   const availability = {} as TypeAvailability;
@@ -54,15 +53,13 @@ async function createDoctor(req: Request, res: Response) {
     const accessToken = jwt.sign({ id: createDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Doctor account created successfully',
-      result: createDoctor, 
+      result: createDoctor,
       accessToken,
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a doctor account' });
   }
 }
-
-
 
 async function loginDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
@@ -80,13 +77,14 @@ async function loginDoctor(req: Request, res: Response) {
       throw new Error('Invalid password');
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
-    res.status(200).send({ accessToken, doctor });
+    res.status(200).send({
+      message: `Welcome, ${doctor?.name}!`,
+      result: { accessToken, doctor },
+    });
   } catch (error) {
-    res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+    res.status(401).send({ error: 'Username or password is incorrect' });
   }
 }
-
-
 
 async function getDoctor(req: Request, res: Response) {
   try {

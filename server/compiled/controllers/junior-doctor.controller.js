@@ -16,9 +16,11 @@ exports.loginJuniorDoctor = exports.createJuniorNote = exports.getJuniorDoctor =
 const junior_doctors_1 = require("../models/methods/junior-doctors");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
+const index_1 = __importDefault(require("../models/schema/index"));
+const logger_1 = __importDefault(require("../logger"));
+const JuniorDoctorDB = index_1.default.JuniorDoctor;
 const saltRounds = 12;
-const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -49,9 +51,11 @@ function createJuniorDoctor(req, res) {
 exports.createJuniorDoctor = createJuniorDoctor;
 function loginJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(req.body);
         const { email, password } = req.body;
         try {
-            const jrDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { email: email } });
+            const jrDoctor = yield JuniorDoctorDB.findOne({ where: { email: email } });
+            logger_1.default.info({ jrDoctor });
             if (!jrDoctor) {
                 throw new Error('Patient not found');
             }
@@ -64,10 +68,13 @@ function loginJuniorDoctor(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: jrDoctor.id }, SECRET_KEY);
-            res.status(200).send({ accessToken, jrDoctor });
+            res.status(200).json({
+                message: `Welcome, ${jrDoctor === null || jrDoctor === void 0 ? void 0 : jrDoctor.name}!`,
+                result: { accessToken, jrDoctor },
+            });
         }
         catch (error) {
-            res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+            res.status(401).send({ error: 'Username or password is incorrect' });
         }
     });
 }
