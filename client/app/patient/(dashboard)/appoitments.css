@@ -1,0 +1,44 @@
+.appoitments-container{
+    height: 200px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+    border-radius: 10%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.appoitments-container h1{
+margin-left: 20px;
+margin-top: 10px;
+margin-bottom: 10px;
+color: black;
+font-weight:bold;
+font-size: 20px;
+}
+
+.appoitment-list-container{
+    height: fit-content;
+    width: 230px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    background-color:#F0F6FC ;
+    margin-left: 20px;
+    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap;
+    align-items: flex-start; 
+    justify-content: space-between;  */
+}
+
+
+.appoitment-list-container h2{
+color: #1F4F5B;
+font-weight: 400;
+font-size: 20px;
+}
