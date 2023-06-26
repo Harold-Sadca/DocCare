@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 const navigation = [
   { name: 'Home', href: '/home', current: true },
-  { name: 'Login', href: '/doctor/login', current: false },
+  { name: 'Login', href: '/junior-doctor/login', current: false },
 ];
 
 function classNames(...classes: any[]) {

@@ -23,14 +23,14 @@ const dbName = 'DocCare';
 
 const db = new Sequelize(dbName,
   `root`,
-  `howismypasswordtooweak???`,
+  ``,
   {
-  host: 'localhost',
-  port: 3306,
-  dialect: 'mysql',
-});
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql',
+  });
 
-const {Doctor, JuniorDoctor, Patient } = initModels(db);
+const { Doctor, JuniorDoctor, Patient } = initModels(db);
 
 (async function authenticate () {
   try {

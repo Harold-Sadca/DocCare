@@ -18,7 +18,7 @@ const Doctor_1 = require("../models/schema/Doctor");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const saltRounds = 12;
-const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createEmptyAvailability() {
     const availability = {};
     for (let day = 1; day <= 31; day++) {
@@ -74,10 +74,13 @@ function loginDoctor(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
-            res.status(200).send({ accessToken, doctor });
+            res.status(200).send({
+                message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
+                result: { accessToken, doctor },
+            });
         }
         catch (error) {
-            res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+            res.status(401).send({ error: 'Username or password is incorrect' });
         }
     });
 }

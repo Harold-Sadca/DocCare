@@ -1,6 +1,13 @@
-import axios, {AxiosResponse} from "axios";
-import {TypeDoctor, TypePatient, TypeJuniorDoctor, TypeMedicalInfo, TypeAppointment} from '../../server/types/types'
-import { TypeResponseDoctor,
+import axios, { AxiosResponse } from 'axios';
+import {
+  TypeDoctor,
+  TypePatient,
+  TypeJuniorDoctor,
+  TypeMedicalInfo,
+  TypeAppointment,
+} from '../../server/types/types';
+import {
+  TypeResponseDoctor,
   TypeResponseJuniorDoctor,
   TypeResponsePatient,
   TypeResponseMedicalInfo,
@@ -12,36 +19,39 @@ import { TypeResponseDoctor,
   TypeResponseLastCheckup,
   TypeResponseAppointment,
   TUser,
-  TypeResponseJuniorNotes
-} from "@/types/types";
+  TypeResponseJuniorNotes,
+} from '@/types/types';
 
-import logger from '../../server/logger'
+import logger from '../../server/logger';
 
-const PORT = 'http://localhost:3001'
+const PORT = 'http://localhost:3001';
 
-async function putData(path:string, content:TypePatient| TypeMedicalInfo) {
-  return axios.put(PORT+path,{
-    body: JSON.stringify(content),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TPatient>) => {
-    return res.data
-  })
+async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
+  return axios
+    .put(PORT + path, {
+      body: JSON.stringify(content),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TPatient>) => {
+      return res.data;
+    });
 }
 
-async function fetchData(path:string) {
-  return axios.get(PORT+path, {
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-  }).then((res:AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
-    logger.info(res.data)
-    return res.data
-  })
+async function fetchData(path: string) {
+  return axios
+    .get(PORT + path, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+    .then((res: AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
+      logger.info(res.data);
+      return res.data;
+    });
 }
-
 
 // messagesRouter.get('/messages', getMessages);
 // messagesRouter.post('/message/:senderId', sendMessage);
@@ -61,127 +71,161 @@ async function fetchData(path:string) {
 // patientRouter.get('/patient/:id/last-checkup', getLastCheckup); DONE
 // patientRouter.post('/patient/appointment/:id', createAppointment); DONE
 
-
-async function register(user:TUser, type:string):Promise<TResponseUser> {
-  let path
-  if(type == 'doctor') {
-    path = '/doctor'
-  } else if(type == 'patient') {
-    path = '/patient'
+async function register(user: TUser, type: string): Promise<TResponseUser> {
+  let path;
+  if (type == 'doctor') {
+    path = '/doctor';
+  } else if (type == 'patient') {
+    path = '/patient';
   } else if (type == 'junior-doctor') {
-    path = '/junior-doctor'
+    path = '/junior-doctor';
   }
-  return axios.post(PORT+path, {
-    body: JSON.stringify(user),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TResponseUser>) => {
-    return res.data
-  })
+  return axios
+    .post(PORT + path, {
+      body: JSON.stringify(user),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TResponseUser>) => {
+      return res.data;
+    });
 }
 
-async function login(user:TypeLogin, type:string):Promise<TResponseUser> {
-  let path
-  if(type == 'doctor') {
-    path = '/doctor'
-  } else if(type == 'patient') {
-    path = '/patient'
+async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
+  let path;
+  if (type == 'doctor') {
+    path = '/doctor';
+  } else if (type == 'patient') {
+    path = '/patient';
   } else if (type == 'junior-doctor') {
-    path = '/junior-doctor'
+    path = '/junior-doctor';
   }
-  return axios.post(PORT+path, {
-    body: JSON.stringify(user),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TResponseUser>) => {
-    return res.data
-  })
+  return axios
+    .post(PORT + path + '/login', {
+      body: JSON.stringify(user),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TResponseUser>) => {
+      return res.data;
+    });
 }
 
-async function getAllDoctors():Promise<TypeResponseDoctor | TypeResponsePatient> {
-  return fetchData('/doctors')
+async function getAllDoctors(): Promise<
+  TypeResponseDoctor | TypeResponsePatient
+> {
+  return fetchData('/doctors');
 }
 
-async function getMedicalInfo(patientId:string, medicalInfo:TypeMedicalInfo):Promise<TypeResponseMedicalInfo> {
-  return axios.put(`${PORT}/doctor/medical-info/${patientId}`,{
-    body: JSON.stringify(medicalInfo),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TypeResponseMedicalInfo>) => {
-    return res.data
-  })
+async function getMedicalInfo(
+  patientId: string,
+  medicalInfo: TypeMedicalInfo
+): Promise<TypeResponseMedicalInfo> {
+  return axios
+    .put(`${PORT}/doctor/medical-info/${patientId}`, {
+      body: JSON.stringify(medicalInfo),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TypeResponseMedicalInfo>) => {
+      return res.data;
+    });
 }
 
-async function createPatientSummary (patientId:string, summary:TypeSummary):Promise<TypeResponseSummary> {
-  return axios.put(`${PORT}/doctor/summary/${patientId}`,{
-    body: JSON.stringify(summary),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TypeResponseSummary>) => {
-    return res.data
-  })
+async function createPatientSummary(
+  patientId: string,
+  summary: TypeSummary
+): Promise<TypeResponseSummary> {
+  return axios
+    .put(`${PORT}/doctor/summary/${patientId}`, {
+      body: JSON.stringify(summary),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TypeResponseSummary>) => {
+      return res.data;
+    });
 }
 
-async function getAllPatients():Promise<TypeResponseDoctor | TypeResponsePatient> {
-  return fetchData('/patients')
+async function getAllPatients(): Promise<
+  TypeResponseDoctor | TypeResponsePatient
+> {
+  return fetchData('/patients');
 }
 
-
-async function editPatientDetails(patientId:string, patientDetails:TypePatient):Promise<TPatient> {
-  return putData(`/patient/${patientId}`, patientDetails)
+async function editPatientDetails(
+  patientId: string,
+  patientDetails: TypePatient
+): Promise<TPatient> {
+  return putData(`/patient/${patientId}`, patientDetails);
 }
 
-async function deletePatient(patientId:string) :Promise<TypeResponsePatient> {
-  return axios.get(`${PORT}/patient/${patientId}`,{
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    }
-  }).then((res:AxiosResponse<TypeResponsePatient>) => {
-    return res.data
-  })
+async function deletePatient(patientId: string): Promise<TypeResponsePatient> {
+  return axios
+    .get(`${PORT}/patient/${patientId}`, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+    .then((res: AxiosResponse<TypeResponsePatient>) => {
+      return res.data;
+    });
 }
 
-async function getLastCheckup (patientId:string):Promise<TypeResponseLastCheckup> {
-  return axios.delete(`${PORT}/patient/${patientId}`,{
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    }
-  }).then((res:AxiosResponse<TypeResponseLastCheckup>) => {
-    return res.data
-  })
+async function getLastCheckup(
+  patientId: string
+): Promise<TypeResponseLastCheckup> {
+  return axios
+    .delete(`${PORT}/patient/${patientId}`, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+    .then((res: AxiosResponse<TypeResponseLastCheckup>) => {
+      return res.data;
+    });
 }
 
-async function createAppointment (patientId:string, appointment:TypeAppointment):Promise<TypeResponseAppointment>{
-  return axios.post(`${PORT}/patient/appointment/${patientId}`, {
-    body: JSON.stringify(appointment),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TypeResponseAppointment>) => {
-    return res.data
-  })
+async function createAppointment(
+  patientId: string,
+  appointment: TypeAppointment
+): Promise<TypeResponseAppointment> {
+  return axios
+    .post(`${PORT}/patient/appointment/${patientId}`, {
+      body: JSON.stringify(appointment),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TypeResponseAppointment>) => {
+      return res.data;
+    });
 }
 
-
-async function createJuniorNote (juniorID:string, juniorNote:string):Promise<TypeResponseJuniorNotes> {
-  return axios.post(`${PORT}/patient/appointment/${juniorID}`, {
-    body: JSON.stringify(juniorNote),
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    credentials: "include"
-  }).then((res:AxiosResponse<TypeResponseJuniorNotes>) => {
-    return res.data
-  })
+async function createJuniorNote(
+  juniorID: string,
+  juniorNote: string
+): Promise<TypeResponseJuniorNotes> {
+  return axios
+    .post(`${PORT}/patient/appointment/${juniorID}`, {
+      body: JSON.stringify(juniorNote),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      credentials: 'include',
+    })
+    .then((res: AxiosResponse<TypeResponseJuniorNotes>) => {
+      return res.data;
+    });
 }
 
 const apiService = {
@@ -195,7 +239,7 @@ const apiService = {
   deletePatient,
   getLastCheckup,
   createAppointment,
-  createJuniorNote
-}
+  createJuniorNote,
+};
 
 export default apiService;

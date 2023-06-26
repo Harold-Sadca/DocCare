@@ -1,19 +1,6 @@
 'use client';
-import {
-  Button,
-  Cascader,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  Select,
-  Switch,
-  TreeSelect,
-  Upload,
-} from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-const { TextArea } = Input;
+import { Form, Input } from 'antd';
+
 import React, { useState } from 'react';
 
 import Navbar from './navbar';

@@ -1,4 +1,4 @@
-export default function JuniorDoctorLayout({
+export default function JuniorDoctorRegisterLayout({
   children,
 }: {
   children: React.ReactNode;
