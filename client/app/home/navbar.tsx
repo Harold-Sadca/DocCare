@@ -38,8 +38,6 @@ function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ');
 }
 
-apiService.getAllPatients()
-// apiService.getAllDoctors()
 
 export default function Navbar() {
   return (

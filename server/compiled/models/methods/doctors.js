@@ -74,13 +74,11 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
-            logger_1.default.info(patient);
-            //TODO:its failing here...
+            logger_1.default.info(newMedicalInfo);
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
             logger_1.default.info('here');
             patient.setMedicalInfo(medicalInfo);
             yield medicalInfo.save();
-            // await patient.save();
             return medicalInfo;
         }
         catch (error) {
