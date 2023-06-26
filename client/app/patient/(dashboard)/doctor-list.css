@@ -27,6 +27,16 @@
     margin-top: 20px;
 }
 
+.each-doctor h2{
+color: black;
+font-weight: 20px;
+}
+
+
+.each-doctor p{
+color: #A266B5;
+}
+    
 
 .doctor-list{
     height: fit-content;

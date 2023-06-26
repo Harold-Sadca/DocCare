@@ -2,21 +2,25 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: (4, 1fr);
-  gap: 20px;
 }
 
 
 .profile-box{
-  grid-column: 1 / span 1;
+  grid-column: 1 ;
 }
 
 
 .prescriptions-box{
-  grid-column: 2 / span 1;
-  grid-row: 4; 
+  grid-column: 2;
+  grid-row: 2; 
 }
 
 .appoitment-box{
   grid-column: 2;
   margin-top: 20px;
+}
+
+.doctor-list-box{
+ grid-column: 3;
+ margin-top: 20px;
 }
