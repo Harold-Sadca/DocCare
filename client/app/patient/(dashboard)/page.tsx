@@ -1,13 +1,10 @@
-import Head from 'next/head';
 import './profile.css'
+import Profile from './profile';
 
 export default function Patient() {
   return (
     <main>
-      <div className='about-patient'>
-        <h1>Michaela Hans</h1>
-        <p>36 years old, Female</p>
-      </div>
+    <Profile/>
     </main>
   );
 }

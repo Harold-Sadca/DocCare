@@ -1,4 +1,23 @@
 .about-patient{
 color: black;
-font-size: 100px;
+display: flex;
+
+}
+
+.about-patient img{
+height: 150px;
+width: 150px;
+object-fit: cover;
+border-radius: 50%;
+}
+
+
+.profile{
+height: 700px;
+width: 400px;
+background-color: white;
+box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+border-radius: 10%;
+margin-top: 30px;
+margin-left: 20px;
 }
