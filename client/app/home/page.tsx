@@ -39,11 +39,11 @@ export default function Home() {
         </div>
         <div className='flex flex-col items-center justify-center p-20 my-2 bg-primary'>
           <Navbar />
-          <img
+          {/* <img
             className='h-auto w-auto rounded'
             src='/doctor1.jpg'
             alt='Your Company'
-          />
+          /> */}
         </div>
       </div>
       <Users />

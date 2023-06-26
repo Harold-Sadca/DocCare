@@ -60,11 +60,11 @@ export default function Login(props: Props) {
         <div className='grid grid-cols-2 gap-4 h-screen'>
           <div className='flex flex-col items-center justify-evenly'>
             <div className='flex flex-row items-start justify-start'>
-              <img
+              {/* <img
                 className='h-auto w-44 rounded'
                 src='/doctor-mobile.png'
                 alt='Your Company'
-              />
+              /> */}
             </div>
           </div>
           <div className='flex flex-col items-center justify-center'>

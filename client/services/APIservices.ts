@@ -72,6 +72,7 @@ async function fetchData(path: string) {
 // patientRouter.post('/patient/appointment/:id', createAppointment); DONE
 
 async function register(user: TUser, type: string): Promise<TResponseUser> {
+  console.log(user);
   let path;
   if (type == 'doctor') {
     path = '/doctor';
