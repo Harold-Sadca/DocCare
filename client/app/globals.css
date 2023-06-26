@@ -21,6 +21,6 @@
 }
 
 body {
-  color: var(--primary);
-  background: var(--secondary);
+  color: rgb(22 78 99);
+  background-color: rgb(240 249 255);
 }
