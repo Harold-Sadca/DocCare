@@ -32,7 +32,7 @@ const db = new Sequelize(
   },
 );
 
-const {Doctor, JuniorDoctor, Patient } = initModels(db);
+const { Doctor, JuniorDoctor, Patient } = initModels(db);
 
 (async function authenticate () {
   try {

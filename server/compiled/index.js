@@ -9,6 +9,7 @@ const patient_route_1 = require("./routers/patient.route");
 const messages_route_1 = require("./routers/messages.route");
 const junior_doctor_route_1 = require("./routers/junior-doctor.route");
 const doctor_route_1 = require("./routers/doctor.route");
+const logger_1 = __importDefault(require("./logger"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const corsConfig = {
@@ -24,5 +25,5 @@ app.use(messages_route_1.messagesRouter);
 app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
 app.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+    logger_1.default.info(`Server is running at http://localhost:${port}`);
 });

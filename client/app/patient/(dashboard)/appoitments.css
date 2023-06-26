@@ -1,4 +1,4 @@
-/* .appoitments-container{
+.appoitments-container{
     height: 200px;
     width: 300px;
     background-color: white;
@@ -34,11 +34,11 @@ font-size: 20px;
     /* flex-wrap: wrap;
     align-items: flex-start; 
     justify-content: space-between;  */
-/* }
+}
 
 
 .appoitment-list-container h2{
 color: #1F4F5B;
 font-weight: 400;
 font-size: 20px;
-}  */
+}

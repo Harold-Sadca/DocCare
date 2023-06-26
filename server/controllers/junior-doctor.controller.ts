@@ -4,11 +4,13 @@ import {
   getJuniorDoctorModel,
   createJuniorNoteModel,
 } from '../models/methods/junior-doctors';
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { JuniorDoctor } from '../models/schema/JuniorDoctor';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import db from '../models/schema/index';
+import logger from '../logger';
+const JuniorDoctorDB = db.JuniorDoctor;
 const saltRounds = 12;
-const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 async function createJuniorDoctor(req: Request, res: Response) {
   try {
@@ -43,29 +45,34 @@ async function createJuniorDoctor(req: Request, res: Response) {
   }
 }
 
-
 async function loginJuniorDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    const jrDoctor = await JuniorDoctor.findOne({ where: { email: email } });
+    console.log(req.body);
+    console.log(email);
+    const jrDoctor = await JuniorDoctorDB.findOne({ where: { email: email } });
+    logger.info({ jrDoctor });
     if (!jrDoctor) {
-      throw new Error('Patient not found');
+      console.log('Junior doctor not found');
+      throw new Error('Junior doctor not found');
     }
     const juniorDoctorPassword = jrDoctor.password;
     if (juniorDoctorPassword === null) {
-      throw new Error('Patient password is null');
+      throw new Error('Invalid credentials');
     }
     const validatedPass = await bcrypt.compare(password, juniorDoctorPassword);
     if (!validatedPass) {
-      throw new Error('Invalid password');
+      throw new Error('Invalid credentials');
     }
     const accessToken = jwt.sign({ id: jrDoctor.id }, SECRET_KEY);
-    res.status(200).send({ accessToken, jrDoctor });
+    res.status(200).json({
+      message: `Welcome, ${jrDoctor?.name}!`,
+      result: { accessToken, jrDoctor },
+    });
   } catch (error) {
-    res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+    res.status(401).send({ error: 'Username or password is incorrect' });
   }
 }
-
 
 async function getJuniorDoctor(req: Request, res: Response) {
   try {
@@ -93,4 +100,9 @@ async function createJuniorNote(req: Request, res: Response) {
   }
 }
 
-export { createJuniorDoctor, getJuniorDoctor, createJuniorNote ,loginJuniorDoctor};
+export {
+  createJuniorDoctor,
+  getJuniorDoctor,
+  createJuniorNote,
+  loginJuniorDoctor,
+};

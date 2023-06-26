@@ -18,8 +18,9 @@ const index_1 = __importDefault(require(".././models/schema/index"));
 const PatientDB = index_1.default.Patient;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const logger_1 = __importDefault(require("../logger"));
 const saltRounds = 12;
-const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -66,7 +67,10 @@ function loginPatient(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
-            res.status(200).json({ accessToken, patient });
+            res.status(200).json({
+                message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
+                result: { accessToken, patient },
+            });
         }
         catch (error) {
             res.status(401).json({ error: 'Username or password is incorrect' });
@@ -98,6 +102,7 @@ function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patients = yield (0, patients_1.getPatientsModel)();
+            logger_1.default.info(patients);
             res.status(200).send(patients);
         }
         catch (error) {

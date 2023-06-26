@@ -1,22 +1,3 @@
-// export default function Navbar () {
-
-//   return (
-//     <div>
-//       <div>
-//         <p>DocCare</p>
-//       </div>
-//       <div>
-//         <ul>
-//           <li>Home</li>
-//           <li>Patient</li>
-//           <li>Doctor</li>
-//           <li>Junior Doctor</li>
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// }
-
 'use client';
 
 import { Fragment } from 'react';
@@ -32,7 +13,6 @@ const navigation = [
 ];
 
 function classNames(...classes: any[]) {
-  console.log(classes);
   return classes.filter(Boolean).join(' ');
 }
 
@@ -55,16 +35,16 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
-                <div className='flex flex-shrink-0 items-center'>
+                <div className='flex flex-shrink-0 items-center justify-center'>
                   <Image
-                    className='block h-28 w-auto lg:hidden'
+                    className='block h-14 w-auto lg:hidden'
                     src='/logo-dark.png'
                     alt='Your Company'
                     width='800'
                     height='800'
                   />
                   <Image
-                    className='hidden h-28 w-auto lg:block'
+                    className='hidden h-14 w-auto lg:block'
                     src='/logo-dark.png'
                     alt='Your Company'
                     width='800'

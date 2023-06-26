@@ -1,7 +1,6 @@
 import './dashboard.css'
 import Profile from './profile';
-import Appoitments from './appointments';
-import CheckUp from './last-checkup'
+import Appoitments from './appoitments'
 import Prescriptions from './prescriptions'
 // import Cal from './calendar'
 
@@ -11,8 +10,8 @@ export default function Patient() {
     <div className="profile-box">
     <Profile/>
     </div>
-    <div className='last-checkup-box'>
-    <CheckUp/>
+    <div className='appoitment-box'>
+    <Appoitments/>
     </div>
     <div>
     <div className="prescriptions-box">
@@ -20,9 +19,6 @@ export default function Patient() {
     </div>
     </div>
     {/* <Cal cellRender={cellRender} /> */}
-    <div className='appoitment-box'>
-    <Appoitments/>
-    </div>
     </main>
   );
 }

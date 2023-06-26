@@ -1,13 +1,13 @@
-import "./last-checkup.css";
+import "./appoitments.css";
 
 
-export default function CheckUp() {
+export default function Appoitments() {
   return (
     <main>
-      <div className="checkups-container">
+      <div className="appoitments-container">
       <h1>Upcoming Appoitments:</h1>
-      <div className="checkup-list">
-       <div className="checkup-list-container">
+      <div className="appoitment-list">
+       <div className="appoitment-list-container">
        <div>
         <img src='../../../public/checkup-emoji.png'></img>
         <h2>Check up</h2>

@@ -1,20 +1,22 @@
 'use client';
 
-import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
-const navigation = [
-  { name: 'Home', href: '/home', current: true },
-  { name: 'Login', href: '/doctor/login', current: false },
-];
-
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
+interface Props {
+  user: string;
+  auth: string;
 }
 
-export default function Navbar() {
+export default function AuthNavbar(props: Props) {
+  const navigation = [
+    { name: 'Home', href: '/home', current: true },
+    { name: 'Login', href: `/${props.user}/${props.auth}`, current: false },
+  ];
+
+  function classNames(...classes: any[]) {
+    return classes.filter(Boolean).join(' ');
+  }
   return (
     <Disclosure as='nav' className='bg-primary'>
       {({ open }) => (

@@ -12,12 +12,12 @@ import {
 import { TypeAppointment } from '../types/types';
 import db from '.././models/schema/index';
 const PatientDB = db.Patient;
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import logger from '../logger';
 
 const saltRounds = 12;
-const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
-
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 async function createPatient(req: Request, res: Response) {
   try {
@@ -55,25 +55,28 @@ async function createPatient(req: Request, res: Response) {
 }
 
 async function loginPatient(req: Request, res: Response) {
-const { email, password } = req.body;
-try {
-const patient = await PatientDB.findOne({ where: { email: email } });
-if (!patient) {
-throw new Error('Patient not found');
-}
-const patientPassword = patient.password;
-if (!patientPassword) {
-throw new Error('Patient password is null');
-}
-const validatedPass = await bcrypt.compare(password, patientPassword);
-if (!validatedPass) {
-throw new Error('Invalid password');
-}
-const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
-res.status(200).json({ accessToken, patient });
-} catch (error) {
-res.status(401).json({ error: 'Username or password is incorrect' });
-}
+  const { email, password } = req.body;
+  try {
+    const patient = await PatientDB.findOne({ where: { email: email } });
+    if (!patient) {
+      throw new Error('Patient not found');
+    }
+    const patientPassword = patient.password;
+    if (!patientPassword) {
+      throw new Error('Patient password is null');
+    }
+    const validatedPass = await bcrypt.compare(password, patientPassword);
+    if (!validatedPass) {
+      throw new Error('Invalid password');
+    }
+    const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
+    res.status(200).json({
+      message: `Welcome, ${patient?.name}!`,
+      result: { accessToken, patient },
+    });
+  } catch (error) {
+    res.status(401).json({ error: 'Username or password is incorrect' });
+  }
 }
 
 async function getPatient(req: Request, res: Response) {
@@ -93,6 +96,7 @@ async function logout(req: Request, res: Response) {}
 async function getPatients(req: Request, res: Response) {
   try {
     const patients = await getPatientsModel();
+    logger.info(patients);
     res.status(200).send(patients);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patients account' });
