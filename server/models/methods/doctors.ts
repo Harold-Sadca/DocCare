@@ -2,6 +2,7 @@ import db from '../schema/index';
 import { TypeDoctor, TypeMedicalInfo } from '../../types/types';
 import { Patient } from '../schema/Patient';
 import { Appointment } from '../schema/Appointment';
+import logger from '../../logger';
 
 const DoctorDB = db.Doctor;
 const PatientDB = db.Patient;
@@ -55,7 +56,10 @@ async function createMedicalInfoModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
+    logger.info(patient)
+    //TODO:its failing here...
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
+    logger.info('here')
     patient.setMedicalInfo(medicalInfo);
     await medicalInfo.save()
     // await patient.save();

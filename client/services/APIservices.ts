@@ -130,7 +130,7 @@ async function createPatientSummary (patientId:string, summary:TypeSummary):Prom
   })
 }
 
-async function getAllPatients(user:TypeDoctor):Promise<TypeResponseDoctor | TypeResponsePatient> {
+async function getAllPatients():Promise<TypeResponseDoctor | TypeResponsePatient> {
   return fetchData('/patients')
 }
 
@@ -184,7 +184,7 @@ async function createJuniorNote (juniorID:string, juniorNote:string):Promise<Typ
   })
 }
 
-export {
+const apiService = {
   register,
   login,
   getAllDoctors,
@@ -197,3 +197,5 @@ export {
   createAppointment,
   createJuniorNote
 }
+
+export default apiService;

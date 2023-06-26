@@ -19,6 +19,8 @@
 
 'use client';
 
+import apiService from '@/services/APIservices';
+
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -35,6 +37,9 @@ function classNames(...classes: any[]) {
   console.log(classes);
   return classes.filter(Boolean).join(' ');
 }
+
+apiService.getAllPatients()
+// apiService.getAllDoctors()
 
 export default function Navbar() {
   return (

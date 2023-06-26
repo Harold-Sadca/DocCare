@@ -14,6 +14,7 @@ import db from '.././models/schema/index';
 const PatientDB = db.Patient;
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import logger from '../logger';
 
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
@@ -93,6 +94,7 @@ async function logout(req: Request, res: Response) {}
 async function getPatients(req: Request, res: Response) {
   try {
     const patients = await getPatientsModel();
+    logger.info(patients)
     res.status(200).send(patients);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patients account' });

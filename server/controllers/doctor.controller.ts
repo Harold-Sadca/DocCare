@@ -11,6 +11,7 @@ import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
 import { Doctor } from '../models/schema/Doctor';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import logger from '../logger';
 
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
@@ -109,8 +110,6 @@ async function getDoctors(req: Request, res: Response) {
 }
 
 async function createMedicalInfo(req: Request, res: Response) {
-  console.log('got here');
-  console.log(req.body);
   try {
     const { prescription, doctorNote, doctorName } = req.body;
     const patientId = req.params.id;

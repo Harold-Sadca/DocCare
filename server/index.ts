@@ -4,6 +4,7 @@ import { patientRouter } from './routers/patient.route';
 import { messagesRouter } from './routers/messages.route';
 import { juniorDoctorRouter } from './routers/junior-doctor.route';
 import { doctorRouter } from './routers/doctor.route';
+import logger from './logger';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -24,5 +25,5 @@ app.use(juniorDoctorRouter);
 app.use(doctorRouter);
 
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  logger.info(`Server is running at http://localhost:${port}`);
 });
