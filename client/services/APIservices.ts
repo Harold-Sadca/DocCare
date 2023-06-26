@@ -10,22 +10,26 @@ import { TypeResponseDoctor,
   TPatient,
   TResponseUser,
   TypeResponseLastCheckup,
-  TypeResponseAppointment
+  TypeResponseAppointment,
+  TUser,
+  TypeResponseJuniorNotes
 } from "@/types/types";
 import { type } from "os";
 
 const PORT = 'http://localhost:3001'
 
-// doctorRouter.post('/doctor', createDoctor); DONE
+
+// messagesRouter.get('/messages', getMessages);
+// messagesRouter.post('/message/:senderId', sendMessage);
+// juniorDoctorRouter.get('/junior-doctor/:id', getJuniorDoctor);
 // doctorRouter.get('/doctor/:id', getDoctor);
+// doctorRouter.post('/doctor/login', loginDoctor )DONE
+// doctorRouter.post('/doctor', createDoctor); DONE
 // doctorRouter.get('/doctors', getDoctors);  DONE
 // doctorRouter.put('/doctor/medical-info/:id', createMedicalInfo); DONE
 // doctorRouter.put('/doctor/summary/:id', createPatientSummary); DONE
-// messagesRouter.post('/message/:senderId', sendMessage);
-// messagesRouter.get('/messages', getMessages);
-// juniorDoctorRouter.post('/junior-doctor', createJuniorDoctor); DONE
-// juniorDoctorRouter.get('/junior-doctor/:id', getJuniorDoctor);
-// juniorDoctorRouter.post('/junior-doctor/:id/note', createJuniorNote);
+// juniorDoctorRouter.post('/junior-doctor/login', loginJuniorDoctor ) DONE
+// juniorDoctorRouter.post('/junior-doctor/:id/note',juniorDoctorAuthMiddleware, createJuniorNote); DONE
 // patientRouter.post('/patient', createPatient); DONE
 // patientRouter.get('/patients', getPatients); DONE
 // patientRouter.put('/patient/:id', updatePatient); DONE
@@ -34,7 +38,7 @@ const PORT = 'http://localhost:3001'
 // patientRouter.post('/patient/appointment/:id', createAppointment); DONE
 
 
-async function register(user:TypeDoctor | TypePatient| TypeJuniorDoctor, type:string):Promise<TResponseUser> {
+async function register(user:TUser, type:string):Promise<TResponseUser> {
   let path
   if(type == 'doctor') {
     path = '/doctor'
@@ -54,25 +58,25 @@ async function register(user:TypeDoctor | TypePatient| TypeJuniorDoctor, type:st
   })
 }
 
-// async function login(user:TypeDoctor | TypePatient| TypeJuniorDoctor, type:string):Promise<TypeDoctor | TypePatient| TypeJuniorDoctor> {
-//   let path
-//   if(type == 'doctor') {
-//     path = '/doctor'
-//   } else if(type == 'patient') {
-//     path = '/patient'
-//   } else if (type == 'junior-doctor') {
-//     path = '/junior-doctor'
-//   }
-//   return axios.post(PORT+path, {
-//     body: JSON.stringify(user),
-//     headers: {
-//       'Content-type': 'application/json; charset=UTF-8',
-//     },
-//     credentials: "include"
-//   }).then((res:AxiosResponse<TypeDoctor | TypePatient| TypeJuniorDoctor>) => {
-//     return res.data
-//   })
-// }
+async function login(user:TUser, type:string):Promise<TResponseUser> {
+  let path
+  if(type == 'doctor') {
+    path = '/doctor'
+  } else if(type == 'patient') {
+    path = '/patient'
+  } else if (type == 'junior-doctor') {
+    path = '/junior-doctor'
+  }
+  return axios.post(PORT+path, {
+    body: JSON.stringify(user),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    credentials: "include"
+  }).then((res:AxiosResponse<TResponseUser>) => {
+    return res.data
+  })
+}
 
 async function fetchData(path:string) {
   return axios.get(PORT+path, {
@@ -164,6 +168,19 @@ async function createAppointment (patientId:string, appointment:TypeAppointment)
     },
     credentials: "include"
   }).then((res:AxiosResponse<TypeResponseAppointment>) => {
+    return res.data
+  })
+}
+
+
+async function createJuniorNote (juniorID:string, juniorNote:string):Promise<TypeResponseJuniorNotes> {
+  return axios.post(`${PORT}/patient/appointment/${juniorID}`, {
+    body: JSON.stringify(juniorNote),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    credentials: "include"
+  }).then((res:AxiosResponse<TypeResponseJuniorNotes>) => {
     return res.data
   })
 }

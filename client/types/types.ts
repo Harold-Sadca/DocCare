@@ -49,8 +49,16 @@ export interface TypeResponseAppointment {
   error?:string;
 }
 
+export interface TypeResponseJuniorNotes {
+  message?:string;
+  result?: TypePatient;
+  error?:string;
+}
 
-export type TPatient = TypeResponseSummary| TypeResponsePatient| TypeResponseMedicalInfo;
+
+export type TPatient = TypeResponseSummary | TypeResponsePatient | TypeResponseMedicalInfo;
+
+export type TUser = TypeDoctor | TypePatient | TypeJuniorDoctor
 
 export type TResponseUser = TypeResponseDoctor | TypeResponseJuniorDoctor| TypeResponsePatient
 
