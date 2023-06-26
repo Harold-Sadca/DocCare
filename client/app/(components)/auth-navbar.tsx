@@ -8,10 +8,20 @@ interface Props {
   auth: string;
 }
 
+function firstLetterUpperCase(text: string) {
+  const arr = text.split('');
+  arr[0] = arr[0].toUpperCase();
+  return arr.join('');
+}
+
 export default function AuthNavbar(props: Props) {
   const navigation = [
     { name: 'Home', href: '/home', current: true },
-    { name: 'Login', href: `/${props.user}/${props.auth}`, current: false },
+    {
+      name: firstLetterUpperCase(props.auth),
+      href: `/${props.user}/${props.auth}`,
+      current: false,
+    },
   ];
 
   function classNames(...classes: any[]) {

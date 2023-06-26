@@ -81,12 +81,11 @@ async function register(user: TUser, type: string): Promise<TResponseUser> {
     path = '/junior-doctor';
   }
   return axios
-    .post(PORT + path, {
-      body: JSON.stringify(user),
+    .post(PORT + path, JSON.stringify(user), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials: true,
     })
     .then((res: AxiosResponse<TResponseUser>) => {
       return res.data;
