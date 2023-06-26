@@ -8,6 +8,13 @@ import {
 } from '../models/methods/doctors';
 
 import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
+import { Doctor } from '../models/schema/Doctor';
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const saltRounds = 12;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+
 
 function createEmptyAvailability() {
   const availability = {} as TypeAvailability;
@@ -16,7 +23,6 @@ function createEmptyAvailability() {
   }
   return availability;
 }
-
 async function createDoctor(req: Request, res: Response) {
   try {
     const {
@@ -30,10 +36,11 @@ async function createDoctor(req: Request, res: Response) {
       gender,
       about,
     } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newDoctor = {
       name,
       email,
-      password,
+      password: hashedPassword,
       specialisation,
       phoneNumber,
       address,
@@ -43,14 +50,43 @@ async function createDoctor(req: Request, res: Response) {
       availability: createEmptyAvailability(),
     } as TypeDoctor;
     const createDoctor = await createDoctorModel(newDoctor);
+    const accessToken = jwt.sign({ id: createDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Doctor account created successfully',
-      result: createDoctor,
+      result: createDoctor, 
+      accessToken,
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a doctor account' });
   }
 }
+
+
+
+async function loginDoctor(req: Request, res: Response) {
+  const { email, password } = req.body;
+  try {
+    const doctor = await Doctor.findOne({ where: { email: email } });
+    if (!doctor) {
+      throw new Error('Patient not found');
+    }
+    const DoctorPassword = doctor.password;
+    if (DoctorPassword === null) {
+      throw new Error('Patient password is null');
+    }
+    const validatedPass = await bcrypt.compare(password, DoctorPassword);
+    if (!validatedPass) {
+      throw new Error('Invalid password');
+    }
+    const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
+    res.status(200).send({ accessToken, doctor });
+  } catch (error) {
+    res.status(401).send({ error: '401', message: 'Username or password is incorrect' });
+  }
+}
+
+
+
 async function getDoctor(req: Request, res: Response) {
   try {
     const doctorId = req.params.id;
@@ -120,4 +156,5 @@ export {
   getDoctors,
   createMedicalInfo,
   createPatientSummary,
+  loginDoctor,
 };
