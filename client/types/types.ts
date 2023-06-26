@@ -6,54 +6,43 @@ import {
   TypeAppointment,
 } from '../../server/types/types';
 
-// export interface TypeResult {
-//   message?: string;
-//   accessToken: string;
-//   error?: string;
-// }
-// export interface TypeResponseJuniorDoctor extends TypeResult {
-//   user: TypeJuniorDoctor;
-// }
-
 export interface TypeLogin {
   email: string;
   password: string;
 }
 
-export interface TypeResponseDoctor {
-  message?: string;
-  result?: TypeDoctor;
+export interface TypeResponse {
+  message: string;
   error?: string;
 }
 
-export interface TypeResult {
-  accessToken: string;
-  user: TypeJuniorDoctor;
+export interface TypeResponseDoctor extends TypeResponse {
+  result: {
+    accessToken: string;
+    user: TypeDoctor;
+  };
 }
-export interface TypeResponseJuniorDoctor {
-  message?: string;
-  result?: {
+
+export interface TypeResponseJuniorDoctor extends TypeResponse {
+  result: {
     accessToken: string;
     user: TypeJuniorDoctor;
-  }
-  error?: string;
-}
-export interface TypeResponsePatient {
-  message?: string;
-  result?: TypePatient;
-  error?: string;
+  };
 }
 
-export interface TypeResponseMedicalInfo {
-  message?: string;
+export interface TypeResponsePatient extends TypeResponse {
+  result: {
+    accessToken: string;
+    user: TypePatient;
+  };
+}
+
+export interface TypeResponseMedicalInfo extends TypeResponse {
   result?: TypeMedicalInfo;
-  error?: string;
 }
 
-export interface TypeResponseSummary {
-  message?: string;
+export interface TypeResponseSummary extends TypeResponse {
   result?: TypeSummary;
-  error?: string;
 }
 
 export interface TypeSummary {
@@ -66,16 +55,12 @@ export interface TypeResponseLastCheckup {
   lastDate: TypeAppointment;
 }
 
-export interface TypeResponseAppointment {
-  message?: string;
+export interface TypeResponseAppointment extends TypeResponse {
   result?: TypeAppointment;
-  error?: string;
 }
 
-export interface TypeResponseJuniorNotes {
-  message?: string;
+export interface TypeResponseJuniorNotes extends TypeResponse {
   result?: TypePatient;
-  error?: string;
 }
 
 export type TPatient =
@@ -83,11 +68,16 @@ export type TPatient =
   | TypeResponsePatient
   | TypeResponseMedicalInfo;
 
-export type TUser = TypeDoctor | TypePatient | TypeJuniorDoctor;
+// export type TUser = TypeDoctor | TypePatient | TypeJuniorDoctor;
+export type TUser = Partial<
+  Extract<TypeDoctor | TypePatient | TypeJuniorDoctor, {}>
+>;
 
-export type TResponseUser =
-  | TypeResponseDoctor
-  | TypeResponseJuniorDoctor
-  | TypeResponsePatient;
+export type TResponseUser = Partial<
+  Extract<
+    TypeResponseDoctor | TypeResponseJuniorDoctor | TypeResponsePatient,
+    {}
+  >
+>;
 
 export type TRMedicalSummary = TypeMedicalInfo | TypeSummary;

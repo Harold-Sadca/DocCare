@@ -1,22 +1,3 @@
-// export default function Navbar () {
-
-//   return (
-//     <div>
-//       <div>
-//         <p>DocCare</p>
-//       </div>
-//       <div>
-//         <ul>
-//           <li>Home</li>
-//           <li>Patient</li>
-//           <li>Doctor</li>
-//           <li>Junior Doctor</li>
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// }
-
 'use client';
 
 import { Fragment } from 'react';
@@ -54,16 +35,16 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
-                <div className='flex flex-shrink-0 items-center'>
+                <div className='flex flex-shrink-0 items-center justify-center'>
                   <Image
-                    className='block h-28 w-auto lg:hidden'
+                    className='block h-14 w-auto lg:hidden'
                     src='/logo-dark.png'
                     alt='Your Company'
                     width='800'
                     height='800'
                   />
                   <Image
-                    className='hidden h-28 w-auto lg:block'
+                    className='hidden h-14 w-auto lg:block'
                     src='/logo-dark.png'
                     alt='Your Company'
                     width='800'
@@ -104,11 +85,11 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className='flex rounded-full bg-primary text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                       <span className='sr-only'>Open user menu</span>
-                      <img
+                      {/* <img
                         className='h-8 w-8 rounded-full'
                         src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                         alt=''
-                      />
+                      /> */}
                     </Menu.Button>
                   </div>
                   <Transition

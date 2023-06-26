@@ -16,5 +16,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <body className={roboto.className}>{children}</body>;
+  return (
+    <html lang='en'>
+      <body className={roboto.className}>{children}</body>
+    </html>
+  );
 }

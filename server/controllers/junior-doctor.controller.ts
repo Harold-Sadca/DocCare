@@ -23,6 +23,7 @@ async function createJuniorDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
     } = req.body;
+    console.log(req.body);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newJuniorDoctor = {
       name,
@@ -35,10 +36,11 @@ async function createJuniorDoctor(req: Request, res: Response) {
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);
     const accessToken = jwt.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
+    console.log(createJuniorDoctor);
+    console.log(accessToken);
     res.status(201).json({
       message: 'Junior doctor account created successfully',
-      result: createJuniorDoctor,
-      accessToken,
+      result: { createJuniorDoctor, accessToken },
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a junior doctor account' });
@@ -46,21 +48,23 @@ async function createJuniorDoctor(req: Request, res: Response) {
 }
 
 async function loginJuniorDoctor(req: Request, res: Response) {
-  console.log(req.body);
   const { email, password } = req.body;
   try {
+    console.log(req.body);
+    console.log(email);
     const jrDoctor = await JuniorDoctorDB.findOne({ where: { email: email } });
     logger.info({ jrDoctor });
     if (!jrDoctor) {
-      throw new Error('Patient not found');
+      console.log('Junior doctor not found');
+      throw new Error('Junior doctor not found');
     }
     const juniorDoctorPassword = jrDoctor.password;
     if (juniorDoctorPassword === null) {
-      throw new Error('Patient password is null');
+      throw new Error('Invalid credentials');
     }
     const validatedPass = await bcrypt.compare(password, juniorDoctorPassword);
     if (!validatedPass) {
-      throw new Error('Invalid password');
+      throw new Error('Invalid credentials');
     }
     const accessToken = jwt.sign({ id: jrDoctor.id }, SECRET_KEY);
     res.status(200).json({
