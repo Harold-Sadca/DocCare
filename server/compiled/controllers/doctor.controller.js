@@ -112,8 +112,6 @@ function getDoctors(req, res) {
 exports.getDoctors = getDoctors;
 function createMedicalInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('got here');
-        console.log(req.body);
         try {
             const { prescription, doctorNote, doctorName } = req.body;
             const patientId = req.params.id;

@@ -18,6 +18,7 @@ const index_1 = __importDefault(require(".././models/schema/index"));
 const PatientDB = index_1.default.Patient;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const logger_1 = __importDefault(require("../logger"));
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 function createPatient(req, res) {
@@ -98,6 +99,7 @@ function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patients = yield (0, patients_1.getPatientsModel)();
+            logger_1.default.info(patients);
             res.status(200).send(patients);
         }
         catch (error) {

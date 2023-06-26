@@ -5,6 +5,7 @@ import { Appointment } from '../schema/Appointment';
 import { Message } from '../schema/Message';
 import { MedicalInfo } from '../schema/MedicalInfo';
 import { Doctor } from '../schema/Doctor';
+import logger from '../../logger';
 
 const PatientDB = db.Patient;
 const AppointmentDB = db.Appointment;
@@ -64,11 +65,6 @@ async function getPatientsModel() {
           required:false
         },
         {
-          model: MedicalInfo,
-          as: 'medicalInfo',
-          required:false
-        },
-        {
           model: Appointment,
           as: 'patientAppointments',
           required:false,
@@ -84,6 +80,7 @@ async function getPatientsModel() {
         {
           model: MedicalInfo,
           as: 'medicalInfo',
+          required:false
         },
       ],
     });

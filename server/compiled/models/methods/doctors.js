@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
 const Appointment_1 = require("../schema/Appointment");
+const logger_1 = __importDefault(require("../../logger"));
 const DoctorDB = index_1.default.Doctor;
 const PatientDB = index_1.default.Patient;
 const MedicalInfoDB = index_1.default.MedicalInfo;
@@ -73,7 +74,10 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
+            logger_1.default.info(patient);
+            //TODO:its failing here...
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
+            logger_1.default.info('here');
             patient.setMedicalInfo(medicalInfo);
             yield medicalInfo.save();
             // await patient.save();

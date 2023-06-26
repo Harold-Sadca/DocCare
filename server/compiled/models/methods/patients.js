@@ -82,11 +82,6 @@ function getPatientsModel() {
                         required: false
                     },
                     {
-                        model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
-                        required: false
-                    },
-                    {
                         model: Appointment_1.Appointment,
                         as: 'patientAppointments',
                         required: false,
@@ -102,6 +97,7 @@ function getPatientsModel() {
                     {
                         model: MedicalInfo_1.MedicalInfo,
                         as: 'medicalInfo',
+                        required: false
                     },
                 ],
             });
