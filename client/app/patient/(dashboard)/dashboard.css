@@ -4,7 +4,6 @@
   grid-template-columns: repeat(3, [col-start] 1fr);
   grid-template-rows: repeat(3, [col-start] 1fr);
   grid-gap: 10px;
-
 }
 
 
@@ -24,7 +23,7 @@ align-self: center;
 }
 
 .appoitment-box{
-  margin-top: 30px;
+  margin-top: 20px;
   grid-column:  col-start 2/ span 1;
   grid-row: col-start 1/ span 1;
   justify-self: center;
@@ -32,9 +31,8 @@ align-self: center;
 }
 
 .doctor-list-box{
-  margin-top: 30px;
-  justify-self: center;
-  align-self: center;
+justify-self: center;
+align-self: center;
  grid-column:col-start 3/ span 1;
  grid-row: col-start 1/ span 2;
 }
