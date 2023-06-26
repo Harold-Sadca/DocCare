@@ -26,7 +26,7 @@ export default function Main() {
               />
             </div>
             <div className='flex flex-col items-center justify-center'>
-              <h1>Connect wight top Rated Doctors</h1>
+              <h1>Connect with top Rated Doctors</h1>
               <h2>Convenient way to get diagnosed quickly</h2>
               <div>
                 <button className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'>
