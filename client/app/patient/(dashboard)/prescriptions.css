@@ -1,0 +1,11 @@
+
+
+.prescriptions-container{
+    height: 300px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+}

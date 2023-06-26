@@ -1,7 +1,25 @@
-main{
-display: flex;
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
 }
 
-.appoitments-box{
-margin-top: 30px;
+
+.profile-box {
+  grid-column: 1 / span 1;
+}
+
+.last-checkup-box {
+  grid-column: 2 / span 1;
+  margin-top: 20px;
+}
+
+.prescriptions-box {
+  grid-column: 2 / span 1;
+  grid-row: 3; 
+}
+
+.appointment-box {
+  grid-column: 3;
 }
