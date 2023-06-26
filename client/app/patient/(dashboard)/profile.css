@@ -1,7 +1,9 @@
 .about-patient{
 color: black;
 display: flex;
-
+flex-direction: column;
+justify-content: center;
+align-items: center;
 }
 
 .about-patient img{
@@ -20,4 +22,6 @@ box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
 border-radius: 10%;
 margin-top: 30px;
 margin-left: 20px;
+display: flex;
+flex-direction: column;
 }
