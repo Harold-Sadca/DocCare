@@ -13,8 +13,10 @@ const db = new Sequelize(
     host: 'localhost',
     port: 3306,
     dialect: 'mysql',
-  }
+  },
 );
+
+
 
 const { Message, Appointment, Doctor, JuniorDoctor, MedicalInfo, Patient } =
   initModels(db);
