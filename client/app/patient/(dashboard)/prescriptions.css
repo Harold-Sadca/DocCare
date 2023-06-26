@@ -6,6 +6,8 @@
     border-radius: 10%;
     flex-direction: column;
     margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .prescriptions-container h1{
@@ -17,13 +19,18 @@
     font-size: 20px;   
 }
 
+
 .each-medication-container{
-/* margin-left: 30px; */
+margin-left: 30px;
 color: #D7B765;
 background-color: #FBF9F1;
 width: 70px;
 height: 70px;
 flex-direction: column;
 display: flex;
-flex-wrap: wrap;
+align-items: center;
+}
+
+.each-medication-container img{
+width:40px;
 }

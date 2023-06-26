@@ -9,7 +9,7 @@ export default function Appoitments() {
       <div className="appoitment-list">
        <div className="appoitment-list-container">
        <div className="each-appoitment">
-        <img src='../../../public/checkup-emoji.png'></img>
+        <img src='/checkup-emoji.png'/>
         <div className="each-appoitment-text">
         <h2>Check up</h2>
         <p>Aug 18</p>

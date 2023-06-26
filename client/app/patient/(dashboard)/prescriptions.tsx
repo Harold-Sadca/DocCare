@@ -7,7 +7,7 @@ export default function Prescriptions() {
       <div className="prescriptions-container">
        <h1>Your Medications</h1>
        <div className="each-medication-container">
-        <img></img>
+       <img src='/medicine-emoji.png'/>
         <p>Aderal</p>
        </div>
       </div>
