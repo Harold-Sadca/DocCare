@@ -51,21 +51,23 @@ function createJuniorDoctor(req, res) {
 exports.createJuniorDoctor = createJuniorDoctor;
 function loginJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.body);
         const { email, password } = req.body;
         try {
+            console.log(req.body);
+            console.log(email);
             const jrDoctor = yield JuniorDoctorDB.findOne({ where: { email: email } });
             logger_1.default.info({ jrDoctor });
             if (!jrDoctor) {
-                throw new Error('Patient not found');
+                console.log('Junior doctor not found');
+                throw new Error('Junior doctor not found');
             }
             const juniorDoctorPassword = jrDoctor.password;
             if (juniorDoctorPassword === null) {
-                throw new Error('Patient password is null');
+                throw new Error('Invalid credentials');
             }
             const validatedPass = yield bcrypt_1.default.compare(password, juniorDoctorPassword);
             if (!validatedPass) {
-                throw new Error('Invalid password');
+                throw new Error('Invalid credentials');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: jrDoctor.id }, SECRET_KEY);
             res.status(200).json({

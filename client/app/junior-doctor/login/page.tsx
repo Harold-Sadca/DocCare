@@ -6,10 +6,12 @@ import React, { FormEvent, useState } from 'react';
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
+import { useRouter } from 'next/navigation';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
 export default function Login() {
+  const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
@@ -38,14 +40,14 @@ export default function Login() {
     console.log({ result });
     if (error) {
       alert(`${error}`);
-      // setState(initialState);
     } else {
-      // res = message, result, error
-      // localStorage.setItem('accessToken', result);
-      // setIsAuthenticated(true);
-      // updateUser(user);
-      // navigate('/profile');
+      if (result) {
+        localStorage.setItem('accessToken', result.accessToken);
+        router.push('/');
+        // setIsAuthenticated(true);
+      }
     }
+    setState(initialState);
   };
   return (
     <>

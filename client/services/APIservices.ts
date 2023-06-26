@@ -102,15 +102,17 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
   } else if (type == 'junior-doctor') {
     path = '/junior-doctor';
   }
+  console.log(user);
+  console.log(type);
   return axios
-    .post(PORT + path + '/login', {
-      body: JSON.stringify(user),
+    .post(PORT + path + '/login', JSON.stringify(user), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials: true,
     })
     .then((res: AxiosResponse<TResponseUser>) => {
+      console.log(res);
       return res.data;
     });
 }
