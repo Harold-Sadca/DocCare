@@ -3,14 +3,17 @@ import { Form, Input } from 'antd';
 
 import React, { FormEvent, useState } from 'react';
 
-import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
 import { useRouter } from 'next/navigation';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
-export default function Login(props: any) {
+interface Props {
+  user: string
+}
+
+export default function Login(props: Props) {
   const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
@@ -51,7 +54,6 @@ export default function Login(props: any) {
   };
   return (
     <>
-      <Navbar />
       <div className='flex min-h-screen flex-col'>
         <div className='grid grid-cols-2 gap-4 h-screen'>
           <div className='flex flex-col items-center justify-evenly'>
