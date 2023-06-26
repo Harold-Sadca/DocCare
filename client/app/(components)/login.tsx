@@ -5,16 +5,16 @@ import React, { FormEvent, useState } from 'react';
 
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
 interface Props {
-  user: string
+  user: string;
 }
 
 export default function Login(props: Props) {
-  const router = useRouter();
+  // const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
@@ -25,6 +25,7 @@ export default function Login(props: Props) {
 
   const initialState = { email: '', password: '' };
   const [state, setState] = useState(initialState);
+  const [formError, setFormError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,11 +43,12 @@ export default function Login(props: Props) {
     const { message, result, error } = data;
     console.log({ result });
     if (error) {
-      alert(`${error}`);
+      setFormError(`${error}`);
     } else {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
-        router.push('/');
+        setFormError('');
+        // router.push('/');
         // setIsAuthenticated(true);
       }
     }
@@ -58,11 +60,11 @@ export default function Login(props: Props) {
         <div className='grid grid-cols-2 gap-4 h-screen'>
           <div className='flex flex-col items-center justify-evenly'>
             <div className='flex flex-row items-start justify-start'>
-              <img
+              {/* <img
                 className='h-auto w-44 rounded'
                 src='/doctor-mobile.png'
                 alt='Your Company'
-              />
+              /> */}
             </div>
           </div>
           <div className='flex flex-col items-center justify-center'>
@@ -100,6 +102,7 @@ export default function Login(props: Props) {
                   required
                 />
               </Form.Item>
+              {formError && <p className='error-message'>{formError}</p>}
               <button
                 className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
                 type='submit'

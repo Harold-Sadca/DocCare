@@ -72,6 +72,7 @@ async function fetchData(path: string) {
 // patientRouter.post('/patient/appointment/:id', createAppointment); DONE
 
 async function register(user: TUser, type: string): Promise<TResponseUser> {
+  console.log(user);
   let path;
   if (type == 'doctor') {
     path = '/doctor';
@@ -81,14 +82,14 @@ async function register(user: TUser, type: string): Promise<TResponseUser> {
     path = '/junior-doctor';
   }
   return axios
-    .post(PORT + path, {
-      body: JSON.stringify(user),
+    .post(PORT + path + '/register', JSON.stringify(user), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials: true,
     })
     .then((res: AxiosResponse<TResponseUser>) => {
+      console.log(res);
       return res.data;
     });
 }
