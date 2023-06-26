@@ -1,4 +1,4 @@
-/* .appoitments-container{
+.checkups-container{
     height: 200px;
     width: 300px;
     background-color: white;
@@ -9,7 +9,7 @@
     flex-direction: column;
 }
 
-.appoitments-container h1{
+.checkups-container h1{
 margin-left: 20px;
 margin-top: 10px;
 margin-bottom: 10px;
@@ -18,7 +18,7 @@ font-weight:bold;
 font-size: 20px;
 }
 
-.appoitment-list-container{
+.checkup-list-container{
     height: fit-content;
     width: 230px;
     padding-left: 20px;
@@ -34,11 +34,11 @@ font-size: 20px;
     /* flex-wrap: wrap;
     align-items: flex-start; 
     justify-content: space-between;  */
-/* }
+}
 
 
-.appoitment-list-container h2{
+.checkup-list-container h2{
 color: #1F4F5B;
 font-weight: 400;
 font-size: 20px;
-}  */
+}
