@@ -16,6 +16,15 @@ export default function Appoitments() {
         </div>
        </div>
        </div>
+       <div className="appoitment-list-container">
+       <div className="other-appoitment">
+        <img src='/checkup-emoji.png'/>
+        <div className="other-appoitment-text">
+        <h2>ANOTHER one</h2>
+        <p>Nov 28</p>
+        </div>
+        </div>
+       </div>
       </div>
       </div>
     </main>

@@ -8,7 +8,15 @@
     margin-left: 20px;
     display: flex;
     flex-direction: column; 
+    overflow-x: scroll;
 }
+
+
+
+::-webkit-scrollbar{
+    display: none;
+    }
+
 
 .doctor-list-container h1{
     margin-left: 20px;
