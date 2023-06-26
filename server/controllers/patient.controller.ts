@@ -10,6 +10,14 @@ import {
   deleteAppointmentModel,
 } from '../models/methods/patients';
 import { TypeAppointment } from '../types/types';
+import db from '.././models/schema/index';
+const PatientDB = db.Patient;
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+const saltRounds = 12;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
+
 
 async function createPatient(req: Request, res: Response) {
   try {
@@ -23,10 +31,11 @@ async function createPatient(req: Request, res: Response) {
       gender,
       conditions,
     } = req.body;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newPatient = {
       name,
       email,
-      password,
+      password: hashedPassword,
       phoneNumber,
       address,
       dateOfBirth,
@@ -34,14 +43,39 @@ async function createPatient(req: Request, res: Response) {
       conditions,
     };
     const createPatient = await createPatientModel(newPatient);
+    const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Patient account created successfully',
       result: createPatient,
+      accessToken,
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a patient account' });
   }
 }
+
+async function loginPatient(req: Request, res: Response) {
+const { email, password } = req.body;
+try {
+const patient = await PatientDB.findOne({ where: { email: email } });
+if (!patient) {
+throw new Error('Patient not found');
+}
+const patientPassword = patient.password;
+if (!patientPassword) {
+throw new Error('Patient password is null');
+}
+const validatedPass = await bcrypt.compare(password, patientPassword);
+if (!validatedPass) {
+throw new Error('Invalid password');
+}
+const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
+res.status(200).json({ accessToken, patient });
+} catch (error) {
+res.status(401).json({ error: 'Username or password is incorrect' });
+}
+}
+
 async function getPatient(req: Request, res: Response) {
   try {
     const id = req.params.id;
