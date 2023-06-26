@@ -10,6 +10,7 @@ export default function Home() {
         <div className='flex flex-col items-center justify-evenly'>
           <div className='flex flex-row items-start justify-start'>
             <Image
+              priority={true}
               className='block h-28 w-auto lg:hidden'
               src='/logo-light.png'
               alt='Your Company'
@@ -17,6 +18,7 @@ export default function Home() {
               height='800'
             />
             <Image
+              priority={true}
               className='hidden h-28 w-auto lg:block'
               src='/logo-light.png'
               alt='Your Company'
