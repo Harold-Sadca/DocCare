@@ -12,10 +12,11 @@ import {
   Switch,
   TreeSelect,
   Upload,
+  message,
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Navbar from './navbar';
@@ -43,7 +44,34 @@ export default function Register() {
     licenseNumber: '',
   };
   const [state, setState] = useState(initialState);
-  const [formError, setFormError] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
+  const key = 'updatable';
+
+  const openMessage = () => {
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
+    setTimeout(() => {
+      messageApi.open({
+        key,
+        type: 'success',
+        content: messageContent,
+        duration: 2,
+      });
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (messageContent) {
+      openMessage();
+    }
+  }, [messageContent]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement> | RadioChangeEvent
@@ -63,13 +91,11 @@ export default function Register() {
     const { message, result, error } = data;
     console.log({ result });
     if (error) {
-      setFormError(`${error}`);
+      setMessageContent(error);
     } else {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
-        setFormError('');
-        console.log(result);
-        router.push('/');
+        setMessageContent(message as string);
         // setIsAuthenticated(true);
       }
     }
@@ -78,6 +104,7 @@ export default function Register() {
   return (
     <>
       <Navbar />
+      {contextHolder}
       <div className='flex min-h-screen flex-col items-center justify-center'>
         <h2 className='font-bold text-2xl text-primary'>Register</h2>
         <h3>Explore the future with us.</h3>
@@ -180,7 +207,6 @@ export default function Register() {
                 </div>
               </Upload>
             </Form.Item>
-            {formError && <p className='error-message'>{formError}</p>}
             <button
               className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
               type='submit'
