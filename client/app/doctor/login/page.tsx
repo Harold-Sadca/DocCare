@@ -14,10 +14,11 @@ import {
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
+import apiService from '@/services/APIservices';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -28,6 +29,36 @@ export default function Login() {
 
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
+  };
+
+  const initialState = { email: '', password: '' };
+  const [state, setState] = useState(initialState);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log({ name });
+    console.log({ value });
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
+    // e.preventDefault();
+    const data = await apiService.login(state, 'junior-doctor');
+    const { message, result, error } = data;
+    console.log({ result });
+    if (error) {
+      alert(`${error}`);
+      // setState(initialState);
+    } else {
+      // res = message, result, error
+      // localStorage.setItem('accessToken', result);
+      // setIsAuthenticated(true);
+      // updateUser(user);
+      // navigate('/profile');
+    }
   };
   return (
     <>

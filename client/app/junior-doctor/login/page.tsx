@@ -6,6 +6,7 @@ import React, { FormEvent, useState } from 'react';
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
+import logger from '../../../../server/logger';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -35,7 +36,8 @@ export default function Login() {
     // e.preventDefault();
     const data = await apiService.login(state, 'junior-doctor');
     const { message, result, error } = data;
-    console.log({ result });
+    // logger.info({ result })
+    // console.log({ result });
     if (error) {
       alert(`${error}`);
       // setState(initialState);

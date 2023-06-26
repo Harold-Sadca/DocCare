@@ -32,7 +32,10 @@ export interface TypeResult {
 }
 export interface TypeResponseJuniorDoctor {
   message?: string;
-  result?: TypeResult;
+  result?: {
+    accessToken: string;
+    user: TypeJuniorDoctor;
+  }
   error?: string;
 }
 export interface TypeResponsePatient {
