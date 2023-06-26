@@ -7,6 +7,7 @@ import {
   Input,
   InputNumber,
   Radio,
+  RadioChangeEvent,
   Select,
   Switch,
   TreeSelect,
@@ -37,20 +38,22 @@ export default function Register() {
     email: '',
     password: '',
     name: '',
-    phoneNumber: '',
     address: '',
+    phoneNumber: '',
     licenseNumber: '',
   };
   const [state, setState] = useState(initialState);
   const [formError, setFormError] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement> | RadioChangeEvent
+  ) => {
     const { name, value } = e.target;
     console.log({ name });
     console.log({ value });
     setState((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name as string]: value,
     }));
   };
 
@@ -65,6 +68,7 @@ export default function Register() {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
         setFormError('');
+        console.log(result);
         // router.push('/');
         // setIsAuthenticated(true);
       }
@@ -120,11 +124,11 @@ export default function Register() {
                 required
               />
             </Form.Item>
-            <Form.Item label='Phone Number' htmlFor='phone'>
+            <Form.Item label='Phone Number' htmlFor='phoneNumber'>
               <Input
                 type='tel'
-                id='phone'
-                name='phone'
+                id='phoneNumber'
+                name='phoneNumber'
                 value={state.phoneNumber}
                 onChange={(e) => handleChange(e)}
                 required
@@ -140,11 +144,11 @@ export default function Register() {
                 required
               />
             </Form.Item>
-            <Form.Item label='License Number' htmlFor='license'>
+            <Form.Item label='License Number' htmlFor='licenseNumber'>
               <Input
                 type='text'
-                id='license'
-                name='license'
+                id='licenseNumber'
+                name='licenseNumber'
                 value={state.licenseNumber}
                 onChange={(e) => handleChange(e)}
                 required
@@ -152,10 +156,18 @@ export default function Register() {
             </Form.Item>
             <Form.Item label='Gender' htmlFor='gender'>
               <Radio.Group id='gender' name='gender'>
-                <Radio id='male' value='male'>
+                <Radio
+                  id='male'
+                  value='male'
+                  onChange={(value) => handleChange(value)}
+                >
                   Male
                 </Radio>
-                <Radio id='female' value='female'>
+                <Radio
+                  id='female'
+                  value='female'
+                  onChange={(value) => handleChange(value)}
+                >
                   Female
                 </Radio>
               </Radio.Group>
@@ -168,6 +180,7 @@ export default function Register() {
                 </div>
               </Upload>
             </Form.Item>
+            {formError && <p className='error-message'>{formError}</p>}
             <button
               className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
               type='submit'

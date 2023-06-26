@@ -23,6 +23,7 @@ async function createJuniorDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
     } = req.body;
+    console.log(req.body);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newJuniorDoctor = {
       name,
@@ -35,10 +36,11 @@ async function createJuniorDoctor(req: Request, res: Response) {
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);
     const accessToken = jwt.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
+    console.log(createJuniorDoctor);
+    console.log(accessToken);
     res.status(201).json({
       message: 'Junior doctor account created successfully',
-      result: createJuniorDoctor,
-      accessToken,
+      result: { createJuniorDoctor, accessToken },
     });
   } catch (error) {
     res.status(400).json({ error: 'Failed to create a junior doctor account' });
