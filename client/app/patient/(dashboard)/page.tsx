@@ -3,10 +3,14 @@ import Profile from "./profile";
 import Appoitments from "./appoitments";
 import Prescriptions from "./prescriptions";
 import DoctorList from "./doctor-list";
+import AuthNavbar from '@/app/(components)/auth-navbar';
+
 // import Cal from './calendar'
 
 export default function Patient() {
   return (
+    <div>
+    <AuthNavbar user={'patient'} auth={'login'} />;
     <main className="grid-container">
       <div className="profile-box">
         <Profile />
@@ -23,5 +27,6 @@ export default function Patient() {
 
       {/* <Cal cellRender={cellRender} /> */}
     </main>
+    </div>
   );
 }

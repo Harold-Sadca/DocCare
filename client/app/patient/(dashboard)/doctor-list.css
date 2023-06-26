@@ -25,6 +25,7 @@
     object-fit: cover;
     border-radius: 50%;
     margin-top: 20px;
+    margin-left: 10px;
 }
 
 .each-doctor h2{
@@ -41,18 +42,16 @@ color: #A266B5;
 .doctor-list{
     height: fit-content;
     width: 230px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     border-radius: 10px;
     background-color:#F5ECF7 ;
     margin-left: 20px;
-    border: 1px solid #A266B5;
     box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
 }
 
 .each-doctor{
 display: flex;
 flex-direction: row;
+align-items: center;
 }
