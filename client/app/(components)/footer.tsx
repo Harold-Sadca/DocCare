@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Footer() {
   return (
-    <div className='bg-cyan-900 fixed bottom-0 w-full'>
+    <div className='bg-primary  bottom-0 w-full'>
       <div className='mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8'>
         <div className='lg:flex lg:items-start lg:gap-8'>
           <div className='text-teal-600'>

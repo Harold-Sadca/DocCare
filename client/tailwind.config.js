@@ -18,6 +18,8 @@ module.exports = {
         'primary': '#1f4f5b',
         'secondary': '#f0f6fc',
         'tertiary': '#a266b5',
+        'tertiary-dark': '#914ea6',
+        'primary-dark': 'rgba(22, 78, 99, 0.596)'
 
         // 'white': '#f0f6fc'
       }
