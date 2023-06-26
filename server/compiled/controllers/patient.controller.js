@@ -8,17 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
+exports.loginPatient = exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
 const patients_1 = require("../models/methods/patients");
+const index_1 = __importDefault(require(".././models/schema/index"));
+const PatientDB = index_1.default.Patient;
+const bcrypt_1 = __importDefault(require("bcrypt"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const saltRounds = 12;
+const SECRET_KEY = process.env.SECRET_KEY || "default_secret_key";
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, dateOfBirth, gender, conditions, } = req.body;
+            const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newPatient = {
                 name,
                 email,
-                password,
+                password: hashedPassword,
                 phoneNumber,
                 address,
                 dateOfBirth,
@@ -26,9 +36,11 @@ function createPatient(req, res) {
                 conditions,
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
+            const accessToken = jsonwebtoken_1.default.sign({ id: createPatient.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Patient account created successfully',
                 result: createPatient,
+                accessToken,
             });
         }
         catch (error) {
@@ -37,6 +49,31 @@ function createPatient(req, res) {
     });
 }
 exports.createPatient = createPatient;
+function loginPatient(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const { email, password } = req.body;
+        try {
+            const patient = yield PatientDB.findOne({ where: { email: email } });
+            if (!patient) {
+                throw new Error('Patient not found');
+            }
+            const patientPassword = patient.password;
+            if (!patientPassword) {
+                throw new Error('Patient password is null');
+            }
+            const validatedPass = yield bcrypt_1.default.compare(password, patientPassword);
+            if (!validatedPass) {
+                throw new Error('Invalid password');
+            }
+            const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
+            res.status(200).json({ accessToken, patient });
+        }
+        catch (error) {
+            res.status(401).json({ error: 'Username or password is incorrect' });
+        }
+    });
+}
+exports.loginPatient = loginPatient;
 function getPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

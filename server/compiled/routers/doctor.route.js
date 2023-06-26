@@ -1,17 +1,14 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.doctorRouter = void 0;
-const express_1 = __importDefault(require("express"));
-const express_2 = require("express");
+const express_1 = require("express");
 const doctor_controller_1 = require("../controllers/doctor.controller");
-const app = (0, express_1.default)();
-const doctorRouter = (0, express_2.Router)();
+const authentication_1 = require("../middleware/authentication");
+const doctorRouter = (0, express_1.Router)();
 exports.doctorRouter = doctorRouter;
-doctorRouter.post('/doctor', doctor_controller_1.createDoctor);
+doctorRouter.post('/doctor/register', doctor_controller_1.createDoctor);
+doctorRouter.post('/doctor/login', doctor_controller_1.loginDoctor);
 doctorRouter.get('/doctor/:id', doctor_controller_1.getDoctor);
 doctorRouter.get('/doctors', doctor_controller_1.getDoctors);
-doctorRouter.put('/doctor/medical-info/:id', doctor_controller_1.createMedicalInfo);
-doctorRouter.put('/doctor/summary/:id', doctor_controller_1.createPatientSummary);
+doctorRouter.post('/doctor/:id/medical-info', authentication_1.doctorAuthMiddleware, doctor_controller_1.createMedicalInfo);
+doctorRouter.put('/doctor/summary', authentication_1.doctorAuthMiddleware, doctor_controller_1.createPatientSummary);
