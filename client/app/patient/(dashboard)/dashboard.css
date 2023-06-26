@@ -1,27 +1,40 @@
 .grid-container{
+  height: 100vh;
   display: grid;
-  grid-template-columns: repeat(5, [col-start] 1fr);
+  grid-template-columns: repeat(3, [col-start] 1fr);
   grid-template-rows: repeat(3, [col-start] 1fr);
+  grid-gap: 10px;
+
 }
 
 
 .profile-box{
 grid-column: col-start 1/ span 1;
 grid-row: col-start 1/ span 3;
+justify-self: center;
+align-self: center;
 }
 
 
 .prescriptions-box{
   grid-column:  col-start 2/ span 1;
   grid-row: col-start 2/ span 1;
+  justify-self: center;
+  align-self: center;
 }
 
 .appoitment-box{
+  margin-top: 30px;
   grid-column:  col-start 2/ span 1;
   grid-row: col-start 1/ span 1;
+  justify-self: center;
+  align-self: center;
 }
 
 .doctor-list-box{
- grid-column:col-start 4/ span 1;
- grid-row: col-start 1/ span 1;
+  margin-top: 30px;
+  justify-self: center;
+  align-self: center;
+ grid-column:col-start 3/ span 1;
+ grid-row: col-start 1/ span 2;
 }
