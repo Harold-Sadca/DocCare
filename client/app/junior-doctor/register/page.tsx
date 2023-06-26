@@ -16,7 +16,7 @@ import {
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 import React, { FormEvent, useState } from 'react';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
@@ -25,7 +25,7 @@ import apiService from '@/services/APIservices';
 type SizeType = Parameters<typeof Form>[0]['size'];
 
 export default function Register() {
-  // const router = useRouter();
+  const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
@@ -69,7 +69,7 @@ export default function Register() {
         localStorage.setItem('accessToken', result.accessToken);
         setFormError('');
         console.log(result);
-        // router.push('/');
+        router.push('/');
         // setIsAuthenticated(true);
       }
     }
