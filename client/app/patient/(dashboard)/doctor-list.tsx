@@ -1,0 +1,21 @@
+import "./doctor-list.css";
+
+
+export default function DoctorList() {
+  return (
+    <main>
+      <div className="doctor-list-container">
+      <h1>Your Doctors</h1>
+      <div className="doctor-list">
+       <div className="each-doctor">
+       <div>
+        <img src="https://images.pexels.com/photos/4270088/pexels-photo-4270088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"></img>
+        <h2>Michaela Hans</h2>
+        <p>Dentist</p>
+       </div>
+       </div>
+      </div>
+      </div>
+    </main>
+  );
+}
