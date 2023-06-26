@@ -10,10 +10,6 @@
   grid-column: 1 / span 1;
 }
 
-.last-checkup-box {
-  grid-column: 2 / span 1;
-  margin-top: 20px;
-}
 
 .prescriptions-box {
   grid-column: 2 / span 1;
@@ -21,5 +17,6 @@
 }
 
 .appointment-box {
-  grid-column: 3;
+  grid-column: 2;
+  margin-top: 20px;
 }
