@@ -93,4 +93,4 @@ async function createJuniorNote(req: Request, res: Response) {
   }
 }
 
-export { createJuniorDoctor, getJuniorDoctor, createJuniorNote };
+export { createJuniorDoctor, getJuniorDoctor, createJuniorNote ,loginJuniorDoctor};
