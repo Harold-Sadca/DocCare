@@ -16,7 +16,7 @@ export default function Users() {
             height='800'
           />
           <Link
-            href='/patient'
+            href='/patient/login'
             className='bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 m-2 rounded'
           >
             Start
@@ -35,7 +35,7 @@ export default function Users() {
             height='800'
           />
           <Link
-            href='/junior-doctor'
+            href='/junior-doctor/login'
             className='bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 m-2 rounded'
           >
             Start
@@ -52,7 +52,7 @@ export default function Users() {
             height='800'
           />
           <Link
-            href='/doctor'
+            href='/doctor/login'
             className='bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 m-2 rounded'
           >
             Start
