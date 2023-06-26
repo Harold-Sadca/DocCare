@@ -11,9 +11,9 @@ import {
   loginPatient,
 } from '../controllers/patient.controller';
 import { patientAuthMiddleware } from '../middleware/authentication';
-import { Patient } from '../models/schema/Patient';
 
-const app = express();
+
+
 const patientRouter = Router();
 
 
