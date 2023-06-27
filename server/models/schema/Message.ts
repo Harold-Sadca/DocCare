@@ -20,7 +20,7 @@ export class Message extends Model<
   InferAttributes<Message, {omit: MessageAssociations}>,
   InferCreationAttributes<Message, {omit: MessageAssociations}>
 > {
-  declare id: CreationOptional<number>
+  declare id: CreationOptional<string>
   declare content: string | null
   declare date: string | null
   declare createdAt: CreationOptional<Date>

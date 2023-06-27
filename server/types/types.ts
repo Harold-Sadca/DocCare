@@ -81,7 +81,7 @@ export interface TypeMedicalInfo {
 export interface TypeMessage {
   id?: string;
   content: string;
-  date: Date;
+  date: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

@@ -1,5 +1,8 @@
 import {
   Association,
+  BelongsToGetAssociationMixin,
+  BelongsToSetAssociationMixin,
+  BelongsToCreateAssociationMixin,
   CreationOptional,
   DataTypes,
   HasManyGetAssociationsMixin,
@@ -19,15 +22,16 @@ import {
   InferAttributes,
   Model,
   NonAttribute,
-  Sequelize,
+  Sequelize
 } from 'sequelize';
 import type { Appointment } from './Appointment';
 import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
 type PatientAssociations =
-  | 'patientMessages'
+  | 'patientSentMessages'
   | 'patientAppointments'
-  | 'medicalInfo';
+  | 'medicalInfo'
+  | 'patientReceivedMessage';
 
 export class Patient extends Model<
   InferAttributes<Patient, { omit: PatientAssociations }>,
@@ -54,21 +58,18 @@ export class Patient extends Model<
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
-  // Patient hasMany Message (as PatientMessages)
-  declare patientMessages?: NonAttribute<Message[]>;
-  declare getPatientMessages: HasManyGetAssociationsMixin<Message>;
-  declare setPatientMessages: HasManySetAssociationsMixin<Message, number>;
-  declare addPatientMessage: HasManyAddAssociationMixin<Message, number>;
-  declare addPatientMessages: HasManyAddAssociationsMixin<Message, number>;
-  declare createPatientMessage: HasManyCreateAssociationMixin<Message>;
-  declare removePatientMessage: HasManyRemoveAssociationMixin<Message, number>;
-  declare removePatientMessages: HasManyRemoveAssociationsMixin<
-    Message,
-    number
-  >;
-  declare hasPatientMessage: HasManyHasAssociationMixin<Message, number>;
-  declare hasPatientMessages: HasManyHasAssociationsMixin<Message, number>;
-  declare countPatientMessages: HasManyCountAssociationsMixin;
+  // Patient hasMany Message (as PatientSentMessages)
+  declare patientSentMessages?: NonAttribute<Message[]>
+  declare getPatientSentMessages: HasManyGetAssociationsMixin<Message>
+  declare setPatientSentMessages: HasManySetAssociationsMixin<Message, number>
+  declare addPatientSentMessage: HasManyAddAssociationMixin<Message, number>
+  declare addPatientSentMessages: HasManyAddAssociationsMixin<Message, number>
+  declare createPatientSentMessage: HasManyCreateAssociationMixin<Message>
+  declare removePatientSentMessage: HasManyRemoveAssociationMixin<Message, number>
+  declare removePatientSentMessages: HasManyRemoveAssociationsMixin<Message, number>
+  declare hasPatientSentMessage: HasManyHasAssociationMixin<Message, number>
+  declare hasPatientSentMessages: HasManyHasAssociationsMixin<Message, number>
+  declare countPatientSentMessages: HasManyCountAssociationsMixin
   // Patient hasMany Appointment (as PatientAppointment)
   declare patientAppointments?: NonAttribute<Appointment[]>;
   declare getPatientAppointments: HasManyGetAssociationsMixin<Appointment>;
@@ -107,10 +108,16 @@ export class Patient extends Model<
   declare getMedicalInfo: HasOneGetAssociationMixin<MedicalInfo>;
   declare setMedicalInfo: HasOneSetAssociationMixin<MedicalInfo, number>;
   declare createMedicalInfo: HasOneCreateAssociationMixin<MedicalInfo>;
+  // Patient belongsTo Message (as PatientReceivedMessages)
+  declare patientReceivedMessage?: NonAttribute<Message>
+  declare getPatientReceivedMessage: BelongsToGetAssociationMixin<Message>
+  declare setPatientReceivedMessage: BelongsToSetAssociationMixin<Message, number>
+  declare createPatientReceivedMessage: BelongsToCreateAssociationMixin<Message>
   declare static associations: {
     patientMessages: Association<Patient, Message>;
     patientAppointments: Association<Patient, Appointment>;
     medicalInfo: Association<Patient, MedicalInfo>;
+    patientReceivedMessage: Association<Patient, Message>
   };
   static initModel(sequelize: Sequelize): typeof Patient {
     Patient.init(
