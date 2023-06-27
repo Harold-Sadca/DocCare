@@ -1,28 +1,10 @@
-// export default function Navbar () {
-
-//   return (
-//     <div>
-//       <div>
-//         <p>DocCare</p>
-//       </div>
-//       <div>
-//         <ul>
-//           <li>Home</li>
-//           <li>Patient</li>
-//           <li>Doctor</li>
-//           <li>Junior Doctor</li>
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// }
-
 'use client';
 
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const navigation = [
   { name: 'Home', href: '/home', current: true },
@@ -54,16 +36,16 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className='flex flex-1 items-center justify-center sm:items-stretch sm:justify-start'>
-                <div className='flex flex-shrink-0 items-center'>
+                <div className='flex flex-shrink-0 items-center justify-center'>
                   <Image
-                    className='block h-28 w-auto lg:hidden'
+                    className='block h-14 w-auto lg:hidden'
                     src='/logo-dark.png'
                     alt='Your Company'
                     width='800'
                     height='800'
                   />
                   <Image
-                    className='hidden h-28 w-auto lg:block'
+                    className='hidden h-14 w-auto lg:block'
                     src='/logo-dark.png'
                     alt='Your Company'
                     width='800'
@@ -73,7 +55,7 @@ export default function Navbar() {
                 <div className='hidden sm:ml-6 sm:block'>
                   <div className='flex space-x-4'>
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -85,7 +67,7 @@ export default function Navbar() {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -104,11 +86,11 @@ export default function Navbar() {
                   <div>
                     <Menu.Button className='flex rounded-full bg-primary text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800'>
                       <span className='sr-only'>Open user menu</span>
-                      <img
+                      {/* <img
                         className='h-8 w-8 rounded-full'
                         src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
                         alt=''
-                      />
+                      /> */}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -123,7 +105,7 @@ export default function Navbar() {
                     <Menu.Items className='absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href='#'
                             className={classNames(
                               active ? 'bg-gray-100' : '',
@@ -131,12 +113,12 @@ export default function Navbar() {
                             )}
                           >
                             Your Profile
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href='#'
                             className={classNames(
                               active ? 'bg-gray-100' : '',
@@ -144,12 +126,12 @@ export default function Navbar() {
                             )}
                           >
                             Settings
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href='#'
                             className={classNames(
                               active ? 'bg-gray-100' : '',
@@ -157,7 +139,7 @@ export default function Navbar() {
                             )}
                           >
                             Sign out
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     </Menu.Items>
