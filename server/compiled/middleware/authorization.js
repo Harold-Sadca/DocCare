@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.juniorDoctorAuthMiddleware = exports.doctorAuthMiddleware = exports.patientAuthMiddleware = void 0;
+exports.anyDoctorAuthMiddleware = exports.juniorDoctorAuthMiddleware = exports.doctorAuthMiddleware = exports.patientAuthMiddleware = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const Patient_1 = require("../models/schema/Patient");
 const Doctor_1 = require("../models/schema/Doctor");
@@ -72,3 +72,25 @@ const juniorDoctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0,
     }
 });
 exports.juniorDoctorAuthMiddleware = juniorDoctorAuthMiddleware;
+const anyDoctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const authHeaders = req.headers['authorization'];
+    if (!authHeaders)
+        return res.sendStatus(403);
+    const token = authHeaders.split(' ')[1];
+    try {
+        const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+        const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { id } });
+        const doctor = yield Doctor_1.Doctor.findOne({ where: { id } });
+        if (!doctor && !juniorDoctor)
+            return res.sendStatus(401);
+        if (doctor)
+            req.doctor = doctor;
+        if (juniorDoctor)
+            req.juniorDoctor = juniorDoctor;
+        next();
+    }
+    catch (error) {
+        res.sendStatus(401);
+    }
+});
+exports.anyDoctorAuthMiddleware = anyDoctorAuthMiddleware;

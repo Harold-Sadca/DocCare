@@ -6,6 +6,7 @@ import Users from './users';
 export default function Home() {
   return (
     <div className='flex min-h-screen flex-col box-border'>
+      <Navbar />
       <div className='grid grid-cols-2 gap-4 h-screen'>
         <div className='flex flex-col items-center justify-evenly'>
           <div className='flex flex-row items-start justify-start'>
@@ -40,7 +41,6 @@ export default function Home() {
           </div>
         </div>
         <div className='flex flex-col items-center justify-center p-20 my-2 bg-primary'>
-          <Navbar />
           {/* <img
             className='h-auto w-auto rounded'
             src='/doctor1.jpg'
