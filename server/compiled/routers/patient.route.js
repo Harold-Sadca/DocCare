@@ -8,7 +8,7 @@ const patientRouter = (0, express_1.Router)();
 exports.patientRouter = patientRouter;
 patientRouter.post('/patient/register', patient_controller_1.createPatient);
 patientRouter.post('/patient/login', patient_controller_1.loginPatient);
-patientRouter.get('/patient/:id', authorization_1.patientAuthMiddleware, patient_controller_1.getPatient);
+patientRouter.get('/patient', authorization_1.patientAuthMiddleware, patient_controller_1.getPatient);
 patientRouter.get('/patients', patient_controller_1.getPatients);
 // patientRouter.get('/patients', anyDoctorAuthMiddleware, getPatients);
 patientRouter.put('/patient/:id', authorization_1.patientAuthMiddleware, patient_controller_1.updatePatient);

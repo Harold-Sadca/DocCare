@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import { sendMessageModel, getMessagesModel } from './models/methods/messages';
 import cors from 'cors';
 import { patientRouter } from './routers/patient.route';
 import { messagesRouter } from './routers/messages.route';
@@ -33,13 +34,15 @@ app.use(juniorDoctorRouter);
 app.use(doctorRouter);
 
 io.on("connection", (socket) => {
+  
   // send a message to the client
   // logger.info(socket.id)
   // socket.emit("hello back", socket.id)
   // socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
 
   // receive a message from the client
-  socket.on("click", (...args) => {
+  socket.on("click", (args) => {
+    const newMessage = sendMessageModel(args)
   // socket.on("click", (message, user) => {
     // logger.info(user)
     // if (user === '') {
@@ -47,10 +50,8 @@ io.on("connection", (socket) => {
     // } else {
     //   socket.to(user).emit("hello back", message)
     // }
-    socket.broadcast.emit("hello back", args)
-    socket.emit("hello back", args)
-    
-    // socket.emit("hello back", args[0])
+    socket.broadcast.emit("hello back", newMessage)
+    socket.emit("hello back", newMessage)
   });
 });
 

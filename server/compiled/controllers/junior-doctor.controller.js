@@ -77,13 +77,10 @@ function loginJuniorDoctor(req, res) {
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: juniorDoctor.id }, SECRET_KEY);
             console.log(accessToken);
-            // const juniorDoctorAuthenticated = await getJuniorDoctorModel(
-            //   juniorDoctor.id
-            // );
-            // console.log(juniorDoctorAuthenticated);
+            const userAuthenticated = yield (0, junior_doctors_1.getJuniorDoctorModel)(juniorDoctor.id);
             res.status(200).json({
                 message: `Welcome, ${juniorDoctor === null || juniorDoctor === void 0 ? void 0 : juniorDoctor.name}!`,
-                result: { accessToken, juniorDoctor },
+                result: { accessToken, userAuthenticated },
             });
         }
         catch (error) {

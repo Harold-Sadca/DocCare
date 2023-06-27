@@ -5,9 +5,8 @@ const MessageDB = db.Message;
 
 async function sendMessageModel(message: TypeMessage) {
   try {
-    const newMessage = await MessageDB.create(message);
-    // const patientId = newMessage.se;
-    return newMessage;
+    const newMessage = await MessageDB.create(message)
+    return newMessage
   } catch (error) {
     throw new Error();
   }
@@ -23,3 +22,16 @@ async function getMessagesModel() {
 }
 
 export { sendMessageModel, getMessagesModel };
+
+
+// const newMessage = MessageDB.build(message);
+// if(sender_type == 'patient') {
+//   newMessage.setPatientSent(sender_id)
+//   newMessage.setJuniorReceived(receiver_id)
+//   await newMessage.save()
+// } else {
+//   newMessage.setJuniorSent(sender_id)
+//   newMessage.setPatientReceived(receiver_id)
+//   await newMessage.save()
+// }
+// return newMessage;

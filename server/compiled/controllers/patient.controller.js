@@ -68,10 +68,10 @@ function loginPatient(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
-            const patientAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
+            const userAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
             res.status(200).json({
                 message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
-                result: { accessToken, patientAuthenticated },
+                result: { accessToken, userAuthenticated },
             });
         }
         catch (error) {

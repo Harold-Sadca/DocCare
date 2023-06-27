@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const messages_1 = require("./models/methods/messages");
 const cors_1 = __importDefault(require("cors"));
 const patient_route_1 = require("./routers/patient.route");
 const messages_route_1 = require("./routers/messages.route");
@@ -36,7 +37,8 @@ io.on("connection", (socket) => {
     // socket.emit("hello back", socket.id)
     // socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
     // receive a message from the client
-    socket.on("click", (...args) => {
+    socket.on("click", (args) => {
+        const newMessage = (0, messages_1.sendMessageModel)(args);
         // socket.on("click", (message, user) => {
         // logger.info(user)
         // if (user === '') {
@@ -44,9 +46,8 @@ io.on("connection", (socket) => {
         // } else {
         //   socket.to(user).emit("hello back", message)
         // }
-        socket.broadcast.emit("hello back", args);
-        socket.emit("hello back", args);
-        // socket.emit("hello back", args[0])
+        socket.broadcast.emit("hello back", newMessage);
+        socket.emit("hello back", newMessage);
     });
 });
 server.listen(port, () => {

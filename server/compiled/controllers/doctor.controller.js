@@ -77,10 +77,10 @@ function loginDoctor(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
-            const doctorAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
+            const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
             res.status(200).json({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
-                result: { accessToken, doctorAuthenticated },
+                result: { accessToken, userAuthenticated },
             });
         }
         catch (error) {

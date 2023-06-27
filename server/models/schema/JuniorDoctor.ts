@@ -19,7 +19,7 @@ import {
   Sequelize,
 } from 'sequelize';
 import type { Message } from './Message';
-type JuniorDoctorAssociations = 'juniorSentMessages' | 'juniorReceivedMessages'
+type JuniorDoctorAssociations = 'juniorMessages';
 export class JuniorDoctor extends Model<
   InferAttributes<JuniorDoctor, { omit: JuniorDoctorAssociations }>,
   InferCreationAttributes<JuniorDoctor, { omit: JuniorDoctorAssociations }>
@@ -35,35 +35,20 @@ export class JuniorDoctor extends Model<
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
-  // JuniorDoctor hasMany Message (as JuniorSentMessages)
-  declare juniorSentMessages?: NonAttribute<Message[]>
-  declare getJuniorSentMessages: HasManyGetAssociationsMixin<Message>
-  declare setJuniorSentMessages: HasManySetAssociationsMixin<Message, number>
-  declare addJuniorSentMessage: HasManyAddAssociationMixin<Message, number>
-  declare addJuniorSentMessages: HasManyAddAssociationsMixin<Message, number>
-  declare createJuniorSentMessage: HasManyCreateAssociationMixin<Message>
-  declare removeJuniorSentMessage: HasManyRemoveAssociationMixin<Message, number>
-  declare removeJuniorSentMessages: HasManyRemoveAssociationsMixin<Message, number>
-  declare hasJuniorSentMessage: HasManyHasAssociationMixin<Message, number>
-  declare hasJuniorSentMessages: HasManyHasAssociationsMixin<Message, number>
-  declare countJuniorSentMessages: HasManyCountAssociationsMixin
-  
-  // JuniorDoctor hasMany Message (as JuniorReceivedMessages)
-  declare juniorReceivedMessages?: NonAttribute<Message[]>
-  declare getJuniorReceivedMessages: HasManyGetAssociationsMixin<Message>
-  declare setJuniorReceivedMessages: HasManySetAssociationsMixin<Message, number>
-  declare addJuniorReceivedMessage: HasManyAddAssociationMixin<Message, number>
-  declare addJuniorReceivedMessages: HasManyAddAssociationsMixin<Message, number>
-  declare createJuniorReceivedMessage: HasManyCreateAssociationMixin<Message>
-  declare removeJuniorReceivedMessage: HasManyRemoveAssociationMixin<Message, number>
-  declare removeJuniorReceivedMessages: HasManyRemoveAssociationsMixin<Message, number>
-  declare hasJuniorReceivedMessage: HasManyHasAssociationMixin<Message, number>
-  declare hasJuniorReceivedMessages: HasManyHasAssociationsMixin<Message, number>
-  declare countJuniorReceivedMessages: HasManyCountAssociationsMixin
-
+  // JuniorDoctor hasMany Message (as JuniorMessages)
+  declare juniorMessages?: NonAttribute<Message[]>;
+  declare getJuniorMessages: HasManyGetAssociationsMixin<Message>;
+  declare setJuniorMessages: HasManySetAssociationsMixin<Message, number>;
+  declare addJuniorMessage: HasManyAddAssociationMixin<Message, number>;
+  declare addJuniorMessages: HasManyAddAssociationsMixin<Message, number>;
+  declare createJuniorMessage: HasManyCreateAssociationMixin<Message>;
+  declare removeJuniorMessage: HasManyRemoveAssociationMixin<Message, number>;
+  declare removeJuniorMessages: HasManyRemoveAssociationsMixin<Message, number>;
+  declare hasJuniorMessage: HasManyHasAssociationMixin<Message, number>;
+  declare hasJuniorMessages: HasManyHasAssociationsMixin<Message, number>;
+  declare countJuniorMessages: HasManyCountAssociationsMixin;
   declare static associations: {
-    juniorSentMessages: Association<JuniorDoctor, Message>,
-    juniorReceivedMessages: Association<JuniorDoctor, Message>
+    juniorMessages: Association<JuniorDoctor, Message>;
   };
   static initModel(sequelize: Sequelize): typeof JuniorDoctor {
     JuniorDoctor.init(

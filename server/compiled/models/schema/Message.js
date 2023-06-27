@@ -14,6 +14,18 @@ class Message extends sequelize_1.Model {
             content: {
                 type: sequelize_1.DataTypes.STRING
             },
+            sender_id: {
+                type: sequelize_1.DataTypes.STRING
+            },
+            sender_name: {
+                type: sequelize_1.DataTypes.STRING
+            },
+            receiver_id: {
+                type: sequelize_1.DataTypes.STRING
+            },
+            receiver_name: {
+                type: sequelize_1.DataTypes.STRING
+            },
             date: {
                 type: sequelize_1.DataTypes.DATEONLY,
                 defaultValue: sequelize_1.DataTypes.NOW
