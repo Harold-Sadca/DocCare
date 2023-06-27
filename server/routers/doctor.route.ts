@@ -8,18 +8,22 @@ import {
   createMedicalInfo,
   loginDoctor,
 } from '../controllers/doctor.controller';
-import { doctorAuthMiddleware } from '../middleware/authentication';
-
+import {
+  doctorAuthMiddleware,
+  juniorDoctorAuthMiddleware,
+} from '../middleware/authorization';
 
 const doctorRouter = Router();
 
 doctorRouter.post('/doctor/register', createDoctor);
-doctorRouter.post('/doctor/login', loginDoctor )
-doctorRouter.get('/doctor/:id', getDoctor);
-doctorRouter.get('/doctors', getDoctors);
-doctorRouter.post('/doctor/:id/medical-info', createMedicalInfo)
-// doctorRouter.post('/doctor/:id/medical-info',  doctorAuthMiddleware, createMedicalInfo)
+doctorRouter.post('/doctor/login', loginDoctor);
+doctorRouter.get('/doctor/:id', doctorAuthMiddleware, getDoctor);
+doctorRouter.get('/doctors', juniorDoctorAuthMiddleware, getDoctors);
+doctorRouter.post(
+  '/doctor/:id/medical-info',
+  doctorAuthMiddleware,
+  createMedicalInfo
+);
 doctorRouter.put('/doctor/summary', doctorAuthMiddleware, createPatientSummary);
-
 
 export { doctorRouter };

@@ -19,13 +19,13 @@ const patientAuthMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const authHeaders = req.headers["authorization"];
+  const authHeaders = req.headers['authorization'];
   if (!authHeaders) return res.sendStatus(403);
   const token = authHeaders.split(' ')[1];
 
   try {
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
-    const patient = await Patient.findOne({ where: { id: id } });
+    const patient = await Patient.findOne({ where: { id } });
     if (!patient) return res.sendStatus(401);
     req.patient = patient;
     next();
@@ -45,7 +45,7 @@ const doctorAuthMiddleware = async (
 
   try {
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
-    const doctor = await Doctor.findOne({ where: { id: id } });
+    const doctor = await Doctor.findOne({ where: { id } });
     if (!doctor) return res.sendStatus(401);
     req.doctor = doctor;
     next();
@@ -65,9 +65,31 @@ const juniorDoctorAuthMiddleware = async (
 
   try {
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
-    const juniorDoctor = await JuniorDoctor.findOne({ where: { id: id } });
+    const juniorDoctor = await JuniorDoctor.findOne({ where: { id } });
     if (!juniorDoctor) return res.sendStatus(401);
     req.juniorDoctor = juniorDoctor;
+    next();
+  } catch (error) {
+    res.sendStatus(401);
+  }
+};
+
+const anyDoctorAuthMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const authHeaders = req.headers['authorization'];
+  if (!authHeaders) return res.sendStatus(403);
+  const token = authHeaders.split(' ')[1];
+
+  try {
+    const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
+    const juniorDoctor = await JuniorDoctor.findOne({ where: { id } });
+    const doctor = await Doctor.findOne({ where: { id } });
+    if (!doctor && !juniorDoctor) return res.sendStatus(401);
+    if (doctor) req.doctor = doctor;
+    if (juniorDoctor) req.juniorDoctor = juniorDoctor;
     next();
   } catch (error) {
     res.sendStatus(401);
@@ -78,4 +100,5 @@ export {
   patientAuthMiddleware,
   doctorAuthMiddleware,
   juniorDoctorAuthMiddleware,
+  anyDoctorAuthMiddleware,
 };

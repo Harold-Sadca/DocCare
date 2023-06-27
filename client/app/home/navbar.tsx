@@ -39,7 +39,7 @@ function classNames(...classes: any[]) {
 }
 
 // apiService.getAllPatients();
-apiService.getAllDoctors();
+// apiService.getAllDoctors();
 
 export default function Navbar() {
   return (
