@@ -1,0 +1,90 @@
+.ChatBox-container {
+    width: 300px;
+    height: 400px;
+    background-color: #F5ECF7;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-end;
+    /* justify-content: center; */
+    overflow-y: auto;
+    z-index: 2;
+}
+
+.patient-message {
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #A8DDFD;
+    width: auto;
+    height: auto;
+    text-align: left;
+    border: 1px solid #97C6E3;
+    border-radius: 10px;
+    display: flex;
+    align-self: flex-end;
+    margin-bottom: 70px;
+    margin-right: 20px;
+    flex-direction: column;   
+}
+
+.junior-doctor-message {
+    position: relative;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #397B6E;
+    width: auto;
+    height: auto;
+    border: 1px solid #397B6E;
+    border-radius: 10px;
+    text-align: right;
+    margin-right: 30px;
+    margin-left: 30px;
+    display: flex;
+    align-self: flex-start;
+}
+
+.send-container {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    background-color: #A266B5;
+    width: fit-content;
+    height: 6rem;
+    width: 300px;
+}
+
+.Chatbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.chat-input {
+    width: 200px;
+    height: 50px;
+    border: solid;
+    border-color: #E5EAFB;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    resize: none;
+    padding: 10px;
+}
+
+.send {
+    width: 45px;
+    height: 30px;
+    display: flex;
+    align-self: flex-end;
+    border-radius: 5px;
+    font-weight: 800;
+    font-size: 15px;
+    align-items: center;
+    justify-content: center;
+    border: none; 
+    border-radius: 10px; 
+    background-color: #d4a8fd;
+    padding: 10px;
+    cursor: pointer;
+}
