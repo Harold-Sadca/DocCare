@@ -22,8 +22,7 @@ export default function Main() {
     console.log(token);
     if (token)
       apiService.getJuniorDoctor(token).then((user) => {
-        console.log(user);
-        dispatch(login('Liam'));
+        dispatch(login(user.name));
       });
   }, []);
   return (
