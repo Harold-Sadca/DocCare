@@ -41,9 +41,12 @@ function createDoctor(req, res) {
                 licenseNumber,
                 gender,
                 about,
+                userType: 'doctor',
                 availability: createEmptyAvailability(),
             };
             const createDoctor = yield (0, doctors_1.createDoctorModel)(newDoctor);
+            console.log('why');
+            console.log(createDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createDoctor.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Doctor account created successfully',
@@ -106,6 +109,7 @@ function getDoctors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctors = yield (0, doctors_1.getDoctorsModel)();
+            console.log(doctors);
             res.status(200).send(doctors);
         }
         catch (error) {

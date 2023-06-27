@@ -35,6 +35,7 @@ function createPatient(req, res) {
                 dateOfBirth,
                 gender,
                 conditions,
+                userType: 'patient',
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
             const accessToken = jsonwebtoken_1.default.sign({ id: createPatient.id }, SECRET_KEY);

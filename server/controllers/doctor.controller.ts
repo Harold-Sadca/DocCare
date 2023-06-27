@@ -47,9 +47,13 @@ async function createDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
       about,
+      userType: 'doctor',
       availability: createEmptyAvailability(),
     } as TypeDoctor;
+
     const createDoctor = await createDoctorModel(newDoctor);
+    console.log('why');
+    console.log(createDoctor);
     const accessToken = jwt.sign({ id: createDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Doctor account created successfully',
@@ -103,6 +107,7 @@ async function getDoctor(req: Request, res: Response) {
 async function getDoctors(req: Request, res: Response) {
   try {
     const doctors = await getDoctorsModel();
+    console.log(doctors);
     res.status(200).send(doctors);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get doctors account' });

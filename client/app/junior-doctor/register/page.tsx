@@ -95,6 +95,7 @@ export default function Register() {
     } else {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem('userType', result.user.userType);
         setMessageContent(message as string);
         // setIsAuthenticated(true);
       }

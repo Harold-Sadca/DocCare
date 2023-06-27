@@ -52,6 +52,7 @@ export default function Login(props: Props) {
     } else {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem('userType', result.user.userType);
         setFormError('');
         // console.log(result.user.email);
 

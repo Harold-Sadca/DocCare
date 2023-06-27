@@ -17,6 +17,7 @@ const junior_doctors_1 = require("../models/methods/junior-doctors");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const index_1 = __importDefault(require("../models/schema/index"));
+const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
 const JuniorDoctorDB = index_1.default.JuniorDoctor;
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
@@ -34,6 +35,7 @@ function createJuniorDoctor(req, res) {
                 address,
                 licenseNumber,
                 gender,
+                userType: 'junior-doctor',
             };
             const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
@@ -54,11 +56,13 @@ function loginJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
         try {
-            console.log(req.body);
-            console.log(email);
-            const juniorDoctor = yield JuniorDoctorDB.findOne({
-                where: { email: email },
+            // console.log(req.body);
+            // console.log(email);
+            const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({
+                where: { email },
             });
+            console.log('here!');
+            console.log({ juniorDoctor });
             if (!juniorDoctor) {
                 console.log('Junior doctor not found');
                 throw new Error('Junior doctor not found');
@@ -72,10 +76,14 @@ function loginJuniorDoctor(req, res) {
                 throw new Error('Invalid credentials');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: juniorDoctor.id }, SECRET_KEY);
-            const juniorDoctorAuthenticated = yield (0, junior_doctors_1.getJuniorDoctorModel)(juniorDoctor.id);
+            console.log(accessToken);
+            // const juniorDoctorAuthenticated = await getJuniorDoctorModel(
+            //   juniorDoctor.id
+            // );
+            // console.log(juniorDoctorAuthenticated);
             res.status(200).json({
                 message: `Welcome, ${juniorDoctor === null || juniorDoctor === void 0 ? void 0 : juniorDoctor.name}!`,
-                result: { accessToken, juniorDoctorAuthenticated },
+                result: { accessToken, juniorDoctor },
             });
         }
         catch (error) {
@@ -87,8 +95,11 @@ exports.loginJuniorDoctor = loginJuniorDoctor;
 function getJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const authHeaders = req.headers['authorization'];
-            const juniorDoctor = yield (0, junior_doctors_1.getJuniorDoctorModel)(authHeaders);
+            console.log(req);
+            const auth = req.juniorDoctor;
+            console.log(auth);
+            const id = auth === null || auth === void 0 ? void 0 : auth.id;
+            const juniorDoctor = yield (0, junior_doctors_1.getJuniorDoctorModel)(id);
             res.status(200).send(juniorDoctor);
         }
         catch (error) {

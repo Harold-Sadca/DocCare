@@ -41,6 +41,7 @@ async function createPatient(req: Request, res: Response) {
       dateOfBirth,
       gender,
       conditions,
+      userType: 'patient',
     };
     const createPatient = await createPatientModel(newPatient);
     const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);

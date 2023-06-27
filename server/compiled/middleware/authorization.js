@@ -41,8 +41,12 @@ const doctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 
     if (!authHeaders)
         return res.sendStatus(403);
     const token = authHeaders.split(' ')[1];
+    console.log(token);
     try {
+        console.log(token);
+        console.log(jsonwebtoken_1.default.verify(token, SECRET_KEY));
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+        console.log(id);
         const doctor = yield Doctor_1.Doctor.findOne({ where: { id } });
         if (!doctor)
             return res.sendStatus(401);
@@ -60,8 +64,11 @@ const juniorDoctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0,
         return res.sendStatus(403);
     const token = authHeaders.split(' ')[1];
     try {
+        console.log(token);
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
+        console.log(id);
         const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { id } });
+        console.log(juniorDoctor);
         if (!juniorDoctor)
             return res.sendStatus(401);
         req.juniorDoctor = juniorDoctor;

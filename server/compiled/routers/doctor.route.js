@@ -9,6 +9,6 @@ exports.doctorRouter = doctorRouter;
 doctorRouter.post('/doctor/register', doctor_controller_1.createDoctor);
 doctorRouter.post('/doctor/login', doctor_controller_1.loginDoctor);
 doctorRouter.get('/doctor/:id', authorization_1.doctorAuthMiddleware, doctor_controller_1.getDoctor);
-doctorRouter.get('/doctors', authorization_1.juniorDoctorAuthMiddleware, doctor_controller_1.getDoctors);
+doctorRouter.get('/doctors', authorization_1.doctorAuthMiddleware, doctor_controller_1.getDoctors);
 doctorRouter.post('/doctor/:id/medical-info', authorization_1.doctorAuthMiddleware, doctor_controller_1.createMedicalInfo);
-doctorRouter.put('/doctor/summary', authorization_1.doctorAuthMiddleware, doctor_controller_1.createPatientSummary);
+doctorRouter.put('/doctor/summary/:id', authorization_1.doctorAuthMiddleware, doctor_controller_1.createPatientSummary);
