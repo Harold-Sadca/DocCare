@@ -32,7 +32,7 @@ app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
 io.on("connection", (socket) => {
     // send a message to the client
-    logger_1.default.info(socket.id);
+    // logger.info(socket.id)
     // socket.emit("hello back", socket.id)
     // socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
     // receive a message from the client
@@ -45,6 +45,7 @@ io.on("connection", (socket) => {
         //   socket.to(user).emit("hello back", message)
         // }
         socket.broadcast.emit("hello back", args);
+        socket.emit("hello back", args);
         // socket.emit("hello back", args[0])
     });
 });
