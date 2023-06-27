@@ -6,6 +6,9 @@ import React, { useState } from 'react';
 import Footer from '@/app/(components)/footer';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { logout } from '@/redux/features/auth-slice';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -14,6 +17,8 @@ interface Props {
 }
 
 export default function Logout(props: Props) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
@@ -25,6 +30,7 @@ export default function Logout(props: Props) {
 
   function handleClick() {
     localStorage.removeItem('accessToken');
+    dispatch(logout());
     // setIsAuthenticated(false);
     router.push('/');
   }

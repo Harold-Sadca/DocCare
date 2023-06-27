@@ -5,7 +5,10 @@ import React, { FormEvent, useState } from 'react';
 
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
-// import { useRouter } from 'next/navigation';
+import { login, logout, toggleUser } from '../../redux/features/auth-slice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { useRouter } from 'next/navigation';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -14,7 +17,8 @@ interface Props {
 }
 
 export default function Login(props: Props) {
-  // const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
+  const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
@@ -49,12 +53,18 @@ export default function Login(props: Props) {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
         setFormError('');
-        setIsAuthenticated(true);
-        // router.push('/');
+        // console.log(result.user.email);
+
+        dispatch(login('Liam'));
+        dispatch(toggleUser());
+        // setIsAuthenticated(true);
+        // setCurrentUser(result.user);
+        router.push('/');
       }
     }
     setState(initialState);
   };
+
   return (
     <>
       <div className='flex min-h-screen flex-col'>
