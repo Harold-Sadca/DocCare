@@ -41,6 +41,9 @@ class Patient extends sequelize_1.Model {
             conditions: {
                 type: sequelize_1.DataTypes.JSON,
             },
+            userType: {
+                type: sequelize_1.DataTypes.STRING,
+            },
             createdAt: {
                 type: sequelize_1.DataTypes.DATE,
             },

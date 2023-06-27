@@ -40,11 +40,8 @@ export const auth = createSlice({
         },
       };
     },
-    toggleUser: (state) => {
-      state.value.isDoctor = !state.value.isDoctor;
-    },
   },
 });
 
-export const { login, logout, toggleUser } = auth.actions;
+export const { login, logout } = auth.actions;
 export default auth.reducer;

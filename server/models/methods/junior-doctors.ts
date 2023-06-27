@@ -17,10 +17,8 @@ async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   }
 }
 
-async function getJuniorDoctorModel(authHeaders: string) {
-  const token = authHeaders.split(' ')[1];
+async function getJuniorDoctorModel(id: string) {
   try {
-    const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
     const juniorDoctor = await JuniorDoctorDB.findOne({
       where: { id },
       include: {

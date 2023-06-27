@@ -48,27 +48,7 @@ async function fetchData(path: string) {
       return res.data;
     });
 }
-
-// messagesRouter.get('/messages', getMessages);
-// messagesRouter.post('/message/:senderId', sendMessage);
-// juniorDoctorRouter.get('/junior-doctor/:id', getJuniorDoctor);
-// doctorRouter.get('/doctor/:id', getDoctor);
-// doctorRouter.post('/doctor/login', loginDoctor )DONE
-// doctorRouter.post('/doctor', createDoctor); DONE
-// doctorRouter.get('/doctors', getDoctors);  DONE
-// doctorRouter.put('/doctor/medical-info/:id', createMedicalInfo); DONE
-// doctorRouter.put('/doctor/summary/:id', createPatientSummary); DONE
-// juniorDoctorRouter.post('/junior-doctor/login', loginJuniorDoctor ) DONE
-// juniorDoctorRouter.post('/junior-doctor/:id/note',juniorDoctorAuthMiddleware, createJuniorNote); DONE
-// patientRouter.post('/patient', createPatient); DONE
-// patientRouter.get('/patients', getPatients); DONE
-// patientRouter.put('/patient/:id', updatePatient); DONE
-// patientRouter.delete('/patient/:id', deletePatient); DONE
-// patientRouter.get('/patient/:id/last-checkup', getLastCheckup); DONE
-// patientRouter.post('/patient/appointment/:id', createAppointment); DONE
-
 async function register(user: TUser, type: string): Promise<TResponseUser> {
-  console.log(user);
   let path;
   if (type == 'doctor') {
     path = '/doctor';
@@ -85,7 +65,6 @@ async function register(user: TUser, type: string): Promise<TResponseUser> {
       withCredentials: true,
     })
     .then((res: AxiosResponse<TResponseUser>) => {
-      console.log(res);
       return res.data;
     });
 }
@@ -99,8 +78,6 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
   } else if (type == 'junior-doctor') {
     path = '/junior-doctor';
   }
-  console.log(user);
-  console.log(type);
   return axios
     .post(PORT + path + '/login', JSON.stringify(user), {
       headers: {
@@ -109,7 +86,6 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
       withCredentials: true,
     })
     .then((res: AxiosResponse<TResponseUser>) => {
-      console.log(res);
       return res.data;
     });
 }
@@ -209,6 +185,19 @@ async function createAppointment(
     });
 }
 
+async function getUser(token: string, user: string): Promise<TUser> {
+  return axios
+    .get(`${PORT}/${user}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res: AxiosResponse<TUser>) => {
+      return res.data;
+    });
+}
+
 async function createJuniorNote(
   juniorID: string,
   juniorNote: string
@@ -236,6 +225,7 @@ const apiService = {
   deletePatient,
   getLastCheckup,
   createAppointment,
+  getUser,
   createJuniorNote,
 };
 

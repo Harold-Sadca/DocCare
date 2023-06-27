@@ -22,7 +22,9 @@ const MedicalInfoDB = index_1.default.MedicalInfo;
 function createDoctorModel(doctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(doctor);
             const newDoctor = yield DoctorDB.create(doctor);
+            console.log(newDoctor);
             return newDoctor;
         }
         catch (error) {
@@ -53,6 +55,7 @@ exports.getDoctorModel = getDoctorModel;
 function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log('working?');
             const doctors = yield DoctorDB.findAll({
                 include: {
                     model: Appointment_1.Appointment,
@@ -60,6 +63,7 @@ function getDoctorsModel() {
                     required: false,
                 },
             });
+            console.log(doctors);
             return doctors;
         }
         catch (error) {

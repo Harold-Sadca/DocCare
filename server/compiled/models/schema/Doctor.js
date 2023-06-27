@@ -38,6 +38,9 @@ class Doctor extends sequelize_1.Model {
             about: {
                 type: sequelize_1.DataTypes.STRING,
             },
+            userType: {
+                type: sequelize_1.DataTypes.STRING,
+            },
             availability: {
                 type: sequelize_1.DataTypes.JSON,
             },

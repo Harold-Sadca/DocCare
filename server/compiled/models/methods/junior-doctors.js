@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.createJuniorNoteModel = exports.getJuniorDoctorModel = exports.createJuniorDoctorModel = void 0;
 const Message_1 = require("../schema/Message");
 const index_1 = __importDefault(require("../schema/index"));
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const PatientDB = index_1.default.Patient;
 const JuniorDoctorDB = index_1.default.JuniorDoctor;
 const SECRET_KEY = process.env.SECRET_KEY;
@@ -31,11 +30,9 @@ function createJuniorDoctorModel(juniorDoctor) {
     });
 }
 exports.createJuniorDoctorModel = createJuniorDoctorModel;
-function getJuniorDoctorModel(authHeaders) {
+function getJuniorDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        const token = authHeaders.split(' ')[1];
         try {
-            const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
             const juniorDoctor = yield JuniorDoctorDB.findOne({
                 where: { id },
                 include: {
