@@ -20,17 +20,29 @@ function firstLetterUpperCase(text: string) {
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
   const navItem = isAuth
-    ? {
-        name: 'Make an appointment',
-        href: '/make-appointment',
-        current: false,
-      }
-    : {
-        name: firstLetterUpperCase(props.auth),
-        href: `/${props.user}/${props.auth}`,
-        current: false,
-      };
-  const navigation = [{ name: 'Home', href: '/home', current: true }, navItem];
+    ? [
+        {
+          name: 'Make an appointment',
+          href: '/make-appointment',
+          current: false,
+        },
+        {
+          name: 'Logout',
+          href: '/logout',
+          current: false,
+        },
+      ]
+    : [
+        {
+          name: firstLetterUpperCase(props.auth),
+          href: `/${props.user}/${props.auth}`,
+          current: false,
+        },
+      ];
+  const navigation = [
+    { name: 'Home', href: '/home', current: true },
+    ...navItem,
+  ];
 
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
