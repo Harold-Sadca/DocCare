@@ -19,7 +19,7 @@ const patientRouter = Router();
 
 patientRouter.post('/patient/register', createPatient);
 patientRouter.post('/patient/login', loginPatient);
-patientRouter.get('/patient/:id', patientAuthMiddleware, getPatient);
+patientRouter.get('/patient', patientAuthMiddleware, getPatient);
 patientRouter.get('/patients', anyDoctorAuthMiddleware, getPatients);
 patientRouter.put('/patient/:id', patientAuthMiddleware, updatePatient);
 patientRouter.delete('/patient/:id', patientAuthMiddleware, deletePatient);

@@ -12,28 +12,35 @@ export interface TypeLogin {
 }
 
 export interface TypeResponse {
-  message: string;
+  message?: string;
   error?: string;
+}
+
+export interface TypeRegister {
+  message?: string;
+  error?: string;
+  result: TUser;
+  accessToken: string;
 }
 
 export interface TypeResponseDoctor extends TypeResponse {
   result: {
     accessToken: string;
-    user: TypeDoctor;
+    userAuthenticated: TypeDoctor;
   };
 }
 
 export interface TypeResponseJuniorDoctor extends TypeResponse {
   result: {
     accessToken: string;
-    user: TypeJuniorDoctor;
+    userAuthenticated: TypeJuniorDoctor;
   };
 }
 
 export interface TypeResponsePatient extends TypeResponse {
   result: {
     accessToken: string;
-    user: TypePatient;
+    userAuthenticated: TypePatient;
   };
 }
 

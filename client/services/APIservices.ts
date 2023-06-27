@@ -16,6 +16,7 @@ import {
   TypeSummary,
   TPatient,
   TResponseUser,
+  TypeRegister,
   TypeResponseLastCheckup,
   TypeResponseAppointment,
   TUser,
@@ -49,7 +50,7 @@ async function fetchData(path: string) {
       return res.data;
     });
 }
-async function register(user: TUser, type: string): Promise<TResponseUser> {
+async function register(user: TUser, type: string): Promise<TypeRegister> {
   let path;
   if (type == 'doctor') {
     path = '/doctor';
@@ -65,7 +66,7 @@ async function register(user: TUser, type: string): Promise<TResponseUser> {
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TResponseUser>) => {
+    .then((res: AxiosResponse<TypeRegister>) => {
       return res.data;
     });
 }
@@ -188,6 +189,7 @@ async function createAppointment(
 }
 
 async function getUser(token: string, user: string): Promise<TUser> {
+  console.log(token, user);
   return axios
     .get(`${PORT}/${user}`, {
       headers: {

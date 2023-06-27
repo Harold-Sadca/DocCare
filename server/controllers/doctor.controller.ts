@@ -82,10 +82,10 @@ async function loginDoctor(req: Request, res: Response) {
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
 
-    const doctorAuthenticated = await getDoctorModel(doctor.id);
+    const userAuthenticated = await getDoctorModel(doctor.id);
     res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
-      result: { accessToken, doctorAuthenticated },
+      result: { accessToken, userAuthenticated },
     });
   } catch (error) {
     res.status(401).send({ error: 'Username or password is incorrect' });

@@ -5,7 +5,7 @@ import React, { FormEvent, useState } from 'react';
 
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
-import { login, logout, toggleUser } from '../../redux/features/auth-slice';
+import { login } from '../../redux/features/auth-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { useRouter } from 'next/navigation';
@@ -30,7 +30,6 @@ export default function Login(props: Props) {
   const initialState = { email: '', password: '' };
   const [state, setState] = useState(initialState);
   const [formError, setFormError] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -51,16 +50,14 @@ export default function Login(props: Props) {
       setFormError(`${error}`);
     } else {
       if (result) {
+        const username = result.userAuthenticated.name as string;
+        const userType = result.userAuthenticated.userType as string;
         localStorage.setItem('accessToken', result.accessToken);
-        localStorage.setItem('userType', result.user.userType);
+        localStorage.setItem('userType', userType);
         setFormError('');
-        // console.log(result.user.email);
 
-        dispatch(login('Liam'));
-        dispatch(toggleUser());
-        // setIsAuthenticated(true);
-        // setCurrentUser(result.user);
-        router.push('/');
+        dispatch(login(username));
+        router.push(`/${userType}`);
       }
     }
     setState(initialState);

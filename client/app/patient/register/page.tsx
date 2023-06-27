@@ -53,7 +53,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/');
+        router.push('/patient');
       }, 2000);
     }, 1000);
   };
@@ -80,15 +80,15 @@ export default function Register() {
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     // e.preventDefault();
-    const data = await apiService.register(state, 'doctor');
-    const { message, result, error } = data;
-    console.log({ result });
+    const data = await apiService.register(state, 'patient');
+    const { message, result, error, accessToken } = data;
+    console.log(result);
     if (error) {
       setMessageContent(error);
     } else {
       if (result) {
-        localStorage.setItem('accessToken', result.accessToken);
-        localStorage.setItem('userType', result.user.userType);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('userType', result.userType as string);
         console.log(result);
         setMessageContent(message as string);
         // setIsAuthenticated(true);

@@ -73,13 +73,10 @@ async function loginJuniorDoctor(req: Request, res: Response) {
     }
     const accessToken = jwt.sign({ id: juniorDoctor.id }, SECRET_KEY);
     console.log(accessToken);
-    // const juniorDoctorAuthenticated = await getJuniorDoctorModel(
-    //   juniorDoctor.id
-    // );
-    // console.log(juniorDoctorAuthenticated);
+    const userAuthenticated = await getJuniorDoctorModel(juniorDoctor.id);
     res.status(200).json({
       message: `Welcome, ${juniorDoctor?.name}!`,
-      result: { accessToken, juniorDoctor },
+      result: { accessToken, userAuthenticated },
     });
   } catch (error) {
     res.status(401).send({ error: 'Username or password is incorrect' });
