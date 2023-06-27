@@ -19,6 +19,7 @@ function firstLetterUpperCase(text: string) {
 
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+
   const navItem = isAuth
     ? [
         {

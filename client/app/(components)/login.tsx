@@ -55,7 +55,6 @@ export default function Login(props: Props) {
         localStorage.setItem('accessToken', result.accessToken);
         localStorage.setItem('userType', userType);
         setFormError('');
-
         dispatch(login(username));
         router.push(`/${userType}`);
       }

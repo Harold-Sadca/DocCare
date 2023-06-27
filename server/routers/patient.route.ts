@@ -21,7 +21,7 @@ patientRouter.post('/patient/register', createPatient);
 patientRouter.post('/patient/login', loginPatient);
 patientRouter.get('/patient', patientAuthMiddleware, getPatient);
 patientRouter.get('/patients', anyDoctorAuthMiddleware, getPatients);
-patientRouter.put('/patient/:id', patientAuthMiddleware, updatePatient);
+patientRouter.put('/patient', patientAuthMiddleware, updatePatient);
 patientRouter.delete('/patient/:id', patientAuthMiddleware, deletePatient);
 patientRouter.get(
   '/patient/:id/last-checkup',

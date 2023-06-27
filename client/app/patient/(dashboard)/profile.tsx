@@ -1,11 +1,13 @@
-import apiService from '@/services/APIservices';
+'use client';
+
 import './profile.css';
+import { useAppSelector } from '@/redux/store';
 
 export default function Profile() {
-  // fetch the get patient
-  function getPatientProfile() {
-
-  }
+  const currentPatient = useAppSelector(
+    (state) => state.currentPatientReducer.value
+  );
+  console.log(currentPatient);
 
   return (
     <main>

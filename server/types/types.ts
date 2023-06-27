@@ -94,7 +94,7 @@ export interface TypePatient {
   phoneNumber: string;
   address: string;
   dateOfBirth: string;
-  gender: 'Male' | 'Female' | null;
+  gender: 'Male' | 'Female';
   juniorNotes?: string;
   summary?: string;
   conditions: {

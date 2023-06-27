@@ -84,7 +84,8 @@ async function loginPatient(req: Request, res: Response) {
 
 async function getPatient(req: Request, res: Response) {
   try {
-    const id = req.params.id;
+    const auth = req.patient;
+    const id = auth?.id as string;
     const patient = await getPatientModel(id);
     res.status(200).json({
       message: `Welcome, ${patient?.name}!`,
