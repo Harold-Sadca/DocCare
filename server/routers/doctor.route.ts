@@ -24,6 +24,10 @@ doctorRouter.post(
   doctorAuthMiddleware,
   createMedicalInfo
 );
-doctorRouter.put('/doctor/summary', doctorAuthMiddleware, createPatientSummary);
+doctorRouter.put(
+  '/doctor/summary/:id',
+  doctorAuthMiddleware,
+  createPatientSummary
+);
 
 export { doctorRouter };

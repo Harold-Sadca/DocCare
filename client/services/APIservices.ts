@@ -211,6 +211,22 @@ async function createAppointment(
     });
 }
 
+async function getJuniorDoctor(
+  token: string
+): Promise<TypeResponseJuniorDoctor> {
+  return axios
+    .get(`${PORT}/junior-doctor`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res: AxiosResponse<TypeResponseJuniorDoctor>) => {
+      console.log(res);
+      return res.data;
+    });
+}
+
 async function createJuniorNote(
   juniorID: string,
   juniorNote: string
@@ -239,6 +255,7 @@ const apiService = {
   deletePatient,
   getLastCheckup,
   createAppointment,
+  getJuniorDoctor,
   createJuniorNote,
 };
 
