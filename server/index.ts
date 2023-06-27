@@ -34,15 +34,10 @@ app.use(juniorDoctorRouter);
 app.use(doctorRouter);
 
 io.on("connection", (socket) => {
-  
-  // send a message to the client
-  // logger.info(socket.id)
-  // socket.emit("hello back", socket.id)
-  // socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
 
   // receive a message from the client
-  socket.on("click", (args) => {
-    const newMessage = sendMessageModel(args)
+  socket.on("send", async (args) => {
+    const newMessage = await sendMessageModel(args)
   // socket.on("click", (message, user) => {
     // logger.info(user)
     // if (user === '') {
@@ -50,8 +45,8 @@ io.on("connection", (socket) => {
     // } else {
     //   socket.to(user).emit("hello back", message)
     // }
-    socket.broadcast.emit("hello back", newMessage)
-    socket.emit("hello back", newMessage)
+    socket.broadcast.emit("send", newMessage)
+    socket.emit("sent", newMessage)
   });
 });
 

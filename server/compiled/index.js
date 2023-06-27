@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -32,13 +41,9 @@ app.use(messages_route_1.messagesRouter);
 app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
 io.on("connection", (socket) => {
-    // send a message to the client
-    // logger.info(socket.id)
-    // socket.emit("hello back", socket.id)
-    // socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
     // receive a message from the client
-    socket.on("click", (args) => {
-        const newMessage = (0, messages_1.sendMessageModel)(args);
+    socket.on("send", (args) => __awaiter(void 0, void 0, void 0, function* () {
+        const newMessage = yield (0, messages_1.sendMessageModel)(args);
         // socket.on("click", (message, user) => {
         // logger.info(user)
         // if (user === '') {
@@ -46,9 +51,9 @@ io.on("connection", (socket) => {
         // } else {
         //   socket.to(user).emit("hello back", message)
         // }
-        socket.broadcast.emit("hello back", newMessage);
-        socket.emit("hello back", newMessage);
-    });
+        socket.broadcast.emit("send", newMessage);
+        socket.emit("sent", newMessage);
+    }));
 });
 server.listen(port, () => {
     logger_1.default.info(`Server is running at http://localhost:${port}`);
