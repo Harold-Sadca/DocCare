@@ -22,8 +22,6 @@ import {
   TypeResponseJuniorNotes,
 } from '@/types/types';
 
-import logger from '../../server/logger';
-
 const PORT = 'http://localhost:3001';
 
 async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
@@ -47,7 +45,6 @@ async function fetchData(path: string) {
       },
     })
     .then((res: AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
-      logger.info(res.data);
       return res.data;
     });
 }
