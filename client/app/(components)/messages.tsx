@@ -2,20 +2,28 @@ import { io } from "socket.io-client";
 import { Form, Input } from 'antd';
 import { useState } from "react";
 
-const socket = io("ws://localhost:3000");
+const socket = io("ws://localhost:3001");
 
 export default function Messages () {
 
-  const [message, setMessage] = useState('')
+  const initialState = { message: '', user: '' };
+  const [messageState, setMessageState] = useState(initialState);
+  const [allMessages, setAllMessages] = useState<string[]>([])
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setMessageState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-  // send a message to the server
-  socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
+  // // send a message to the server
+  // socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
 
-  // receive a message from the server
-  socket.on("hello from server", (...args) => {
-    // ...
-  });
-  console.log("GOT IT")
+  // // receive a message from the server
+  // socket.on("hello from server", (...args) => {
+  //   // ...
+  // });
 
   function handleClick() {
     console.log('clicked')
@@ -26,12 +34,39 @@ export default function Messages () {
   }
   return (
     <>
-
-    <button onClick={handleClick}
-      className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
+    <Form
+      labelCol={{ span: 6 }}
+      wrapperCol={{ span: 14 }}
+      layout='horizontal'
+      onFinish={handleClick}
     >
-      Message
-    </button>
+      <Form.Item label='Message'>
+        <Input
+          type='text'
+          id='message'
+          name='message'
+          required
+          value={messageState.message}
+          onChange={(e) => handleChange(e)}
+        />
+      </Form.Item>
+      <Form.Item label='Password' htmlFor='password'>
+        <Input
+          type='text'
+          id='user'
+          name='user'
+          value={messageState.message}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+      </Form.Item>
+      <button
+        className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
+        type='submit'
+      >
+        Message
+      </button>
+    </Form>
     </>
   )
 }

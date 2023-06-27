@@ -33,8 +33,8 @@ app.use(doctor_route_1.doctorRouter);
 io.on("connection", (socket) => {
     // send a message to the client
     logger_1.default.info(socket.id);
-    socket.emit("hello back", socket.id);
-    socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
+    // socket.emit("hello back", socket.id)
+    // socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
     // receive a message from the client
     socket.on("click", (...args) => {
         // socket.on("click", (message, user) => {
@@ -44,7 +44,8 @@ io.on("connection", (socket) => {
         // } else {
         //   socket.to(user).emit("hello back", message)
         // }
-        socket.broadcast.emit("hello back", args[0]);
+        socket.broadcast.emit("hello back", args);
+        // socket.emit("hello back", args[0])
     });
 });
 server.listen(port, () => {
