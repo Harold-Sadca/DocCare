@@ -82,12 +82,9 @@ async function loginJuniorDoctor(req: Request, res: Response) {
 
 async function getJuniorDoctor(req: Request, res: Response) {
   try {
-    const id = req.params.id;
-    const juniorDoctor = await getJuniorDoctorModel(id);
-    res.status(200).json({
-      message: `Welcome, ${juniorDoctor?.name}!`,
-      result: juniorDoctor,
-    });
+    const authHeaders = req.headers['authorization'];
+    const juniorDoctor = await getJuniorDoctorModel(authHeaders as string);
+    res.status(200).send(juniorDoctor);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get the junior doctor account' });
   }

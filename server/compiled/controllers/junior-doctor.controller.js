@@ -87,12 +87,9 @@ exports.loginJuniorDoctor = loginJuniorDoctor;
 function getJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const id = req.params.id;
-            const juniorDoctor = yield (0, junior_doctors_1.getJuniorDoctorModel)(id);
-            res.status(200).json({
-                message: `Welcome, ${juniorDoctor === null || juniorDoctor === void 0 ? void 0 : juniorDoctor.name}!`,
-                result: juniorDoctor,
-            });
+            const authHeaders = req.headers['authorization'];
+            const juniorDoctor = yield (0, junior_doctors_1.getJuniorDoctorModel)(authHeaders);
+            res.status(200).send(juniorDoctor);
         }
         catch (error) {
             res.status(400).json({ error: 'Failed to get the junior doctor account' });

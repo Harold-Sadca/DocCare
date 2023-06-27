@@ -8,5 +8,5 @@ const juniorDoctorRouter = (0, express_1.Router)();
 exports.juniorDoctorRouter = juniorDoctorRouter;
 juniorDoctorRouter.post('/junior-doctor/register', junior_doctor_controller_1.createJuniorDoctor);
 juniorDoctorRouter.post('/junior-doctor/login', junior_doctor_controller_1.loginJuniorDoctor);
-juniorDoctorRouter.get('/junior-doctor/:id', authorization_1.juniorDoctorAuthMiddleware, junior_doctor_controller_1.getJuniorDoctor);
+juniorDoctorRouter.get('/junior-doctor', authorization_1.juniorDoctorAuthMiddleware, junior_doctor_controller_1.getJuniorDoctor);
 juniorDoctorRouter.post('/junior-doctor/:id/note', authorization_1.juniorDoctorAuthMiddleware, junior_doctor_controller_1.createJuniorNote);
