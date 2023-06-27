@@ -10,7 +10,9 @@ const MedicalInfoDB = db.MedicalInfo;
 
 async function createDoctorModel(doctor: TypeDoctor) {
   try {
+    console.log(doctor);
     const newDoctor = await DoctorDB.create(doctor);
+    console.log(newDoctor);
     return newDoctor;
   } catch (error) {
     throw new Error();
@@ -35,6 +37,7 @@ async function getDoctorModel(id: string) {
 
 async function getDoctorsModel() {
   try {
+    console.log('working?');
     const doctors = await DoctorDB.findAll({
       include: {
         model: Appointment,
@@ -42,6 +45,7 @@ async function getDoctorsModel() {
         required: false,
       },
     });
+    console.log(doctors);
     return doctors;
   } catch (error) {
     throw new Error();
@@ -56,12 +60,12 @@ async function createMedicalInfoModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    logger.info(patient)
+    logger.info(patient);
     //TODO:its failing here...
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
-    logger.info('here')
+    logger.info('here');
     patient.setMedicalInfo(medicalInfo);
-    await medicalInfo.save()
+    await medicalInfo.save();
     // await patient.save();
     return medicalInfo;
   } catch (error) {

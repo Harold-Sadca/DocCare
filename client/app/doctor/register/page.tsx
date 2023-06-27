@@ -78,6 +78,7 @@ export default function Register() {
     } else {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem('userType', result.user.userType);
         console.log(result);
         openMessage(message as string);
         // setIsAuthenticated(true);

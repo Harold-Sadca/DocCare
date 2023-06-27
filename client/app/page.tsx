@@ -19,10 +19,11 @@ export default function Main() {
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
+    const userType = localStorage.getItem('userType') as string;
     console.log(token);
     if (token)
-      apiService.getJuniorDoctor(token).then((user) => {
-        dispatch(login(user.name));
+      apiService.getUser(token, userType).then((user) => {
+        dispatch(login(user.name as string));
       });
   }, []);
   return (

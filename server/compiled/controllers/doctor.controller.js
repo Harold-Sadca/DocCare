@@ -41,6 +41,7 @@ function createDoctor(req, res) {
                 licenseNumber,
                 gender,
                 about,
+                userType: 'doctor',
                 availability: createEmptyAvailability(),
             };
             const createDoctor = yield (0, doctors_1.createDoctorModel)(newDoctor);

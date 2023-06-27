@@ -9,37 +9,41 @@ class JuniorDoctor extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
                 primaryKey: true,
                 autoIncrement: true,
-                allowNull: false
+                allowNull: false,
             },
             name: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             email: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             password: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             licenseNumber: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             phoneNumber: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             address: {
-                type: sequelize_1.DataTypes.STRING
+                type: sequelize_1.DataTypes.STRING,
             },
             gender: {
-                type: sequelize_1.DataTypes.ENUM('Male', 'Female')
+                type: sequelize_1.DataTypes.ENUM('Male', 'Female'),
+            },
+            userType: {
+                type: sequelize_1.DataTypes.STRING,
+                defaultValue: 'junior-doctor',
             },
             createdAt: {
-                type: sequelize_1.DataTypes.DATE
+                type: sequelize_1.DataTypes.DATE,
             },
             updatedAt: {
-                type: sequelize_1.DataTypes.DATE
-            }
+                type: sequelize_1.DataTypes.DATE,
+            },
         }, {
-            sequelize
+            sequelize,
         });
         return JuniorDoctor;
     }

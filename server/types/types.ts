@@ -26,6 +26,7 @@ export interface TypeDoctor {
   gender: 'Male' | 'Female';
   about: string;
   availability?: TypeAvailability;
+  userType?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -63,6 +64,7 @@ export interface TypeJuniorDoctor {
   address: string;
   licenseNumber: string;
   gender: 'Male' | 'Female' | null;
+  userType?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -102,6 +104,7 @@ export interface TypePatient {
     surgicalHistory: string;
     familyMedicalHistory: string;
   };
+  userType?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

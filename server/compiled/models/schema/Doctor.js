@@ -41,6 +41,10 @@ class Doctor extends sequelize_1.Model {
             availability: {
                 type: sequelize_1.DataTypes.JSON,
             },
+            userType: {
+                type: sequelize_1.DataTypes.STRING,
+                defaultValue: 'doctor',
+            },
             createdAt: {
                 type: sequelize_1.DataTypes.DATE,
             },

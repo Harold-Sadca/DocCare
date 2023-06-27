@@ -73,6 +73,7 @@ const seedDB = async () => {
     const num = Math.floor(Math.random() * 10);
     const spec = Math.floor(Math.random() * specialisations.length);
     const gen = Math.floor(Math.random() * 2)
+
     const doctor = await Doctor.create({
       name: doctorNames[num],
       email: doctorEmails[num],
@@ -84,6 +85,7 @@ const seedDB = async () => {
       gender: genders[gen],
       about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       availability: createEmptyAvailability(),
+      userType: 'doctor'
     })
 
     const juniorDoctor = await JuniorDoctor.create({
@@ -94,6 +96,7 @@ const seedDB = async () => {
       phoneNumber: phoneNumbers[num],
       address: addresses[num],
       gender: genders[gen],
+      userType: 'junior-doctor'
     })
 
     const patient = await Patient.create({
@@ -104,6 +107,7 @@ const seedDB = async () => {
       address: addresses[num],
       dateOfBirth: generateRandomDate(new Date(1994, 0, 1), new Date()),
       gender: genders[gen],
+      userType: 'patient',
       conditions: {
         allergies: ['dairy', 'nuts'],
         bloodType: 'AB-',

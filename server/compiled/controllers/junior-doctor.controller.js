@@ -35,6 +35,7 @@ function createJuniorDoctor(req, res) {
                 address,
                 licenseNumber,
                 gender,
+                userType: 'junior-doctor',
             };
             const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createJuniorDoctor.id }, SECRET_KEY);

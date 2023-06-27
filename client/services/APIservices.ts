@@ -49,25 +49,6 @@ async function fetchData(path: string) {
       return res.data;
     });
 }
-
-// messagesRouter.get('/messages', getMessages);
-// messagesRouter.post('/message/:senderId', sendMessage);
-// juniorDoctorRouter.get('/junior-doctor/:id', getJuniorDoctor);
-// doctorRouter.get('/doctor/:id', getDoctor);
-// doctorRouter.post('/doctor/login', loginDoctor )DONE
-// doctorRouter.post('/doctor', createDoctor); DONE
-// doctorRouter.get('/doctors', getDoctors);  DONE
-// doctorRouter.put('/doctor/medical-info/:id', createMedicalInfo); DONE
-// doctorRouter.put('/doctor/summary/:id', createPatientSummary); DONE
-// juniorDoctorRouter.post('/junior-doctor/login', loginJuniorDoctor ) DONE
-// juniorDoctorRouter.post('/junior-doctor/:id/note',juniorDoctorAuthMiddleware, createJuniorNote); DONE
-// patientRouter.post('/patient', createPatient); DONE
-// patientRouter.get('/patients', getPatients); DONE
-// patientRouter.put('/patient/:id', updatePatient); DONE
-// patientRouter.delete('/patient/:id', deletePatient); DONE
-// patientRouter.get('/patient/:id/last-checkup', getLastCheckup); DONE
-// patientRouter.post('/patient/appointment/:id', createAppointment); DONE
-
 async function register(user: TUser, type: string): Promise<TResponseUser> {
   let path;
   if (type == 'doctor') {
@@ -206,15 +187,15 @@ async function createAppointment(
     });
 }
 
-async function getJuniorDoctor(token: string): Promise<TypeJuniorDoctor> {
+async function getUser(token: string, user: string): Promise<TUser> {
   return axios
-    .get(`${PORT}/junior-doctor`, {
+    .get(`${PORT}/${user}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TypeJuniorDoctor>) => {
+    .then((res: AxiosResponse<TUser>) => {
       return res.data;
     });
 }
@@ -247,7 +228,7 @@ const apiService = {
   deletePatient,
   getLastCheckup,
   createAppointment,
-  getJuniorDoctor,
+  getUser,
   createJuniorNote,
 };
 

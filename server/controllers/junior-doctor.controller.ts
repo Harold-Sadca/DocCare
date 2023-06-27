@@ -34,6 +34,7 @@ async function createJuniorDoctor(req: Request, res: Response) {
       address,
       licenseNumber,
       gender,
+      userType: 'junior-doctor',
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);
     const accessToken = jwt.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
