@@ -1,5 +1,6 @@
 'use client';
 
+import { useAppSelector } from '@/redux/store';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -9,6 +10,7 @@ interface Props {
   auth: string;
 }
 
+// if its auth
 function firstLetterUpperCase(text: string) {
   const arr = text.split('');
   arr[0] = arr[0].toUpperCase();
@@ -16,14 +18,19 @@ function firstLetterUpperCase(text: string) {
 }
 
 export default function AuthNavbar(props: Props) {
-  const navigation = [
-    { name: 'Home', href: '/home', current: true },
-    {
-      name: firstLetterUpperCase(props.auth),
-      href: `/${props.user}/${props.auth}`,
-      current: false,
-    },
-  ];
+  const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+  const navItem = isAuth
+    ? {
+        name: 'Make an appointment',
+        href: '/make-appointment',
+        current: false,
+      }
+    : {
+        name: firstLetterUpperCase(props.auth),
+        href: `/${props.user}/${props.auth}`,
+        current: false,
+      };
+  const navigation = [{ name: 'Home', href: '/home', current: true }, navItem];
 
   function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ');
