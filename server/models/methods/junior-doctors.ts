@@ -2,9 +2,11 @@ import { TypeJuniorDoctor } from '../../types/types';
 import { Message } from '../schema/Message';
 import { Patient } from '../schema/Patient';
 import db from '../schema/index';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const PatientDB = db.Patient;
 const JuniorDoctorDB = db.JuniorDoctor;
+const SECRET_KEY = process.env.SECRET_KEY as string;
 
 async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   try {
@@ -15,14 +17,14 @@ async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   }
 }
 
-async function getJuniorDoctorModel(juniorId: string) {
+async function getJuniorDoctorModel(id: string) {
   try {
     const juniorDoctor = await JuniorDoctorDB.findOne({
-      where: { id: juniorId },
+      where: { id },
       include: {
         model: Message,
         as: 'juniorMessages',
-        required:false
+        required: false,
       },
     });
     return juniorDoctor;

@@ -62,7 +62,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/');
+        router.push('/junior-doctor');
       }, 2000);
     }, 1000);
   };
@@ -88,13 +88,15 @@ export default function Register() {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     // e.preventDefault();
     const data = await apiService.register(state, 'junior-doctor');
-    const { message, result, error } = data;
-    console.log({ result });
+    const { message, result, error, accessToken } = data;
+    console.log(result);
     if (error) {
       setMessageContent(error);
     } else {
       if (result) {
-        localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('userType', result.userType as string);
+        console.log(result);
         setMessageContent(message as string);
         // setIsAuthenticated(true);
       }

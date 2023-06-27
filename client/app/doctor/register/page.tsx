@@ -2,7 +2,7 @@
 import { Form, Input, Radio, RadioChangeEvent, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
 
@@ -33,9 +33,10 @@ export default function Register() {
   };
   const [state, setState] = useState(initialState);
   const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
   const key = 'updatable';
 
-  const openMessage = (contentType: string) => {
+  const openMessage = () => {
     messageApi.open({
       key,
       type: 'loading',
@@ -45,14 +46,20 @@ export default function Register() {
       messageApi.open({
         key,
         type: 'success',
-        content: contentType,
+        content: messageContent,
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/');
+        router.push('/doctor');
       }, 2000);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (messageContent) {
+      openMessage();
+    }
+  }, [messageContent]);
 
   const handleChange = (
     e:
@@ -71,15 +78,16 @@ export default function Register() {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     // e.preventDefault();
     const data = await apiService.register(state, 'doctor');
-    const { message, result, error } = data;
-    console.log({ result });
+    const { message, result, error, accessToken } = data;
+    console.log(result);
     if (error) {
-      openMessage(error);
+      setMessageContent(error);
     } else {
       if (result) {
-        localStorage.setItem('accessToken', result.accessToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('userType', result.userType as string);
         console.log(result);
-        openMessage(message as string);
+        setMessageContent(message as string);
         // setIsAuthenticated(true);
       }
     }

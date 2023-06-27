@@ -1,0 +1,16 @@
+
+main{
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, [col-start] 1fr);
+  grid-template-rows: repeat(4, [col-start] 1fr);
+  grid-gap: 10px;  
+}
+
+
+.chat-box{
+grid-column: col-start 3/ span 1;
+grid-row: col-start 3/ span 2;
+justify-self: center;
+align-self: center;
+}

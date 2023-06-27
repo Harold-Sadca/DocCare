@@ -35,6 +35,7 @@ function createPatient(req, res) {
                 dateOfBirth,
                 gender,
                 conditions,
+                userType: 'patient',
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
             const accessToken = jsonwebtoken_1.default.sign({ id: createPatient.id }, SECRET_KEY);
@@ -67,9 +68,10 @@ function loginPatient(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
+            const patientAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
             res.status(200).json({
                 message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
-                result: { accessToken, patient },
+                result: { accessToken, patientAuthenticated },
             });
         }
         catch (error) {

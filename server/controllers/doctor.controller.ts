@@ -47,9 +47,13 @@ async function createDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
       about,
+      userType: 'doctor',
       availability: createEmptyAvailability(),
     } as TypeDoctor;
+
     const createDoctor = await createDoctorModel(newDoctor);
+    console.log('why');
+    console.log(createDoctor);
     const accessToken = jwt.sign({ id: createDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Doctor account created successfully',
@@ -64,7 +68,7 @@ async function createDoctor(req: Request, res: Response) {
 async function loginDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    const doctor = await Doctor.findOne({ where: { email: email } });
+    const doctor = await Doctor.findOne({ where: { email } });
     if (!doctor) {
       throw new Error('Patient not found');
     }
@@ -77,9 +81,11 @@ async function loginDoctor(req: Request, res: Response) {
       throw new Error('Invalid password');
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
-    res.status(200).send({
+
+    const userAuthenticated = await getDoctorModel(doctor.id);
+    res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
-      result: { accessToken, doctor },
+      result: { accessToken, userAuthenticated },
     });
   } catch (error) {
     res.status(401).send({ error: 'Username or password is incorrect' });
@@ -101,6 +107,7 @@ async function getDoctor(req: Request, res: Response) {
 async function getDoctors(req: Request, res: Response) {
   try {
     const doctors = await getDoctorsModel();
+    console.log(doctors);
     res.status(200).send(doctors);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get doctors account' });

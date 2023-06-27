@@ -16,11 +16,11 @@ import {
   InferAttributes,
   Model,
   NonAttribute,
-  Sequelize
-} from 'sequelize'
-import { TypeAvailability } from '../../types/types'
-import type { Appointment } from './Appointment'
-import type { Patient } from './Patient'
+  Sequelize,
+} from 'sequelize';
+import { TypeAvailability } from '../../types/types';
+import type { Appointment } from './Appointment';
+import type { Patient } from './Patient';
 
 type DoctorAssociations = 'doctorAppointments' | 'patients';
 
@@ -53,6 +53,7 @@ export class Doctor extends Model<
   declare gender: 'Male' | 'Female';
   declare about: string | null;
   declare availability: TypeAvailability | null;
+  declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -151,6 +152,9 @@ export class Doctor extends Model<
           type: DataTypes.ENUM('Male', 'Female'),
         },
         about: {
+          type: DataTypes.STRING,
+        },
+        userType: {
           type: DataTypes.STRING,
         },
         availability: {

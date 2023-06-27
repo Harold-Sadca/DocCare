@@ -1,0 +1,119 @@
+
+.ChatBox-container {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(253, 243, 178);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.patient-message{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #A8DDFD;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #97C6E3;
+    border-radius: 10px;
+    display:flex;
+    align-self: flex-end;
+    margin-bottom: 80px;
+    margin-right: 140px;
+    text-size-adjust: auto;
+    flex-direction: column;   
+}
+
+.patient-message:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: 15px solid #A8DDFD;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    top: 0;
+    left: -15px;
+    text-size-adjust: auto;
+}
+
+
+.junior-doctor-message{
+    position: relative;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f8e896;
+    width: auto;
+    height: auto;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #dfd087;
+    border-radius: 10px;
+    text-align: right;
+    justify-self: right;
+    align-content: right;
+    margin-right: 30px;
+    display:flex;
+    align-self: flex-start;
+}
+
+
+.junior-doctor-message:after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-bottom: 15px solid #f8e896;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    bottom: 0;
+    right: -15px;   
+}
+
+
+.sendcontainer {
+    display: flex;
+    align-content: flex-end;
+    flex-direction: row;
+}
+
+.Chatbox{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-direction: row;   
+}
+
+.chat-input{
+    width: 400px;
+    height: 70px;
+    border: solid;
+    border-color: rgb(189, 210, 176);
+    border-radius: 10px;
+    margin-top: 30px;
+    margin-left: 180px;
+}
+
+.send{
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-self: flex-end;
+    border-radius: 5px;
+    font-family: monospace;
+    font-weight: 800;
+    font-size: large;
+    align-items: center;
+    justify-content: center;
+    border:none; 
+    border-radius:10px; 
+    background-color:#d4a8fd;
+    padding:15px;
+    min-height:30px; 
+    min-width: 120px;
+}

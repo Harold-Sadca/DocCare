@@ -50,6 +50,7 @@ export class Patient extends Model<
     surgicalHistory: string | null;
     familyMedicalHistory: string | null;
   } | null;
+  declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -149,6 +150,9 @@ export class Patient extends Model<
         },
         conditions: {
           type: DataTypes.JSON,
+        },
+        userType: {
+          type: DataTypes.STRING,
         },
         createdAt: {
           type: DataTypes.DATE,

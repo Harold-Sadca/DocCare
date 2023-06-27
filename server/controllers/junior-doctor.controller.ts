@@ -8,6 +8,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import db from '../models/schema/index';
 import logger from '../logger';
+import { JuniorDoctor } from '../models/schema/JuniorDoctor';
 const JuniorDoctorDB = db.JuniorDoctor;
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
@@ -33,6 +34,7 @@ async function createJuniorDoctor(req: Request, res: Response) {
       address,
       licenseNumber,
       gender,
+      userType: 'junior-doctor',
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);
     const accessToken = jwt.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
@@ -50,15 +52,18 @@ async function createJuniorDoctor(req: Request, res: Response) {
 async function loginJuniorDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    console.log(req.body);
-    console.log(email);
-    const jrDoctor = await JuniorDoctorDB.findOne({ where: { email: email } });
-    logger.info({ jrDoctor });
-    if (!jrDoctor) {
+    // console.log(req.body);
+    // console.log(email);
+    const juniorDoctor = await JuniorDoctor.findOne({
+      where: { email },
+    });
+    console.log('here!');
+    console.log({ juniorDoctor });
+    if (!juniorDoctor) {
       console.log('Junior doctor not found');
       throw new Error('Junior doctor not found');
     }
-    const juniorDoctorPassword = jrDoctor.password;
+    const juniorDoctorPassword = juniorDoctor.password;
     if (juniorDoctorPassword === null) {
       throw new Error('Invalid credentials');
     }
@@ -66,10 +71,12 @@ async function loginJuniorDoctor(req: Request, res: Response) {
     if (!validatedPass) {
       throw new Error('Invalid credentials');
     }
-    const accessToken = jwt.sign({ id: jrDoctor.id }, SECRET_KEY);
+    const accessToken = jwt.sign({ id: juniorDoctor.id }, SECRET_KEY);
+    console.log(accessToken);
+    const userAuthenticated = await getJuniorDoctorModel(juniorDoctor.id);
     res.status(200).json({
-      message: `Welcome, ${jrDoctor?.name}!`,
-      result: { accessToken, jrDoctor },
+      message: `Welcome, ${juniorDoctor?.name}!`,
+      result: { accessToken, userAuthenticated },
     });
   } catch (error) {
     res.status(401).send({ error: 'Username or password is incorrect' });
@@ -78,12 +85,12 @@ async function loginJuniorDoctor(req: Request, res: Response) {
 
 async function getJuniorDoctor(req: Request, res: Response) {
   try {
-    const id = req.params.id;
+    console.log(req);
+    const auth = req.juniorDoctor;
+    console.log(auth);
+    const id = auth?.id as string;
     const juniorDoctor = await getJuniorDoctorModel(id);
-    res.status(200).json({
-      message: `Welcome, ${juniorDoctor?.name}!`,
-      result: juniorDoctor,
-    });
+    res.status(200).send(juniorDoctor);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get the junior doctor account' });
   }

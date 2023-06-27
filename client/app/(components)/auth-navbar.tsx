@@ -1,13 +1,16 @@
 'use client';
 
+import { useAppSelector } from '@/redux/store';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
 
 interface Props {
   user: string;
   auth: string;
 }
 
+// if its auth
 function firstLetterUpperCase(text: string) {
   const arr = text.split('');
   arr[0] = arr[0].toUpperCase();
@@ -15,13 +18,30 @@ function firstLetterUpperCase(text: string) {
 }
 
 export default function AuthNavbar(props: Props) {
+  const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+  const navItem = isAuth
+    ? [
+        {
+          name: 'Make an appointment',
+          href: '/make-appointment',
+          current: false,
+        },
+        {
+          name: 'Logout',
+          href: '/logout',
+          current: false,
+        },
+      ]
+    : [
+        {
+          name: firstLetterUpperCase(props.auth),
+          href: `/${props.user}/${props.auth}`,
+          current: false,
+        },
+      ];
   const navigation = [
     { name: 'Home', href: '/home', current: true },
-    {
-      name: firstLetterUpperCase(props.auth),
-      href: `/${props.user}/${props.auth}`,
-      current: false,
-    },
+    ...navItem,
   ];
 
   function classNames(...classes: any[]) {
@@ -49,7 +69,7 @@ export default function AuthNavbar(props: Props) {
                 <div className='hidden sm:ml-6 sm:block'>
                   <div className='flex space-x-4'>
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
                         href={item.href}
                         className={classNames(
@@ -61,7 +81,7 @@ export default function AuthNavbar(props: Props) {
                         aria-current={item.current ? 'page' : undefined}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
