@@ -25,6 +25,7 @@ function createJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, licenseNumber, gender, } = req.body;
+            console.log(req.body);
             const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newJuniorDoctor = {
                 name,
@@ -37,10 +38,11 @@ function createJuniorDoctor(req, res) {
             };
             const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
+            console.log(createJuniorDoctor);
+            console.log(accessToken);
             res.status(201).json({
                 message: 'Junior doctor account created successfully',
-                result: createJuniorDoctor,
-                accessToken,
+                result: { createJuniorDoctor, accessToken },
             });
         }
         catch (error) {
@@ -51,21 +53,23 @@ function createJuniorDoctor(req, res) {
 exports.createJuniorDoctor = createJuniorDoctor;
 function loginJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(req.body);
         const { email, password } = req.body;
         try {
+            console.log(req.body);
+            console.log(email);
             const jrDoctor = yield JuniorDoctorDB.findOne({ where: { email: email } });
             logger_1.default.info({ jrDoctor });
             if (!jrDoctor) {
-                throw new Error('Patient not found');
+                console.log('Junior doctor not found');
+                throw new Error('Junior doctor not found');
             }
             const juniorDoctorPassword = jrDoctor.password;
             if (juniorDoctorPassword === null) {
-                throw new Error('Patient password is null');
+                throw new Error('Invalid credentials');
             }
             const validatedPass = yield bcrypt_1.default.compare(password, juniorDoctorPassword);
             if (!validatedPass) {
-                throw new Error('Invalid password');
+                throw new Error('Invalid credentials');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: jrDoctor.id }, SECRET_KEY);
             res.status(200).json({

@@ -34,12 +34,21 @@ app.use(doctorRouter);
 
 io.on("connection", (socket) => {
   // send a message to the client
+  logger.info(socket.id)
+  socket.emit("hello back", socket.id)
   socket.emit("hello from server", 1, "2", { 3: Buffer.from([4]) });
 
   // receive a message from the client
   socket.on("click", (...args) => {
-    logger.info(args[0])
-    socket.emit("hello back", args[0])
+  // socket.on("click", (message, user) => {
+    // logger.info(user)
+    // if (user === '') {
+    //   socket.broadcast.emit("hello back", message)
+    // } else {
+    //   socket.to(user).emit("hello back", message)
+    // }
+    
+    socket.broadcast.emit("hello back", args[0])
   });
 });
 
