@@ -25,6 +25,8 @@ function firstLetterUpperCase(text: string) {
 
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+  const userType = useAppSelector((state) => state.authReducer.value.userType);
+  console.log(userType);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function AuthNavbar(props: Props) {
           console.log(patient);
           dispatch(setCurrentPatient(patient.result));
         }
-        dispatch(login(user.name as string));
+        dispatch(login(userType as string));
       });
     }
   }, []);

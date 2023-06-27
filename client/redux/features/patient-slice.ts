@@ -53,10 +53,10 @@ export const currentPatient = createSlice({
         dateOfBirth,
         gender,
         allergies,
-          bloodType,
-          medications,
-          surgicalHistory,
-          familyMedicalHistory,
+        bloodType,
+        medications,
+        surgicalHistory,
+        familyMedicalHistory,
       } = action.payload;
       return {
         value: {
