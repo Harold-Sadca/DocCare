@@ -52,13 +52,14 @@ async function loginJuniorDoctor(req: Request, res: Response) {
   try {
     console.log(req.body);
     console.log(email);
-    const jrDoctor = await JuniorDoctorDB.findOne({ where: { email: email } });
-    logger.info({ jrDoctor });
-    if (!jrDoctor) {
+    const juniorDoctor = await JuniorDoctorDB.findOne({
+      where: { email: email },
+    });
+    if (!juniorDoctor) {
       console.log('Junior doctor not found');
       throw new Error('Junior doctor not found');
     }
-    const juniorDoctorPassword = jrDoctor.password;
+    const juniorDoctorPassword = juniorDoctor.password;
     if (juniorDoctorPassword === null) {
       throw new Error('Invalid credentials');
     }
@@ -66,10 +67,13 @@ async function loginJuniorDoctor(req: Request, res: Response) {
     if (!validatedPass) {
       throw new Error('Invalid credentials');
     }
-    const accessToken = jwt.sign({ id: jrDoctor.id }, SECRET_KEY);
+    const accessToken = jwt.sign({ id: juniorDoctor.id }, SECRET_KEY);
+    const juniorDoctorAuthenticated = await getJuniorDoctorModel(
+      juniorDoctor.id
+    );
     res.status(200).json({
-      message: `Welcome, ${jrDoctor?.name}!`,
-      result: { accessToken, jrDoctor },
+      message: `Welcome, ${juniorDoctor?.name}!`,
+      result: { accessToken, juniorDoctorAuthenticated },
     });
   } catch (error) {
     res.status(401).send({ error: 'Username or password is incorrect' });
