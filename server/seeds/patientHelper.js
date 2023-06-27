@@ -26,7 +26,7 @@ const patientEmails = [
 ]
 
 const conditions = {
-  allergies: ['dairy', 'nuts'],
+  allergies: 'dairy, nuts',
   bloodType: 'AB-',
   medications: 'N/A',
   surgicalHistory: 'N/A',

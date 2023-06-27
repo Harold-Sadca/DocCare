@@ -108,13 +108,11 @@ const seedDB = async () => {
       dateOfBirth: generateRandomDate(new Date(1994, 0, 1), new Date()),
       gender: genders[gen],
       userType: 'patient',
-      conditions: {
-        allergies: ['dairy', 'nuts'],
-        bloodType: 'AB-',
-        medications: 'N/A',
-        surgicalHistory: 'N/A',
-        familyMedicalHistory: 'N/A'
-      }
+      allergies: 'dairy, nuts',
+      bloodType: 'AB-',
+      medications: 'N/A',
+      surgicalHistory: 'N/A',
+      familyMedicalHistory: 'N/A'
     })
   }
 }

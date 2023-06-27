@@ -97,13 +97,11 @@ export interface TypePatient {
   gender: 'Male' | 'Female';
   juniorNotes?: string;
   summary?: string;
-  conditions: {
-    allergies: string;
-    bloodType: string;
-    medications: string;
-    surgicalHistory: string;
-    familyMedicalHistory: string;
-  };
+  allergies: string;
+  bloodType: string;
+  medications: string;
+  surgicalHistory: string;
+  familyMedicalHistory: string;
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;

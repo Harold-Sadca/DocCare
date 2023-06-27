@@ -29,7 +29,11 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
-      conditions,
+      allergies,
+      bloodType,
+      medications,
+      surgicalHistory,
+      familyMedicalHistory,
     } = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newPatient = {
@@ -40,7 +44,11 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
-      conditions,
+      allergies,
+      bloodType,
+      medications,
+      surgicalHistory,
+      familyMedicalHistory,
       userType: 'patient',
     };
     const createPatient = await createPatientModel(newPatient);

@@ -13,13 +13,11 @@ type CurrentPatientState = {
   address: string;
   dateOfBirth: string;
   gender: string;
-  conditions: {
-    allergies: string;
-    bloodType: string;
-    medications: string;
-    surgicalHistory: string;
-    familyMedicalHistory: string;
-  };
+  allergies: string;
+  bloodType: string;
+  medications: string;
+  surgicalHistory: string;
+  familyMedicalHistory: string;
 };
 const initialState = {
   value: {
@@ -30,13 +28,11 @@ const initialState = {
     address: '',
     dateOfBirth: '',
     gender: '',
-    conditions: {
-      allergies: '',
-      bloodType: '',
-      medications: '',
-      surgicalHistory: '',
-      familyMedicalHistory: '',
-    },
+    allergies: '',
+    bloodType: '',
+    medications: '',
+    surgicalHistory: '',
+    familyMedicalHistory: '',
   } as CurrentPatientState,
 } as InitialState;
 
@@ -56,7 +52,11 @@ export const currentPatient = createSlice({
         address,
         dateOfBirth,
         gender,
-        conditions,
+        allergies,
+          bloodType,
+          medications,
+          surgicalHistory,
+          familyMedicalHistory,
       } = action.payload;
       return {
         value: {
@@ -67,13 +67,11 @@ export const currentPatient = createSlice({
           address,
           dateOfBirth,
           gender,
-          conditions: {
-            allergies: conditions.allergies,
-            bloodType: conditions.bloodType,
-            medications: conditions.medications,
-            surgicalHistory: conditions.surgicalHistory,
-            familyMedicalHistory: conditions.familyMedicalHistory,
-          },
+          allergies,
+          bloodType,
+          medications,
+          surgicalHistory,
+          familyMedicalHistory,
         },
       };
     },

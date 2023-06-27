@@ -43,13 +43,11 @@ export class Patient extends Model<
   declare gender: 'Male' | 'Female' | null;
   declare juniorNotes: string | null;
   declare summary: string | null;
-  declare conditions: {
-    allergies: string | null;
-    bloodType: string | null;
-    medications: string | null;
-    surgicalHistory: string | null;
-    familyMedicalHistory: string | null;
-  } | null;
+  declare allergies: string | null;
+  declare bloodType: string | null;
+  declare medications: string | null;
+  declare surgicalHistory: string | null;
+  declare familyMedicalHistory: string | null;
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -148,8 +146,20 @@ export class Patient extends Model<
         summary: {
           type: DataTypes.STRING,
         },
-        conditions: {
-          type: DataTypes.JSON,
+        allergies: {
+          type: DataTypes.STRING,
+        },
+        bloodType: {
+          type: DataTypes.STRING,
+        },
+        medications: {
+          type: DataTypes.STRING,
+        },
+        surgicalHistory: {
+          type: DataTypes.STRING,
+        },
+        familyMedicalHistory: {
+          type: DataTypes.STRING,
         },
         userType: {
           type: DataTypes.STRING,
