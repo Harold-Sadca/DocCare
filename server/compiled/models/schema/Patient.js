@@ -38,12 +38,23 @@ class Patient extends sequelize_1.Model {
             summary: {
                 type: sequelize_1.DataTypes.STRING,
             },
-            conditions: {
-                type: sequelize_1.DataTypes.JSON,
+            allergies: {
+                type: sequelize_1.DataTypes.STRING,
+            },
+            bloodType: {
+                type: sequelize_1.DataTypes.STRING,
+            },
+            medications: {
+                type: sequelize_1.DataTypes.STRING,
+            },
+            surgicalHistory: {
+                type: sequelize_1.DataTypes.STRING,
+            },
+            familyMedicalHistory: {
+                type: sequelize_1.DataTypes.STRING,
             },
             userType: {
                 type: sequelize_1.DataTypes.STRING,
-                defaultValue: 'patient',
             },
             createdAt: {
                 type: sequelize_1.DataTypes.DATE,

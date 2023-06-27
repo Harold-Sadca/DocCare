@@ -13,24 +13,24 @@ export default function Main() {
   const dispatch = useDispatch<AppDispatch>();
   const username = useAppSelector((state) => state.authReducer.value.username);
 
-  useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    const userType = localStorage.getItem('userType') as string;
-    if (token) {
-      console.log(token);
-      console.log(userType);
-      apiService.getUser(token, userType).then((user) => {
-        console.log(user);
-        console.log(userType);
-        if (userType === 'patient') {
-          const patient = user as TypePatient;
-          console.log(patient);
-          dispatch(setCurrentPatient(patient));
-        }
-        dispatch(login(user.name as string));
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('accessToken');
+  //   const userType = localStorage.getItem('userType') as string;
+  //   if (token) {
+  //     console.log(token);
+  //     console.log(userType);
+  //     apiService.getUser(token, userType).then((user) => {
+  //       console.log(user);
+  //       console.log(userType);
+  //       if (userType === 'patient') {
+  //         const patient = user as TypePatient;
+  //         console.log(patient);
+  //         dispatch(setCurrentPatient(patient));
+  //       }
+  //       dispatch(login(user.name as string));
+  //     });
+  //   }
+  // }, []);
 
   return (
     <main className='flex min-h-screen flex-col box-border'>

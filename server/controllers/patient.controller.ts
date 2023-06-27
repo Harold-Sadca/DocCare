@@ -52,6 +52,7 @@ async function createPatient(req: Request, res: Response) {
       userType: 'patient',
     };
     const createPatient = await createPatientModel(newPatient);
+    console.log(createPatient);
     const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Patient account created successfully',
@@ -105,10 +106,12 @@ async function getPatient(req: Request, res: Response) {
 }
 
 async function logout(req: Request, res: Response) {}
+
 async function getPatients(req: Request, res: Response) {
   try {
+    console.log('controllers');
     const patients = await getPatientsModel();
-    logger.info(patients);
+    console.log(patients);
     res.status(200).send(patients);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patients account' });

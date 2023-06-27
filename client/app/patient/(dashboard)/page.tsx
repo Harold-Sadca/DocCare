@@ -4,7 +4,7 @@ import Appoitments from './appoitments';
 import Prescriptions from './prescriptions';
 import DoctorList from './doctor-list';
 import AuthNavbar from '@/app/(components)/auth-navbar';
-import PatientMessages from './patient-messages'
+import PatientMessages from './patient-messages';
 
 // import Cal from './calendar'
 
@@ -25,9 +25,9 @@ export default function Patient() {
         <div className='doctor-list-box'>
           <DoctorList />
         </div>
-         <div className='patient-messages'>
-          <PatientMessages/>
-         </div>
+        <div className='patient-messages'>
+          <PatientMessages />
+        </div>
         {/* <Cal cellRender={cellRender} /> */}
       </main>
     </div>

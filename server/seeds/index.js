@@ -10,7 +10,6 @@ const { specialisations,
 const {
   patientNames,
   patientEmails,
-  condition
 } = require('./patientHelper')
 const {
   randomJuniorDoctorNames,

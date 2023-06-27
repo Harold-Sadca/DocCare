@@ -9,6 +9,22 @@ export default function Profile() {
   );
   console.log(currentPatient);
 
+  function calculateAge(dateOfBirth: string) {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  }
+
   return (
     <main>
       <div className='profile'>
@@ -16,13 +32,13 @@ export default function Profile() {
           <div className='profile-pic'>
             <img src='https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img>
           </div>
-          <h1>Michaela Hans</h1>
-          <p>36 years old</p>
+          <h1>{currentPatient.name}</h1>
+          <p>{calculateAge(currentPatient.dateOfBirth)} years old</p>
         </div>
         <div className='general-info'>
           <h2>General info:</h2>
-          <p>Date of birth: 1985, January 13</p>
-          <p>Female</p>
+          <p>Date of birth: {currentPatient.dateOfBirth}</p>
+          <p>{currentPatient.gender}</p>
         </div>
         <div className='ilnesses'>
           <h3>Illnesses:</h3>

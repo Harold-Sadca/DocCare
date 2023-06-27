@@ -42,7 +42,7 @@ function getPatientModel(id) {
                     {
                         model: Message_1.Message,
                         as: 'patientMessages',
-                        required: false
+                        required: false,
                     },
                     {
                         model: Appointment_1.Appointment,
@@ -53,7 +53,7 @@ function getPatientModel(id) {
                                 model: Doctor_1.Doctor,
                                 as: 'doctorAppointment',
                                 attributes: { include: ['name', 'licenseNumber'] },
-                                required: false
+                                required: false,
                             },
                         ],
                     },
@@ -73,13 +73,14 @@ function getPatientModel(id) {
 exports.getPatientModel = getPatientModel;
 function getPatientsModel() {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log('model');
         try {
             const patients = yield PatientDB.findAll({
                 include: [
                     {
                         model: Message_1.Message,
                         as: 'patientMessages',
-                        required: false
+                        required: false,
                     },
                     {
                         model: Appointment_1.Appointment,
@@ -90,17 +91,18 @@ function getPatientsModel() {
                                 model: Doctor_1.Doctor,
                                 as: 'doctorAppointment',
                                 attributes: { include: ['name', 'licenseNumber'] },
-                                required: false
+                                required: false,
                             },
                         ],
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
                         as: 'medicalInfo',
-                        required: false
+                        required: false,
                     },
                 ],
             });
+            console.log(patients);
             return patients;
         }
         catch (error) {

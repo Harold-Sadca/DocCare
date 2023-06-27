@@ -45,6 +45,8 @@ function createDoctor(req, res) {
                 availability: createEmptyAvailability(),
             };
             const createDoctor = yield (0, doctors_1.createDoctorModel)(newDoctor);
+            console.log('why');
+            console.log(createDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createDoctor.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Doctor account created successfully',
@@ -75,10 +77,10 @@ function loginDoctor(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
-            const doctorAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
+            const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
             res.status(200).json({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
-                result: { accessToken, doctorAuthenticated },
+                result: { accessToken, userAuthenticated },
             });
         }
         catch (error) {
@@ -90,8 +92,9 @@ exports.loginDoctor = loginDoctor;
 function getDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctorId = req.params.id;
-            const doctor = yield (0, doctors_1.getDoctorModel)(doctorId);
+            const auth = req.doctor;
+            const id = auth === null || auth === void 0 ? void 0 : auth.id;
+            const doctor = yield (0, doctors_1.getDoctorModel)(id);
             res.status(200).send({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
                 result: doctor,
@@ -107,6 +110,7 @@ function getDoctors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctors = yield (0, doctors_1.getDoctorsModel)();
+            console.log(doctors);
             res.status(200).send(doctors);
         }
         catch (error) {
