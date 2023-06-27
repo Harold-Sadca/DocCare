@@ -26,6 +26,7 @@ export default function Login(props: Props) {
   const initialState = { email: '', password: '' };
   const [state, setState] = useState(initialState);
   const [formError, setFormError] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -48,8 +49,8 @@ export default function Login(props: Props) {
       if (result) {
         localStorage.setItem('accessToken', result.accessToken);
         setFormError('');
+        setIsAuthenticated(true);
         // router.push('/');
-        // setIsAuthenticated(true);
       }
     }
     setState(initialState);
