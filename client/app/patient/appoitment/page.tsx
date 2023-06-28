@@ -84,90 +84,100 @@ const onFormLayoutChange = ({ size }: { size: SizeType }) => {
             method='post'
             // onFinish={submitForm}
           >
-            <Form.Item label='Specialisation' htmlFor='specialisation'>
-              <Radio.Group id='specialisation' name='specialisation'>
+            <Form.Item label='Appoitment ' htmlFor='appoitment'>
+              <Input
+                type='date'
+                id='appoitment'
+                name='appoitment'
+                // value={state.dateOfBirth}
+                // onChange={(e) => handleChange(e)}
+                required
+              />
+            </Form.Item>
+            <Form.Item label='Illness' htmlFor='illness'>
+              <Radio.Group id='illness' name='Illnesses'>
                 <Radio
-                  id='specialisation1'
+                  id='illness1'
                   value='General Practice'
                 //   onChange={(value) => handleChange(value)}
                 >
 Common illnesses, minor injuries, preventive care, general health issues                </Radio>
                 <Radio
-                  id='specialisation2'
+                  id='illness2'
                   value='Internal Medicine'
                 //   onChange={(value) => handleChange(value)}
                 >
 Chronic diseases, infections, autoimmune disorders, organ diseases                </Radio>
                 <Radio
-                  id='specialisation3'
+                  id='illness3'
                   value='Pediatrics'
                 //   onChange={(value) => handleChange(value)}
                 >
 Childhood illnesses, growth and development issues, vaccinations, pediatric infections.                </Radio>
                 <Radio
-                  id='specialisation4'
+                  id='illness4'
                   value='Obstetrics and Gynecology'
                 //   onChange={(value) => handleChange(value)}
                 >
 Pregnancy-related conditions, gynecological disorders, fertility issues, childbirth complications                </Radio>
                 <Radio
-                  id='specialisation5'
+                  id='illness5'
                   value='Surgery'
                 //   onChange={(value) => handleChange(value)}
                 >
 Surgical conditions, injuries requiring surgical intervention, post-operative care                </Radio>
                 <Radio
-                  id='specialisation6'
+                  id='illness6'
                   value='Psychiatry'
                 //   onChange={(value) => handleChange(value)}
                 >
 Mental health disorders, anxiety, depression, bipolar disorder, schizophrenia                </Radio>
                 <Radio
-                  id='specialisation7'
+                  id='illness7'
                   value='Dermatology'
                 //   onChange={(value) => handleChange(value)}
                 >
 Skin conditions, dermatitis, acne, psoriasis, skin cancer                </Radio>
                 <Radio
-                  id='specialisation8'
+                  id='illness8'
                   value='Ophthalmology'
                 //   onChange={(value) => handleChange(value)}
                 >
                   Eye diseases, vision problems, cataracts, glaucoma, macular degeneration
                 </Radio>
                 <Radio
-                  id='specialisation9'
+                  id='illness9'
                   value='Ear Nose and Throat (ENT)'
                 //   onChange={(value) => handleChange(value)}
                 >
 Ear infections, sinusitis, tonsillitis, hearing loss, vocal cord disorders                </Radio>
                 <Radio
-                  id='specialisation10'
+                  id='illness10'
                   value='Cardiology'
                 //   onChange={(value) => handleChange(value)}
                 >
 Heart diseases, hypertension, heart failure, arrhythmias, coronary artery disease                </Radio>
                 <Radio
-                  id='specialisation11'
+                  id='illness11'
                   value='Endocrinology'
                 //   onChange={(value) => handleChange(value)}
                 >
                   Diabetes, thyroid disorders, hormonal imbalances, metabolic disorders
                 </Radio>
                 <Radio
-                  id='specialisation12'
+                  id='illness12'
                   value='Gastroenterology'
                 //   onChange={(value) => handleChange(value)}
                 >
 Digestive system disorders, gastrointestinal cancers, irritable bowel syndrome, Crohn's disease                </Radio>
                 <Radio
-                  id='specialisation13'
+                  id='illness13'
                   value='Neurology'
                 //   onChange={(value) => handleChange(value)}
                 >
 Neurological disorders, migraines, epilepsy, stroke, multiple sclerosis                </Radio>
                 <Radio
-                  id='specialisation14'
+                  id='illness14'
                   value='Oncology'
                 //   onChange={(value) => handleChange(value)}
                 >
@@ -175,7 +185,7 @@ Cancer, various types and stages, chemotherapy, radiation therapy, palliative ca
               </Radio.Group>
             </Form.Item>
             <button
-              className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
+              className='submit-button'
               type='submit'
             >
               Submit
