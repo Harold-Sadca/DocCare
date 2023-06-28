@@ -37,6 +37,8 @@ io.on("connection", (socket) => {
 
   //verify or authenticate them
   //then close the connection if it failed
+  // logger.info(socket.id)
+  socket.emit("your id", socket.id)
 
   //closes the connection if a "logout" is sent
   socket.on('logout', () => {
@@ -48,10 +50,11 @@ io.on("connection", (socket) => {
     const newMessage = await sendMessageModel(message)
     //this will send it to the junior doctor
     //access it from to the front using "from patient"
-    socket.to(juniorId).emit("from patient", newMessage)
+    socket.to(patientId).emit("from patient", newMessage)
     //this will send it back to the patient
     //access it from the front using "patient sent"
     //this way we can identify the message the patient sent / received
+    logger.info(message, patientId)
     socket.to(patientId).emit("patient sent", newMessage)
     // socket.broadcast.emit("send", newMessage)
     // socket.emit("sent", newMessage)

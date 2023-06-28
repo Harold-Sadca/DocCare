@@ -1,8 +1,9 @@
 'use client';
 import "./patient-messagess.css";
 import { io } from "socket.io-client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TypeMessage } from "../../../../server/types/types";
+import { useAppSelector } from "@/redux/store";
 
 const socket = io("ws://localhost:3001");
 
@@ -13,6 +14,11 @@ export default function PatientMessages() {
   const [messageState, setMessageState] = useState(initialState);
   const [sentMessages, setSentMessages] = useState<TypeMessage[]>([])
   const [receivedMessages, setReceivedMessages] = useState<TypeMessage[]>([])
+  const currentPatient = useAppSelector(
+    (state) => state.currentPatientReducer.value
+  );
+  const {name, id} = currentPatient
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -21,23 +27,59 @@ export default function PatientMessages() {
     }));
   };
 
+  useEffect(() => {
+    socketConnect()
+  }, [])
+
+  let newMessage
+  let socketId:string
+
   function handleClick() {
-    const newMessage = {
+    
+    newMessage = {
       content:messageState.message,
-      sender_id:1,
-      sender_name_:'Patient',
+      sender_id:id,
+      sender_name_:name,
       receiver_id:2,
       receiver_name:'Junior'
     }
-    socket.emit("send", newMessage);
-    socket.on("sent", (args:TypeMessage) => {
-      setSentMessages([...sentMessages, args])
-      setMessageState(initialState)
-    })
-    socket.on('send', (args:TypeMessage) => {
-      setReceivedMessages([...sentMessages, args])
-    })
+    
+    socket.emit("patient message", newMessage, socketId, 2);
   }
+  
+  function socketConnect() {
+    socket.auth = {name}
+    socket.connect()
+  }
+
+  socket.on("patients", (patients) => {
+    patients.forEach((patient) => {
+      patient.self = patient.userID === socket.id;
+    });
+    // put the current user first, and then sort by username
+    this.patients = patients.sort((a, b) => {
+      if (a.self) return -1;
+      if (b.self) return 1;
+      if (a.username < b.username) return -1;
+      return a.username > b.username ? 1 : 0;
+    });
+  });
+  // socket.on("your id", (args:string) => {
+  //   console.log(args)
+  //   socketId = args
+  //   console.log(socketId)
+  // })
+  
+  // socket.on("patient sent", (args:TypeMessage) => {
+  //   console.log(args)
+  //   setSentMessages([...sentMessages, args])
+  //   setMessageState(initialState)
+  // })
+  // socket.on('from junior', (args:TypeMessage) => {
+  //   setReceivedMessages([...sentMessages, args])
+  // })
+
+  console.log(sentMessages)
 
 
   return (
