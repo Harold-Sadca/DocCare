@@ -75,7 +75,7 @@ export default function AuthNavbar(props: Props) {
     ? [
         {
           name: 'Make an appointment',
-          href: '/make-appointment',
+          href: '/patient/appointment',
           current: false,
         },
         {

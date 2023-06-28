@@ -1,117 +1,90 @@
 .icon {
-    height: 100px;
-    width: 100px;
-    object-fit: cover;
-    margin-top: 20px;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  margin-top: 20px;
 }
-
 .appoitment-heading {
-    color: black;
-    font-size: 30px;
-    font-weight: 800;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    margin-top: 50px;
-    margin-left: 260px;
+  color: black;
+  font-size: 30px;
+  font-weight: 800;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-top: 50px;
+  margin-left: 260px;
 }
-
 .Consultation-1 {
-    margin-left: 260px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin-left: 260px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-
-
 .Consultation-1 p {
-    width: 400px;
+  width: 400px;
 }
-
 .Doctor-2 {
-    margin-left: 260px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin-left: 260px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-
 .Doctor-2 p {
-    width: 400px;
+  width: 400px;
 }
-
-
 .Solution-3 {
-    margin-left: 260px;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  margin-left: 260px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
-
 .Solution-3 p {
-    width: 400px;
+  width: 400px;
 }
-
 .button-make-appoitment {
-    background-color: #3C5DE3;
-    color: aliceblue;
-    border-style: none;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
-    margin-left: 600px;
-    margin-top: -500px;
-    z-index: 2;
+  background-color: #3c5de3;
+  color: aliceblue;
+  border-style: none;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+  margin-left: 600px;
+  margin-top: -500px;
+  z-index: 2;
 }
-
 h2 {
-    color: black;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 500;
+  color: black;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
 }
-
-
 .female-doctor {
-    z-index: 1;
-    width: 400px;
-    margin-top: -180px;
+  z-index: 1;
+  width: 400px;
+  margin-top: -180px;
 }
-
-
 .patient-appoitment-main {
-    height: 100vh;
+  height: 100vh;
 }
-
-
-
 /* Ilness form */
-
 .form-appoitment {
-    margin-left: 500px;
-    margin-top: 50px;
+  margin-left: 500px;
+  margin-top: 50px;
 }
-
-
 .next-button {
-    color: white;
-    background-color: #A266B5;
-    border-style: none;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+  color: white;
+  background-color: #a266b5;
+  border-style: none;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
 }
-
-
 .form-appoitment h3 {
-
-    color: black;
-    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: 500;
-
+  color: black;
+  font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 500;
 }
-
-
-.next-button{
-margin-left:600px;
-margin-top: -100px;
+.next-button {
+  margin-left: 600px;
+  margin-top: -100px;
 }

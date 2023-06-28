@@ -1,6 +1,6 @@
-import './appoitments.css';
+import './appointments.css';
 
-export default function Appoitments() {
+export default function appointments() {
   // choose the date (no time)
   // choose the illness
   // submit -> (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
@@ -14,22 +14,22 @@ export default function Appoitments() {
 
   return (
     <main>
-      <div className='appoitments-container'>
-        <h1>Upcoming Appoitments:</h1>
-        <div className='appoitment-list'>
-          <div className='appoitment-list-container'>
-            <div className='each-appoitment'>
+      <div className='appointments-container'>
+        <h1>Upcoming appointments:</h1>
+        <div className='appointment-list'>
+          <div className='appointment-list-container'>
+            <div className='each-appointment'>
               <img src='/checkup-emoji.png' />
-              <div className='each-appoitment-text'>
+              <div className='each-appointment-text'>
                 <h2>Check up</h2>
                 <p>Aug 18</p>
               </div>
             </div>
           </div>
-          <div className='appoitment-list-container'>
-            <div className='other-appoitment'>
+          <div className='appointment-list-container'>
+            <div className='other-appointment'>
               <img src='/checkup-emoji.png' />
-              <div className='other-appoitment-text'>
+              <div className='other-appointment-text'>
                 <h2>ANOTHER one</h2>
                 <p>Nov 28</p>
               </div>
