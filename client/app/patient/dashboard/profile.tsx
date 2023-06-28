@@ -5,6 +5,7 @@ import './profile.css';
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
+import { calculateAge } from '@/app/helper';
 
 export default function Profile() {
   const [message, setMessage] = useState('');

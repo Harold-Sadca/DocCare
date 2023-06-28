@@ -50,7 +50,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/doctor');
+        router.push('/doctor/dashboard');
       }, 2000);
     }, 1000);
   };

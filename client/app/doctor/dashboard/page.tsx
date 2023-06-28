@@ -5,6 +5,7 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Patients from './patients';
+import Appointments from './appointments';
 
 // import Cal from './calendar'
 
@@ -22,6 +23,9 @@ export default function Doctor() {
         </div>
         <div className='profile-box'>
           <Patients />
+        </div>
+        <div className=''>
+          <Appointments />
         </div>
       </main>
     </div>

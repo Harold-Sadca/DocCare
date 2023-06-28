@@ -1,29 +1,29 @@
 'use client';
 
-import { TypePatient } from '@/../server/types/types';
 import { useAppSelector } from '@/redux/store';
-import apiService from '@/services/APIservices';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-export default function Patients() {
+export default function Appointments() {
   const router = useRouter();
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );
-  const patients = currentDoctor.patients;
+  const appointments = currentDoctor.doctorAppointments;
+  console.log(appointments);
 
   return (
     <main>
+      <h2>My appointments</h2>
       <div className='patients'>
-        {patients?.slice(0, 3).map((patient, idx) => (
+        {appointments?.slice(0, 3).map((appointment, idx) => (
           <div key={idx}>
-            <p>{patient.name}</p>
+            <p>{appointment.date}</p>
+            <p>{appointment.time}</p>
           </div>
         ))}
         <Link
-          href='/doctor/dashboard/patients'
+          href='/doctor/dashboard/appointments'
           className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
           // onClick={() => router.push('/doctor/dashboard/patients')}
         >

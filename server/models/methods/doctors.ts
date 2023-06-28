@@ -3,6 +3,8 @@ import { TypeDoctor, TypeMedicalInfo } from '../../types/types';
 import { Patient } from '../schema/Patient';
 import { Appointment } from '../schema/Appointment';
 import logger from '../../logger';
+import { Doctor } from '../schema/Doctor';
+import { MedicalInfo } from '../schema/MedicalInfo';
 
 const DoctorDB = db.Doctor;
 const PatientDB = db.Patient;
@@ -20,6 +22,7 @@ async function createDoctorModel(doctor: TypeDoctor) {
 }
 
 async function getDoctorModel(id: string) {
+  console.log(id);
   try {
     const doctor = await DoctorDB.findOne({
       where: { id: id },
@@ -28,11 +31,37 @@ async function getDoctorModel(id: string) {
           model: Appointment,
           as: 'doctorAppointments',
           required: false,
+          include: [
+            {
+              model: Patient,
+              as: 'patientAppointment',
+              required: false,
+            },
+          ],
         },
         {
           model: Patient,
           as: 'patients',
           required: false,
+          include: [
+            {
+              model: Appointment,
+              as: 'patientAppointments',
+              required: false,
+              include: [
+                {
+                  model: Doctor,
+                  as: 'doctorAppointment',
+                  attributes: { include: ['name', 'licenseNumber'] },
+                  required: false,
+                },
+              ],
+            },
+            {
+              model: MedicalInfo,
+              as: 'medicalInfo',
+            },
+          ],
         },
       ],
     });
@@ -74,11 +103,11 @@ async function createMedicalInfoModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    logger.info(newMedicalInfo)
+    logger.info(newMedicalInfo);
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
     logger.info('here');
     patient.setMedicalInfo(medicalInfo);
-    await medicalInfo.save()
+    await medicalInfo.save();
     return medicalInfo;
   } catch (error) {
     throw new Error();

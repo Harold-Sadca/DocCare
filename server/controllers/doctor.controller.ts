@@ -67,6 +67,7 @@ async function createDoctor(req: Request, res: Response) {
 async function loginDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
+    console.log(req.body);
     const doctor = await Doctor.findOne({ where: { email } });
     if (!doctor) {
       throw new Error('Patient not found');
@@ -80,7 +81,9 @@ async function loginDoctor(req: Request, res: Response) {
       throw new Error('Invalid password');
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
+    console.log(accessToken);
     const userAuthenticated = await getDoctorModel(doctor.id);
+    console.log(userAuthenticated);
     res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
       result: { accessToken, userAuthenticated },

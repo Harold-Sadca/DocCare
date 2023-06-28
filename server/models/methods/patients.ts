@@ -170,15 +170,17 @@ async function createAppointmentModel(
 ) {
   try {
     const newAppointment = await AppointmentDB.create(appointment);
-    const doctor = await DoctorDB.findOne({ where: { id: doctorId } }) as Doctor;
+    const doctor = (await DoctorDB.findOne({
+      where: { id: doctorId },
+    })) as Doctor;
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
     doctor?.addDoctorAppointment(newAppointment);
     doctor?.addPatient(patient);
     patient?.addPatientAppointment(newAppointment);
-    newAppointment.setDoctorAppointment(doctor)
-    newAppointment.setPatientAppointment(patient)
+    newAppointment.setDoctorAppointment(doctor);
+    newAppointment.setPatientAppointment(patient);
     await doctor?.save();
     await patient?.save();
     return newAppointment;
