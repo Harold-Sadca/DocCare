@@ -12,8 +12,6 @@ import Appointments from './appointments';
 export default function Doctor() {
   const router = useRouter();
 
-  console.log('Hey from doctor');
-
   return (
     <div>
       <AuthNavbar user={'doctor'} auth={'login'} />
