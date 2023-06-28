@@ -164,13 +164,18 @@ function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
+            console.log({ id });
             const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(id);
-            if ((patientLastCheckup === null || patientLastCheckup === void 0 ? void 0 : patientLastCheckup.lastDate) === undefined)
-                res
-                    .status(200)
-                    .json({ message: `You still didn't have any appointment` });
-            console.log(patientLastCheckup);
-            res.status(200).send(patientLastCheckup);
+            console.log({ patientLastCheckup });
+            if ((patientLastCheckup === null || patientLastCheckup === void 0 ? void 0 : patientLastCheckup.lastDate) === undefined) {
+                res.status(200).json({ message: `You haven't had any appointments yet` });
+            }
+            else {
+                res.status(200).json({
+                    message: `Last checkup found successfully`,
+                    result: patientLastCheckup,
+                });
+            }
         }
         catch (error) {
             res.status(400).json({ error: 'Failed to get patient last checkup' });

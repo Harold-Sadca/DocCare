@@ -63,7 +63,7 @@ export interface TypeJuniorDoctor {
   phoneNumber: string;
   address: string;
   licenseNumber: string;
-  gender: 'Male' | 'Female' | null;
+  gender: 'Male' | 'Female';
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;

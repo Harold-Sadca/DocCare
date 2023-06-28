@@ -7,9 +7,10 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { setCurrentPatient } from '@/redux/features/patient-slice';
-import { TypePatient } from '@/../server/types/types';
+import { TypeJuniorDoctor, TypePatient } from '@/../server/types/types';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/features/auth-slice';
+import { setCurrentJunior } from '@/redux/features/junior-slice';
 
 interface Props {
   user: string;
@@ -32,7 +33,8 @@ export default function AuthNavbar(props: Props) {
   async function getCurrentUser() {
     const token = localStorage.getItem('accessToken');
     const userType = localStorage.getItem('userType') as string;
-    if (token && userType && !isAuth) {
+    console.log(token)
+    if (token) {
       try {
         console.log(token);
         console.log(userType);
@@ -42,7 +44,10 @@ export default function AuthNavbar(props: Props) {
         if (userType === 'patient') {
           const patient = user as TypePatient;
           console.log(patient);
-          dispatch(setCurrentPatient(patient.result));
+          dispatch(setCurrentPatient(patient));
+        } else if(userType === 'junior-doctor') {
+          console.log(user)
+          dispatch(setCurrentJunior(user as TypeJuniorDoctor))
         }
         dispatch(login(userType as string));
       } catch (error) {

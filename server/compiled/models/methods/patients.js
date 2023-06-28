@@ -145,8 +145,6 @@ function getLastCheckupModel(patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('model working');
         try {
-            //     patient -> appointments -> attended (true) -> get the last date
-            // -> medical-info -> get the notes
             const patient = yield PatientDB.findOne({
                 where: { id: patientId },
                 include: [
@@ -168,7 +166,8 @@ function getLastCheckupModel(patientId) {
                 ],
             });
             const appointmentsAttended = (_a = patient === null || patient === void 0 ? void 0 : patient.patientAppointments) === null || _a === void 0 ? void 0 : _a.filter((appointment) => appointment.attended);
-            if (appointmentsAttended) {
+            console.log({ appointmentsAttended });
+            if (appointmentsAttended && appointmentsAttended.length > 0) {
                 const doctorNote = (_b = patient === null || patient === void 0 ? void 0 : patient.medicalInfo) === null || _b === void 0 ? void 0 : _b.doctorNote;
                 const sortedAppointments = appointmentsAttended === null || appointmentsAttended === void 0 ? void 0 : appointmentsAttended.sort((a, b) => {
                     const datesA = a.date;
@@ -178,8 +177,8 @@ function getLastCheckupModel(patientId) {
                     return dateA.getTime() - dateB.getTime();
                 });
                 const lastDate = sortedAppointments[0];
-                console.log(patient === null || patient === void 0 ? void 0 : patient.medicalInfo);
-                console.log(doctorNote);
+                console.log(patient === null || patient === void 0 ? void 0 : patient.medicalInfo, 'medical info');
+                console.log(doctorNote, 'doctor note');
                 return { doctorNote, lastDate };
             }
             else

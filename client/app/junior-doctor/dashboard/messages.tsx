@@ -4,11 +4,12 @@ import "./messagess.css";
 import { io } from "socket.io-client";
 import { useState } from "react";
 import { TypeMessage } from "../../../../server/types/types";
+import { useAppSelector } from "@/redux/store";
 
 const socket = io("ws://localhost:3001");
 
 
-export default function JuniorDoctorMessages() {
+export default function JuniorDoctorMessages({currentJunior}) {
 
   const initialState = { message: '', user: '' };
   const [messageState, setMessageState] = useState(initialState);
@@ -21,6 +22,8 @@ export default function JuniorDoctorMessages() {
       [name]: value,
     }));
   };
+
+  console.log(currentJunior)
 
   function handleClick() {
     const newMessage = {
