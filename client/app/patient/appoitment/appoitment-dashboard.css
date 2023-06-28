@@ -1,8 +1,39 @@
-
-
-.icon{
+.icon {
     height: 100px;
     width: 100px;
     object-fit: cover;
     margin-top: 20px;
+}
+
+.appoitment-heading {
+    color: black;
+    font-size: 30px;
+    font-weight: 800;
+    font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-top: 50px;
+    margin-left: 60px;
+}
+
+.Consultation-1{
+margin-left: 60px;
+margin-top: 20px;
+display:flex;
+flex-direction: row;
+align-items: center;
+}
+
+.Doctor-2{
+margin-left: 60px; 
+margin-top: 20px; 
+display:flex;
+flex-direction: row;
+align-items: center;
+}
+
+.Solution-3{
+margin-left: 60px;  
+margin-top: 20px;
+display:flex;
+flex-direction: row;
+align-items: center;
 }
