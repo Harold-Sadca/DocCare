@@ -23,13 +23,11 @@ export default function JuniorDoctorMessages({currentJunior}) {
     }));
   };
 
-  console.log(currentJunior)
-
   function handleClick() {
     const newMessage = {
       content:messageState.message,
-      sender_id:2,
-      sender_name:'Junior',
+      sender_id:currentJunior.id,
+      sender_name:currentJunior.name,
       receiver_id:1,
       receiver_name:'Patient'
     }

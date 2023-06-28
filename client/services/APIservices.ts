@@ -38,11 +38,11 @@ async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
     });
 }
 
-async function fetchData(path: string) {
+async function fetchData(path: string, token:string) {
   return axios
     .get(PORT + path, {
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
     })
     .then((res: AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
@@ -91,10 +91,10 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
     });
 }
 
-async function getAllDoctors(): Promise<
+async function getAllDoctors(token: string): Promise<
   TypeResponseDoctor | TypeResponsePatient
 > {
-  return fetchData('/doctors');
+  return fetchData('/doctors', token);
 }
 
 async function getMedicalInfo(
@@ -129,10 +129,10 @@ async function createPatientSummary(
     });
 }
 
-async function getAllPatients(): Promise<
+async function getAllPatients(token:string): Promise<
   TypeResponseDoctor | TypeResponsePatient
 > {
-  return fetchData('/patients');
+  return fetchData('/patients', token);
 }
 
 async function editPatientDetails(
