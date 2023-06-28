@@ -57,9 +57,11 @@ export interface TypeSummary {
   patientId: string;
 }
 
-export interface TypeResponseLastCheckup {
-  doctorNote: string;
-  lastDate: TypeAppointment;
+export interface TypeResponseLastCheckup extends TypeResponse {
+  result: {
+    doctorNote: string;
+    lastDate: TypeAppointment;
+  };
 }
 
 export interface TypeResponseAppointment extends TypeResponse {

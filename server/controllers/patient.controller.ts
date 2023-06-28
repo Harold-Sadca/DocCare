@@ -155,14 +155,18 @@ async function deletePatient(req: Request, res: Response) {
 
 async function getLastCheckup(req: Request, res: Response) {
   try {
-    const patientId = req.params.id;
-    const patientLastCheckup = await getLastCheckupModel(patientId);
-    if (patientLastCheckup?.lastDate === undefined)
-      res
-        .status(200)
-        .json({ message: `You still didn't have any appointment` });
-    console.log(patientLastCheckup);
-    res.status(200).send(patientLastCheckup);
+    const id = req.params.id;
+    console.log({ id });
+    const patientLastCheckup = await getLastCheckupModel(id);
+    console.log({ patientLastCheckup });
+    if (patientLastCheckup?.lastDate === undefined) {
+      res.status(200).json({ message: `You haven't had any appointments yet` });
+    } else {
+      res.status(200).json({
+        message: `Last checkup found successfully`,
+        result: patientLastCheckup,
+      });
+    }
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patient last checkup' });
   }

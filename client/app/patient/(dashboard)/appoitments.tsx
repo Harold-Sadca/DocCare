@@ -3,7 +3,7 @@ import './appoitments.css';
 export default function Appoitments() {
   // choose the date (no time)
   // choose the illness
-  // submit -> show list of doctors (name, picture, about and availability) based on the illness
+  // submit -> (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
   // choose the doctor and the time
   // submit ->
   // pass the day and the time slot
