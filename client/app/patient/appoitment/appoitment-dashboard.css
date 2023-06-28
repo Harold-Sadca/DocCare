@@ -80,3 +80,14 @@ height:100vh;
 margin-left: 800px;
 margin-top: -500px;
 }
+
+
+.submit-button{
+color:white;
+background-color: #A266B5;
+border-style: none;
+border-radius: 10px;
+padding: 10px;
+box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+
+}
