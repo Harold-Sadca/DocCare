@@ -7,15 +7,21 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 const { TextArea } = Input;
 import { useRouter } from "next/navigation";
-import AvailableDoctorList from "./available-doctors"
+import AvailableDoctorList from "./available-doctors/page"
+import { open } from "fs/promises";
 
 export default function PatientAppoitment() {
+    const router = useRouter();
+    const [openForm, setOpenForm] = useState(true);
+  
+    const handleNextButtonClick = () => {
+      setOpenForm(false);
+    };
 
-const [openForm, setOpenForm] = useState(true);
-const [openFormDoctors, setOpenFormDoctors] = useState(true);
+
+
 
   type SizeType = Parameters<typeof Form>[0]["size"];
-  const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | "default">(
     "default"
   );
@@ -74,7 +80,7 @@ const [openFormDoctors, setOpenFormDoctors] = useState(true);
           </div>
         </div>
         <div>
-        <button onClick={() => setOpenForm(false) } className="button-make-appoitment">Make the Appoitment</button>
+        <button onClick={handleNextButtonClick} className="button-make-appoitment">Make the Appoitment</button>
         </div>
         <div className="female-doctor">
           <img src="/Female-Doctor-PNG-Image.png" />
@@ -227,17 +233,12 @@ const [openFormDoctors, setOpenFormDoctors] = useState(true);
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <button className="next-button"  onClick={() => setOpenFormDoctors(false) } type="submit">
+              <button className="next-button"  onClick={() => router.push("/patient/appoitment/available-doctors")} type="submit">
                 Next  
               </button>
             </Form>
           </div>
         </div>)}
-        {openFormDoctors&& (
-        <div className="list-of-doctors">
-        <AvailableDoctorList/>
-        </div>
-        )}
     </main>
   );
 }
