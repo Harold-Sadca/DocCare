@@ -50,6 +50,8 @@ async function fetchData(path: string) {
       return res.data;
     });
 }
+
+
 async function register(user: TUser, type: string): Promise<TypeRegister> {
   let path;
   if (type == 'doctor') {
