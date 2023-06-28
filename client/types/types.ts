@@ -44,6 +44,7 @@ export interface TypeResponsePatient extends TypeResponse {
   };
 }
 
+
 export interface TypeResponseMedicalInfo extends TypeResponse {
   result?: TypeMedicalInfo;
 }
