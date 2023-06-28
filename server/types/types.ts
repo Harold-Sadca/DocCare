@@ -26,6 +26,8 @@ export interface TypeDoctor {
   gender: 'Male' | 'Female';
   about: string;
   availability?: TypeAvailability;
+  appointments?: TypeAppointment[];
+  patients?: TypePatient[];
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;

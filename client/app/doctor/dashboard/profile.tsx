@@ -10,9 +10,7 @@ export default function Profile() {
     (state) => state.currentDoctorReducer.value
   );
 
-  useEffect(() => {
-    console.log(currentDoctor, 'hey from doctor profile');
-  }, []);
+  console.log(currentDoctor, 'hey from doctor profile');
 
   return (
     <main>
