@@ -6,7 +6,7 @@ const socket = io("ws://localhost:3001");
 
 export default function Messages () {
 
-  const initialState = { message: '', user: '' };
+  const initialState = { message: '', sender_name: '' , receiver_name:''};
   const [messageState, setMessageState] = useState(initialState);
   const [allMessages, setAllMessages] = useState<string[]>([])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +27,14 @@ export default function Messages () {
 
   function handleClick() {
     console.log('clicked')
-    socket.emit("click", 'This is my first message');
+    const newMessage = {
+      content:messageState.message,
+      sender_id:1,
+      sender_name_:messageState.sender_name,
+      receiver_id:2,
+      receiver_name:messageState.receiver_name
+    }
+    socket.emit("click", newMessage);
     socket.on("hello back", (...args) => {
       console.log(args)
     })
@@ -50,12 +57,22 @@ export default function Messages () {
           onChange={(e) => handleChange(e)}
         />
       </Form.Item>
-      <Form.Item label='Password' htmlFor='password'>
+      <Form.Item label='Sender'>
         <Input
           type='text'
-          id='user'
-          name='user'
-          value={messageState.message}
+          id='sender'
+          name='sender_name'
+          value={messageState.sender_name}
+          onChange={(e) => handleChange(e)}
+          required
+        />
+      </Form.Item>
+      <Form.Item label='Receiver'>
+        <Input
+          type='text'
+          id='receiver'
+          name='receiver_name'
+          value={messageState.receiver_name}
           onChange={(e) => handleChange(e)}
           required
         />
