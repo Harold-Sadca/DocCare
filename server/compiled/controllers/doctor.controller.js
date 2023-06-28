@@ -64,6 +64,7 @@ function loginDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
         try {
+            console.log(req.body);
             const doctor = yield Doctor_1.Doctor.findOne({ where: { email } });
             if (!doctor) {
                 throw new Error('Patient not found');
@@ -77,7 +78,9 @@ function loginDoctor(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
+            console.log(accessToken);
             const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
+            console.log(userAuthenticated);
             res.status(200).json({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
                 result: { accessToken, userAuthenticated },

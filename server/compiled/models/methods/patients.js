@@ -193,7 +193,9 @@ function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newAppointment = yield AppointmentDB.create(appointment);
-            const doctor = yield DoctorDB.findOne({ where: { id: doctorId } });
+            const doctor = (yield DoctorDB.findOne({
+                where: { id: doctorId },
+            }));
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));

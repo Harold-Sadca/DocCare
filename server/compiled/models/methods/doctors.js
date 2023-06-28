@@ -17,6 +17,8 @@ const index_1 = __importDefault(require("../schema/index"));
 const Patient_1 = require("../schema/Patient");
 const Appointment_1 = require("../schema/Appointment");
 const logger_1 = __importDefault(require("../../logger"));
+const Doctor_1 = require("../schema/Doctor");
+const MedicalInfo_1 = require("../schema/MedicalInfo");
 const DoctorDB = index_1.default.Doctor;
 const PatientDB = index_1.default.Patient;
 const MedicalInfoDB = index_1.default.MedicalInfo;
@@ -36,6 +38,7 @@ function createDoctorModel(doctor) {
 exports.createDoctorModel = createDoctorModel;
 function getDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(id);
         try {
             const doctor = yield DoctorDB.findOne({
                 where: { id: id },
@@ -44,11 +47,37 @@ function getDoctorModel(id) {
                         model: Appointment_1.Appointment,
                         as: 'doctorAppointments',
                         required: false,
+                        include: [
+                            {
+                                model: Patient_1.Patient,
+                                as: 'patientAppointment',
+                                required: false,
+                            },
+                        ],
                     },
                     {
                         model: Patient_1.Patient,
                         as: 'patients',
                         required: false,
+                        include: [
+                            {
+                                model: Appointment_1.Appointment,
+                                as: 'patientAppointments',
+                                required: false,
+                                include: [
+                                    {
+                                        model: Doctor_1.Doctor,
+                                        as: 'doctorAppointment',
+                                        attributes: { include: ['name', 'licenseNumber'] },
+                                        required: false,
+                                    },
+                                ],
+                            },
+                            {
+                                model: MedicalInfo_1.MedicalInfo,
+                                as: 'medicalInfo',
+                            },
+                        ],
                     },
                 ],
             });
