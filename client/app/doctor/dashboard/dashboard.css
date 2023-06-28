@@ -13,13 +13,6 @@
   align-self: center;
 }
 
-.prescriptions-box {
-  grid-column: col-start 2 / span 1;
-  grid-row: col-start 2 / span 1;
-  justify-self: center;
-  align-self: center;
-}
-
 .appointment-box {
   margin-top: 20px;
   grid-column: col-start 2 / span 1;

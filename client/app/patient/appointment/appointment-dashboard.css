@@ -4,7 +4,8 @@
   object-fit: cover;
   margin-top: 20px;
 }
-.appoitment-heading {
+
+.appointment-heading {
   color: black;
   font-size: 30px;
   font-weight: 800;
@@ -12,6 +13,7 @@
   margin-top: 50px;
   margin-left: 260px;
 }
+
 .Consultation-1 {
   margin-left: 260px;
   margin-top: 20px;
@@ -19,9 +21,11 @@
   flex-direction: row;
   align-items: center;
 }
+
 .Consultation-1 p {
   width: 400px;
 }
+
 .Doctor-2 {
   margin-left: 260px;
   margin-top: 20px;
@@ -29,9 +33,11 @@
   flex-direction: row;
   align-items: center;
 }
+
 .Doctor-2 p {
   width: 400px;
 }
+
 .Solution-3 {
   margin-left: 260px;
   margin-top: 20px;
@@ -39,10 +45,12 @@
   flex-direction: row;
   align-items: center;
 }
+
 .Solution-3 p {
   width: 400px;
 }
-.button-make-appoitment {
+
+.button-make-appointment {
   background-color: #3c5de3;
   color: aliceblue;
   border-style: none;
@@ -53,24 +61,30 @@
   margin-top: -500px;
   z-index: 2;
 }
+
 h2 {
   color: black;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 500;
 }
+
 .female-doctor {
   z-index: 1;
   width: 400px;
   margin-top: -180px;
 }
-.patient-appoitment-main {
+
+.patient-appointment-main {
   height: 100vh;
 }
+
 /* Ilness form */
-.form-appoitment {
+
+.form-appointment {
   margin-left: 500px;
   margin-top: 50px;
 }
+
 .next-button {
   color: white;
   background-color: #a266b5;
@@ -79,11 +93,13 @@ h2 {
   padding: 10px;
   box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
 }
-.form-appoitment h3 {
+
+.form-appointment h3 {
   color: black;
   font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 500;
 }
+
 .next-button {
   margin-left: 600px;
   margin-top: -100px;

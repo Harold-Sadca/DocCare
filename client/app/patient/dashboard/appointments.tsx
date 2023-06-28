@@ -1,6 +1,6 @@
 import './appointments.css';
 
-export default function appointments() {
+export default function Appointments() {
   // choose the date (no time)
   // choose the illness
   // submit -> (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
@@ -14,8 +14,8 @@ export default function appointments() {
 
   return (
     <main>
-      <div className='appointments-container'>
-        <h1>Upcoming appointments:</h1>
+      <div className='apponitments-container'>
+        <h1>Upcoming Appointments:</h1>
         <div className='appointment-list'>
           <div className='appointment-list-container'>
             <div className='each-appointment'>
