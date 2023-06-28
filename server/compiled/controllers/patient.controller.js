@@ -163,8 +163,8 @@ exports.deletePatient = deletePatient;
 function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patientId = req.params.id;
-            const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
+            const id = req.params.id;
+            const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(id);
             if ((patientLastCheckup === null || patientLastCheckup === void 0 ? void 0 : patientLastCheckup.lastDate) === undefined)
                 res
                     .status(200)

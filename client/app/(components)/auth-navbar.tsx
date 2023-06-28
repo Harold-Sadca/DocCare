@@ -29,7 +29,7 @@ export default function AuthNavbar(props: Props) {
   console.log(userType);
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
+  async function getCurrentUser() {
     const token = localStorage.getItem('accessToken');
     const userType = localStorage.getItem('userType') as string;
     if (token) {
@@ -46,6 +46,10 @@ export default function AuthNavbar(props: Props) {
         dispatch(login(userType as string));
       });
     }
+  }
+
+  useEffect(() => {
+    getCurrentUser();
   }, []);
 
   const navItem = isAuth
