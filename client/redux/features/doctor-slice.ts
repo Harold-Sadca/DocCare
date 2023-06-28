@@ -18,7 +18,7 @@ type CurrentDoctorState = {
   address: string;
   about: string;
   gender: string;
-  appointments: TypeAppointment[] | undefined;
+  doctorAppointments: TypeAppointment[] | undefined;
   patients: TypePatient[] | undefined;
 };
 const initialState = {
@@ -31,7 +31,7 @@ const initialState = {
     address: '',
     about: '',
     gender: '',
-    appointments: [],
+    doctorAppointments: [],
     patients: [],
   } as CurrentDoctorState,
 } as InitialState;
@@ -50,7 +50,7 @@ export const currentDoctor = createSlice({
         address,
         about,
         gender,
-        appointments,
+        doctorAppointments,
         patients,
       } = action.payload;
       return {
@@ -63,7 +63,7 @@ export const currentDoctor = createSlice({
           address,
           about,
           gender,
-          appointments,
+          doctorAppointments,
           patients,
         },
       };

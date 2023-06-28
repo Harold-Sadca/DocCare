@@ -26,7 +26,7 @@ export interface TypeDoctor {
   gender: 'Male' | 'Female';
   about: string;
   availability?: TypeAvailability;
-  appointments?: TypeAppointment[];
+  doctorAppointments?: TypeAppointment[];
   patients?: TypePatient[];
   userType?: string;
   createdAt?: Date;
@@ -53,6 +53,8 @@ export interface TypeAppointment {
     | `Digestive system disorders, gastrointestinal cancers, irritable bowel syndrome, Crohn's disease`
     | 'Neurological disorders, migraines, epilepsy, stroke, multiple sclerosis'
     | 'Cancer, various types and stages, chemotherapy, radiation therapy, palliative care';
+  doctor_id?: string;
+  patient_id?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -108,6 +110,7 @@ export interface TypePatient {
   medications: string;
   surgicalHistory: string;
   familyMedicalHistory: string;
+  patientAppointments?: TypeAppointment[];
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;
