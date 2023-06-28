@@ -1,7 +1,7 @@
 "use client";
 import AuthNavbar from "@/app/(components)/auth-navbar";
 import { Montserrat } from "next/font/google";
-import "./appoitment-dashboard.css";
+import "./appointment-dashboard.css";
 import { Form, Input, Radio, RadioChangeEvent, Upload } from "antd";
 import React, { FormEvent, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
