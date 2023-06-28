@@ -4,6 +4,7 @@ import apiService from '@/services/APIservices';
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
+import { calculateAge } from '@/app/helper';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
@@ -12,22 +13,6 @@ export default function Profile() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-
-  function calculateAge(dateOfBirth: string) {
-    const today = new Date();
-    const birthDate = new Date(dateOfBirth);
-
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDiff = today.getMonth() - birthDate.getMonth();
-
-    if (
-      monthDiff < 0 ||
-      (monthDiff === 0 && today.getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
-    return age;
-  }
 
   async function lastCheckup() {
     await apiService
