@@ -227,16 +227,17 @@ const [openFormDoctors, setOpenFormDoctors] = useState(true);
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <button className="next-button" type="submit">
+              <button className="next-button"  onClick={() => setOpenFormDoctors(false) } type="submit">
                 Next  
               </button>
             </Form>
           </div>
         </div>)}
-
+        {openFormDoctors&& (
         <div className="list-of-doctors">
         <AvailableDoctorList/>
         </div>
+        )}
     </main>
   );
 }
