@@ -69,6 +69,13 @@ function getDoctorsModel() {
                     model: Appointment_1.Appointment,
                     as: 'doctorAppointments',
                     required: false,
+                    include: [
+                        {
+                            model: Patient_1.Patient,
+                            as: 'patientAppointments',
+                            required: false
+                        }
+                    ]
                 },
             });
             console.log(doctors);

@@ -200,6 +200,8 @@ function createAppointmentModel(patientId, doctorId, appointment) {
             doctor === null || doctor === void 0 ? void 0 : doctor.addDoctorAppointment(newAppointment);
             doctor === null || doctor === void 0 ? void 0 : doctor.addPatient(patient);
             patient === null || patient === void 0 ? void 0 : patient.addPatientAppointment(newAppointment);
+            newAppointment.setDoctorAppointment(doctor);
+            newAppointment.setPatientAppointment(patient);
             yield (doctor === null || doctor === void 0 ? void 0 : doctor.save());
             yield (patient === null || patient === void 0 ? void 0 : patient.save());
             return newAppointment;

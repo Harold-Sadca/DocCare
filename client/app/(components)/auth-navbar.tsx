@@ -42,12 +42,12 @@ export default function AuthNavbar(props: Props) {
         console.log(user);
         console.log(userType);
         if (userType === 'patient') {
-          const patient = user as TypePatient;
+          const patient = user;
           console.log(patient);
-          dispatch(setCurrentPatient(patient));
+          dispatch(setCurrentPatient(patient.result));
         } else if(userType === 'junior-doctor') {
           console.log(user)
-          dispatch(setCurrentJunior(user as TypeJuniorDoctor))
+          dispatch(setCurrentJunior(user.result))
         }
         dispatch(login(userType as string));
       } catch (error) {
