@@ -121,8 +121,6 @@ async function deletePatientModel(patientId: string) {
 async function getLastCheckupModel(patientId: string) {
   console.log('model working');
   try {
-    //     patient -> appointments -> attended (true) -> get the last date
-    // -> medical-info -> get the notes
     const patient = await PatientDB.findOne({
       where: { id: patientId },
       include: [
@@ -146,7 +144,8 @@ async function getLastCheckupModel(patientId: string) {
     const appointmentsAttended = patient?.patientAppointments?.filter(
       (appointment) => appointment.attended
     );
-    if (appointmentsAttended) {
+    console.log({ appointmentsAttended });
+    if (appointmentsAttended && appointmentsAttended.length > 0) {
       const doctorNote = patient?.medicalInfo?.doctorNote;
       const sortedAppointments = appointmentsAttended?.sort((a, b) => {
         const datesA = a.date;
@@ -156,8 +155,8 @@ async function getLastCheckupModel(patientId: string) {
         return dateA.getTime() - dateB.getTime();
       }) as Appointment[];
       const lastDate = sortedAppointments[0];
-      console.log(patient?.medicalInfo);
-      console.log(doctorNote);
+      console.log(patient?.medicalInfo, 'medical info');
+      console.log(doctorNote, 'doctor note');
       return { doctorNote, lastDate };
     } else return undefined;
   } catch (error) {
