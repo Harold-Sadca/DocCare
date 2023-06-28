@@ -7,10 +7,12 @@ import React, { FormEvent, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 const { TextArea } = Input;
 import { useRouter } from "next/navigation";
+import AvailableDoctorList from "./available-doctors"
 
 export default function PatientAppoitment() {
 
 const [openForm, setOpenForm] = useState(true);
+const [openFormDoctors, setOpenFormDoctors] = useState(true);
 
   type SizeType = Parameters<typeof Form>[0]["size"];
   const router = useRouter();
@@ -231,6 +233,10 @@ const [openForm, setOpenForm] = useState(true);
             </Form>
           </div>
         </div>)}
+
+        <div className="list-of-doctors">
+        <AvailableDoctorList/>
+        </div>
     </main>
   );
 }
