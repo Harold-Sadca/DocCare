@@ -14,9 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.anyDoctorAuthMiddleware = exports.juniorDoctorAuthMiddleware = exports.doctorAuthMiddleware = exports.patientAuthMiddleware = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const Patient_1 = require("../models/schema/Patient");
-const Doctor_1 = require("../models/schema/Doctor");
-const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
+const index_1 = __importDefault(require("../models/schema/index"));
+const DoctorDB = index_1.default.Doctor;
+const JuniorDoctorDB = index_1.default.JuniorDoctor;
+const PatientDB = index_1.default.Patient;
 const SECRET_KEY = process.env.SECRET_KEY;
 const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authHeaders = req.headers['authorization'];
@@ -25,7 +26,7 @@ const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void
     const token = authHeaders.split(' ')[1];
     try {
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
-        const patient = yield Patient_1.Patient.findOne({ where: { id } });
+        const patient = yield PatientDB.findOne({ where: { id } });
         if (!patient)
             return res.sendStatus(401);
         req.patient = patient;
@@ -37,6 +38,8 @@ const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void
 });
 exports.patientAuthMiddleware = patientAuthMiddleware;
 const doctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('hello from doctor middleware');
+    console.log(req.headers);
     const authHeaders = req.headers['authorization'];
     if (!authHeaders)
         return res.sendStatus(403);
@@ -47,7 +50,7 @@ const doctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 
         console.log(jsonwebtoken_1.default.verify(token, SECRET_KEY));
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
         console.log(id);
-        const doctor = yield Doctor_1.Doctor.findOne({ where: { id } });
+        const doctor = yield DoctorDB.findOne({ where: { id } });
         if (!doctor)
             return res.sendStatus(401);
         req.doctor = doctor;
@@ -67,7 +70,7 @@ const juniorDoctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0,
         console.log(token);
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
         console.log(id);
-        const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { id } });
+        const juniorDoctor = yield JuniorDoctorDB.findOne({ where: { id } });
         console.log(juniorDoctor);
         if (!juniorDoctor)
             return res.sendStatus(401);
@@ -86,8 +89,8 @@ const anyDoctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, vo
     const token = authHeaders.split(' ')[1];
     try {
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
-        const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { id } });
-        const doctor = yield Doctor_1.Doctor.findOne({ where: { id } });
+        const juniorDoctor = yield JuniorDoctorDB.findOne({ where: { id } });
+        const doctor = yield DoctorDB.findOne({ where: { id } });
         if (!doctor && !juniorDoctor)
             return res.sendStatus(401);
         if (doctor)

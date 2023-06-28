@@ -41,18 +41,30 @@ app.use(messages_route_1.messagesRouter);
 app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
 io.on("connection", (socket) => {
-    // receive a message from the client
-    socket.on("send", (args) => __awaiter(void 0, void 0, void 0, function* () {
-        const newMessage = yield (0, messages_1.sendMessageModel)(args);
-        // socket.on("click", (message, user) => {
-        // logger.info(user)
-        // if (user === '') {
-        //   socket.broadcast.emit("hello back", message)
-        // } else {
-        //   socket.to(user).emit("hello back", message)
-        // }
-        socket.broadcast.emit("send", newMessage);
-        socket.emit("sent", newMessage);
+    //verify or authenticate them
+    //then close the connection if it failed
+    //closes the connection if a "logout" is sent
+    socket.on('logout', () => {
+        io.close();
+    });
+    socket.on("patient message", (message, patientId, juniorId) => __awaiter(void 0, void 0, void 0, function* () {
+        //save it to the database then returns the created message
+        const newMessage = yield (0, messages_1.sendMessageModel)(message);
+        //this will send it to the junior doctor
+        //access it from to the front using "from patient"
+        socket.to(juniorId).emit("from patient", newMessage);
+        //this will send it back to the patient
+        //access it from the front using "patient sent"
+        //this way we can identify the message the patient sent / received
+        socket.to(patientId).emit("patient sent", newMessage);
+        // socket.broadcast.emit("send", newMessage)
+        // socket.emit("sent", newMessage)
+    }));
+    //this just does the opposite
+    socket.on("junior sent", (message, patientId, juniorId) => __awaiter(void 0, void 0, void 0, function* () {
+        const newMessage = yield (0, messages_1.sendMessageModel)(message);
+        socket.to(patientId).emit("from junior", newMessage);
+        socket.to(juniorId).emit("junior sent", newMessage);
     }));
 });
 server.listen(port, () => {
