@@ -21,9 +21,12 @@ export default function Profile() {
           <h1>{currentDoctor.name}</h1>
         </div>
         <div className="general-info">
-          <h2>General info:</h2>
           <p>{currentDoctor.gender}</p>
         </div>
+        <h2>About</h2>
+        <div className="checkup-container">
+                <p>{currentDoctor.about}</p>
+              </div>
       </div>
     </main>
   );
