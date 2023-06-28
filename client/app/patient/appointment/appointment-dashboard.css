@@ -5,7 +5,7 @@
     margin-top: 20px;
 }
 
-.appoitment-heading {
+.appointment-heading {
     color: black;
     font-size: 30px;
     font-weight: 800;
@@ -52,7 +52,7 @@
     width: 400px;
 }
 
-.button-make-appoitment {
+.button-make-appointment {
     background-color: #3C5DE3;
     color: aliceblue;
     border-style: none;
@@ -78,7 +78,7 @@ h2 {
 }
 
 
-.patient-appoitment-main {
+.patient-appointment-main {
     height: 100vh;
 }
 
@@ -86,7 +86,7 @@ h2 {
 
 /* Ilness form */
 
-.form-appoitment {
+.form-appointment {
     margin-left: 500px;
     margin-top: 50px;
 }
@@ -102,7 +102,7 @@ h2 {
 }
 
 
-.form-appoitment h3 {
+.form-appointment h3 {
 
     color: black;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;

@@ -1,7 +1,7 @@
 'use client';
 import './dashboard.css';
 import Profile from './profile';
-import Appoitments from './appoitments';
+import Appointments from './appointments';
 import Prescriptions from './prescriptions';
 import DoctorList from './doctor-list';
 import AuthNavbar from '@/app/(components)/auth-navbar';
@@ -31,8 +31,8 @@ export default function Patient() {
         <div className='profile-box'>
           <Profile />
         </div>
-        <div className='appoitment-box'>
-          <Appoitments />
+        <div className='appointment-box'>
+          <Appointments />
         </div>
         <div className='prescriptions-box'>
           <Prescriptions />

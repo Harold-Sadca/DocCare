@@ -1,6 +1,6 @@
 
 
-export default function PatientAppoitmentLayout({
+export default function PatientAppointmentLayout({
     children,
   }: {
     children: React.ReactNode;
