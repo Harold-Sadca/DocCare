@@ -80,7 +80,6 @@ const [openForm, setOpenForm] = useState(true);
       </div>
         </>
       ):(
-      
 
         <div className="form-appoitment">
           <div>
@@ -96,7 +95,10 @@ const [openForm, setOpenForm] = useState(true);
               method="post"
               // onFinish={submitForm}
             >
-              <Form.Item label="Appoitment " htmlFor="appoitment">
+
+            <div className="appoitment-date">
+                <h3>Appoitment Date</h3>
+              <Form.Item htmlFor="appoitment">
                 <Input
                   type="date"
                   id="appoitment"
@@ -106,7 +108,9 @@ const [openForm, setOpenForm] = useState(true);
                   required
                 />
               </Form.Item>
-              <Form.Item label="Illness" htmlFor="illness">
+              </div>
+              <h3>What kind of Illness are you experiencing?</h3>
+              <Form.Item  htmlFor="illness">
                 <Radio.Group id="illness" name="Illnesses">
                   <Radio
                     id="illness1"
@@ -221,8 +225,8 @@ const [openForm, setOpenForm] = useState(true);
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <button className="submit-button" type="submit">
-                Submit
+              <button className="next-button" type="submit">
+                Next  
               </button>
             </Form>
           </div>
