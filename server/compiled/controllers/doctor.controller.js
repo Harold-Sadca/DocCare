@@ -92,8 +92,9 @@ exports.loginDoctor = loginDoctor;
 function getDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const doctorId = req.params.id;
-            const doctor = yield (0, doctors_1.getDoctorModel)(doctorId);
+            const auth = req.doctor;
+            const id = auth === null || auth === void 0 ? void 0 : auth.id;
+            const doctor = yield (0, doctors_1.getDoctorModel)(id);
             res.status(200).send({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
                 result: doctor,

@@ -6,20 +6,12 @@ type InitialState = {
 
 type AuthState = {
   isAuth: boolean;
-  username: string;
-  uid: string;
-  isDoctor: boolean;
-  isPatient: boolean;
-  isJuniorDoctor: boolean;
+  userType: string;
 };
 const initialState = {
   value: {
     isAuth: false,
-    username: '',
-    uid: '',
-    isDoctor: false,
-    isPatient: false,
-    isJuniorDoctor: false,
+    userType: ''
   } as AuthState,
 } as InitialState;
 
@@ -32,11 +24,7 @@ export const auth = createSlice({
       return {
         value: {
           isAuth: true,
-          username: action.payload,
-          uid: 'todo',
-          isDoctor: false,
-          isPatient: false,
-          isJuniorDoctor: false,
+          userType: action.payload
         },
       };
     },

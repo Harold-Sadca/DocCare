@@ -14,8 +14,8 @@ const doctorRouter = Router();
 
 doctorRouter.post('/doctor/register', createDoctor);
 doctorRouter.post('/doctor/login', loginDoctor);
-doctorRouter.get('/doctor/:id', doctorAuthMiddleware, getDoctor);
-doctorRouter.get('/doctors', doctorAuthMiddleware, getDoctors);
+doctorRouter.get('/doctor', doctorAuthMiddleware, getDoctor);
+doctorRouter.get('/doctors', getDoctors);
 doctorRouter.post(
   '/doctor/:id/medical-info',
   doctorAuthMiddleware,

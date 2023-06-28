@@ -32,6 +32,7 @@ export default function Logout(props: Props) {
 
   function handleClick() {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('userType');
     dispatch(logout());
     socket.emit('logout')
     // setIsAuthenticated(false);
