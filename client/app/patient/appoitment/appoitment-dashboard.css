@@ -11,11 +11,11 @@
     font-weight: 800;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-top: 50px;
-    margin-left: 100px;
+    margin-left: 260px;
 }
 
 .Consultation-1{
-margin-left: 100px;
+margin-left: 260px;
 margin-top: 20px;
 display:flex;
 flex-direction: row;
@@ -28,7 +28,7 @@ width: 400px;
 }
 
 .Doctor-2{
-margin-left: 100px; 
+margin-left: 260px; 
 margin-top: 20px; 
 display:flex;
 flex-direction: row;
@@ -41,7 +41,7 @@ width: 400px;
 
 
 .Solution-3{
-margin-left: 100px;  
+margin-left: 260px;  
 margin-top: 20px;
 display:flex;
 flex-direction: row;
@@ -57,4 +57,19 @@ h2{
 color: black;
 font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
 font-weight: 500;
+}
+
+.steps{
+z-index:2;
+}
+
+.female-doctor{
+z-index:1;
+width: 400px; 
+margin-top: -180px;
+}
+
+
+.patient-appoitment-main{
+height:100vh;
 }

@@ -14,6 +14,7 @@ export default function PatientAppoitment() {
          <AuthNavbar user={'patient'} auth={'login'} />
          {/* change the navbar to the correct info  */}
         <h1 className='appoitment-heading'>Make an Appoitment</h1>
+        <div className='steps'>
         <div className='Consultation-1'>
         <img src='/1.png' className='icon'/>
         <div>
@@ -34,6 +35,10 @@ export default function PatientAppoitment() {
         <h2>Get a Solution</h2>
         <p>Our Doctor will give you a solution regarding the illness you're suffering from.</p>
         </div>
+        </div>
+        </div>
+        <div className='female-doctor'>
+            <img src='/Female-Doctor-PNG-Image.png'/>
         </div>
       </main>
     );
