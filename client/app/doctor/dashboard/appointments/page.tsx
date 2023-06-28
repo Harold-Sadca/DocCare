@@ -2,6 +2,7 @@
 
 import { TypePatient } from '@/../server/types/types';
 import AuthNavbar from '@/app/(components)/auth-navbar';
+import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -12,15 +13,6 @@ export default function Appointments() {
     (state) => state.currentDoctorReducer.value
   );
   const appointments = currentDoctor.doctorAppointments;
-  // const patients = currentDoctor.patients;
-  const patientsWithAppointment = [] as TypePatient[];
-
-  currentDoctor.patients?.map((pat) => {
-    if (appointments?.some((appointment) => appointment.patient_id === pat.id))
-      patientsWithAppointment.push(pat);
-  });
-  console.log(appointments);
-  console.log({ patientsWithAppointment });
 
   return (
     <main>
@@ -29,7 +21,16 @@ export default function Appointments() {
       <div className='patients'>
         {appointments?.map((appointment, idx) => (
           <div key={idx}>
-            <p>Patient name</p>
+            <p>Patient: {appointment?.patientAppointment?.name}</p>
+            <p>
+              {' '}
+              {calculateAge(
+                appointment?.patientAppointment?.dateOfBirth as string
+              ).toString()}{' '}
+              years old
+            </p>
+            <p>{appointment?.patientAppointment?.gender}</p>
+            <p>Summary: {appointment?.patientAppointment?.summary}</p>
             <p>{appointment.date}</p>
             <p>{appointment.time}</p>
           </div>

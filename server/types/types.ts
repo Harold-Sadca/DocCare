@@ -55,6 +55,7 @@ export interface TypeAppointment {
     | 'Cancer, various types and stages, chemotherapy, radiation therapy, palliative care';
   doctor_id?: string;
   patient_id?: string;
+  patientAppointment?: TypePatient;
   createdAt?: Date;
   updatedAt?: Date;
 }
