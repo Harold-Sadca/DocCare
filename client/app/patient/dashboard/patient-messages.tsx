@@ -12,6 +12,7 @@ export default function PatientMessages() {
 
   const initialState = { message: '', sender_name: '' , receiver_name:''};
   const [messageState, setMessageState] = useState(initialState);
+  
   const [sentMessages, setSentMessages] = useState<TypeMessage[]>([])
   const [receivedMessages, setReceivedMessages] = useState<TypeMessage[]>([])
   const currentPatient = useAppSelector(
@@ -52,18 +53,6 @@ export default function PatientMessages() {
     socket.connect()
   }
 
-  socket.on("patients", (patients) => {
-    patients.forEach((patient) => {
-      patient.self = patient.userID === socket.id;
-    });
-    // put the current user first, and then sort by username
-    this.patients = patients.sort((a, b) => {
-      if (a.self) return -1;
-      if (b.self) return 1;
-      if (a.username < b.username) return -1;
-      return a.username > b.username ? 1 : 0;
-    });
-  });
   // socket.on("your id", (args:string) => {
   //   console.log(args)
   //   socketId = args
