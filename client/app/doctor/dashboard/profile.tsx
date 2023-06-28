@@ -2,13 +2,17 @@
 
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );
+
+  useEffect(() => {
+    console.log(currentDoctor, 'hey from doctor profile');
+  }, []);
 
   return (
     <main>
