@@ -11,11 +11,12 @@ export default function Home() {
   useEffect(() => {
     const userType = localStorage.getItem('userType') as string;
     if (userType) {
-      router.push(`/${userType}`);
+      router.push(`/${userType}/dashboard`);
     } else {
       router.push('/home');
     }
   }, []);
+
   return (
     <div className='flex min-h-screen flex-col box-border'>
       <Navbar />

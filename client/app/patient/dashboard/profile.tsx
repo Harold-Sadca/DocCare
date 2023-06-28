@@ -32,7 +32,7 @@ export default function Profile() {
 
   async function lastCheckup() {
     await apiService
-      .getLastCheckup(currentPatient.id)
+      .getLastCheckup(currentPatient.id as string)
       .then((messageAndResult) => {
         if (!messageAndResult.result)
           setMessage(messageAndResult.message as string);
