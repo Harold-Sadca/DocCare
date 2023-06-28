@@ -31,12 +31,13 @@ export default function JuniorDoctorMessages({currentJunior}) {
       receiver_id:1,
       receiver_name:'Patient'
     }
-    socket.emit("send", newMessage);
+    console.log(newMessage)
+    socket.emit("junior sent", newMessage, 1, currentJunior.id);
     socket.on("send", (args) => {
       console.log(args)
       setAllReceivedMessages([...allReceivedMessages, args])
     })
-    socket.on('sent', (args) => {
+    socket.on('junior sent', (args) => {
       console.log(args)
       setSentAllMessages([...allSentMessages, args])
     })

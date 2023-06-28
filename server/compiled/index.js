@@ -62,6 +62,7 @@ io.on("connection", (socket) => {
     }));
     //this just does the opposite
     socket.on("junior sent", (message, patientId, juniorId) => __awaiter(void 0, void 0, void 0, function* () {
+        logger_1.default.info(message);
         const newMessage = yield (0, messages_1.sendMessageModel)(message);
         socket.to(patientId).emit("from junior", newMessage);
         socket.to(juniorId).emit("junior sent", newMessage);

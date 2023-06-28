@@ -59,6 +59,7 @@ io.on("connection", (socket) => {
 
   //this just does the opposite
   socket.on("junior sent", async (message, patientId, juniorId) => {
+    logger.info(message)
     const newMessage = await sendMessageModel(message)
     socket.to(patientId).emit("from junior", newMessage)
     socket.to(juniorId).emit("junior sent", newMessage)

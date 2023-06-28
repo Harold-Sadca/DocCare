@@ -17,12 +17,14 @@ export default function JuniorDoctorDashBoard() {
   async function authenticate(token:string, userType:string) {
     const user = await apiService.getUser(token, userType);
     setJunior(user)
+    console.log(user)
     dispatch(setCurrentJunior(user as TypeJuniorDoctor))
   }
 
   async function getPatients(token:string) {
     const patients = await apiService.getAllPatients(token)
-    setAllPatients(patients)
+    setAllPatients(patients as TypePatient[])
+    console.log(patients)
   }
 
 
