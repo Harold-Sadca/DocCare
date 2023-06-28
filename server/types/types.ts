@@ -63,7 +63,7 @@ export interface TypeJuniorDoctor {
   phoneNumber: string;
   address: string;
   licenseNumber: string;
-  gender: 'Male' | 'Female' | null;
+  gender: 'Male' | 'Female';
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -81,7 +81,11 @@ export interface TypeMedicalInfo {
 export interface TypeMessage {
   id?: string;
   content: string;
-  date: Date;
+  sender_id: string;
+  sender_name: string;
+  receiver_id: string;
+  receiver_name: string;
+  date: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

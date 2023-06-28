@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { logout } from '@/redux/features/auth-slice';
+import { io } from "socket.io-client";
+const socket = io("ws://localhost:3001");
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -32,6 +34,7 @@ export default function Logout(props: Props) {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userType');
     dispatch(logout());
+    socket.emit('logout')
     // setIsAuthenticated(false);
     router.push('/');
   }

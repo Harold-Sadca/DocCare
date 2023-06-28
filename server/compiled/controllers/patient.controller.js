@@ -107,10 +107,11 @@ function logout(req, res) {
 exports.logout = logout;
 function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log('hey from controller');
         try {
             console.log('controllers');
             const patients = yield (0, patients_1.getPatientsModel)();
-            console.log(patients);
+            // console.log(patients);
             res.status(200).send(patients);
         }
         catch (error) {

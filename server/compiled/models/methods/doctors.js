@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
+const Patient_1 = require("../schema/Patient");
 const Appointment_1 = require("../schema/Appointment");
 const logger_1 = __importDefault(require("../../logger"));
 const DoctorDB = index_1.default.Doctor;
@@ -38,11 +39,18 @@ function getDoctorModel(id) {
         try {
             const doctor = yield DoctorDB.findOne({
                 where: { id: id },
-                include: {
-                    model: Appointment_1.Appointment,
-                    as: 'doctorAppointments',
-                    required: false,
-                },
+                include: [
+                    {
+                        model: Appointment_1.Appointment,
+                        as: 'doctorAppointments',
+                        required: false,
+                    },
+                    {
+                        model: Patient_1.Patient,
+                        as: 'patients',
+                        required: false,
+                    },
+                ],
             });
             return doctor;
         }
@@ -78,13 +86,11 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
-            logger_1.default.info(patient);
-            //TODO:its failing here...
+            logger_1.default.info(newMedicalInfo);
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
             logger_1.default.info('here');
             patient.setMedicalInfo(medicalInfo);
             yield medicalInfo.save();
-            // await patient.save();
             return medicalInfo;
         }
         catch (error) {

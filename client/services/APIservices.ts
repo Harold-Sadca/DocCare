@@ -27,30 +27,31 @@ const PORT = 'http://localhost:3001';
 
 async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
   return axios
-    .put(PORT + path, {
-      body: JSON.stringify(content),
+    .put(PORT + path,JSON.stringify(content), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials:true
     })
     .then((res: AxiosResponse<TPatient>) => {
       return res.data;
     });
 }
 
-async function fetchData(path: string) {
+async function fetchData(token: string, path: string) {
+  console.log(token, path);
   return axios
-    .get(PORT + path, {
+    .get(`${PORT}/${path}`, {
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
+      withCredentials: true,
     })
-    .then((res: AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
+
+    .then((res: AxiosResponse<TypePatient[] | TypeDoctor[]>) => {
       return res.data;
     });
 }
-
 
 async function register(user: TUser, type: string): Promise<TypeRegister> {
   let path;
@@ -94,10 +95,8 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
     });
 }
 
-async function getAllDoctors(): Promise<
-  TypeResponseDoctor | TypeResponsePatient
-> {
-  return fetchData('/doctors');
+async function getAllDoctors(token: string) {
+  return fetchData(token, 'doctors');
 }
 
 async function getMedicalInfo(
@@ -105,12 +104,11 @@ async function getMedicalInfo(
   medicalInfo: TypeMedicalInfo
 ): Promise<TypeResponseMedicalInfo> {
   return axios
-    .put(`${PORT}/doctor/medical-info/${patientId}`, {
-      body: JSON.stringify(medicalInfo),
+    .put(`${PORT}/doctor/medical-info/${patientId}`,JSON.stringify(medicalInfo), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials:true
     })
     .then((res: AxiosResponse<TypeResponseMedicalInfo>) => {
       return res.data;
@@ -122,23 +120,35 @@ async function createPatientSummary(
   summary: TypeSummary
 ): Promise<TypeResponseSummary> {
   return axios
-    .put(`${PORT}/doctor/summary/${patientId}`, {
-      body: JSON.stringify(summary),
+    .put(`${PORT}/doctor/summary/${patientId}`,JSON.stringify(summary), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials:true,
     })
     .then((res: AxiosResponse<TypeResponseSummary>) => {
       return res.data;
     });
 }
 
-async function getAllPatients(): Promise<
-  TypeResponseDoctor | TypeResponsePatient
-> {
-  return fetchData('/patients');
+async function getAllPatients(token: string) {
+  return fetchData(token, 'patients');
 }
+
+// async function getAllPatients(): Promise<TypeResponsePatient> {
+//   console.log('hey from api service getallpatients');
+//   return axios
+//     .get(`${PORT}/patients`, {
+//       headers: {
+//         'Content-type': 'application/json; charset=UTF-8',
+//       },
+//       withCredentials: true,
+//     })
+//     .then((res: AxiosResponse<TypeResponsePatient>) => {
+//       console.log(res);
+//       return res.data;
+//     });
+// }
 
 async function editPatientDetails(
   patientId: string,
@@ -153,6 +163,7 @@ async function deletePatient(patientId: string): Promise<TypeResponsePatient> {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
+      withCredentials:true
     })
     .then((res: AxiosResponse<TypeResponsePatient>) => {
       return res.data;
@@ -167,6 +178,7 @@ async function getLastCheckup(
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
+      withCredentials:true
     })
     .then((res: AxiosResponse<TypeResponseLastCheckup>) => {
       return res.data;
@@ -178,12 +190,11 @@ async function createAppointment(
   appointment: TypeAppointment
 ): Promise<TypeResponseAppointment> {
   return axios
-    .post(`${PORT}/patient/appointment/${patientId}`, {
-      body: JSON.stringify(appointment),
+    .post(`${PORT}/patient/appointment/${patientId}`,JSON.stringify(appointment), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials:true,
     })
     .then((res: AxiosResponse<TypeResponseAppointment>) => {
       return res.data;
@@ -209,12 +220,11 @@ async function createJuniorNote(
   juniorNote: string
 ): Promise<TypeResponseJuniorNotes> {
   return axios
-    .post(`${PORT}/patient/appointment/${juniorID}`, {
-      body: JSON.stringify(juniorNote),
+    .post(`${PORT}/patient/appointment/${juniorID}`,JSON.stringify(juniorNote), {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
-      credentials: 'include',
+      withCredentials:true,
     })
     .then((res: AxiosResponse<TypeResponseJuniorNotes>) => {
       return res.data;

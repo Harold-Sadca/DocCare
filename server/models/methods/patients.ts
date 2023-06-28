@@ -85,7 +85,7 @@ async function getPatientsModel() {
         },
       ],
     });
-    console.log(patients);
+    // console.log(patients);
     return patients;
   } catch (error) {
     throw new Error();
@@ -172,8 +172,11 @@ async function createAppointmentModel(
   try {
     const newAppointment = await AppointmentDB.create(appointment);
     const doctor = await DoctorDB.findOne({ where: { id: doctorId } });
-    const patient = await PatientDB.findOne({ where: { id: patientId } });
+    const patient = (await PatientDB.findOne({
+      where: { id: patientId },
+    })) as Patient;
     doctor?.addDoctorAppointment(newAppointment);
+    doctor?.addPatient(patient);
     patient?.addPatientAppointment(newAppointment);
     await doctor?.save();
     await patient?.save();

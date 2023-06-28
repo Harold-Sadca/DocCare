@@ -23,11 +23,18 @@ async function getDoctorModel(id: string) {
   try {
     const doctor = await DoctorDB.findOne({
       where: { id: id },
-      include: {
-        model: Appointment,
-        as: 'doctorAppointments',
-        required: false,
-      },
+      include: [
+        {
+          model: Appointment,
+          as: 'doctorAppointments',
+          required: false,
+        },
+        {
+          model: Patient,
+          as: 'patients',
+          required: false,
+        },
+      ],
     });
     return doctor;
   } catch (error) {
@@ -60,13 +67,11 @@ async function createMedicalInfoModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    logger.info(patient);
-    //TODO:its failing here...
+    logger.info(newMedicalInfo)
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
     logger.info('here');
     patient.setMedicalInfo(medicalInfo);
-    await medicalInfo.save();
-    // await patient.save();
+    await medicalInfo.save()
     return medicalInfo;
   } catch (error) {
     throw new Error();
