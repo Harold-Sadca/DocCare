@@ -28,7 +28,7 @@
 
 .patient-list {
     height: fit-content;
-    width: 230px;
+    width: fit-content;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 10px;
