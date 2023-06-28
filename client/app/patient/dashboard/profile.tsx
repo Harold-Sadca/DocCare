@@ -12,7 +12,6 @@ export default function Profile() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-  console.log(currentPatient);
 
   function calculateAge(dateOfBirth: string) {
     const today = new Date();

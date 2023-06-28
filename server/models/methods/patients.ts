@@ -85,7 +85,7 @@ async function getPatientsModel() {
         },
       ],
     });
-    console.log(patients);
+    // console.log(patients);
     return patients;
   } catch (error) {
     throw new Error();

@@ -13,6 +13,7 @@ import {
 import {
   patientAuthMiddleware,
   anyDoctorAuthMiddleware,
+  doctorAuthMiddleware,
 } from '../middleware/authorization';
 
 const patientRouter = Router();
@@ -20,7 +21,7 @@ const patientRouter = Router();
 patientRouter.post('/patient/register', createPatient);
 patientRouter.post('/patient/login', loginPatient);
 patientRouter.get('/patient', patientAuthMiddleware, getPatient);
-patientRouter.get('/patients', anyDoctorAuthMiddleware, getPatients);
+patientRouter.get('/patients', doctorAuthMiddleware, getPatients);
 patientRouter.post('/patient/appointment/:id', createAppointment);
 patientRouter.put('/patient', patientAuthMiddleware, updatePatient);
 patientRouter.delete('/patient/:id', patientAuthMiddleware, deletePatient);

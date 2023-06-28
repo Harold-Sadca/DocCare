@@ -39,18 +39,20 @@ async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
     });
 }
 
-async function fetchData(path: string) {
+async function fetchData(token: string, path: string) {
+  console.log(token, path);
   return axios
-    .get(PORT + path, {
+    .get(`${PORT}/${path}`, {
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
+      withCredentials: true,
     })
-    .then((res: AxiosResponse<TypeResponseDoctor | TypeResponsePatient>) => {
+
+    .then((res: AxiosResponse<TypePatient[] | TypeDoctor[]>) => {
       return res.data;
     });
 }
-
 
 async function register(user: TUser, type: string): Promise<TypeRegister> {
   let path;
@@ -94,10 +96,8 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
     });
 }
 
-async function getAllDoctors(): Promise<
-  TypeResponseDoctor | TypeResponsePatient
-> {
-  return fetchData('/doctors');
+async function getAllDoctors(token: string) {
+  return fetchData(token, 'doctors');
 }
 
 async function getMedicalInfo(
@@ -134,11 +134,24 @@ async function createPatientSummary(
     });
 }
 
-async function getAllPatients(): Promise<
-  TypeResponseDoctor | TypeResponsePatient
-> {
-  return fetchData('/patients');
+async function getAllPatients(token: string) {
+  return fetchData(token, 'patients');
 }
+
+// async function getAllPatients(): Promise<TypeResponsePatient> {
+//   console.log('hey from api service getallpatients');
+//   return axios
+//     .get(`${PORT}/patients`, {
+//       headers: {
+//         'Content-type': 'application/json; charset=UTF-8',
+//       },
+//       withCredentials: true,
+//     })
+//     .then((res: AxiosResponse<TypeResponsePatient>) => {
+//       console.log(res);
+//       return res.data;
+//     });
+// }
 
 async function editPatientDetails(
   patientId: string,

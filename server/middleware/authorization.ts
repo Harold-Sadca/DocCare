@@ -1,8 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import db from '../models/schema/index';
 import { Patient } from '../models/schema/Patient';
 import { Doctor } from '../models/schema/Doctor';
 import { JuniorDoctor } from '../models/schema/JuniorDoctor';
+
+const DoctorDB = db.Doctor;
+const JuniorDoctorDB = db.JuniorDoctor;
+const PatientDB = db.Patient;
 
 const SECRET_KEY = process.env.SECRET_KEY as string;
 
@@ -25,7 +30,7 @@ const patientAuthMiddleware = async (
 
   try {
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
-    const patient = await Patient.findOne({ where: { id } });
+    const patient = await PatientDB.findOne({ where: { id } });
     if (!patient) return res.sendStatus(401);
     req.patient = patient;
     next();
@@ -39,6 +44,8 @@ const doctorAuthMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
+  console.log('hello from doctor middleware');
+  console.log(req.headers);
   const authHeaders = req.headers['authorization'];
   if (!authHeaders) return res.sendStatus(403);
   const token = authHeaders.split(' ')[1];
@@ -49,7 +56,7 @@ const doctorAuthMiddleware = async (
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload;
 
     console.log(id);
-    const doctor = await Doctor.findOne({ where: { id } });
+    const doctor = await DoctorDB.findOne({ where: { id } });
     if (!doctor) return res.sendStatus(401);
     req.doctor = doctor;
     next();
@@ -71,7 +78,7 @@ const juniorDoctorAuthMiddleware = async (
     console.log(token);
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
     console.log(id);
-    const juniorDoctor = await JuniorDoctor.findOne({ where: { id } });
+    const juniorDoctor = await JuniorDoctorDB.findOne({ where: { id } });
     console.log(juniorDoctor);
     if (!juniorDoctor) return res.sendStatus(401);
     req.juniorDoctor = juniorDoctor;
@@ -92,8 +99,8 @@ const anyDoctorAuthMiddleware = async (
 
   try {
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
-    const juniorDoctor = await JuniorDoctor.findOne({ where: { id } });
-    const doctor = await Doctor.findOne({ where: { id } });
+    const juniorDoctor = await JuniorDoctorDB.findOne({ where: { id } });
+    const doctor = await DoctorDB.findOne({ where: { id } });
     if (!doctor && !juniorDoctor) return res.sendStatus(401);
     if (doctor) req.doctor = doctor;
     if (juniorDoctor) req.juniorDoctor = juniorDoctor;

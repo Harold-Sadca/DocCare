@@ -2,8 +2,7 @@
 
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
-import apiService from '@/services/APIservices';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
@@ -11,20 +10,7 @@ export default function Profile() {
     (state) => state.currentDoctorReducer.value
   );
 
-  async function getAllPatients() {
-    try {
-      const allPatients = await apiService.getAllPatients();
-      console.log(allPatients);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  console.log('hey from auth navbar');
-
-  useEffect(() => {
-    getAllPatients();
-  }, []);
+  console.log('hey from doctor profile');
 
   return (
     <main>
