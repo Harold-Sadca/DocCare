@@ -22,6 +22,8 @@ export default function Patient() {
     }
   }, []);
 
+  console.log('hey from patient');
+
   return (
     <div>
       <AuthNavbar user={'patient'} auth={'login'} />
