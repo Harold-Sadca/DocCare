@@ -161,7 +161,7 @@ async function getLastCheckup(
   patientId: string
 ): Promise<TypeResponseLastCheckup> {
   return axios
-    .delete(`${PORT}/patient/${patientId}`, {
+    .get(`${PORT}/patient/last-checkup/${patientId}`, {
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },

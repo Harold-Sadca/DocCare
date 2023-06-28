@@ -12,4 +12,4 @@ patientRouter.get('/patient', authorization_1.patientAuthMiddleware, patient_con
 patientRouter.get('/patients', patient_controller_1.getPatients);
 patientRouter.put('/patient', authorization_1.patientAuthMiddleware, patient_controller_1.updatePatient);
 patientRouter.delete('/patient/:id', authorization_1.patientAuthMiddleware, patient_controller_1.deletePatient);
-patientRouter.get('/patient/:id/last-checkup', authorization_1.patientAuthMiddleware, patient_controller_1.getLastCheckup);
+patientRouter.get('/patient/last-checkup/:id', patient_controller_1.getLastCheckup);
