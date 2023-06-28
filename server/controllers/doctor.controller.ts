@@ -50,7 +50,6 @@ async function createDoctor(req: Request, res: Response) {
       userType: 'doctor',
       availability: createEmptyAvailability(),
     } as TypeDoctor;
-
     const createDoctor = await createDoctorModel(newDoctor);
     console.log('why');
     console.log(createDoctor);
@@ -81,7 +80,6 @@ async function loginDoctor(req: Request, res: Response) {
       throw new Error('Invalid password');
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
-
     const userAuthenticated = await getDoctorModel(doctor.id);
     res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
@@ -94,8 +92,9 @@ async function loginDoctor(req: Request, res: Response) {
 
 async function getDoctor(req: Request, res: Response) {
   try {
-    const doctorId = req.params.id;
-    const doctor = await getDoctorModel(doctorId);
+    const auth = req.doctor;
+    const id = auth?.id as string;
+    const doctor = await getDoctorModel(id);
     res.status(200).send({
       message: `Welcome, ${doctor?.name}!`,
       result: doctor,

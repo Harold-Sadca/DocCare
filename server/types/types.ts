@@ -94,16 +94,14 @@ export interface TypePatient {
   phoneNumber: string;
   address: string;
   dateOfBirth: string;
-  gender: 'Male' | 'Female' | null;
+  gender: 'Male' | 'Female';
   juniorNotes?: string;
   summary?: string;
-  conditions: {
-    allergies: string;
-    bloodType: string;
-    medications: string;
-    surgicalHistory: string;
-    familyMedicalHistory: string;
-  };
+  allergies: string;
+  bloodType: string;
+  medications: string;
+  surgicalHistory: string;
+  familyMedicalHistory: string;
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;

@@ -18,13 +18,12 @@ const index_1 = __importDefault(require(".././models/schema/index"));
 const PatientDB = index_1.default.Patient;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const logger_1 = __importDefault(require("../logger"));
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name, email, password, phoneNumber, address, dateOfBirth, gender, conditions, } = req.body;
+            const { name, email, password, phoneNumber, address, dateOfBirth, gender, allergies, bloodType, medications, surgicalHistory, familyMedicalHistory, } = req.body;
             const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newPatient = {
                 name,
@@ -34,10 +33,15 @@ function createPatient(req, res) {
                 address,
                 dateOfBirth,
                 gender,
-                conditions,
+                allergies,
+                bloodType,
+                medications,
+                surgicalHistory,
+                familyMedicalHistory,
                 userType: 'patient',
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
+            console.log(createPatient);
             const accessToken = jsonwebtoken_1.default.sign({ id: createPatient.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Patient account created successfully',
@@ -68,10 +72,10 @@ function loginPatient(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
-            const patientAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
+            const userAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
             res.status(200).json({
                 message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
-                result: { accessToken, patientAuthenticated },
+                result: { accessToken, userAuthenticated },
             });
         }
         catch (error) {
@@ -83,7 +87,8 @@ exports.loginPatient = loginPatient;
 function getPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const id = req.params.id;
+            const auth = req.patient;
+            const id = auth === null || auth === void 0 ? void 0 : auth.id;
             const patient = yield (0, patients_1.getPatientModel)(id);
             res.status(200).json({
                 message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
@@ -103,8 +108,9 @@ exports.logout = logout;
 function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log('controllers');
             const patients = yield (0, patients_1.getPatientsModel)();
-            logger_1.default.info(patients);
+            console.log(patients);
             res.status(200).send(patients);
         }
         catch (error) {

@@ -29,7 +29,11 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
-      conditions,
+      allergies,
+      bloodType,
+      medications,
+      surgicalHistory,
+      familyMedicalHistory,
     } = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newPatient = {
@@ -40,10 +44,15 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
-      conditions,
+      allergies,
+      bloodType,
+      medications,
+      surgicalHistory,
+      familyMedicalHistory,
       userType: 'patient',
     };
     const createPatient = await createPatientModel(newPatient);
+    console.log(createPatient);
     const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Patient account created successfully',
@@ -84,7 +93,8 @@ async function loginPatient(req: Request, res: Response) {
 
 async function getPatient(req: Request, res: Response) {
   try {
-    const id = req.params.id;
+    const auth = req.patient;
+    const id = auth?.id as string;
     const patient = await getPatientModel(id);
     res.status(200).json({
       message: `Welcome, ${patient?.name}!`,
@@ -96,10 +106,12 @@ async function getPatient(req: Request, res: Response) {
 }
 
 async function logout(req: Request, res: Response) {}
+
 async function getPatients(req: Request, res: Response) {
   try {
+    console.log('controllers');
     const patients = await getPatientsModel();
-    logger.info(patients);
+    console.log(patients);
     res.status(200).send(patients);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patients account' });

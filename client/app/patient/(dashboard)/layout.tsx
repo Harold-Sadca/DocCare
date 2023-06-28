@@ -1,8 +1,7 @@
 import { Suspense } from 'react';
-import Link from 'next/link';
 import Loading from './loading';
 
-export default function HomeLayout({
+export default function PatientLayout({
   children,
 }: {
   children: React.ReactNode;
