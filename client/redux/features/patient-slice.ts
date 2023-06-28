@@ -6,7 +6,7 @@ type InitialState = {
 };
 
 type CurrentPatientState = {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
@@ -42,9 +42,6 @@ export const currentPatient = createSlice({
   name: 'currentPatient',
   initialState,
   reducers: {
-    // getCurrentPatient: (state) => {
-    //   return state;
-    // },
     setCurrentPatient: (state, action: PayloadAction<TypePatient>) => {
       const {
         id,

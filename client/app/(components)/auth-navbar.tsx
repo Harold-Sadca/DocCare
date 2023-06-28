@@ -32,10 +32,11 @@ export default function AuthNavbar(props: Props) {
   async function getCurrentUser() {
     const token = localStorage.getItem('accessToken');
     const userType = localStorage.getItem('userType') as string;
-    if (token) {
-      console.log(token);
-      console.log(userType);
-      apiService.getUser(token, userType).then((user) => {
+    if (token && userType && !isAuth) {
+      try {
+        console.log(token);
+        console.log(userType);
+        const user = await apiService.getUser(token, userType);
         console.log(user);
         console.log(userType);
         if (userType === 'patient') {
@@ -44,9 +45,13 @@ export default function AuthNavbar(props: Props) {
           dispatch(setCurrentPatient(patient.result));
         }
         dispatch(login(userType as string));
-      });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
+
+  console.log('hey from auth navbar');
 
   useEffect(() => {
     getCurrentUser();
