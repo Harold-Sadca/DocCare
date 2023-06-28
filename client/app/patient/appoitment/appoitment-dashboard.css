@@ -11,29 +11,50 @@
     font-weight: 800;
     font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
     margin-top: 50px;
-    margin-left: 60px;
+    margin-left: 100px;
 }
 
 .Consultation-1{
-margin-left: 60px;
+margin-left: 100px;
 margin-top: 20px;
 display:flex;
 flex-direction: row;
 align-items: center;
 }
 
+
+.Consultation-1 p{
+width: 400px;
+}
+
 .Doctor-2{
-margin-left: 60px; 
+margin-left: 100px; 
 margin-top: 20px; 
 display:flex;
 flex-direction: row;
 align-items: center;
 }
 
+.Doctor-2 p{
+width: 400px;
+}
+
+
 .Solution-3{
-margin-left: 60px;  
+margin-left: 100px;  
 margin-top: 20px;
 display:flex;
 flex-direction: row;
 align-items: center;
+}
+
+.Solution-3 p{
+width: 400px;
+}
+
+
+h2{
+color: black;
+font-family: 'Open Sans', 'Helvetica Neue', sans-serif;
+font-weight: 500;
 }
