@@ -9,6 +9,9 @@ const { TextArea } = Input;
 import { useRouter } from "next/navigation";
 
 export default function PatientAppoitment() {
+
+const [openForm, setOpenForm] = useState(true);
+
   type SizeType = Parameters<typeof Form>[0]["size"];
   const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | "default">(
@@ -34,8 +37,11 @@ export default function PatientAppoitment() {
     <main className="patient-appoitment-main">
       <AuthNavbar user={"patient"} auth={"login"} />
       {/* change the navbar to the correct info  */}
-      <h1 className="appoitment-heading">Make an Appoitment</h1>
+     
+      {openForm ? (
+      <>
       <div className="lay">
+      <h1 className="appoitment-heading">Make an Appoitment</h1>
         <div className="steps">
           <div className="Consultation-1">
             <img src="/1.png" className="icon" />
@@ -68,6 +74,12 @@ export default function PatientAppoitment() {
         <div className="female-doctor">
           <img src="/Female-Doctor-PNG-Image.png" />
         </div>
+        <button onClick={() => setOpenForm(false) }>Make the Appoitment</button>
+      </div>
+        </>
+      ):(
+      
+
         <div className="form-appoitment">
           <div>
             <Form
@@ -212,8 +224,7 @@ export default function PatientAppoitment() {
               </button>
             </Form>
           </div>
-        </div>
-      </div>
+        </div>)}
     </main>
   );
 }
