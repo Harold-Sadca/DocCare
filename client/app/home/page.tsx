@@ -1,9 +1,21 @@
+'use client';
 import Image from 'next/image';
 import Footer from '../(components)/footer';
 import Navbar from './navbar';
 import Users from './users';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
+  useEffect(() => {
+    const userType = localStorage.getItem('userType') as string;
+    if (userType) {
+      router.push(`/${userType}`);
+    } else {
+      router.push('/home');
+    }
+  }, []);
   return (
     <div className='flex min-h-screen flex-col box-border'>
       <Navbar />

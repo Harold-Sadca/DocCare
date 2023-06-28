@@ -34,7 +34,6 @@ class JuniorDoctor extends sequelize_1.Model {
             },
             userType: {
                 type: sequelize_1.DataTypes.STRING,
-                defaultValue: 'junior-doctor',
             },
             createdAt: {
                 type: sequelize_1.DataTypes.DATE,

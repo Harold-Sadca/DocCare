@@ -1,9 +1,15 @@
 'use client';
 
-import { useAppSelector } from '@/redux/store';
+import { AppDispatch, useAppSelector } from '@/redux/store';
+import apiService from '@/services/APIservices';
 import { Disclosure } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { setCurrentPatient } from '@/redux/features/patient-slice';
+import { TypePatient } from '@/../server/types/types';
+import { useDispatch } from 'react-redux';
+import { login } from '@/redux/features/auth-slice';
 
 interface Props {
   user: string;
@@ -19,6 +25,29 @@ function firstLetterUpperCase(text: string) {
 
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
+  const userType = useAppSelector((state) => state.authReducer.value.userType);
+  console.log(userType);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    const token = localStorage.getItem('accessToken');
+    const userType = localStorage.getItem('userType') as string;
+    if (token) {
+      console.log(token);
+      console.log(userType);
+      apiService.getUser(token, userType).then((user) => {
+        console.log(user);
+        console.log(userType);
+        if (userType === 'patient') {
+          const patient = user as TypePatient;
+          console.log(patient);
+          dispatch(setCurrentPatient(patient.result));
+        }
+        dispatch(login(userType as string));
+      });
+    }
+  }, []);
+
   const navItem = isAuth
     ? [
         {
