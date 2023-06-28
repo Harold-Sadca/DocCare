@@ -23,11 +23,18 @@ async function getDoctorModel(id: string) {
   try {
     const doctor = await DoctorDB.findOne({
       where: { id: id },
-      include: {
-        model: Appointment,
-        as: 'doctorAppointments',
-        required: false,
-      },
+      include: [
+        {
+          model: Appointment,
+          as: 'doctorAppointments',
+          required: false,
+        },
+        {
+          model: Patient,
+          as: 'patients',
+          required: false,
+        },
+      ],
     });
     return doctor;
   } catch (error) {

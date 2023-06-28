@@ -2,7 +2,7 @@
 
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
@@ -10,7 +10,9 @@ export default function Profile() {
     (state) => state.currentDoctorReducer.value
   );
 
-  console.log('hey from doctor profile');
+  useEffect(() => {
+    console.log(currentDoctor, 'hey from doctor profile');
+  }, []);
 
   return (
     <main>
