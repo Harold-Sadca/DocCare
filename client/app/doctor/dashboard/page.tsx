@@ -19,10 +19,10 @@ export default function Doctor() {
         <div className='profile-box'>
           <Profile />
         </div>
-        <div className='profile-box'>
+        <div className='patients-box'>
           <Patients />
         </div>
-        <div className=''>
+        <div className='appointments-box'>
           <Appointments />
         </div>
       </main>
