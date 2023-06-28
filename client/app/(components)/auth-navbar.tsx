@@ -22,7 +22,7 @@ interface Props {
 }
 
 // if its auth
-function firstLetterUpperCase(text: string) {
+function toFirstLetterUpperCase(text: string) {
   const arr = text.split('');
   arr[0] = arr[0].toUpperCase();
   return arr.join('');
@@ -86,7 +86,7 @@ export default function AuthNavbar(props: Props) {
       ]
     : [
         {
-          name: firstLetterUpperCase(props.auth),
+          name: toFirstLetterUpperCase(props.auth),
           href: `/${props.user}/${props.auth}`,
           current: false,
         },

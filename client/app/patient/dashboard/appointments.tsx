@@ -1,17 +1,6 @@
 import './appointments.css';
 
 export default function Appointments() {
-  // choose the date (no time)
-  // choose the illness
-  // submit -> (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
-  // choose the doctor and the time
-  // submit ->
-  // pass the day and the time slot
-  // backend: go to the doctor, availability and
-  // availability.day.push(time slot)
-  // return doctor
-  // success message and redirect to /patient
-
   return (
     <main>
       <div className='apponitments-container'>
