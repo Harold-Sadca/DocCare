@@ -71,10 +71,12 @@ const [openForm, setOpenForm] = useState(true);
             </div>
           </div>
         </div>
+        <div>
+        <button onClick={() => setOpenForm(false) } className="button-make-appoitment">Make the Appoitment</button>
+        </div>
         <div className="female-doctor">
           <img src="/Female-Doctor-PNG-Image.png" />
         </div>
-        <button onClick={() => setOpenForm(false) }>Make the Appoitment</button>
       </div>
         </>
       ):(
