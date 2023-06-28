@@ -38,6 +38,7 @@ grid-row: col-start 1/ span 2;
 }
 
 .patient-messages{
+  position: sticky;
   grid-column:col-start 3/ span 1;
   grid-row: col-start 3/ span 2;
   justify-self: center;
