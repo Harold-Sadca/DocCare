@@ -31,6 +31,25 @@ export default function Patient({ params }: { params: { id: string } }) {
           src="https://images.pexels.com/photos/1819483/pexels-photo-1819483.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="profile-image-patient"
         />
+        <div className="appointments-container">
+          <h2 id="heading-appointments">Next appointments</h2>
+          <div className="all-appointments">
+            {currentPatient?.patientAppointments
+              ?.filter(
+                (appointment) =>
+                  appointment.doctor_id === currentDoctor.id &&
+                  !appointment.attended
+              )
+              .map((appointment, idx) => (
+                <div key={idx} className="each-appointment">
+                  <h2>{appointment.date}</h2>
+                  <p>{appointment.time}</p>
+                  <p>{appointment.attended}</p>
+                  {/* display dependant on how many appoitments they had */}
+                </div>
+              ))}
+          </div>
+        </div>
         <div className="all-info-about-patient">
           <div className="main-info-patient">
             <h2 id="name">{currentPatient?.name}</h2>
@@ -55,21 +74,7 @@ export default function Patient({ params }: { params: { id: string } }) {
           </div>
           <h2>Medications:</h2>
           <h2>{currentPatient?.medications.toString()}</h2>
-          <div className="appointments-container">
-            <h2>Next appointments:</h2>
-            {currentPatient?.patientAppointments
-              ?.filter(
-                (appointment) =>
-                  appointment.doctor_id === currentDoctor.id &&
-                  !appointment.attended
-              )
-              .map((appointment, idx) => (
-                <div key={idx}>
-                  <h2>{appointment.date}</h2>
-                  <h2>{appointment.date}</h2>
-                </div>
-              ))}
-          </div>
+
           <div>
             {currentPatient?.patientAppointments
               ?.filter(
@@ -79,7 +84,7 @@ export default function Patient({ params }: { params: { id: string } }) {
               )
               .map((appointment, idx) => (
                 <>
-                  <h2 id="ilness-h2">Illness</h2>
+                  <h2 id="ilness-h2">Illnesses</h2>
                   <p className="all-illnesses">
                     {appointment.illness.split(",").map((word, index) => (
                       <span id="each-illness" key={index}>
