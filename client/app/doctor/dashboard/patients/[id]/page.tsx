@@ -2,7 +2,7 @@
 
 import { TypePatient } from "@/../server/types/types";
 import AuthNavbar from "@/app/(components)/auth-navbar";
-import { calculateAge } from "@/app/helper";
+import { calculateAge, toFirstLetterUpperCase } from "@/app/helper";
 import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -66,11 +66,14 @@ export default function Patient({ params }: { params: { id: string } }) {
               <div key={idx}>
                 <h2>{appointment.date}</h2>
                 <h2>{appointment.date}</h2>
-                <h2>
-                  {appointment.illness.split(',').map((word, index) => (
-                    <span id='each-illness'key={index}>{word}</span>
+                <h2 id="ilness-h2">Illness</h2>
+                <p className="all-illnesses">
+                  {appointment.illness.split(",").map((word, index) => (
+                    <span id="each-illness" key={index}>
+                      {toFirstLetterUpperCase(word) + word.slice(2)}
+                    </span>
                   ))}
-                </h2>
+                </p>
               </div>
             ))}
         </div>

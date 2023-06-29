@@ -13,3 +13,8 @@ export function calculateAge(dateOfBirth: string) {
   }
   return age;
 }
+
+
+export function toFirstLetterUpperCase(word: string) {
+return word.charAt(1).toUpperCase()
+}
