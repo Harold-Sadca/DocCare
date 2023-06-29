@@ -46,13 +46,14 @@ export default function JuniorDoctorMessages({currentJunior}) {
       receiver_id:selectedPatient.id,
       receiver_name:selectedPatient.name
     }
-    console.log(newMessage)
+    // console.log(newMessage)
     // replace halord with currentPatient.name sadly
     socket.emit("from junior", newMessage, selectedPatient.name);
   }
 
   function socketConnect() {
     socket.auth = {name}
+    console.log(socket.auth, 'room name')
     socket.connect()
   }
 

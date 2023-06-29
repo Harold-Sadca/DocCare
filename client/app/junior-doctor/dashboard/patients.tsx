@@ -21,7 +21,7 @@ export default function AllPatients({allPatients}) {
       console.log('chat')
       const patientToChat = {
         id:e.target.id,
-        name:e.target.name
+        name:e.target.title
       }
       dispatch(setChatPatient(patientToChat))
     }
@@ -35,7 +35,7 @@ export default function AllPatients({allPatients}) {
           <>
             <h2 key={patient.id}>{patient.name}</h2>
             <button id={patient.id} name="patient-details" onClick={(e) => {chatToPatient(e)}}>Patient Details</button>
-            <button id={patient.id} name="chat" onClick={(e) => {chatToPatient(e)}}>Chat</button>
+            <button id={patient.id} name="chat" title={patient.name} onClick={(e) => {chatToPatient(e)}}>Chat</button>
             {/* <div>{patient.patientAppointments?.map((appointment:TypeAppointment) => {
               return <section key={appointment.id}>{appointment.date}</section>
             })}</div> */}
