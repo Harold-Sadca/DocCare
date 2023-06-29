@@ -47,11 +47,13 @@
     width: 300px;
     padding-left: 20px;
     padding-right: 20px;
+    border-radius: 20px;
     background-color: #F0F6FC;
     box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
+    position: relative;
 }
 
 
@@ -76,4 +78,19 @@
     position: absolute;
     bottom: 30px;
     right: 30px;
+}
+
+.about-patient #name{
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.time-of-appointment{
+    color: #1F4F5B;
+    font-weight: bold;
+    font-size: 20px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
 }

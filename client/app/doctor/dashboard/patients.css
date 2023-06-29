@@ -45,6 +45,8 @@
     margin-top: 15px;
     box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
     text-align: center;
+    align-items: center; /* Vertically center the content */
+    justify-content: center; /* Horizontally center the content */
 }
 
 
