@@ -3,7 +3,6 @@
   display: grid;
   grid-template-columns: repeat(3, [col-start] 1fr);
   grid-template-rows: repeat(4, [col-start] 1fr);
-  grid-gap: 10px;
 }
 
 
@@ -17,14 +16,14 @@ margin-top: 40px;
 
 .patients-box{
   grid-column:  col-start 2/ span 1;
-  grid-row: col-start 2/ span 1;
+  grid-row: col-start 1/ span 1;
   justify-self: center;
   align-self: center;
 }
 
 .appointments-box{
   margin-top: 40px;
-  grid-column:  col-start 2/ span 1;
+  grid-column:  col-start 3/ span 1;
   grid-row: col-start 1/ span 1;
   justify-self: center;
   align-self: center;

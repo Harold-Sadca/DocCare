@@ -19,7 +19,7 @@ export default function Patients() {
     <main>
       <>
         <div className="patients-list-container">
-          <h1>My Patients:</h1>
+          <h1>My Patients</h1>
           <div className="patient-list">
             {patients?.slice(0, 3).map((patient, idx) => (
               <div className="each-patient">
