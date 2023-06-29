@@ -1,0 +1,29 @@
+.appointments-container {
+    height: 200px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+    border-radius: 10%;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+}
+
+
+
+::-webkit-scrollbar{
+    display: none;
+    }
+
+
+.appointments-container h1 {
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+

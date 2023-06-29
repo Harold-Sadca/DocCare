@@ -3,6 +3,7 @@
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import './appointments.css'
 
 export default function Appointments() {
   const router = useRouter();
@@ -14,7 +15,9 @@ export default function Appointments() {
 
   return (
     <main>
+      <div className='appointments-container'>
       <h2>My appointments</h2>
+      
       <div className='patients'>
         {appointments?.slice(0, 3).map((appointment, idx) => (
           <div key={idx}>
@@ -29,6 +32,7 @@ export default function Appointments() {
         >
           See all
         </Link>
+      </div>
       </div>
     </main>
   );
