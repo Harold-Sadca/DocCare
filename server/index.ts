@@ -44,9 +44,7 @@ io.use((socket, next) => {
 
 io.on("connection", (socket) => {
 
-  // logger.info(socket.handshake.auth.name)
   const newRoom = socket.handshake.auth.name
-  // io.sockets.adapter.rooms.
   socket.join(newRoom)
   socket.to(newRoom).emit('returned', 'test')
   // logger.info(io.sockets.adapter.rooms)
