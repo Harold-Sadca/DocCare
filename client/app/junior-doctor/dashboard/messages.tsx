@@ -15,7 +15,7 @@ const socket = io("ws://localhost:3001");
 
 
 // export default function JuniorDoctorMessages() {
-export default function JuniorDoctorMessages({currentJunior}) {
+// export default function JuniorDoctorMessages({currentJunior}) {
 
 interface Props {
   currentJunior: TUser;
@@ -103,5 +103,4 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       </div>
     </main>
   );
-}
 }

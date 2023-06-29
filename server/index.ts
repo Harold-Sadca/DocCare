@@ -36,7 +36,8 @@ app.use(doctorRouter);
 io.use((socket, next) => {
 
   const name = socket.handshake.auth.name;
-  logger.warn(socket.handshake.auth.name)
+  // logger.warn(socket.handshake.auth.name)
+  // console.log({name})
   if (!name) {
     return next(new Error("invalid username"));
   }

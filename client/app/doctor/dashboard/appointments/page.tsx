@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 'use client';
 
 import { TypePatient } from '@/../server/types/types';

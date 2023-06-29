@@ -23,7 +23,7 @@ export default function AllPatients({ allPatients }: Props) {
       console.log('chat');
       const patientToChat = {
         id: target.id,
-        name: target.name,
+        name: target.title,
       };
       console.log(patientToChat);
       dispatch(setChatPatient(patientToChat));
@@ -39,6 +39,7 @@ export default function AllPatients({ allPatients }: Props) {
             <button
               id={patient.id}
               name='patient-details'
+              title={patient.name}
               onClick={(e) => {
                 chatToPatient(e);
               }}
@@ -47,6 +48,7 @@ export default function AllPatients({ allPatients }: Props) {
             </button>
             <button
               id={patient.id}
+              title={patient.name}
               name='chat'
               onClick={(e) => {
                 chatToPatient(e);
