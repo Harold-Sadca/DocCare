@@ -68,10 +68,9 @@ export default function Profile() {
           <p>{currentPatient.gender}</p>
         </div>
         <div className='ilnesses'>
-          <h3>Illnesses:</h3>
+          <h3>Allergies:</h3>
           <div className='each-illness'>
-            <div>Anxiety</div>
-            <div>Depression</div>
+            <div>{currentPatient.allergies}</div>
           </div>
           <div className='checkup'>
             <h4>Last Checkup:</h4>

@@ -21,13 +21,7 @@ export default function AvailableDoctorList() {
   );
 
   console.log(availableSpecialists);
-  // when choose the slot
-  // function makeAppointment(stateMonth: number, stateDay: number, time: number) {
-  //   // time is the id of the button
-  //   // pass the day and the time slot
-  //   // backend: go to the doctor, availability and
-  //   // availability.day.push(time slot)
-  // }
+
 
   async function makeAppointment(
     date: string,
