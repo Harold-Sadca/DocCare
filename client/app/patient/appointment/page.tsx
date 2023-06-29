@@ -37,6 +37,7 @@ export default function PatientAppointment() {
   const router = useRouter();
   const [openForm, setOpenForm] = useState(true);
   const [state, setState] = useState(initialState);
+  const [illness, setIllness] = useState<string>('');
   const [specialists, setSpecialists] = useState<TypeDoctor[]>([]);
   const [allDoctors, setAllDoctors] = useState<TypeDoctor[]>([]);
   const [availableSpecialists, setAvailableSpecialists] = useState<
@@ -62,6 +63,8 @@ export default function PatientAppointment() {
       | RadioChangeEvent
   ) {
     const { name, value } = e.target;
+
+    setIllness(e.target.title as string);
     setState((prevState) => ({
       ...prevState,
       [name as string]: value,
@@ -105,7 +108,7 @@ export default function PatientAppointment() {
   function displayAvailability(
     stateDate: string,
     formatedDate: number[],
-    stateIllness: string
+    illness: string
   ) {
     const [stateYear, stateMonth, stateDay] = formatedDate;
     return specialists.map((docs) => {
@@ -118,7 +121,7 @@ export default function PatientAppointment() {
           doctorProfilePic: docs.profilePicture,
           slots: docs.availability[stateMonth][stateDay],
           date: stateDate,
-          illness: stateIllness,
+          illness,
         }
       );
     });
@@ -148,7 +151,7 @@ export default function PatientAppointment() {
       const availableDoctors = displayAvailability(
         state.date,
         formatStateDate(state.date),
-        state.illnesses
+        illness
       ) as TypeAvailableSpecialist[];
       dispatch(setAvailableSpecialist(availableDoctors));
       setAvailableSpecialists(availableDoctors);
@@ -238,6 +241,8 @@ export default function PatientAppointment() {
                 <Radio.Group id='illness' name='illnesses'>
                   <Radio
                     id='illness1'
+                    title='Common illnesses, minor injuries, preventive care, general
+                      health issues'
                     value='General Practice'
                     onChange={(value) => handleChange(value)}
                   >
@@ -247,6 +252,8 @@ export default function PatientAppointment() {
                   <Radio
                     id='illness2'
                     value='Internal Medicine'
+                    title='Chronic diseases, infections, autoimmune disorders, organ
+                      diseases'
                     onChange={(value) => handleChange(value)}
                   >
                     Chronic diseases, infections, autoimmune disorders, organ
@@ -255,13 +262,17 @@ export default function PatientAppointment() {
                   <Radio
                     id='illness3'
                     value='Pediatrics'
+                    title='Childhood illnesses, growth and development issues,
+                      vaccinations, pediatric infections'
                     onChange={(value) => handleChange(value)}
                   >
                     Childhood illnesses, growth and development issues,
-                    vaccinations, pediatric infections.{' '}
+                    vaccinations, pediatric infections{' '}
                   </Radio>
                   <Radio
                     id='illness4'
+                    title='Pregnancy-related conditions, gynecological disorders,
+                      fertility issues, childbirth complications'
                     value='Obstetrics and Gynecology'
                     onChange={(value) => handleChange(value)}
                   >
@@ -270,6 +281,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness5'
+                    title='Surgical conditions, injuries requiring surgical
+                      intervention, post-operative care'
                     value='Surgery'
                     onChange={(value) => handleChange(value)}
                   >
@@ -278,6 +291,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness6'
+                    title='Mental health disorders, anxiety, depression, bipolar
+                      disorder, schizophrenia'
                     value='Psychiatry'
                     onChange={(value) => handleChange(value)}
                   >
@@ -286,6 +301,7 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness7'
+                    title='Skin conditions, dermatitis, acne, psoriasis, skin cancer'
                     value='Dermatology'
                     onChange={(value) => handleChange(value)}
                   >
@@ -293,6 +309,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness8'
+                    title='Eye diseases, vision problems, cataracts, glaucoma, macular
+                      degeneration'
                     value='Ophthalmology'
                     onChange={(value) => handleChange(value)}
                   >
@@ -301,6 +319,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness9'
+                    title='Ear infections, sinusitis, tonsillitis, hearing loss, vocal
+                      cord disorders'
                     value='Ear Nose and Throat (ENT)'
                     onChange={(value) => handleChange(value)}
                   >
@@ -309,6 +329,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness10'
+                    title='Heart diseases, hypertension, heart failure, arrhythmias,
+                      coronary artery disease'
                     value='Cardiology'
                     onChange={(value) => handleChange(value)}
                   >
@@ -317,6 +339,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness11'
+                    title='Diabetes, thyroid disorders, hormonal imbalances, metabolic
+                      disorders'
                     value='Endocrinology'
                     onChange={(value) => handleChange(value)}
                   >
@@ -325,6 +349,8 @@ export default function PatientAppointment() {
                   </Radio>
                   <Radio
                     id='illness12'
+                    title={`Digestive system disorders, gastrointestinal cancers,
+                      irritable bowel syndrome, Crohn's disease`}
                     value='Gastroenterology'
                     onChange={(value) => handleChange(value)}
                   >
@@ -334,6 +360,8 @@ export default function PatientAppointment() {
                   <Radio
                     id='illness13'
                     value='Neurology'
+                    title='Neurological disorders, migraines, epilepsy, stroke,
+                      multiple sclerosis'
                     onChange={(value) => handleChange(value)}
                   >
                     Neurological disorders, migraines, epilepsy, stroke,
@@ -342,6 +370,8 @@ export default function PatientAppointment() {
                   <Radio
                     id='illness14'
                     value='Oncology'
+                    title='Cancer, various types and stages, chemotherapy, radiation
+                      therapy, palliative care'
                     onChange={(value) => handleChange(value)}
                   >
                     Cancer, various types and stages, chemotherapy, radiation

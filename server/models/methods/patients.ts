@@ -168,7 +168,6 @@ async function getLastCheckupModel(patientId: string) {
 }
 
 function formatStateDate(date: string) {
-  // 2023-07-01
   const [year, month, day] = date.split('-');
   const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
   const formattedDay = day.startsWith('0') ? day.substring(1) : day;
@@ -181,7 +180,11 @@ async function createAppointmentModel(
   appointment: TypeAppointment
 ) {
   try {
+    console.log('got in models');
+    console.log(appointment);
     const newAppointment = await AppointmentDB.create(appointment);
+    console.log('whyyyyy');
+    console.log(newAppointment);
     const doctor = (await DoctorDB.findOne({
       where: { id: doctorId },
     })) as Doctor;

@@ -194,7 +194,8 @@ async function createAppointment(
   patientId: string,
   appointment: TypeAppointment,
   doctorId: string
-): Promise<TypeResponseAppointment> {
+) {
+  console.log({ appointment });
   return axios
     .post(
       `${PORT}/patient/appointment/${patientId}`,
@@ -206,9 +207,11 @@ async function createAppointment(
         withCredentials: true,
       }
     )
-    .then((res: AxiosResponse<TypeResponseAppointment>) => {
+    .then((res) => {
+      console.log(res);
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function getUser(token: string, user: string): Promise<TUser> {

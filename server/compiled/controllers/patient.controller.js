@@ -1,10 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    function adopt (value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function fulfilled (value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected (value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step (result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -20,7 +20,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
-function createPatient(req, res) {
+function createPatient (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, dateOfBirth, gender, profilePicture, allergies, bloodType, medications, surgicalHistory, familyMedicalHistory, } = req.body;
@@ -56,7 +56,7 @@ function createPatient(req, res) {
     });
 }
 exports.createPatient = createPatient;
-function loginPatient(req, res) {
+function loginPatient (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
         try {
@@ -85,7 +85,7 @@ function loginPatient(req, res) {
     });
 }
 exports.loginPatient = loginPatient;
-function getPatient(req, res) {
+function getPatient (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const auth = req.patient;
@@ -102,11 +102,11 @@ function getPatient(req, res) {
     });
 }
 exports.getPatient = getPatient;
-function logout(req, res) {
+function logout (req, res) {
     return __awaiter(this, void 0, void 0, function* () { });
 }
 exports.logout = logout;
-function getPatients(req, res) {
+function getPatients (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patients = yield (0, patients_1.getPatientsModel)();
@@ -118,7 +118,7 @@ function getPatients(req, res) {
     });
 }
 exports.getPatients = getPatients;
-function updatePatient(req, res) {
+function updatePatient (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patientId = req.params.id;
@@ -143,7 +143,7 @@ function updatePatient(req, res) {
     });
 }
 exports.updatePatient = updatePatient;
-function deletePatient(req, res) {
+function deletePatient (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
@@ -159,7 +159,7 @@ function deletePatient(req, res) {
     });
 }
 exports.deletePatient = deletePatient;
-function getLastCheckup(req, res) {
+function getLastCheckup (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
@@ -182,7 +182,7 @@ function getLastCheckup(req, res) {
     });
 }
 exports.getLastCheckup = getLastCheckup;
-function createAppointment(req, res) {
+function createAppointment (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patientId = req.params.id;
@@ -197,12 +197,12 @@ function createAppointment(req, res) {
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to create a appointment' });
+            res.status(400).json({ error: 'Failed to create an appointment' });
         }
     });
 }
 exports.createAppointment = createAppointment;
-function deleteAppointment(req, res) {
+function deleteAppointment (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { id } = req.body;

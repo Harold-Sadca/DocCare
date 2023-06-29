@@ -11,12 +11,12 @@ export default function Profile() {
   const [message, setMessage] = useState('');
   const [lastDate, setLastDate] = useState('');
   const [illness, setIllness] = useState('');
-  const [patient, setPatient] = useState<TypePatient>()
+  const [patient, setPatient] = useState<TypePatient>();
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
 
-  console.log(currentPatient)
+  console.log(currentPatient);
 
   function calculateAge(dateOfBirth: string) {
     const today = new Date();
@@ -80,8 +80,6 @@ export default function Profile() {
               <div className='doctor-notes'>
                 <p>{message}</p>
                 <p>{illness}</p>
-                <p>Doctors Notes:</p>
-                <p>Yoga and streches once a week</p>
               </div>
             </div>
           </div>

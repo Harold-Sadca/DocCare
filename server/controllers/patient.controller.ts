@@ -176,20 +176,22 @@ async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
     console.log(patientId);
-    const { doctorId, newAppointment } = req.body;
+    const { doctorId, appointment } = req.body;
     console.log(req.body);
+    // console.log({ appointment });
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,
-      newAppointment
+      appointment
     );
+    console.log('got here??');
     console.log(createAppointment);
     res.status(201).json({
       message: 'Appointment created successfully',
       result: createAppointment,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to create a appointment' });
+    res.status(400).json({ error: 'Failed to create an appointment' });
   }
 }
 

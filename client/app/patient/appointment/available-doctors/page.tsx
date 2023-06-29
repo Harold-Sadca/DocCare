@@ -8,9 +8,11 @@ import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { TypeResponseAppointment } from '@/types/types';
+import { ExclamationCircleTwoTone } from '@ant-design/icons';
 
 export default function AvailableDoctorList() {
   const router = useRouter();
+  const [formError, setFormError] = useState('');
   const availableSpecialists = useAppSelector(
     (state) => state.AvailableSpecialist.value
   );
@@ -34,7 +36,6 @@ export default function AvailableDoctorList() {
     doctorId: string
   ) {
     console.log(time);
-    // createAppointment(patiendId, appointment)
     const appointment = {
       date,
       time: `0${time}:00`,
@@ -42,21 +43,27 @@ export default function AvailableDoctorList() {
       attended: false,
     };
     if (currentPatient && currentPatient.id) {
+      console.log(currentPatient);
       const data = await apiService.createAppointment(
         currentPatient.id,
         appointment,
         doctorId
       );
       console.log(data);
-      const { message, result, error } = data as TypeResponseAppointment;
-      console.log(data);
-      console.log(result);
-      if (error) {
-        setMessageContent(error);
-      } else {
+      if (currentPatient && currentPatient.id) {
+        console.log(currentPatient);
+        const data = await apiService.createAppointment(
+          currentPatient.id,
+          appointment,
+          doctorId
+        );
+        const { message, result } = data;
+        console.log(data);
         if (result) {
-          console.log(result);
           setMessageContent(message as string);
+          setFormError('');
+        } else {
+          setFormError(`${data}`);
         }
       }
     }
@@ -110,19 +117,6 @@ export default function AvailableDoctorList() {
     }
   }, [messageContent]);
 
-  // availableSpecialists
-
-  // currentSpecialists
-  // in the return:
-  // currentSpecialists.map((currSpecialist, idx) => {
-  // const slot = currSpecialist.
-  // return(
-  // <div key={idx}>
-  // <h2>{currSpecialist.name}</h2>
-  // <p>{currSpecialist.specialisation}</p>
-  // <button onClick={()=> chooseSlot()} id={slot}>{slot}:00</button>
-  // </div>
-  // )})
   return (
     <main>
       <AuthNavbar user={'patient'} auth={'login'} />
@@ -140,11 +134,15 @@ export default function AvailableDoctorList() {
             const slots = availableSlots(available.slots);
             return (
               <div className='each-doctor' key={idx}>
-                <img src='https://images.pexels.com/photos/4270088/pexels-photo-4270088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img>
                 <img src={doctorProfilePic}></img>
                 <div className='each-doctor-name'>
                   <h2>{doctorName}</h2>
                   <p>{doctorAbout}</p>
+                  {formError && (
+                    <p className='error-message'>
+                      <ExclamationCircleTwoTone /> {formError}
+                    </p>
+                  )}
                   {slots.map((slot, idx) => (
                     <div key={idx}>
                       <button
