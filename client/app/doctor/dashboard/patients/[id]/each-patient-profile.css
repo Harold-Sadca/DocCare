@@ -1,0 +1,15 @@
+.profile-image-patient{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    margin-top: 70px;
+    margin-left: 90px;
+    position: relative;
+}
+
+
+.all-info-about-patient{
+    position: absolute; 
+    top: 130px; 
+    left: 700px;
+}

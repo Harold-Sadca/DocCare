@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PhoneOutlined } from '@ant-design/icons';
+import './each-patient-profile.css'
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -24,19 +25,23 @@ export default function Patient({ params }: { params: { id: string } }) {
     <main>
       <AuthNavbar user={'doctor'} auth={'login'} />
       <div className='patient'>
-        <h2>patienttt</h2>
+        <img src='https://images.pexels.com/photos/1819483/pexels-photo-1819483.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' className='profile-image-patient'/>
+        <div className='all-info-about-patient'>
         <h2>{currentPatient?.name}</h2>
         <h2>
           {calculateAge(currentPatient?.dateOfBirth as string).toString()} years
           old
         </h2>
 
-        <h2>
-          <PhoneOutlined /> {currentPatient?.phoneNumber}
-        </h2>
+        <div className='phone-call'>
+        <PhoneOutlined /> 
+       <a href={`tel:${currentPatient?.phoneNumber}`}>
+      {currentPatient?.phoneNumber}
+         </a>
+        </div>
         <h2>{currentPatient?.dateOfBirth}</h2>
         <h2>Medications:</h2>
-        <h2>{currentPatient?.medications}</h2>
+        <h2>{currentPatient?.medications.toString()}</h2>
         <h2>Next appointments:</h2>
         {currentPatient?.patientAppointments
           ?.filter(
@@ -51,6 +56,7 @@ export default function Patient({ params }: { params: { id: string } }) {
               <h2>{appointment.illness}</h2>
             </div>
           ))}
+          </div>
       </div>
     </main>
   );

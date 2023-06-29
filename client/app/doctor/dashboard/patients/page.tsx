@@ -12,6 +12,7 @@ export default function Patients() {
     (state) => state.currentDoctorReducer.value
   );
   const patients = currentDoctor.patients; 
+  console.log(patients)
   console.log('hello from /patients');
 
   return (
@@ -22,6 +23,8 @@ export default function Patients() {
         {patients?.map((patient, idx) => (
           <div key={idx} className='each-patient-profile'>
             <p id='name'>{patient.name}</p>
+            <p id='gender'>{patient.gender}</p>
+            <p id='date-of-birth'>DOB: {patient.dateOfBirth}</p>
             <div className='button-see-patient'>
             <Link
               href={`/doctor/dashboard/patients/${patient.id}`}
