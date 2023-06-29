@@ -44,6 +44,7 @@ export default function JuniorDoctorMessages({currentJunior}) {
       receiver_name:'Patient'
     }
     // console.log(newMessage)
+    // replace halord with currentPatient.name sadly
     socket.emit("from junior", newMessage, 'halord');
   }
 
