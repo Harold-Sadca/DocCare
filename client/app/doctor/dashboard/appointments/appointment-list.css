@@ -43,7 +43,7 @@ max-height: 100vh;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 10px;
-    background-color: #F5ECF7;
+    background-color: #E5EAFB;
     margin-left: 20px;
     box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
     display: flex;
@@ -59,18 +59,30 @@ max-height: 100vh;
 
 
 .each-appointment p {
-    color: #A266B5;
+    color: black;
 }
 
 
+.about-patient #name{
+font-size: 20px;
+}
 
 .each-appointment {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
-
 #appointment-vector{
 z-index: 2;
 margin-top: -500px;
+}
+
+
+.appoitment-patient{
+margin-left: 70px;
+
+}
+
+.about-patient{
+margin-left: 40px;
 }

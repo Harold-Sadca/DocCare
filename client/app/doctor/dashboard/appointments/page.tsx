@@ -23,7 +23,8 @@ export default function Appointments() {
         {appointments?.map((appointment, idx) => (
              <div className='appoinment-list'>
           <div key={idx} className='each-appointment'>
-            <p>Patient: {appointment?.patientAppointment?.name}</p>
+            <div className='about-patient'>
+            <p id='name'>{appointment?.patientAppointment?.name}</p>
             <p>
               {' '}
               {calculateAge(
@@ -33,8 +34,12 @@ export default function Appointments() {
             </p>
             <p>{appointment?.patientAppointment?.gender}</p>
             <p>Summary: {appointment?.patientAppointment?.summary}</p>
-            <p>{appointment.date}</p>
-            <p>{appointment.time.slice(0, 5)}</p>
+            </div>
+            <div className='appoitment-patient'>
+            <h3>Appoitment</h3>
+            <p> Date: {appointment.date}</p>
+            <p>Time: {appointment.time.slice(0, 5)}</p>
+            </div>
           </div>
             </div>
         ))}
