@@ -40,6 +40,10 @@
     font-size: 20px;
     color: black;
 }
+.main-info-patient #DOB {
+    font-size: 15px;
+    color: black;
+}
 
 
 .phone-call{

@@ -34,6 +34,7 @@ export default function Patient({ params }: { params: { id: string } }) {
           old
         </h2>
          <p id='gender'>{currentPatient?.gender}</p>
+         <h2 id='DOB'>DOB: {currentPatient?.dateOfBirth}</h2>
         <div className='phone-call'> 
        <a href={`tel:${currentPatient?.phoneNumber}`}>
       {currentPatient?.phoneNumber}
@@ -41,7 +42,6 @@ export default function Patient({ params }: { params: { id: string } }) {
          </a>
         </div>
         </div>
-        <h2>{currentPatient?.dateOfBirth}</h2>
         <h2>Medications:</h2>
         <h2>{currentPatient?.medications.toString()}</h2>
         <h2>Next appointments:</h2>
