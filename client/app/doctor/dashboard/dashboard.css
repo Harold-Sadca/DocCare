@@ -1,4 +1,4 @@
-.grid-container{
+.grid-container {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(3, [col-start] 1fr);

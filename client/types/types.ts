@@ -11,16 +11,16 @@ export interface TypeLogin {
   password: string;
 }
 
-export interface TypeResponse {
-  message?: string;
-  error?: string;
-}
-
 export interface TypeRegister {
   message?: string;
   error?: string;
   result: TUser;
   accessToken: string;
+}
+
+export interface TypeResponse {
+  message?: string;
+  error?: string;
 }
 
 export interface TypeResponseDoctor extends TypeResponse {
@@ -44,13 +44,20 @@ export interface TypeResponsePatient extends TypeResponse {
   };
 }
 
-
 export interface TypeResponseMedicalInfo extends TypeResponse {
   result?: TypeMedicalInfo;
 }
 
 export interface TypeResponseSummary extends TypeResponse {
   result?: TypeSummary;
+}
+
+export interface TypeAvailableSpecialist {
+  doctorName: string;
+  doctorId: string;
+  slots: number[];
+  date: string;
+  illness: string;
 }
 
 export interface TypeSummary {

@@ -41,7 +41,7 @@ export default function AuthNavbar(props: Props) {
         console.log(user);
         console.log(userType);
         if (userType === 'patient') {
-          const patient = user as TypePatient;
+          const patient = user;
           console.log(patient);
           dispatch(setCurrentPatient(patient.result));
         } else if (userType === 'doctor') {
@@ -70,7 +70,7 @@ export default function AuthNavbar(props: Props) {
     ? [
         {
           name: 'Make an appointment',
-          href: '/make-appointment',
+          href: '/patient/appointment',
           current: false,
         },
         {

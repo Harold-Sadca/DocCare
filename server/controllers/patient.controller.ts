@@ -108,11 +108,8 @@ async function getPatient(req: Request, res: Response) {
 async function logout(req: Request, res: Response) {}
 
 async function getPatients(req: Request, res: Response) {
-  console.log('hey from controller');
   try {
-    console.log('controllers');
     const patients = await getPatientsModel();
-    // console.log(patients);
     res.status(200).send(patients);
   } catch (error) {
     res.status(400).json({ error: 'Failed to get patients account' });
@@ -176,12 +173,15 @@ async function getLastCheckup(req: Request, res: Response) {
 async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
+    console.log(patientId);
     const { doctorId, newAppointment } = req.body;
+    console.log(req.body);
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,
       newAppointment
     );
+    console.log(createAppointment);
     res.status(201).json({
       message: 'Appointment created successfully',
       result: createAppointment,

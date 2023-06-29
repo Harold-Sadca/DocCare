@@ -21,6 +21,7 @@ type CurrentDoctorState = {
   doctorAppointments: TypeAppointment[] | undefined;
   patients: TypePatient[] | undefined;
 };
+
 const initialState = {
   value: {
     id: '',

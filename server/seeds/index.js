@@ -54,8 +54,12 @@ const { Doctor, JuniorDoctor, Patient } = initModels(db);
 const genders = ['Male', 'Female']
 function createEmptyAvailability () {
   const availability = {};
+  const month = {};
   for (let day = 1; day <= 31; day++) {
-    availability[day] = [];
+    month[day] = [];
+  }
+  for (let monthNum = 1; monthNum <= 12; monthNum++) {
+    availability[monthNum] = month;
   }
   return availability;
 }

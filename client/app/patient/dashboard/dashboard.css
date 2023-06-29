@@ -1,4 +1,4 @@
-.grid-container{
+.grid-container {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(3, [col-start] 1fr);
@@ -6,41 +6,32 @@
   grid-gap: 10px;
 }
 
-
-.profile-box{
-grid-column: col-start 1/ span 1;
-grid-row: col-start 1/ span 4;
-justify-self: center;
-align-self: center;
-}
-
-
-.prescriptions-box{
-  grid-column:  col-start 2/ span 1;
-  grid-row: col-start 2/ span 1;
+.profile-box {
+  grid-column: col-start 1 / span 1;
+  grid-row: col-start 1 / span 4;
   justify-self: center;
   align-self: center;
 }
 
-.appointment-box{
+.appointment-box {
   margin-top: 20px;
-  grid-column:  col-start 2/ span 1;
-  grid-row: col-start 1/ span 1;
+  grid-column: col-start 2 / span 1;
+  grid-row: col-start 1 / span 1;
   justify-self: center;
   align-self: center;
 }
 
-.doctor-list-box{
-justify-self: center;
-margin-top: 20px;
-grid-column:col-start 3/ span 1;
-grid-row: col-start 1/ span 2;
+.doctor-list-box {
+  justify-self: center;
+  margin-top: 20px;
+  grid-column: col-start 3 / span 1;
+  grid-row: col-start 1 / span 2;
 }
 
-.patient-messages{
+.patient-messages {
   position: sticky;
-  grid-column:col-start 3/ span 1;
-  grid-row: col-start 3/ span 2;
+  grid-column: col-start 3 / span 1;
+  grid-row: col-start 3 / span 2;
   justify-self: center;
   margin-top: -190px;
 }
