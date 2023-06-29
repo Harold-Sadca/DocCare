@@ -17,8 +17,9 @@ export default function PatientMessages() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-  const {name, id} = currentPatient
-  console.log(currentPatient)
+  const {id} = currentPatient
+  // console.log(currentPatient)
+  const name = currentPatient.name
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,7 +46,7 @@ export default function PatientMessages() {
       receiver_name:'Junior'
     }
     
-    socket.emit("patient message", newMessage, socketId, 2);
+    socket.emit('patient message', newMessage);
   }
   
   function socketConnect() {
@@ -77,7 +78,6 @@ export default function PatientMessages() {
   //   setReceivedMessages([...sentMessages, args])
   // })
 
-  console.log(sentMessages)
 
 
   return (

@@ -9,7 +9,7 @@ import { useAppSelector } from "@/redux/store";
 const socket = io("ws://localhost:3001");
 
 
-export default function JuniorDoctorMessages() {
+export default function JuniorDoctorMessages({currentJunior}) {
 
   const initialState = { message: '', user: '' };
   const [messageState, setMessageState] = useState(initialState);
@@ -24,11 +24,12 @@ export default function JuniorDoctorMessages() {
       [name]: value,
     }));
   };
-  const currentJunior = useAppSelector((state) => state.currentPatientReducer.value);
+  // const currentJunior = useAppSelector((state) => state.currentPatientReducer.value);
 
   console.log(currentJunior)
 
-  const name = 'Junior'
+  //socket.io room name
+  const name = 'junior'
 
   useEffect(() => {
     socketConnect()
@@ -42,16 +43,8 @@ export default function JuniorDoctorMessages() {
       receiver_id:1,
       receiver_name:'Patient'
     }
-    console.log(newMessage)
-    socket.emit("from junior", newMessage);
-    socket.on("send", (args) => {
-      console.log(args)
-      setAllReceivedMessages([...allReceivedMessages, args])
-    })
-    socket.on('junior sent', (args) => {
-      console.log(args)
-      setSentAllMessages([...allSentMessages, args])
-    })
+    // console.log(newMessage)
+    socket.emit("from junior", newMessage, 'halord');
   }
 
   function socketConnect() {
@@ -59,32 +52,9 @@ export default function JuniorDoctorMessages() {
     socket.connect()
   }
 
-  socket.on("patients", (patients) => {
-    patients.forEach((patient:TypeChatUser) => {
-      patient.userID === socket.id;
-    });
-    // put the current user first, and then sort by username
-    // this.patients = patients.sort((a, b) => {
-    //   if (a.self) return -1;
-    //   if (b.self) return 1;
-    //   if (a.username < b.username) return -1;
-    //   return a.username > b.username ? 1 : 0;
-    // });
-  });
-
-  socket.on('returned', (args) => {
+  socket.on('patient message', (args) => {
     console.log(args)
   })
-
-  function sendMessage(content) {
-    if (selectedPatient) {
-      socket.emit("private message", {
-        content,
-        to: selectedPatient.userID
-      })
-      selectedPatient.messages.push(content)
-    }
-  }
 
 
 

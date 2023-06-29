@@ -38,13 +38,21 @@ io.use((socket, next) => {
     }
     next();
 });
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
     const newRoom = socket.handshake.auth.name;
-    socket.join(newRoom);
+    if (newRoom === 'junior') {
+        socket.join('junior');
+    }
+    else {
+        socket.join(newRoom);
+    }
     logger_1.default.info(newRoom);
-    socket.to(newRoom).emit('returned', 'test');
-    socket.on("from junior", (args) => {
-        socket.to('halord').emit('from junior', args);
+    // socket.to(newRoom).emit('returned', 'test')
+    socket.on('from junior', (message, receiver) => {
+        socket.to(receiver).emit('from junior', message);
+    });
+    socket.on('patient message', (message) => {
+        socket.to('junior').emit('patient message', message);
     });
     // logger.info(io.sockets.adapter.rooms)
     // io.of("/").adapter.on("create-room", (room) => {
