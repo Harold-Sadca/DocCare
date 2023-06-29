@@ -28,7 +28,7 @@ export default function Appointments() {
             </div>
             <div className='time-of-appointment'>           
             <p>{appointment.date}</p>
-            <p>{appointment.time}</p>
+            <p>{appointment.time.slice(0, 5)}</p>
             </div>
           </div>
         ))}
