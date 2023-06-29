@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PhoneOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
+import {FieldTimeOutlined } from "@ant-design/icons";
 import "./each-patient-profile.css";
 
 export default function Patient({ params }: { params: { id: string } }) {
@@ -42,9 +43,11 @@ export default function Patient({ params }: { params: { id: string } }) {
               )
               .map((appointment, idx) => (
                 <div key={idx} className="each-appointment">
-                  <h2>{appointment.date}</h2>
-                  <p>{appointment.time}</p>
-                  <p>{appointment.attended}</p>
+                  <p id='appointment-date'>{appointment.date}</p>
+                  <p id='appointment-time'>
+                  <FieldTimeOutlined />{appointment.time.slice(0, 5)} 
+                  </p>
+                  <p id='appointment-attended'>{appointment.attended}</p>
                   {/* display dependant on how many appoitments they had */}
                 </div>
               ))}
