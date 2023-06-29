@@ -22,8 +22,14 @@ export default function Appointments() {
 
         {appointments?.slice(0, 3).map((appointment, idx) => (
           <div key={idx}  className='each-appointment'>
+            <div className='about-patient'>
+            <p>{appointment.patientAppointment?.name}</p>
+            <p>{appointment.patientAppointment?.gender}</p> 
+            </div>
+            <div className='time-of-appointment'>           
             <p>{appointment.date}</p>
             <p>{appointment.time}</p>
+            </div>
           </div>
         ))}
          </div>
