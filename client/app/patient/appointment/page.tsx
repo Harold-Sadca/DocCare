@@ -109,10 +109,6 @@ export default function PatientAppointment() {
   ) {
     const [stateYear, stateMonth, stateDay] = formatedDate;
     return specialists.map((docs) => {
-      console.log(docs.availability);
-      console.log(state.date);
-      console.log(docs.specialisation === state.illnesses);
-      console.log(docs.availability);
       console.log(docs.availability && docs.availability[stateMonth][stateDay]);
       return (
         docs.availability && {
