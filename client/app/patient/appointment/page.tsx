@@ -1,7 +1,7 @@
 "use client";
 import AuthNavbar from "@/app/(components)/auth-navbar";
 import { Montserrat } from "next/font/google";
-import "./appoitment-dashboard.css";
+import "./appointment-dashboard.css";
 import { Form, Input, Radio, RadioChangeEvent, Upload } from "antd";
 import React, { FormEvent, useEffect, useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import AvailableDoctorList from "./available-doctors/page"
 import { open } from "fs/promises";
 
-export default function PatientAppoitment() {
+export default function PatientAppointment() {
     const router = useRouter();
     const [openForm, setOpenForm] = useState(true);
   
@@ -42,14 +42,14 @@ export default function PatientAppoitment() {
   };
 
   return (
-    <main className="patient-appoitment-main">
+    <main className="patient-appointment-main">
       <AuthNavbar user={"patient"} auth={"login"} />
       {/* change the navbar to the correct info  */}
      
       {openForm ? (
       <>
       <div className="lay">
-      <h1 className="appoitment-heading">Make an Appoitment</h1>
+      <h1 className="appointment-heading">Make an Appointment</h1>
         <div className="steps">
           <div className="Consultation-1">
             <img src="/1.png" className="icon" />
@@ -80,7 +80,7 @@ export default function PatientAppoitment() {
           </div>
         </div>
         <div>
-        <button onClick={handleNextButtonClick} className="button-make-appoitment">Make the Appoitment</button>
+        <button onClick={handleNextButtonClick} className="button-make-appointment">Make the Appointment</button>
         </div>
         <div className="female-doctor">
           <img src="/Female-Doctor-PNG-Image.png" />
@@ -89,7 +89,7 @@ export default function PatientAppoitment() {
         </>
       ):(
 
-        <div className="form-appoitment">
+        <div className="form-appointment">
           <div>
             <Form
               labelCol={{ span: 6 }}
@@ -104,13 +104,13 @@ export default function PatientAppoitment() {
               // onFinish={submitForm}
             >
 
-            <div className="appoitment-date">
-                <h3>Appoitment Date</h3>
-              <Form.Item htmlFor="appoitment">
+            <div className="appointment-date">
+                <h3>Appointment Date</h3>
+              <Form.Item htmlFor="appointment">
                 <Input
                   type="date"
-                  id="appoitment"
-                  name="appoitment"
+                  id="appointment"
+                  name="appointment"
                   // value={state.dateOfBirth}
                   // onChange={(e) => handleChange(e)}
                   required
@@ -233,7 +233,7 @@ export default function PatientAppoitment() {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <button className="next-button"  onClick={() => router.push("/patient/appoitment/available-doctors")} type="submit">
+              <button className="next-button"  onClick={() => router.push("/patient/appointment/available-doctors")} type="submit">
                 Next  
               </button>
             </Form>

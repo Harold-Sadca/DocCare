@@ -1,4 +1,4 @@
-.appoitments-container {
+.appointments-container {
     height: 200px;
     width: 300px;
     background-color: white;
@@ -17,7 +17,7 @@
     }
 
 
-.appoitments-container h1 {
+.appointments-container h1 {
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -26,7 +26,7 @@
     font-size: 20px;
 }
 
-.appoitment-list-container {
+.appointment-list-container {
     height: fit-content;
     width: 230px;
     padding-left: 20px;
@@ -43,37 +43,37 @@
 }
 
 
-.appoitment-list-container h2 {
+.appointment-list-container h2 {
     color: #1F4F5B;
     font-weight: 400;
     font-size: 20px;
 }
 
-.each-appoitment {
+.each-appointment {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.each-appoitment-text {
+.each-appointment-text {
     margin-left: 20px;
 }
 
-.each-appoitment img{
+.each-appointment img{
 width:50px;
 }
 
 
-.other-appoitment {
+.other-appointment {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.other-appoitment-text {
+.other-appointment-text {
     margin-left: 20px;
 }
 
-.other-appoitment img{
+.other-appointment img{
 width:50px;
 }
