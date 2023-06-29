@@ -102,7 +102,11 @@ export default function PatientAppointment() {
     });
   }
 
-  function displayAvailability(formatedDate: number[]) {
+  function displayAvailability(
+    stateDate: string,
+    formatedDate: number[],
+    stateIllness: string
+  ) {
     const [stateYear, stateMonth, stateDay] = formatedDate;
     return specialists.map((docs) => {
       console.log(docs.availability);
@@ -112,8 +116,11 @@ export default function PatientAppointment() {
       console.log(docs.availability && docs.availability[stateMonth][stateDay]);
       return (
         docs.availability && {
-          doctor: docs.name,
+          doctorName: docs.name,
+          doctorId: docs.id,
           slots: docs.availability[stateMonth][stateDay],
+          date: stateDate,
+          illness: stateIllness,
         }
       );
     });
@@ -122,14 +129,23 @@ export default function PatientAppointment() {
   useEffect(() => {
     setSpecialists(getSpecialists());
     // pass to displayAvailability the formatStateDate(state.date)
-    if (state.date) {
+    if (state.date && state.illnesses) {
       const availableDoctors = displayAvailability(
-        formatStateDate(state.date)
+        state.date,
+        formatStateDate(state.date),
+        state.illnesses
       ) as TypeAvailableSpecialist[];
       dispatch(setAvailableSpecialist(availableDoctors));
       setAvailableSpecialists(availableDoctors);
     }
-    console.log('display Availability: ', displayAvailability([2023, 7, 1]));
+    console.log(
+      'display Availability: ',
+      displayAvailability(
+        '2023, 07, 01',
+        [2023, 7, 1],
+        'Surgical conditions, injuries requiring surgical intervention, post-operative care'
+      )
+    );
   }, [allDoctors]);
 
   console.log(specialists);
@@ -351,14 +367,12 @@ export default function PatientAppointment() {
                 </Radio.Group>
               </Form.Item>
               <Link
-                href={{
-                  pathname: '/patient/appointment/available-doctors',
-                  query: { test: availableSpecialists },
-                }}
+                className='next-button'
+                href='/patient/appointment/available-doctors'
               >
                 Next
               </Link>
-              <button
+              {/* <button
                 className='next-button'
                 onClick={() =>
                   router.push('/patient/appointment/available-doctors', {
@@ -368,7 +382,7 @@ export default function PatientAppointment() {
                 type='submit'
               >
                 Next
-              </button>
+              </button> */}
             </Form>
           </div>
         </div>

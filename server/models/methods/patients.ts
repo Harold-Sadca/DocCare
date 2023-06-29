@@ -171,12 +171,15 @@ async function createAppointmentModel(
 ) {
   try {
     const newAppointment = await AppointmentDB.create(appointment);
+    console.log('got here!');
     const doctor = (await DoctorDB.findOne({
       where: { id: doctorId },
     })) as Doctor;
+    console.log({ doctor });
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
+    console.log({ patient });
     doctor?.addDoctorAppointment(newAppointment);
     doctor?.addPatient(patient);
     patient?.addPatientAppointment(newAppointment);
@@ -184,6 +187,7 @@ async function createAppointmentModel(
     newAppointment.setPatientAppointment(patient);
     await doctor?.save();
     await patient?.save();
+    console.log({ newAppointment });
     return newAppointment;
   } catch (error) {
     throw new Error();

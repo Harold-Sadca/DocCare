@@ -2,19 +2,64 @@
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import './available-doctors.css';
 import { useAppSelector } from '@/redux/store';
+import apiService from '@/services/APIservices';
+import { IllnessOptions } from '../../../../../server/types/types';
+import { message } from 'antd';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { TypeResponseAppointment } from '@/types/types';
 
 export default function AvailableDoctorList() {
+  const router = useRouter();
   const availableSpecialists = useAppSelector(
     (state) => state.AvailableSpecialist.value
+  );
+  const currentPatient = useAppSelector(
+    (state) => state.currentPatientReducer.value
   );
 
   console.log(availableSpecialists);
   // when choose the slot
-  function makeAppointment(stateMonth: number, stateDay: number, time: number) {
-    // time is the id of the button
-    // pass the day and the time slot
-    // backend: go to the doctor, availability and
-    // availability.day.push(time slot)
+  // function makeAppointment(stateMonth: number, stateDay: number, time: number) {
+  //   // time is the id of the button
+  //   // pass the day and the time slot
+  //   // backend: go to the doctor, availability and
+  //   // availability.day.push(time slot)
+  // }
+
+  async function makeAppointment(
+    date: string,
+    time: string,
+    illness: IllnessOptions,
+    doctorId: string
+  ) {
+    console.log(time);
+    // createAppointment(patiendId, appointment)
+    const appointment = {
+      date,
+      time: `0${time}:00`,
+      illness,
+      attended: false,
+    };
+    if (currentPatient && currentPatient.id) {
+      const data = await apiService.createAppointment(
+        currentPatient.id,
+        appointment,
+        doctorId
+      );
+      console.log(data);
+      const { message, result, error } = data as TypeResponseAppointment;
+      console.log(data);
+      console.log(result);
+      if (error) {
+        setMessageContent(error);
+      } else {
+        if (result) {
+          console.log(result);
+          setMessageContent(message as string);
+        }
+      }
+    }
   }
 
   function availableSlots(slots: number[]) {
@@ -36,8 +81,34 @@ export default function AvailableDoctorList() {
     // return showSlots;
   }
 
-  console.log(availableSlots([]));
-  console.log(availableSlots([10]));
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
+  const key = 'updatable';
+
+  const openMessage = () => {
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
+    setTimeout(() => {
+      messageApi.open({
+        key,
+        type: 'success',
+        content: messageContent,
+        duration: 2,
+      });
+      setTimeout(() => {
+        router.push('/patient/dashboard');
+      }, 2000);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (messageContent) {
+      openMessage();
+    }
+  }, [messageContent]);
 
   // availableSpecialists
 
@@ -55,21 +126,37 @@ export default function AvailableDoctorList() {
   return (
     <main>
       <AuthNavbar user={'patient'} auth={'login'} />
+      {contextHolder}
       <div className='doctor-list-container'>
         <h1>Your Doctors</h1>
         <div className='doctor-list'>
           {availableSpecialists.map((available, idx) => {
-            const slots = available.slots;
+            const doctorName = available.doctorName;
+            const doctorId = available.doctorId;
+            const illness = available.illness as IllnessOptions;
+            const date = available.date;
+            const slots = availableSlots(available.slots);
             return (
               <div className='each-doctor' key={idx}>
                 <img src='https://images.pexels.com/photos/4270088/pexels-photo-4270088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img>
                 <div className='each-doctor-name'>
-                  <h2>{available.doctor}</h2>
+                  <h2>{doctorName}</h2>
                   <p>General Practice</p>
                   {slots.map((slot, idx) => (
                     <div key={idx}>
-                      <button id={slot.toString()}>{slot}:00</button>
-                      <button>11:00</button>
+                      <button
+                        id={slot.toString()}
+                        onClick={() =>
+                          makeAppointment(
+                            date,
+                            slot.toString(),
+                            illness,
+                            doctorId
+                          )
+                        }
+                      >
+                        {slot}:00
+                      </button>
                     </div>
                   ))}
                 </div>

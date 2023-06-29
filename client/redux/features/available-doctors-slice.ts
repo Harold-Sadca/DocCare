@@ -6,8 +6,11 @@ type InitialState = {
 };
 
 type AvailableSpecialistState = {
-  doctor: string;
+  doctorName: string;
+  doctorId: string;
   slots: number[];
+  date: string;
+  illness: string;
 };
 
 const initialState = {
