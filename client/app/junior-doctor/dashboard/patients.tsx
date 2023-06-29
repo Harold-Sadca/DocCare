@@ -23,7 +23,6 @@ export default function AllPatients({allPatients}) {
         id:e.target.id,
         name:e.target.name
       }
-      console.log(patientToChat)
       dispatch(setChatPatient(patientToChat))
     }
   }

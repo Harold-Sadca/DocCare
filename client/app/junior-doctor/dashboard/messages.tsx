@@ -9,6 +9,7 @@ import { useAppSelector } from "@/redux/store";
 const socket = io("ws://localhost:3001");
 
 
+// export default function JuniorDoctorMessages() {
 export default function JuniorDoctorMessages({currentJunior}) {
 
   const initialState = { message: '', user: '' };
@@ -16,7 +17,7 @@ export default function JuniorDoctorMessages({currentJunior}) {
   const [allReceivedMessages, setAllReceivedMessages] = useState<TypeMessage[]>([])
   const [allSentMessages, setSentAllMessages] = useState<TypeMessage[]>([])
   const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([])
-  const [selectedPatient, setSelectedPatient] = useState<TypeChatUser>()
+  // const [selectedPatient, setSelectedPatient] = useState<TypeChatUser>()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -25,8 +26,10 @@ export default function JuniorDoctorMessages({currentJunior}) {
     }));
   };
   // const currentJunior = useAppSelector((state) => state.currentPatientReducer.value);
+  const selectedPatient = useAppSelector((state) => state.chatPatientReducer.value);
+  console.log(selectedPatient)
 
-  console.log(currentJunior)
+  // console.log(currentJunior)
 
   //socket.io room name
   const name = 'junior'
@@ -40,12 +43,12 @@ export default function JuniorDoctorMessages({currentJunior}) {
       content:messageState.message,
       sender_id:currentJunior.id,
       sender_name:currentJunior.name,
-      receiver_id:1,
-      receiver_name:'Patient'
+      receiver_id:selectedPatient.id,
+      receiver_name:selectedPatient.name
     }
-    // console.log(newMessage)
+    console.log(newMessage)
     // replace halord with currentPatient.name sadly
-    socket.emit("from junior", newMessage, 'halord');
+    socket.emit("from junior", newMessage, selectedPatient.name);
   }
 
   function socketConnect() {

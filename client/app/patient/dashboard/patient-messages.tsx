@@ -34,7 +34,7 @@ export default function PatientMessages() {
   }, [])
 
   let newMessage
-  let socketId:string
+  // let socketId:string
 
   function handleClick() {
     
@@ -51,7 +51,7 @@ export default function PatientMessages() {
   
   function socketConnect() {
     socket.auth = {name}
-    console.log(socket.auth)
+    console.log(socket.auth, 'socket name')
     socket.connect()
   }
 
