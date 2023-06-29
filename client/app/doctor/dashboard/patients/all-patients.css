@@ -22,9 +22,10 @@
 
 
 
-::-webkit-scrollbar{
+
+/* ::-webkit-scrollbar{
     display: none;
-    }
+    } */
 
 
 
@@ -36,10 +37,25 @@
     padding-top: 20px;
     padding-bottom: 20px;
     border-radius: 10px;
-    background-color: #F0F6FC;
+    background-color: #F5ECF7;
     margin-left: 20px;
     margin-top: 30px;
     box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
     display: flex;
     flex-direction: column; 
+    margin-left: 30px;
+    position: relative;
+
 } 
+
+.each-patient-profile #name{
+font-weight: bold;
+color: black;
+font-size: 25px;
+}
+
+.button-see-patient{
+position: absolute;
+bottom: 30px;
+right: 30px;
+}

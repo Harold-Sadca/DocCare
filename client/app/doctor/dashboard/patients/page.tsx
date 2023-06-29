@@ -21,13 +21,15 @@ export default function Patients() {
       <div className='all-patients'>
         {patients?.map((patient, idx) => (
           <div key={idx} className='each-patient-profile'>
-            <p>{patient.name}</p>
+            <p id='name'>{patient.name}</p>
+            <div className='button-see-patient'>
             <Link
               href={`/doctor/dashboard/patients/${patient.id}`}
               className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
             >
               See patient
             </Link>
+            </div>
           </div>
         ))}
       </div>
