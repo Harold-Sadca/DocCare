@@ -103,8 +103,8 @@
     background-color: white;
     box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
     border-radius: 10%;
-    margin-left: 1000px;
-    margin-top: -200px;
+    margin-left: 1100px;
+    margin-top: -220px;
     display: flex;
     flex-direction: column;
     overflow-x: scroll;
@@ -161,3 +161,51 @@
 .all-appointments{
 margin-top: 45px;
 }
+
+.medication-container{
+    height: 300px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+    border-radius: 10%;
+    flex-direction: column;
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: scroll;
+    margin-left: 1100px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+::-webkit-scrollbar{
+    display: none;
+    }
+    
+
+.medication-container h2{
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: black;
+    font-weight:bold;
+    font-size: 20px;   
+}
+
+
+
+.each-medication-container{
+    margin-left: 30px;
+    color: #D7B765;
+    background-color: #FBF9F1;
+    width: 70px;
+    height: 70px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    }
+    
+    /* .each-medication-container img{
+    width:40px;
+    } */

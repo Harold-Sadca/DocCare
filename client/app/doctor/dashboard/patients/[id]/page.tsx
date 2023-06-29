@@ -72,9 +72,12 @@ export default function Patient({ params }: { params: { id: string } }) {
               </a>
             </div>
           </div>
-          <h2>Medications:</h2>
-          <h2>{currentPatient?.medications.toString()}</h2>
-
+          <div className="medication-container">
+          <h2>Medications</h2>
+          <div className="each-medication-container">
+          <p>{currentPatient?.medications.toString()}</p>
+          </div>
+          </div>
           <div>
             {currentPatient?.patientAppointments
               ?.filter(
