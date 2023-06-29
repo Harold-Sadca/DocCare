@@ -9,8 +9,8 @@ interface Props {
   allPatients: TypePatient[];
 }
 export default function AllPatients({ allPatients }: Props) {
-  const token = localStorage.getItem('accessToken');
-  const userType = localStorage.getItem('userType') as string;
+  // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
+  // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
   const dispatch = useDispatch<AppDispatch>();
 
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -22,8 +22,8 @@ export default function AllPatients({ allPatients }: Props) {
       //set the selected patient
       console.log('chat');
       const patientToChat = {
-        id: e.target.id,
-        name: e.target.name,
+        id: target.id,
+        name: target.name,
       };
       console.log(patientToChat);
       dispatch(setChatPatient(patientToChat));

@@ -10,6 +10,7 @@ import { useState } from "react";
 import { PhoneOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
 import "./each-patient-profile.css";
+import Image from "next/image";
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -27,10 +28,11 @@ export default function Patient({ params }: { params: { id: string } }) {
     <main>
       <AuthNavbar user={"doctor"} auth={"login"} />
       <div className="patient">
-        <img
+        <Image
           src="https://images.pexels.com/photos/1819483/pexels-photo-1819483.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="profile-image-patient"
-        />
+          alt='profile-image-patient'
+        ></Image>
         <div className="all-info-about-patient">
           <div className="main-info-patient">
             <h2 id="name">{currentPatient?.name}</h2>

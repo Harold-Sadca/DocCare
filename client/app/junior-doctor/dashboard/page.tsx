@@ -31,8 +31,12 @@ export default function JuniorDoctorDashBoard() {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken') as string;
-    const userType = localStorage.getItem('userType') as string;
+    const token =
+      typeof window !== 'undefined' &&
+      (localStorage.getItem('accessToken') as string);
+    const userType =
+      typeof window !== 'undefined' &&
+      (window.localStorage.getItem('userType') as string);
     if (token && userType === 'junior-doctor') {
       authenticate(token, userType);
       getPatients(token);
