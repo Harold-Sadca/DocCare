@@ -6,6 +6,7 @@ import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import './appointment-list.css'
 
 export default function Appointments() {
   const router = useRouter();
@@ -15,12 +16,13 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
 
   return (
-    <main>
+    <main className='main-page'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <h2>All my appointments:</h2>
-      <div className='patients'>
+      <div className='appointment-list-container'>
+      <h2>All my appointments</h2>
         {appointments?.map((appointment, idx) => (
-          <div key={idx}>
+             <div className='appoinment-list'>
+          <div key={idx} className='each-appointment'>
             <p>Patient: {appointment?.patientAppointment?.name}</p>
             <p>
               {' '}
@@ -32,10 +34,12 @@ export default function Appointments() {
             <p>{appointment?.patientAppointment?.gender}</p>
             <p>Summary: {appointment?.patientAppointment?.summary}</p>
             <p>{appointment.date}</p>
-            <p>{appointment.time}</p>
+            <p>{appointment.time.slice(0, 5)}</p>
           </div>
+            </div>
         ))}
       </div>
-    </main>
+      <img src='/appointment-vector.png' id='appointment-vector'></img>
+      </main>
   );
 }
