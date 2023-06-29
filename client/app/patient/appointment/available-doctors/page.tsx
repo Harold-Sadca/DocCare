@@ -17,14 +17,27 @@ export default function AvailableDoctorList() {
     // availability.day.push(time slot)
   }
 
-  function availableSlots(slots: []) {
-    const filledSlots = [];
-    if (slots.length === 0) {
-      for (let slot = 9; slot <= 17; slot++) {
-        filledSlots.push(slot);
-      }
+  function availableSlots(slots: number[]) {
+    const filledSlots = [] as number[];
+    for (let slot = 9; slot <= 17; slot++) {
+      filledSlots.push(slot);
     }
+    if (slots.length === 0) {
+      return filledSlots;
+    } else {
+      const unavailableSlots = [...slots] as number[];
+      const newSlots = filledSlots.filter((slot) => {
+        if (!unavailableSlots.includes(slot)) {
+          return slot;
+        }
+      });
+      return newSlots;
+    }
+    // return showSlots;
   }
+
+  console.log(availableSlots([]));
+  console.log(availableSlots([10]));
 
   // availableSpecialists
 

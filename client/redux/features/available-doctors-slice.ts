@@ -24,12 +24,6 @@ export const AvailableSpecialist = createSlice({
     ) => {
       const specialists = action.payload;
       state.value = specialists;
-      // return {
-      //   value: {
-      //     doctor,
-      //     slots,
-      //   },
-      // };
     },
   },
 });
