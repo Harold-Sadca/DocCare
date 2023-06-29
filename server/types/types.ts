@@ -1,4 +1,5 @@
-export type TypeAvailability = { [day: number]: number[] };
+export type TypeAvailability = { [month: number]: TypeMonth };
+export type TypeMonth = { [day: number]: number[] };
 
 export interface TypeDoctor {
   id?: string;

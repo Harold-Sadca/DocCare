@@ -7,7 +7,12 @@ import {
   createPatientSummaryModel,
 } from '../models/methods/doctors';
 
-import { TypeDoctor, TypeMedicalInfo, TypeAvailability } from '../types/types';
+import {
+  TypeDoctor,
+  TypeMedicalInfo,
+  TypeAvailability,
+  TypeMonth,
+} from '../types/types';
 import { Doctor } from '../models/schema/Doctor';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -18,11 +23,16 @@ const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 function createEmptyAvailability() {
   const availability = {} as TypeAvailability;
+  const month = {} as TypeMonth;
   for (let day = 1; day <= 31; day++) {
-    availability[day] = [];
+    month[day] = [];
+  }
+  for (let monthNum = 1; monthNum <= 12; monthNum++) {
+    availability[monthNum] = month;
   }
   return availability;
 }
+
 async function createDoctor(req: Request, res: Response) {
   try {
     const {

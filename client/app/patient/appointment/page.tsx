@@ -24,10 +24,13 @@ const initialState = {
 // return doctor
 // success message and redirect to /patient
 
+// rule: dont allow choose weekends
+
 export default function PatientAppointment() {
   const router = useRouter();
   const [openForm, setOpenForm] = useState(true);
   const [state, setState] = useState(initialState);
+  const [specialists, setSpecialists] = useState<TypeDoctor[]>([]);
   const [allDoctors, setAllDoctors] = useState<TypeDoctor[]>([]);
 
   const handleNextButtonClick = () => {
@@ -54,6 +57,18 @@ export default function PatientAppointment() {
     }));
   }
 
+  function formatStateDate(date: string) {
+    // 2023-07-01
+    const [year, month, day] = date.split('-');
+    const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
+    const formattedDay = day.startsWith('0') ? day.substring(1) : day;
+    console.log(year);
+    console.log([year, formattedMonth, formattedDay]);
+    return [Number(year), Number(formattedMonth), Number(formattedDay)];
+  }
+
+  // formatStateDate(state.date);
+
   console.log(state);
 
   async function getAllTheDoctors() {
@@ -70,20 +85,35 @@ export default function PatientAppointment() {
     getAllTheDoctors();
   }, []);
 
-  function matchIllnessAndSpecialisation() {
+  function getSpecialists() {
     return allDoctors.filter((docs) => {
-      console.log(docs.specialisation);
-      console.log(state);
-      console.log(docs.specialisation === state.illnesses);
       return docs.specialisation === state.illnesses && docs;
     });
   }
 
+  function displayAvailability(stateMonth: number, stateDay: number) {
+    return specialists.map((docs) => {
+      console.log(docs.availability);
+      console.log(state.date);
+      console.log(docs.specialisation === state.illnesses);
+      console.log(docs.availability);
+      console.log(docs.availability && docs.availability[stateMonth][stateDay]);
+      return docs.availability && docs.availability[stateMonth][stateDay];
+
+      // return docs.specialisation === state.illnesses && docs;
+    });
+  }
+
+  // when choose the slot
+  function makeAppointment() {}
+
   useEffect(() => {
-    console.log(matchIllnessAndSpecialisation());
+    setSpecialists(getSpecialists());
+    console.log(displayAvailability(7, 1));
   }, [allDoctors]);
 
-  console.log(matchIllnessAndSpecialisation());
+  console.log(specialists);
+  // console.log(allDoctors);
 
   function submitForm() {
     // e.preventDefault();
