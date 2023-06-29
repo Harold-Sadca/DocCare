@@ -7,6 +7,11 @@ const { TextArea } = Input;
 import { useRouter } from 'next/navigation';
 import apiService from '@/services/APIservices';
 import { TypeDoctor } from '@/../server/types/types';
+import Link from 'next/link';
+import { TypeAvailableSpecialist } from '@/types/types';
+import { AppDispatch } from '@/redux/store';
+import { useDispatch } from 'react-redux';
+import { setAvailableSpecialist } from '@/redux/features/available-doctors-slice';
 
 const initialState = {
   date: '',
@@ -27,11 +32,16 @@ const initialState = {
 // rule: dont allow choose weekends
 
 export default function PatientAppointment() {
+  const dispatch = useDispatch<AppDispatch>();
+
   const router = useRouter();
   const [openForm, setOpenForm] = useState(true);
   const [state, setState] = useState(initialState);
   const [specialists, setSpecialists] = useState<TypeDoctor[]>([]);
   const [allDoctors, setAllDoctors] = useState<TypeDoctor[]>([]);
+  const [availableSpecialists, setAvailableSpecialists] = useState<
+    TypeAvailableSpecialist[]
+  >([]);
 
   const handleNextButtonClick = () => {
     setOpenForm(false);
@@ -41,6 +51,7 @@ export default function PatientAppointment() {
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
+
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
   };
@@ -91,7 +102,8 @@ export default function PatientAppointment() {
     });
   }
 
-  function displayAvailability(stateMonth: number, stateDay: number) {
+  function displayAvailability(formatedDate: number[]) {
+    const [stateYear, stateMonth, stateDay] = formatedDate;
     return specialists.map((docs) => {
       console.log(docs.availability);
       console.log(state.date);
@@ -104,31 +116,29 @@ export default function PatientAppointment() {
           slots: docs.availability[stateMonth][stateDay],
         }
       );
-
-      // return docs.specialisation === state.illnesses && docs;
     });
-  }
-
-  // when choose the slot
-  function makeAppointment(stateMonth: number, stateDay: number, time: number) {
-    // time is the id of the button
-    // pass the day and the time slot
-    // backend: go to the doctor, availability and
-    // availability.day.push(time slot)
   }
 
   useEffect(() => {
     setSpecialists(getSpecialists());
-    console.log('display Availability: ', displayAvailability(7, 1));
+    // pass to displayAvailability the formatStateDate(state.date)
+    if (state.date) {
+      const availableDoctors = displayAvailability(
+        formatStateDate(state.date)
+      ) as TypeAvailableSpecialist[];
+      dispatch(setAvailableSpecialist(availableDoctors));
+      setAvailableSpecialists(availableDoctors);
+    }
+    console.log('display Availability: ', displayAvailability([2023, 7, 1]));
   }, [allDoctors]);
 
   console.log(specialists);
   console.log(allDoctors);
+  console.log({ availableSpecialists });
 
   function submitForm() {
     // e.preventDefault();
     // (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
-
     // const data = await apiService.register(state, 'patient');
     // const { message, result, error, accessToken } = data;
     // console.log(result);
@@ -143,9 +153,7 @@ export default function PatientAppointment() {
     //     // setIsAuthenticated(true);
     //   }
     // }
-
-    router.push('/patient/appointment/available-doctors');
-
+    // router.push('/patient/appointment/available-doctors');
     // setState(initialState);
   }
 
@@ -342,11 +350,19 @@ export default function PatientAppointment() {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
+              <Link
+                href={{
+                  pathname: '/patient/appointment/available-doctors',
+                  query: { test: availableSpecialists },
+                }}
+              >
+                Next
+              </Link>
               <button
                 className='next-button'
                 onClick={() =>
                   router.push('/patient/appointment/available-doctors', {
-                    query: { specialists: 'value' },
+                    query: { availableSpecialists },
                   })
                 }
                 type='submit'

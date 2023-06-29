@@ -44,13 +44,17 @@ export interface TypeResponsePatient extends TypeResponse {
   };
 }
 
-
 export interface TypeResponseMedicalInfo extends TypeResponse {
   result?: TypeMedicalInfo;
 }
 
 export interface TypeResponseSummary extends TypeResponse {
   result?: TypeSummary;
+}
+
+export interface TypeAvailableSpecialist {
+  doctor: string;
+  slots: number[];
 }
 
 export interface TypeSummary {
