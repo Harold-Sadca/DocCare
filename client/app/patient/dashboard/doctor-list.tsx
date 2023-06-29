@@ -1,20 +1,38 @@
-import "./doctor-list.css";
-
+'use client';
+import { useAppSelector } from '@/redux/store';
+import './doctor-list.css';
 
 export default function DoctorList() {
+  const currentPatient = useAppSelector(
+    (state) => state.currentPatientReducer.value
+  );
+  const patientAppointments = currentPatient.patientAppointments;
+  const doctorIds = [] as string[];
   return (
     <main>
-      <div className="doctor-list-container">
-      <h1>Your Doctors</h1>
-      <div className="doctor-list">
-       <div className="each-doctor">
-        <img src="https://images.pexels.com/photos/4270088/pexels-photo-4270088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"></img>
-       <div className="each-doctor-name">
-        <h2>Michaela Hans</h2>
-        <p>Dentist</p>
+      <div className='doctor-list-container'>
+        <h1>Your Doctors</h1>
+        <div className='doctor-list'>
+          {patientAppointments.map((appointment, idx) => {
+            const doctorId = appointment.doctorAppointment?.id;
+            if (doctorId && !doctorIds.includes(doctorId)) {
+              doctorIds.push(doctorId);
+              return (
+                <div className='each-doctor' key={idx}>
+                  <img
+                    src={appointment.doctorAppointment?.profilePicture}
+                    alt='Doctor Profile'
+                  />
+                  <div className='each-doctor-name'>
+                    <h2>{appointment.doctorAppointment?.name}</h2>
+                    <p>{appointment.doctorAppointment?.specialisation}</p>
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })}
         </div>
-       </div>
-      </div>
       </div>
     </main>
   );

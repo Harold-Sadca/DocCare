@@ -60,6 +60,7 @@ export interface TypeAppointment {
   doctor_id?: string;
   patient_id?: string;
   patientAppointment?: TypePatient;
+  doctorAppointment?: TypeDoctor;
   createdAt?: Date;
   updatedAt?: Date;
 }
