@@ -189,6 +189,13 @@ function getLastCheckupModel(patientId) {
     });
 }
 exports.getLastCheckupModel = getLastCheckupModel;
+function formatStateDate(date) {
+    // 2023-07-01
+    const [year, month, day] = date.split('-');
+    const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
+    const formattedDay = day.startsWith('0') ? day.substring(1) : day;
+    return [Number(year), Number(formattedMonth), Number(formattedDay)];
+}
 function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -201,9 +208,19 @@ function createAppointmentModel(patientId, doctorId, appointment) {
             }));
             doctor === null || doctor === void 0 ? void 0 : doctor.addDoctorAppointment(newAppointment);
             doctor === null || doctor === void 0 ? void 0 : doctor.addPatient(patient);
+            const [year, month, day] = formatStateDate(newAppointment.date);
+            const time = Number(newAppointment.time.substring(0, 2));
             patient === null || patient === void 0 ? void 0 : patient.addPatientAppointment(newAppointment);
             newAppointment.setDoctorAppointment(doctor);
             newAppointment.setPatientAppointment(patient);
+            const doctorAvailability = doctor.availability;
+            const prevAvailability = doctorAvailability
+                ? doctorAvailability[month][day]
+                : [];
+            const newDoctorAvailability = Object.assign(Object.assign({}, doctorAvailability), { [month]: Object.assign(Object.assign({}, doctorAvailability[month]), { [day]: [...prevAvailability, time] }) });
+            yield doctor.update({
+                availability: Object.assign(Object.assign({}, doctorAvailability), newDoctorAvailability),
+            });
             yield (doctor === null || doctor === void 0 ? void 0 : doctor.save());
             yield (patient === null || patient === void 0 ? void 0 : patient.save());
             return newAppointment;

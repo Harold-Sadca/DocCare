@@ -185,8 +185,11 @@ function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patientId = req.params.id;
+            console.log(patientId);
             const { doctorId, newAppointment } = req.body;
+            console.log(req.body);
             const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, newAppointment);
+            console.log(createAppointment);
             res.status(201).json({
                 message: 'Appointment created successfully',
                 result: createAppointment,
