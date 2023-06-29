@@ -32,15 +32,28 @@ app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
 io.use((socket, next) => {
     const name = socket.handshake.auth.name;
+    logger_1.default.warn(socket.handshake.auth.name);
     if (!name) {
         return next(new Error("invalid username"));
     }
     next();
 });
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
     const newRoom = socket.handshake.auth.name;
-    socket.join(newRoom);
-    socket.to(newRoom).emit('returned', 'test');
+    if (newRoom === 'junior') {
+        socket.join('junior');
+    }
+    else {
+        socket.join(newRoom);
+    }
+    logger_1.default.info(newRoom);
+    // socket.to(newRoom).emit('returned', 'test')
+    socket.on('from junior', (message, receiver) => {
+        socket.to(receiver).emit('from junior', message);
+    });
+    socket.on('patient message', (message) => {
+        socket.to('junior').emit('patient message', message);
+    });
     // logger.info(io.sockets.adapter.rooms)
     // io.of("/").adapter.on("create-room", (room) => {
     //   socket.emit("room created")

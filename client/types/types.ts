@@ -6,6 +6,11 @@ import {
   TypeAppointment,
 } from '../../server/types/types';
 
+export interface TypeChatPatient {
+  id:string;
+  name:string;
+}
+
 export interface TypeLogin {
   email: string;
   password: string;

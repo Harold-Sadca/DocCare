@@ -1,6 +1,9 @@
 'use client';
 
-import { TypeAppointment, TypePatient } from '../../../../server/types/types';
+import { AppDispatch } from '@/redux/store';
+import { TypePatient } from '../../../../server/types/types';
+import { useDispatch } from 'react-redux';
+import { setChatPatient } from '@/redux/features/chat-patient-slice';
 
 interface Props {
   allPatients: TypePatient[];
@@ -8,6 +11,7 @@ interface Props {
 export default function AllPatients({ allPatients }: Props) {
   const token = localStorage.getItem('accessToken');
   const userType = localStorage.getItem('userType') as string;
+  const dispatch = useDispatch<AppDispatch>();
 
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target = e.target as HTMLButtonElement;
@@ -17,6 +21,12 @@ export default function AllPatients({ allPatients }: Props) {
     } else if (target.name === 'chat') {
       //set the selected patient
       console.log('chat');
+      const patientToChat = {
+        id: e.target.id,
+        name: e.target.name,
+      };
+      console.log(patientToChat);
+      dispatch(setChatPatient(patientToChat));
     }
   }
 

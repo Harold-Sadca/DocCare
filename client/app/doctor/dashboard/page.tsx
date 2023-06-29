@@ -12,8 +12,6 @@ import Appointments from './appointments';
 export default function Doctor() {
   const router = useRouter();
 
-  console.log('Hey from doctor');
-
   return (
     <div>
       <AuthNavbar user={'doctor'} auth={'login'} />
@@ -21,10 +19,10 @@ export default function Doctor() {
         <div className='profile-box'>
           <Profile />
         </div>
-        <div className='profile-box'>
+        <div className='patients-box'>
           <Patients />
         </div>
-        <div className=''>
+        <div className='appointments-box'>
           <Appointments />
         </div>
       </main>
