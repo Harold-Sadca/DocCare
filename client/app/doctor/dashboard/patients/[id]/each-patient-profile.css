@@ -1,4 +1,4 @@
-.profile-image-patient{
+.profile-image-patient {
     height: 200px;
     width: 200px;
     object-fit: cover;
@@ -8,8 +8,43 @@
 }
 
 
-.all-info-about-patient{
+/* .all-info-about-patient{
     position: absolute; 
     top: 130px; 
     left: 700px;
+} */
+
+
+.main-info-patient {
+    position: absolute;
+    top: 180px;
+    left: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.main-info-patient #name {
+    font-size: 30px;
+    color: black;
+}
+
+
+.main-info-patient #age {
+    font-size: 20px;
+    color: black;
+}
+
+.main-info-patient #gender {
+    font-size: 20px;
+    color: black;
+}
+
+
+.phone-call{
+    margin-top: 10px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
 }

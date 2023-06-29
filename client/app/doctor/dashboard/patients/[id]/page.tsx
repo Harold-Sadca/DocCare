@@ -27,17 +27,19 @@ export default function Patient({ params }: { params: { id: string } }) {
       <div className='patient'>
         <img src='https://images.pexels.com/photos/1819483/pexels-photo-1819483.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2' className='profile-image-patient'/>
         <div className='all-info-about-patient'>
-        <h2>{currentPatient?.name}</h2>
-        <h2>
+          <div className='main-info-patient'>
+        <h2 id='name'>{currentPatient?.name}</h2>
+        <h2 id='age'>
           {calculateAge(currentPatient?.dateOfBirth as string).toString()} years
           old
         </h2>
-
-        <div className='phone-call'>
-        <PhoneOutlined /> 
+         <p id='gender'>{currentPatient?.gender}</p>
+        <div className='phone-call'> 
        <a href={`tel:${currentPatient?.phoneNumber}`}>
       {currentPatient?.phoneNumber}
+      <PhoneOutlined style={{ fontSize: '30px' }} />
          </a>
+        </div>
         </div>
         <h2>{currentPatient?.dateOfBirth}</h2>
         <h2>Medications:</h2>
