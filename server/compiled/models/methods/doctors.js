@@ -101,10 +101,10 @@ function getDoctorsModel() {
                     include: [
                         {
                             model: Patient_1.Patient,
-                            as: 'patientAppointments',
-                            required: false
-                        }
-                    ]
+                            as: 'patientAppointment',
+                            required: false,
+                        },
+                    ],
                 },
             });
             console.log(doctors);

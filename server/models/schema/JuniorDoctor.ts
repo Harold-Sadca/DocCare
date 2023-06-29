@@ -32,6 +32,7 @@ export class JuniorDoctor extends Model<
   declare phoneNumber: string | null;
   declare address: string | null;
   declare gender: 'Male' | 'Female' | null;
+  declare profilePicture: string | null;
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -79,6 +80,9 @@ export class JuniorDoctor extends Model<
         },
         gender: {
           type: DataTypes.ENUM('Male', 'Female'),
+        },
+        profilePicture: {
+          type: DataTypes.STRING,
         },
         userType: {
           type: DataTypes.STRING,

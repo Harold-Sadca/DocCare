@@ -26,6 +26,7 @@ export interface TypeDoctor {
   licenseNumber: string;
   gender: 'Male' | 'Female';
   about: string;
+  profilePicture?: string;
   availability?: TypeAvailability;
   doctorAppointments?: TypeAppointment[];
   patients?: TypePatient[];
@@ -59,6 +60,7 @@ export interface TypeAppointment {
   doctor_id?: string;
   patient_id?: string;
   patientAppointment?: TypePatient;
+  doctorAppointment?: TypeDoctor;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -72,6 +74,7 @@ export interface TypeJuniorDoctor {
   address: string;
   licenseNumber: string;
   gender: 'Male' | 'Female';
+  profilePicture?: string;
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -107,6 +110,7 @@ export interface TypePatient {
   address: string;
   dateOfBirth: string;
   gender: 'Male' | 'Female';
+  profilePicture?: string;
   juniorNotes?: string;
   summary?: string;
   allergies: string;
@@ -121,7 +125,7 @@ export interface TypePatient {
 }
 
 export interface TypeChatUser {
-  userID:string
-  name:string
-  messages:[]
+  userID: string;
+  name: string;
+  messages: [];
 }

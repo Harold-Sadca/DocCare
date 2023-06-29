@@ -24,3 +24,7 @@ body {
   color: rgba(22, 78, 99, 0.668);
   background-color: rgb(240 249 255);
 }
+
+.error-message {
+  color: red !important;
+}

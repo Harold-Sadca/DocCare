@@ -86,6 +86,7 @@ const seedDB = async () => {
       address: addresses[num],
       licenseNumber: doctorLicenseNumbers[num],
       gender: genders[gen],
+      profilePicture: 'https://www.myclinic.ie/images/banner_gp.png',
       about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       availability: createEmptyAvailability(),
       userType: 'doctor'
@@ -99,6 +100,7 @@ const seedDB = async () => {
       phoneNumber: phoneNumbers[num],
       address: addresses[num],
       gender: genders[gen],
+      profilePicture: 'https://hips.hearstapps.com/hmg-prod/images/go-big-or-go-home-harper-avery-arrives-at-grey-sloan-news-photo-1569432105.jpg?crop=0.8xw:1xh;center,top&resize=1200:*',
       userType: 'junior-doctor'
     })
 
@@ -110,6 +112,7 @@ const seedDB = async () => {
       address: addresses[num],
       dateOfBirth: generateRandomDate(new Date(1994, 0, 1), new Date()),
       gender: genders[gen],
+      profilePicture: 'https://img.freepik.com/free-photo/cheerful-dark-skinned-woman-smiling-broadly-rejoicing-her-victory-competition-among-young-writers-standing-isolated-against-grey-wall-people-success-youth-happiness-concept_273609-1246.jpg',
       userType: 'patient',
       allergies: 'dairy, nuts',
       bloodType: 'AB-',

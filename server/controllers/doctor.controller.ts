@@ -16,7 +16,6 @@ import {
 import { Doctor } from '../models/schema/Doctor';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import logger from '../logger';
 
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
@@ -45,6 +44,7 @@ async function createDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
       about,
+      profilePicture,
     } = req.body;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newDoctor = {
@@ -57,6 +57,7 @@ async function createDoctor(req: Request, res: Response) {
       licenseNumber,
       gender,
       about,
+      profilePicture,
       userType: 'doctor',
       availability: createEmptyAvailability(),
     } as TypeDoctor;
@@ -70,7 +71,7 @@ async function createDoctor(req: Request, res: Response) {
       accessToken,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to create a doctor account' });
+    res.status(500).json({ error: 'Failed to create a doctor account' });
   }
 }
 
@@ -113,7 +114,7 @@ async function getDoctor(req: Request, res: Response) {
       result: doctor,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to get the doctor account' });
+    res.status(500).json({ error: 'Failed to get the doctor account' });
   }
 }
 async function getDoctors(req: Request, res: Response) {
@@ -122,7 +123,7 @@ async function getDoctors(req: Request, res: Response) {
     console.log(doctors);
     res.status(200).send(doctors);
   } catch (error) {
-    res.status(400).json({ error: 'Failed to get doctors account' });
+    res.status(500).json({ error: 'Failed to get doctors account' });
   }
 }
 
@@ -144,7 +145,7 @@ async function createMedicalInfo(req: Request, res: Response) {
       result: createMedicalInfo,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to create a medical info' });
+    res.status(500).json({ error: 'Failed to create a medical info' });
   }
 }
 
@@ -162,7 +163,7 @@ async function createPatientSummary(req: Request, res: Response) {
       result: createPatientSummary,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to create a patient summary' });
+    res.status(500).json({ error: 'Failed to create a patient summary' });
   }
 }
 

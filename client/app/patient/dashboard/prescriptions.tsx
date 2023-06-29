@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import './prescriptions.css';
 import { useAppSelector } from '@/redux/store';
 
@@ -7,13 +8,13 @@ export default function Prescriptions() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-  
+
   return (
     <main>
       <div className='prescriptions-container'>
         <h1>Your Medications</h1>
         <div className='each-medication-container'>
-          <img src='/medicine-emoji.png' />
+          <Image src='/medicine-emoji.png' alt='medicine-emoji'></Image>
           <p>{currentPatient.medications}</p>
         </div>
       </div>

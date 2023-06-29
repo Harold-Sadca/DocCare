@@ -47,10 +47,10 @@ async function fetchData(token: string, path: string) {
       },
       withCredentials: true,
     })
-
     .then((res: AxiosResponse<TypePatient[] | TypeDoctor[]>) => {
       return res.data;
-    });
+    })
+    .catch((error) => console.log(error));
 }
 
 async function register(user: TUser, type: string): Promise<TypeRegister> {
@@ -74,7 +74,7 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
     });
 }
 
-async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
+async function login(user: TypeLogin, type: string) {
   let path;
   if (type == 'doctor') {
     path = '/doctor';
@@ -90,9 +90,10 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TResponseUser>) => {
+    .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function getAllDoctors(token: string) {
@@ -193,7 +194,8 @@ async function createAppointment(
   patientId: string,
   appointment: TypeAppointment,
   doctorId: string
-): Promise<TypeResponseAppointment> {
+) {
+  console.log({ appointment });
   return axios
     .post(
       `${PORT}/patient/appointment/${patientId}`,
@@ -205,12 +207,14 @@ async function createAppointment(
         withCredentials: true,
       }
     )
-    .then((res: AxiosResponse<TypeResponseAppointment>) => {
+    .then((res) => {
+      console.log(res);
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
-async function getUser(token: string, user: string): Promise<TUser> {
+async function getUser(token: string, user: string) {
   console.log(token, user);
   return axios
     .get(`${PORT}/${user}`, {
@@ -219,7 +223,7 @@ async function getUser(token: string, user: string): Promise<TUser> {
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TUser>) => {
+    .then((res) => {
       return res.data;
     });
 }

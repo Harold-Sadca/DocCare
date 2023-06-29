@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { Form, Input } from 'antd';
 
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
@@ -9,6 +10,8 @@ import { login } from '../../redux/features/auth-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { useRouter } from 'next/navigation';
+import { ExclamationCircleTwoTone } from '@ant-design/icons';
+import { message } from 'antd';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -30,6 +33,35 @@ export default function Login(props: Props) {
   const initialState = { email: '', password: '' };
   const [state, setState] = useState(initialState);
   const [formError, setFormError] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
+  const key = 'updatable';
+
+  const openMessage = () => {
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
+    setTimeout(() => {
+      messageApi.open({
+        key,
+        type: 'success',
+        content: messageContent,
+        duration: 2,
+      });
+      setTimeout(() => {
+        const userType = localStorage.getItem('userType');
+        router.push(`/${userType}/dashboard`);
+      }, 2000);
+    }, 1000);
+  };
+
+  useEffect(() => {
+    if (messageContent) {
+      openMessage();
+    }
+  }, [messageContent]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -44,26 +76,24 @@ export default function Login(props: Props) {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     // e.preventDefault();
     const data = await apiService.login(state, props.user);
-    const { message, result, error } = data;
-    console.log({ result });
-    if (error) {
-      setFormError(`${error}`);
+    const { message, result } = data;
+    if (result) {
+      const username = result.userAuthenticated.name as string;
+      const userType = result.userAuthenticated.userType as string;
+      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('userType', userType);
+      setFormError('');
+      dispatch(login(username));
+      setMessageContent(message);
     } else {
-      if (result) {
-        const username = result.userAuthenticated.name as string;
-        const userType = result.userAuthenticated.userType as string;
-        localStorage.setItem('accessToken', result.accessToken);
-        localStorage.setItem('userType', userType);
-        setFormError('');
-        dispatch(login(username));
-        router.push(`/${userType}/dashboard`);
-      }
+      setFormError(`${data}`);
     }
     setState(initialState);
   };
 
   return (
     <>
+      {contextHolder}
       <div className='flex min-h-screen flex-col'>
         <div className='grid grid-cols-2 gap-4 h-screen'>
           <div className='flex flex-col items-center justify-evenly'>
@@ -110,7 +140,11 @@ export default function Login(props: Props) {
                   required
                 />
               </Form.Item>
-              {formError && <p className='error-message'>{formError}</p>}
+              {formError && (
+                <p className='error-message'>
+                  <ExclamationCircleTwoTone /> {formError}
+                </p>
+              )}
               <button
                 className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
                 type='submit'

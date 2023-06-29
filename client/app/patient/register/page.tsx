@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { Form, Input, Radio, RadioChangeEvent, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -33,6 +34,7 @@ export default function Register() {
     allergies: '',
     surgicalHistory: '',
     familyMedicalHistory: '',
+    profilePicture: '',
   };
   const [state, setState] = useState(initialState);
   const [messageApi, contextHolder] = message.useMessage();
@@ -194,13 +196,23 @@ export default function Register() {
                 </Radio>
               </Radio.Group>
             </Form.Item>
-            <Form.Item label='Profile Picture' htmlFor='profile'>
+            {/* <Form.Item label='Profile Picture' htmlFor='profile'>
               <Upload action='/upload.do' listType='picture-card'>
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload</div>
                 </div>
               </Upload>
+            </Form.Item> */}
+            <Form.Item label='Profile Picture' htmlFor='profilePicture'>
+              <Input
+                type='text'
+                id='profilePicture'
+                name='profilePicture'
+                value={state.profilePicture}
+                onChange={(e) => handleChange(e)}
+                required
+              />
             </Form.Item>
             <Form.Item label='Blood Type' htmlFor='bloodType'>
               <Input

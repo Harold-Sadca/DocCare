@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { Form, Input, Radio, RadioChangeEvent, Upload } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -30,6 +31,7 @@ export default function Register() {
     phoneNumber: '',
     licenseNumber: '',
     about: '',
+    profilePicture: '',
   };
   const [state, setState] = useState(initialState);
   const [messageApi, contextHolder] = message.useMessage();
@@ -50,7 +52,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/doctor/dashboard');
+        router.push('/doctor');
       }, 2000);
     }, 1000);
   };
@@ -201,14 +203,24 @@ export default function Register() {
                 onChange={(e) => handleChange(e)}
               />
             </Form.Item>
-            <Form.Item label='Profile Picture' htmlFor='profile'>
+            <Form.Item label='Profile Picture' htmlFor='profilePicture'>
+              <Input
+                type='text'
+                id='profilePicture'
+                name='profilePicture'
+                value={state.profilePicture}
+                onChange={(e) => handleChange(e)}
+                required
+              />
+            </Form.Item>
+            {/* <Form.Item label='Profile Picture' htmlFor='profile'>
               <Upload action='/upload.do' listType='picture-card'>
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload</div>
                 </div>
               </Upload>
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item label='Specialisation' htmlFor='specialisation'>
               <Radio.Group id='specialisation' name='specialisation'>
                 <Radio

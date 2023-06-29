@@ -23,6 +23,7 @@ async function createJuniorDoctor(req: Request, res: Response) {
       address,
       licenseNumber,
       gender,
+      profilePicture,
     } = req.body;
     console.log(req.body);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -34,6 +35,7 @@ async function createJuniorDoctor(req: Request, res: Response) {
       address,
       licenseNumber,
       gender,
+      profilePicture,
       userType: 'junior-doctor',
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);

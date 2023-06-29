@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import { AppDispatch, useAppSelector } from '@/redux/store';
@@ -31,31 +32,22 @@ function toFirstLetterUpperCase(text: string) {
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
   const userType = useAppSelector((state) => state.authReducer.value.userType);
-  console.log(userType);
   const dispatch = useDispatch<AppDispatch>();
 
   async function getCurrentUser() {
     const token = localStorage.getItem('accessToken');
     const userType = localStorage.getItem('userType') as string;
-    console.log(token);
     if (token) {
       try {
-        console.log(token);
-        console.log(userType);
         const user = await apiService.getUser(token, userType);
-        console.log(user);
-        console.log(userType);
         if (userType === 'patient') {
           const patient = user;
-          console.log(patient);
           dispatch(setCurrentPatient(patient.result));
         } else if (userType === 'doctor') {
-          const doctor = user as TypeDoctor;
-          console.log(doctor);
+          const doctor = user;
           dispatch(setCurrentDoctor(doctor.result));
         } else if (userType === 'junior-doctor') {
-          const juniorDoctor = user as TypeJuniorDoctor;
-          console.log(juniorDoctor);
+          const juniorDoctor = user;
           dispatch(setCurrentDoctor(juniorDoctor.result));
         }
         dispatch(login(userType as string));

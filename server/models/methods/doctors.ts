@@ -82,10 +82,10 @@ async function getDoctorsModel() {
         include: [
           {
             model: Patient,
-            as:'patientAppointments',
-            required:false
-          }
-        ]
+            as: 'patientAppointment',
+            required: false,
+          },
+        ],
       },
     });
     console.log(doctors);

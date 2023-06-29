@@ -29,6 +29,7 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
+      profilePicture,
       allergies,
       bloodType,
       medications,
@@ -44,6 +45,7 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
+      profilePicture,
       allergies,
       bloodType,
       medications,
@@ -69,15 +71,15 @@ async function loginPatient(req: Request, res: Response) {
   try {
     const patient = await PatientDB.findOne({ where: { email: email } });
     if (!patient) {
-      throw new Error('Patient not found');
+      return res.status(403).send({ error: 'Username or password not found' });
     }
     const patientPassword = patient.password;
     if (!patientPassword) {
-      throw new Error('Patient password is null');
+      return res.status(403).send({ error: 'Username or password not found' });
     }
     const validatedPass = await bcrypt.compare(password, patientPassword);
     if (!validatedPass) {
-      throw new Error('Invalid password');
+      return res.status(403).send({ error: 'Username or password not found' });
     }
     const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
 
@@ -87,7 +89,7 @@ async function loginPatient(req: Request, res: Response) {
       result: { accessToken, userAuthenticated },
     });
   } catch (error) {
-    res.status(401).json({ error: 'Username or password is incorrect' });
+    res.status(500).json({ error: 'Failed to login' });
   }
 }
 
@@ -174,20 +176,22 @@ async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
     console.log(patientId);
-    const { doctorId, newAppointment } = req.body;
+    const { doctorId, appointment } = req.body;
     console.log(req.body);
+    // console.log({ appointment });
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,
-      newAppointment
+      appointment
     );
+    console.log('got here??');
     console.log(createAppointment);
     res.status(201).json({
       message: 'Appointment created successfully',
       result: createAppointment,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to create a appointment' });
+    res.status(400).json({ error: 'Failed to create an appointment' });
   }
 }
 

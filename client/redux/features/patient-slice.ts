@@ -1,4 +1,4 @@
-import { TypePatient } from '@/../server/types/types';
+import { TypePatient, TypeAppointment } from '@/../server/types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
@@ -19,6 +19,8 @@ type CurrentPatientState = {
   medications: string;
   surgicalHistory: string;
   familyMedicalHistory: string;
+  profilePicture?: string;
+  patientAppointments: TypeAppointment[] | undefined;
 };
 const initialState = {
   value: {
@@ -35,6 +37,8 @@ const initialState = {
     medications: '',
     surgicalHistory: '',
     familyMedicalHistory: '',
+    profilePicture: '',
+    patientAppointments: [],
   } as CurrentPatientState,
 } as InitialState;
 
@@ -57,6 +61,8 @@ export const currentPatient = createSlice({
         medications,
         surgicalHistory,
         familyMedicalHistory,
+        profilePicture,
+        patientAppointments,
       } = action.payload;
       return {
         value: {
@@ -73,6 +79,8 @@ export const currentPatient = createSlice({
           medications,
           surgicalHistory,
           familyMedicalHistory,
+          profilePicture,
+          patientAppointments,
         },
       };
     },

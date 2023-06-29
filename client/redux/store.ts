@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './features/auth-slice';
 import currentPatientReducer from './features/patient-slice';
 import currentDoctorReducer from './features/doctor-slice';
+import chatPatientReducer from './features/chat-patient-slice';
 import AvailableSpecialist from './features/available-doctors-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 
@@ -10,6 +11,7 @@ export const store = configureStore({
     authReducer,
     currentPatientReducer,
     currentDoctorReducer,
+    chatPatientReducer,
     AvailableSpecialist,
   },
 });
