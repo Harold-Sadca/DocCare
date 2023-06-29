@@ -1,11 +1,15 @@
 'use client'
 
-import { TypeAppointment, TypePatient } from "../../../../server/types/types";
+import { AppDispatch } from "@/redux/store";
+import { TypePatient } from "../../../../server/types/types";
+import { useDispatch } from 'react-redux';
+import { setChatPatient } from "@/redux/features/chat-patient-slice";
 
 
 export default function AllPatients({allPatients}) {
   const token = localStorage.getItem('accessToken');
   const userType = localStorage.getItem('userType') as string;
+  const dispatch = useDispatch<AppDispatch>();
 
 
   function chatToPatient(e:React.MouseEvent<HTMLElement>) {
@@ -15,6 +19,12 @@ export default function AllPatients({allPatients}) {
     } else if (e.target.name === 'chat') {
       //set the selected patient
       console.log('chat')
+      const patientToChat = {
+        id:e.target.id,
+        name:e.target.name
+      }
+      console.log(patientToChat)
+      dispatch(setChatPatient(patientToChat))
     }
   }
 

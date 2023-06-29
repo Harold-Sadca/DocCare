@@ -9,7 +9,7 @@ import { useAppSelector } from "@/redux/store";
 const socket = io("ws://localhost:3001");
 
 
-export default function JuniorDoctorMessages({currentJunior}) {
+export default function JuniorDoctorMessages() {
 
   const initialState = { message: '', user: '' };
   const [messageState, setMessageState] = useState(initialState);
@@ -24,10 +24,11 @@ export default function JuniorDoctorMessages({currentJunior}) {
       [name]: value,
     }));
   };
+  const currentJunior = useAppSelector((state) => state.currentPatientReducer.value);
 
   console.log(currentJunior)
 
-  // const {name, id} = currentJunior
+  const name = 'Junior'
 
   useEffect(() => {
     socketConnect()
@@ -42,7 +43,7 @@ export default function JuniorDoctorMessages({currentJunior}) {
       receiver_name:'Patient'
     }
     console.log(newMessage)
-    socket.emit("junior sent", newMessage, 1, currentJunior.id);
+    socket.emit("from junior", newMessage);
     socket.on("send", (args) => {
       console.log(args)
       setAllReceivedMessages([...allReceivedMessages, args])

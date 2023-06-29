@@ -36,6 +36,7 @@ app.use(doctorRouter);
 io.use((socket, next) => {
 
   const name = socket.handshake.auth.name;
+  logger.warn(socket.handshake.auth.name)
   if (!name) {
     return next(new Error("invalid username"));
   }
@@ -46,7 +47,11 @@ io.on("connection", (socket) => {
 
   const newRoom = socket.handshake.auth.name
   socket.join(newRoom)
+  logger.info(newRoom)
   socket.to(newRoom).emit('returned', 'test')
+  socket.on("from junior", (args) => {
+    socket.to('halord').emit('from junior', args)
+  })
   // logger.info(io.sockets.adapter.rooms)
   // io.of("/").adapter.on("create-room", (room) => {
   //   socket.emit("room created")
