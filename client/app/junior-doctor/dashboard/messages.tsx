@@ -25,7 +25,9 @@ export default function JuniorDoctorMessages({currentJunior}) {
     }));
   };
 
-  const {name, id} = currentJunior
+  console.log(currentJunior)
+
+  // const {name, id} = currentJunior
 
   useEffect(() => {
     socketConnect()
@@ -69,9 +71,13 @@ export default function JuniorDoctorMessages({currentJunior}) {
     // });
   });
 
+  socket.on('returned', (args) => {
+    console.log(args)
+  })
+
   function sendMessage(content) {
     if (selectedPatient) {
-      socket.emit("private message" {
+      socket.emit("private message", {
         content,
         to: selectedPatient.userID
       })

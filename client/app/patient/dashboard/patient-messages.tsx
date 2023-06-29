@@ -19,6 +19,7 @@ export default function PatientMessages() {
     (state) => state.currentPatientReducer.value
   );
   const {name, id} = currentPatient
+  // console.log(currentPatient)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -50,8 +51,13 @@ export default function PatientMessages() {
   
   function socketConnect() {
     socket.auth = {name}
+    console.log(socket.auth)
     socket.connect()
   }
+
+  socket.on('returned', (args) => {
+    console.log(args)
+  })
 
   // socket.on("your id", (args:string) => {
   //   console.log(args)

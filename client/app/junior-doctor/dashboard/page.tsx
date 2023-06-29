@@ -8,11 +8,12 @@ import { setCurrentJunior } from '@/redux/features/junior-slice';
 import { useEffect, useState } from 'react';
 import { TUser } from '@/types/types';
 import { TypeJuniorDoctor, TypePatient } from '../../../../server/types/types';
+import AllPatients from './patients';
 
 export default function JuniorDoctorDashBoard() {
   const dispatch = useDispatch<AppDispatch>();
   const [junior, setJunior] = useState<TUser>()
-  const [patients, setAllPatients] = useState<TypePatient[]>([])
+  const [allPatients, setAllPatients] = useState<TypePatient[]>([])
 
   async function authenticate(token:string, userType:string) {
     const user = await apiService.getUser(token, userType);
@@ -21,10 +22,11 @@ export default function JuniorDoctorDashBoard() {
     dispatch(setCurrentJunior(user as TypeJuniorDoctor))
   }
 
+  console.log(allPatients)
+
   async function getPatients(token:string) {
     const patients = await apiService.getAllPatients(token)
     setAllPatients(patients as TypePatient[])
-    console.log(patients)
   }
 
 
@@ -41,6 +43,7 @@ export default function JuniorDoctorDashBoard() {
   return (
     <main>
       <h1>Junior DashBoard!</h1>
+      <AllPatients allPatients = {allPatients} />
       <div className='chat-box'>
       <JuniorDoctorMessages currentJunior={junior}/>
       </div>

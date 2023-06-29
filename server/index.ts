@@ -39,25 +39,30 @@ io.use((socket, next) => {
   if (!name) {
     return next(new Error("invalid username"));
   }
-  socket.name = name;
   next();
 });
 
 io.on("connection", (socket) => {
 
-  io.of("/").adapter.on("create-room", (room) => {
-    socket.emit("room created")
-  })
+  // logger.info(socket.handshake.auth.name)
+  const newRoom = socket.handshake.auth.name
+  // io.sockets.adapter.rooms.
+  socket.join(newRoom)
+  socket.to(newRoom).emit('returned', 'test')
+  // logger.info(io.sockets.adapter.rooms)
+  // io.of("/").adapter.on("create-room", (room) => {
+  //   socket.emit("room created")
+  // })
   
-  //if you join a room that doesnt exist it will create it...
-  socket.emit("patients", patients);
+  // //if you join a room that doesnt exist it will create it...
+  // socket.emit("patients", patients);
 
-  socket.on("private message", ({ content, to }) => {
-    socket.to(to).emit("private message", {
-      content,
-      from: socket.id,
-    });
-  });
+  // socket.on("private message", ({ content, to }) => {
+  //   socket.to(to).emit("private message", {
+  //     content,
+  //     from: socket.id,
+  //   });
+  // });
 });
 
 
