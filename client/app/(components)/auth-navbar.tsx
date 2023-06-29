@@ -15,13 +15,18 @@ import {
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/features/auth-slice';
 import { setCurrentDoctor } from '@/redux/features/doctor-slice';
-import { toFirstLetterUpperCase } from '../helper';
+
 interface Props {
   user: string;
   auth: string;
 }
 
 // if its auth
+function toFirstLetterUpperCase(text: string) {
+  const arr = text.split('');
+  arr[0] = arr[0].toUpperCase();
+  return arr.join('');
+}
 
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
