@@ -4,22 +4,23 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import './all-patients.css'
 
 export default function Patients() {
   const router = useRouter();
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );
-  const patients = currentDoctor.patients;
+  const patients = currentDoctor.patients; 
   console.log('hello from /patients');
 
   return (
     <main>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <h2>My patients</h2>
-      <div className='patients'>
-        {patients?.slice(0, 3).map((patient, idx) => (
-          <div key={idx}>
+      <h2 className='my-patients-h2'>My patients</h2>
+      <div className='all-patients'>
+        {patients?.map((patient, idx) => (
+          <div key={idx} className='each-patient-profile'>
             <p>{patient.name}</p>
             <Link
               href={`/doctor/dashboard/patients/${patient.id}`}
