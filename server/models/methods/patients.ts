@@ -211,6 +211,7 @@ async function createAppointmentModel(
     });
     await doctor?.save();
     await patient?.save();
+    await newAppointment?.save();
     return newAppointment;
   } catch (error) {
     throw new Error();

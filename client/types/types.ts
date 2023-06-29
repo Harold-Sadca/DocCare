@@ -55,6 +55,8 @@ export interface TypeResponseSummary extends TypeResponse {
 export interface TypeAvailableSpecialist {
   doctorName: string;
   doctorId: string;
+  doctorAbout: string;
+  doctorProfilePic: string;
   slots: number[];
   date: string;
   illness: string;

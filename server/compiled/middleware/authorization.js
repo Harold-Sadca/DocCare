@@ -27,12 +27,15 @@ const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void
     try {
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
         const patient = yield PatientDB.findOne({ where: { id } });
-        if (!patient)
+        if (!patient) {
+            console.log('no patient!');
             return res.sendStatus(401);
+        }
         req.patient = patient;
         next();
     }
     catch (error) {
+        console.log(error);
         res.sendStatus(401);
     }
 });

@@ -133,15 +133,18 @@ export default function AvailableDoctorList() {
           {availableSpecialists.map((available, idx) => {
             const doctorName = available.doctorName;
             const doctorId = available.doctorId;
+            const doctorAbout = available.doctorAbout;
+            const doctorProfilePic = available.doctorProfilePic;
             const illness = available.illness as IllnessOptions;
             const date = available.date;
             const slots = availableSlots(available.slots);
             return (
               <div className='each-doctor' key={idx}>
                 <img src='https://images.pexels.com/photos/4270088/pexels-photo-4270088.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img>
+                <img src={doctorProfilePic}></img>
                 <div className='each-doctor-name'>
                   <h2>{doctorName}</h2>
-                  <p>General Practice</p>
+                  <p>{doctorAbout}</p>
                   {slots.map((slot, idx) => (
                     <div key={idx}>
                       <button

@@ -19,6 +19,7 @@ type CurrentPatientState = {
   medications: string;
   surgicalHistory: string;
   familyMedicalHistory: string;
+  profilePicture: string;
 };
 const initialState = {
   value: {
@@ -35,6 +36,7 @@ const initialState = {
     medications: '',
     surgicalHistory: '',
     familyMedicalHistory: '',
+    profilePicture: '',
   } as CurrentPatientState,
 } as InitialState;
 
@@ -57,6 +59,7 @@ export const currentPatient = createSlice({
         medications,
         surgicalHistory,
         familyMedicalHistory,
+        profilePicture,
       } = action.payload;
       return {
         value: {
@@ -73,6 +76,7 @@ export const currentPatient = createSlice({
           medications,
           surgicalHistory,
           familyMedicalHistory,
+          profilePicture,
         },
       };
     },

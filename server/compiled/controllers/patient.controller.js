@@ -23,7 +23,7 @@ const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name, email, password, phoneNumber, address, dateOfBirth, gender, allergies, bloodType, medications, surgicalHistory, familyMedicalHistory, } = req.body;
+            const { name, email, password, phoneNumber, address, dateOfBirth, gender, profilePicture, allergies, bloodType, medications, surgicalHistory, familyMedicalHistory, } = req.body;
             const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newPatient = {
                 name,
@@ -33,6 +33,7 @@ function createPatient(req, res) {
                 address,
                 dateOfBirth,
                 gender,
+                profilePicture,
                 allergies,
                 bloodType,
                 medications,
@@ -61,15 +62,15 @@ function loginPatient(req, res) {
         try {
             const patient = yield PatientDB.findOne({ where: { email: email } });
             if (!patient) {
-                throw new Error('Patient not found');
+                return res.status(403).send({ error: 'Username or password not found' });
             }
             const patientPassword = patient.password;
             if (!patientPassword) {
-                throw new Error('Patient password is null');
+                return res.status(403).send({ error: 'Username or password not found' });
             }
             const validatedPass = yield bcrypt_1.default.compare(password, patientPassword);
             if (!validatedPass) {
-                throw new Error('Invalid password');
+                return res.status(403).send({ error: 'Username or password not found' });
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
             const userAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
@@ -79,7 +80,7 @@ function loginPatient(req, res) {
             });
         }
         catch (error) {
-            res.status(401).json({ error: 'Username or password is incorrect' });
+            res.status(500).json({ error: 'Failed to login' });
         }
     });
 }
@@ -185,8 +186,11 @@ function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patientId = req.params.id;
+            console.log(patientId);
             const { doctorId, newAppointment } = req.body;
+            console.log(req.body);
             const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, newAppointment);
+            console.log(createAppointment);
             res.status(201).json({
                 message: 'Appointment created successfully',
                 result: createAppointment,

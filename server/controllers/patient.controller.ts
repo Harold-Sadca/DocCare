@@ -29,6 +29,7 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
+      profilePicture,
       allergies,
       bloodType,
       medications,
@@ -44,6 +45,7 @@ async function createPatient(req: Request, res: Response) {
       address,
       dateOfBirth,
       gender,
+      profilePicture,
       allergies,
       bloodType,
       medications,
@@ -69,16 +71,15 @@ async function loginPatient(req: Request, res: Response) {
   try {
     const patient = await PatientDB.findOne({ where: { email: email } });
     if (!patient) {
-      console.log('no patient');
-      return res.status(400).send({ error: 'Username or password not found' });
+      return res.status(403).send({ error: 'Username or password not found' });
     }
     const patientPassword = patient.password;
     if (!patientPassword) {
-      throw new Error('Patient password is null');
+      return res.status(403).send({ error: 'Username or password not found' });
     }
     const validatedPass = await bcrypt.compare(password, patientPassword);
     if (!validatedPass) {
-      throw new Error('Invalid password');
+      return res.status(403).send({ error: 'Username or password not found' });
     }
     const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
 
@@ -88,7 +89,7 @@ async function loginPatient(req: Request, res: Response) {
       result: { accessToken, userAuthenticated },
     });
   } catch (error) {
-    res.status(401).json({ error: 'Failed to login' });
+    res.status(500).json({ error: 'Failed to login' });
   }
 }
 

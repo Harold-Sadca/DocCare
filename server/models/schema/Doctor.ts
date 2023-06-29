@@ -52,6 +52,7 @@ export class Doctor extends Model<
   declare licenseNumber: string | null;
   declare gender: 'Male' | 'Female';
   declare about: string | null;
+  declare profilePicture: string | null;
   declare availability: TypeAvailability | null;
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
@@ -152,6 +153,9 @@ export class Doctor extends Model<
           type: DataTypes.ENUM('Male', 'Female'),
         },
         about: {
+          type: DataTypes.STRING,
+        },
+        profilePicture: {
           type: DataTypes.STRING,
         },
         userType: {

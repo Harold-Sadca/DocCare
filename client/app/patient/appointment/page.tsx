@@ -114,6 +114,8 @@ export default function PatientAppointment() {
         docs.availability && {
           doctorName: docs.name,
           doctorId: docs.id,
+          doctorAbout: docs.about,
+          doctorProfilePic: docs.profilePicture,
           slots: docs.availability[stateMonth][stateDay],
           date: stateDate,
           illness: stateIllness,
@@ -124,7 +126,24 @@ export default function PatientAppointment() {
 
   useEffect(() => {
     setSpecialists(getSpecialists());
-    // pass to displayAvailability the formatStateDate(state.date)
+    // if (state.date && state.illnesses) {
+    //   const availableDoctors = displayAvailability(
+    //     state.date,
+    //     formatStateDate(state.date),
+    //     state.illnesses
+    //   ) as TypeAvailableSpecialist[];
+    //   dispatch(setAvailableSpecialist(availableDoctors));
+    //   setAvailableSpecialists(availableDoctors);
+    // }
+  }, [state]);
+
+  // console.log(specialists);
+  // console.log(allDoctors);
+  console.log({ availableSpecialists });
+
+  function submitForm() {
+    // e.preventDefault();
+    // (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
     if (state.date && state.illnesses) {
       const availableDoctors = displayAvailability(
         state.date,
@@ -134,39 +153,7 @@ export default function PatientAppointment() {
       dispatch(setAvailableSpecialist(availableDoctors));
       setAvailableSpecialists(availableDoctors);
     }
-    console.log(
-      'display Availability: ',
-      displayAvailability(
-        '2023, 07, 01',
-        [2023, 7, 1],
-        'Surgical conditions, injuries requiring surgical intervention, post-operative care'
-      )
-    );
-  }, [allDoctors]);
-
-  console.log(specialists);
-  console.log(allDoctors);
-  console.log({ availableSpecialists });
-
-  function submitForm() {
-    // e.preventDefault();
-    // (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
-    // const data = await apiService.register(state, 'patient');
-    // const { message, result, error, accessToken } = data;
-    // console.log(result);
-    // if (error) {
-    //   setMessageContent(error);
-    // } else {
-    //   if (result) {
-    //     localStorage.setItem('accessToken', accessToken);
-    //     localStorage.setItem('userType', result.userType as string);
-    //     console.log(result);
-    //     setMessageContent(message as string);
-    //     // setIsAuthenticated(true);
-    //   }
-    // }
-    // router.push('/patient/appointment/available-doctors');
-    // setState(initialState);
+    router.push('/patient/appointment/available-doctors');
   }
 
   return (
@@ -362,23 +349,23 @@ export default function PatientAppointment() {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <Link
+              {/* <Link
                 className='next-button'
                 href='/patient/appointment/available-doctors'
               >
                 Next
-              </Link>
-              {/* <button
+              </Link> */}
+              <button
                 className='next-button'
-                onClick={() =>
-                  router.push('/patient/appointment/available-doctors', {
-                    query: { availableSpecialists },
-                  })
-                }
+                // onClick={() =>
+                //   router.push('/patient/appointment/available-doctors', {
+                //     query: { availableSpecialists },
+                //   })
+                // }
                 type='submit'
               >
                 Next
-              </button> */}
+              </button>
             </Form>
           </div>
         </div>

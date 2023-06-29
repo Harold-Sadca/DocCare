@@ -33,7 +33,7 @@ function createEmptyAvailability() {
 function createDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const { name, email, password, specialisation, phoneNumber, address, licenseNumber, gender, about, } = req.body;
+            const { name, email, password, specialisation, phoneNumber, address, licenseNumber, gender, about, profilePicture, } = req.body;
             const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newDoctor = {
                 name,
@@ -45,6 +45,7 @@ function createDoctor(req, res) {
                 licenseNumber,
                 gender,
                 about,
+                profilePicture,
                 userType: 'doctor',
                 availability: createEmptyAvailability(),
             };
@@ -59,7 +60,7 @@ function createDoctor(req, res) {
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to create a doctor account' });
+            res.status(500).json({ error: 'Failed to create a doctor account' });
         }
     });
 }
@@ -108,7 +109,7 @@ function getDoctor(req, res) {
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to get the doctor account' });
+            res.status(500).json({ error: 'Failed to get the doctor account' });
         }
     });
 }
@@ -121,7 +122,7 @@ function getDoctors(req, res) {
             res.status(200).send(doctors);
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to get doctors account' });
+            res.status(500).json({ error: 'Failed to get doctors account' });
         }
     });
 }
@@ -143,7 +144,7 @@ function createMedicalInfo(req, res) {
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to create a medical info' });
+            res.status(500).json({ error: 'Failed to create a medical info' });
         }
     });
 }
@@ -161,7 +162,7 @@ function createPatientSummary(req, res) {
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to create a patient summary' });
+            res.status(500).json({ error: 'Failed to create a patient summary' });
         }
     });
 }

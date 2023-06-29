@@ -47,10 +47,10 @@ async function fetchData(token: string, path: string) {
       },
       withCredentials: true,
     })
-
     .then((res: AxiosResponse<TypePatient[] | TypeDoctor[]>) => {
       return res.data;
-    });
+    })
+    .catch((error) => console.log(error));
 }
 
 async function register(user: TUser, type: string): Promise<TypeRegister> {
