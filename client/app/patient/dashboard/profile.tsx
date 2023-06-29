@@ -4,15 +4,35 @@ import apiService from '@/services/APIservices';
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
+import { TypePatient } from '../../../../server/types/types';
 import { calculateAge } from '@/app/helper';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
   const [lastDate, setLastDate] = useState('');
   const [illness, setIllness] = useState('');
+  const [patient, setPatient] = useState<TypePatient>()
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
+
+  console.log(currentPatient)
+
+  function calculateAge(dateOfBirth: string) {
+    const today = new Date();
+    const birthDate = new Date(dateOfBirth);
+
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  }
 
   async function lastCheckup() {
     await apiService

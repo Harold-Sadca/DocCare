@@ -79,6 +79,13 @@ async function getDoctorsModel() {
         model: Appointment,
         as: 'doctorAppointments',
         required: false,
+        include: [
+          {
+            model: Patient,
+            as:'patientAppointments',
+            required:false
+          }
+        ]
       },
     });
     console.log(doctors);

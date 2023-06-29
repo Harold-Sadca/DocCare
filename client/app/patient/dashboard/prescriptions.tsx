@@ -7,7 +7,7 @@ export default function Prescriptions() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-  console.log(currentPatient);
+  
   return (
     <main>
       <div className='prescriptions-container'>

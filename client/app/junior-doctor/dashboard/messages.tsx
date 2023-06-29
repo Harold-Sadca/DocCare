@@ -2,8 +2,8 @@
 
 import "./messagess.css";
 import { io } from "socket.io-client";
-import { useState } from "react";
-import { TypeMessage } from "../../../../server/types/types";
+import { useEffect, useState } from "react";
+import { TypeChatUser, TypeMessage, TypePatient } from "../../../../server/types/types";
 import { useAppSelector } from "@/redux/store";
 
 const socket = io("ws://localhost:3001");
@@ -15,6 +15,8 @@ export default function JuniorDoctorMessages({currentJunior}) {
   const [messageState, setMessageState] = useState(initialState);
   const [allReceivedMessages, setAllReceivedMessages] = useState<TypeMessage[]>([])
   const [allSentMessages, setSentAllMessages] = useState<TypeMessage[]>([])
+  const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([])
+  const [selectedPatient, setSelectedPatient] = useState<TypeChatUser>()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -22,6 +24,14 @@ export default function JuniorDoctorMessages({currentJunior}) {
       [name]: value,
     }));
   };
+
+  console.log(currentJunior)
+
+  // const {name, id} = currentJunior
+
+  useEffect(() => {
+    socketConnect()
+  }, [])
 
   function handleClick() {
     const newMessage = {
@@ -31,16 +41,50 @@ export default function JuniorDoctorMessages({currentJunior}) {
       receiver_id:1,
       receiver_name:'Patient'
     }
-    socket.emit("send", newMessage);
+    console.log(newMessage)
+    socket.emit("junior sent", newMessage, 1, currentJunior.id);
     socket.on("send", (args) => {
       console.log(args)
       setAllReceivedMessages([...allReceivedMessages, args])
     })
-    socket.on('sent', (args) => {
+    socket.on('junior sent', (args) => {
       console.log(args)
       setSentAllMessages([...allSentMessages, args])
     })
   }
+
+  function socketConnect() {
+    socket.auth = {name}
+    socket.connect()
+  }
+
+  socket.on("patients", (patients) => {
+    patients.forEach((patient:TypeChatUser) => {
+      patient.userID === socket.id;
+    });
+    // put the current user first, and then sort by username
+    // this.patients = patients.sort((a, b) => {
+    //   if (a.self) return -1;
+    //   if (b.self) return 1;
+    //   if (a.username < b.username) return -1;
+    //   return a.username > b.username ? 1 : 0;
+    // });
+  });
+
+  socket.on('returned', (args) => {
+    console.log(args)
+  })
+
+  function sendMessage(content) {
+    if (selectedPatient) {
+      socket.emit("private message", {
+        content,
+        to: selectedPatient.userID
+      })
+      selectedPatient.messages.push(content)
+    }
+  }
+
 
 
   return (

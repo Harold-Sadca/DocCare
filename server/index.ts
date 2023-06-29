@@ -33,37 +33,74 @@ app.use(messagesRouter);
 app.use(juniorDoctorRouter);
 app.use(doctorRouter);
 
+io.use((socket, next) => {
+
+  const name = socket.handshake.auth.name;
+  if (!name) {
+    return next(new Error("invalid username"));
+  }
+  next();
+});
+
 io.on("connection", (socket) => {
 
-  //verify or authenticate them
-  //then close the connection if it failed
+  const newRoom = socket.handshake.auth.name
+  socket.join(newRoom)
+  socket.to(newRoom).emit('returned', 'test')
+  // logger.info(io.sockets.adapter.rooms)
+  // io.of("/").adapter.on("create-room", (room) => {
+  //   socket.emit("room created")
+  // })
+  
+  // //if you join a room that doesnt exist it will create it...
+  // socket.emit("patients", patients);
 
-  //closes the connection if a "logout" is sent
-  socket.on('logout', () => {
-    io.close()
-  })
-
-  socket.on("patient message", async (message, patientId, juniorId) => {
-    //save it to the database then returns the created message
-    const newMessage = await sendMessageModel(message)
-    //this will send it to the junior doctor
-    //access it from to the front using "from patient"
-    socket.to(juniorId).emit("from patient", newMessage)
-    //this will send it back to the patient
-    //access it from the front using "patient sent"
-    //this way we can identify the message the patient sent / received
-    socket.to(patientId).emit("patient sent", newMessage)
-    // socket.broadcast.emit("send", newMessage)
-    // socket.emit("sent", newMessage)
-  });
-
-  //this just does the opposite
-  socket.on("junior sent", async (message, patientId, juniorId) => {
-    const newMessage = await sendMessageModel(message)
-    socket.to(patientId).emit("from junior", newMessage)
-    socket.to(juniorId).emit("junior sent", newMessage)
-  })
+  // socket.on("private message", ({ content, to }) => {
+  //   socket.to(to).emit("private message", {
+  //     content,
+  //     from: socket.id,
+  //   });
+  // });
 });
+
+
+
+
+// io.on("connection", (socket) => {
+
+//   //verify or authenticate them
+//   //then close the connection if it failed
+//   // logger.info(socket.id)
+//   socket.emit("your id", socket.id)
+
+//   //closes the connection if a "logout" is sent
+//   socket.on('logout', () => {
+//     io.close()
+//   })
+
+//   socket.on("patient message", async (message, patientId, juniorId) => {
+//     //save it to the database then returns the created message
+//     const newMessage = await sendMessageModel(message)
+//     //this will send it to the junior doctor
+//     //access it from to the front using "from patient"
+//     socket.to(patientId).emit("from patient", newMessage)
+//     //this will send it back to the patient
+//     //access it from the front using "patient sent"
+//     //this way we can identify the message the patient sent / received
+//     logger.info(message, patientId)
+//     socket.to(patientId).emit("patient sent", newMessage)
+//     // socket.broadcast.emit("send", newMessage)
+//     // socket.emit("sent", newMessage)
+//   });
+
+//   //this just does the opposite
+//   socket.on("junior sent", async (message, patientId, juniorId) => {
+//     logger.info(message)
+//     const newMessage = await sendMessageModel(message)
+//     socket.to(patientId).emit("from junior", newMessage)
+//     socket.to(juniorId).emit("junior sent", newMessage)
+//   })
+// });
 
 server.listen(port,() => {
   logger.info(`Server is running at http://localhost:${port}`);

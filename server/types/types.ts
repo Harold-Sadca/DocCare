@@ -119,3 +119,9 @@ export interface TypePatient {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface TypeChatUser {
+  userID:string
+  name:string
+  messages:[]
+}

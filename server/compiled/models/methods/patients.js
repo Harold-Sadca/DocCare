@@ -73,7 +73,6 @@ function getPatientModel(id) {
 exports.getPatientModel = getPatientModel;
 function getPatientsModel() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('model');
         try {
             const patients = yield PatientDB.findAll({
                 include: [
@@ -102,7 +101,7 @@ function getPatientsModel() {
                     },
                 ],
             });
-            // console.log(patients);
+            console.log(patients);
             return patients;
         }
         catch (error) {
