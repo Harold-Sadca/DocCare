@@ -1,6 +1,6 @@
 .patients-list-container{
     height: 400px;
-    width: 300px;
+    width: 400px;
     background-color: white;
     box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
     border-radius: 10%;
@@ -66,6 +66,6 @@
 
 .see-all {
 position: absolute;
-bottom: 20px;
-right: 20px;
+bottom: 30px;
+right: 30px;
 }

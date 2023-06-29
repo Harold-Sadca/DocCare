@@ -27,7 +27,7 @@ export default function Appointments() {
           </div>
         ))}
          </div>
-         <div className='see-all'>
+         <div className='see-more'>
         <Link
           href='/doctor/dashboard/appointments'
           className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
