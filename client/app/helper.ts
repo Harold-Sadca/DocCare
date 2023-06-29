@@ -13,3 +13,11 @@ export function calculateAge(dateOfBirth: string) {
   }
   return age;
 }
+
+
+//for splicing the ilnesses
+export function toFirstLetterUpperCase(word: string) {
+return word.charAt(1).toUpperCase()
+}
+
+

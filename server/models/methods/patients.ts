@@ -1,5 +1,9 @@
 import db from '../schema/index';
-import { TypeAppointment, TypePatient } from '../../types/types';
+import {
+  TypeAppointment,
+  TypeAvailability,
+  TypePatient,
+} from '../../types/types';
 import { Patient } from '../schema/Patient';
 import { Appointment } from '../schema/Appointment';
 import { Message } from '../schema/Message';
@@ -163,6 +167,14 @@ async function getLastCheckupModel(patientId: string) {
   }
 }
 
+function formatStateDate(date: string) {
+  // 2023-07-01
+  const [year, month, day] = date.split('-');
+  const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
+  const formattedDay = day.startsWith('0') ? day.substring(1) : day;
+  return [Number(year), Number(formattedMonth), Number(formattedDay)];
+}
+
 async function createAppointmentModel(
   patientId: string,
   doctorId: string,
@@ -178,9 +190,25 @@ async function createAppointmentModel(
     })) as Patient;
     doctor?.addDoctorAppointment(newAppointment);
     doctor?.addPatient(patient);
+    const [year, month, day] = formatStateDate(newAppointment.date);
+    const time = Number(newAppointment.time.substring(0, 2));
     patient?.addPatientAppointment(newAppointment);
     newAppointment.setDoctorAppointment(doctor);
     newAppointment.setPatientAppointment(patient);
+    const doctorAvailability = doctor.availability as TypeAvailability;
+    const prevAvailability = doctorAvailability
+      ? doctorAvailability[month][day]
+      : [];
+    const newDoctorAvailability = {
+      ...doctorAvailability,
+      [month]: {
+        ...doctorAvailability[month],
+        [day]: [...prevAvailability, time],
+      },
+    };
+    await doctor.update({
+      availability: { ...doctorAvailability, ...newDoctorAvailability },
+    });
     await doctor?.save();
     await patient?.save();
     return newAppointment;

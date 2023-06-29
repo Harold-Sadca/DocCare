@@ -21,8 +21,12 @@ const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createEmptyAvailability() {
     const availability = {};
+    const month = {};
     for (let day = 1; day <= 31; day++) {
-        availability[day] = [];
+        month[day] = [];
+    }
+    for (let monthNum = 1; monthNum <= 12; monthNum++) {
+        availability[monthNum] = month;
     }
     return availability;
 }

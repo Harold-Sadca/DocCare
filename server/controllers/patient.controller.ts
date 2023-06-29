@@ -173,12 +173,15 @@ async function getLastCheckup(req: Request, res: Response) {
 async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
+    console.log(patientId);
     const { doctorId, newAppointment } = req.body;
+    console.log(req.body);
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,
       newAppointment
     );
+    console.log(createAppointment);
     res.status(201).json({
       message: 'Appointment created successfully',
       result: createAppointment,

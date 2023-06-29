@@ -1,9 +1,8 @@
-.grid-container{
+.grid-container {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(3, [col-start] 1fr);
   grid-template-rows: repeat(4, [col-start] 1fr);
-  grid-gap: 10px;
 }
 
 
@@ -11,33 +10,21 @@
 grid-column: col-start 1/ span 1;
 grid-row: col-start 1/ span 4;
 justify-self: center;
-align-self: center;
+margin-top: 40px;
 }
 
 
-.prescriptions-box{
-  grid-column:  col-start 2/ span 1;
-  grid-row: col-start 2/ span 1;
-  justify-self: center;
-  align-self: center;
-}
-
-.appointment-box{
-  margin-top: 20px;
+.patients-box{
   grid-column:  col-start 2/ span 1;
   grid-row: col-start 1/ span 1;
   justify-self: center;
   align-self: center;
 }
 
-.doctor-list-box{
-justify-self: center;
-margin-top: 20px;
-grid-column:col-start 3/ span 1;
-grid-row: col-start 1/ span 2;
-}
-
-.patient-messages{
-  grid-column:col-start 3/ span 1;
-  grid-row: col-start 3/ span 2;
+.appointments-box{
+  margin-top: 40px;
+  grid-column:  col-start 3/ span 1;
+  grid-row: col-start 1/ span 1;
+  justify-self: center;
+  align-self: center;
 }
