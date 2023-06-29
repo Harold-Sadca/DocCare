@@ -1,8 +1,8 @@
 .profile-image-patient {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     object-fit: cover;
-    margin-top: 70px;
+    margin-top: 50px;
     margin-left: 90px;
     position: relative;
 }
@@ -104,7 +104,7 @@
     box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
     border-radius: 10%;
     margin-left: 1100px;
-    margin-top: -220px;
+    margin-top: -270px;
     display: flex;
     flex-direction: column;
     overflow-x: scroll;
