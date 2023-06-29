@@ -18,7 +18,7 @@ export default function Patients() {
       <AuthNavbar user={'doctor'} auth={'login'} />
       <h2>My patients</h2>
       <div className='patients'>
-        {patients?.slice(0, 3).map((patient, idx) => (
+        {patients?.map((patient, idx) => (
           <div key={idx}>
             <p>{patient.name}</p>
             <Link

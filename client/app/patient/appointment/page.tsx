@@ -98,22 +98,32 @@ export default function PatientAppointment() {
       console.log(docs.specialisation === state.illnesses);
       console.log(docs.availability);
       console.log(docs.availability && docs.availability[stateMonth][stateDay]);
-      return docs.availability && docs.availability[stateMonth][stateDay];
+      return (
+        docs.availability && {
+          doctor: docs.name,
+          slots: docs.availability[stateMonth][stateDay],
+        }
+      );
 
       // return docs.specialisation === state.illnesses && docs;
     });
   }
 
   // when choose the slot
-  function makeAppointment() {}
+  function makeAppointment(stateMonth: number, stateDay: number, time: number) {
+    // time is the id of the button
+    // pass the day and the time slot
+    // backend: go to the doctor, availability and
+    // availability.day.push(time slot)
+  }
 
   useEffect(() => {
     setSpecialists(getSpecialists());
-    console.log(displayAvailability(7, 1));
+    console.log('display Availability: ', displayAvailability(7, 1));
   }, [allDoctors]);
 
   console.log(specialists);
-  // console.log(allDoctors);
+  console.log(allDoctors);
 
   function submitForm() {
     // e.preventDefault();
@@ -332,8 +342,16 @@ export default function PatientAppointment() {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <button className='next-button' type='submit'>
-                Next 
+              <button
+                className='next-button'
+                onClick={() =>
+                  router.push('/patient/appointment/available-doctors', {
+                    query: { specialists: 'value' },
+                  })
+                }
+                type='submit'
+              >
+                Next
               </button>
             </Form>
           </div>
