@@ -1,6 +1,7 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
 import './appointments.css';
+import Image from 'next/image';
 
 export default function Appointments() {
   const currentPatient = useAppSelector(
@@ -13,10 +14,10 @@ export default function Appointments() {
       <div className='apponitments-container'>
         <h1>Upcoming Appointments:</h1>
         <div className='appointment-list'>
-          {patientAppointments.map((appointment, idx) => (
+          {patientAppointments?.map((appointment, idx) => (
             <div className='appointment-list-container' key={idx}>
               <div className='each-appointment'>
-                <img src='/checkup-emoji.png' />
+                <Image src='/checkup-emoji.png' alt='checkup-emoji'></Image>
                 <div className='each-appointment-text'>
                   <h2>{appointment.doctorAppointment?.name}</h2>
                   <p>{appointment.date}</p>

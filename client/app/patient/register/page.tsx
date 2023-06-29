@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { Form, Input, Radio, RadioChangeEvent, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 
 import { AppDispatch, useAppSelector } from '@/redux/store';
@@ -43,10 +44,10 @@ export default function AuthNavbar(props: Props) {
           const patient = user;
           dispatch(setCurrentPatient(patient.result));
         } else if (userType === 'doctor') {
-          const doctor = user as TypeDoctor;
+          const doctor = user;
           dispatch(setCurrentDoctor(doctor.result));
         } else if (userType === 'junior-doctor') {
-          const juniorDoctor = user as TypeJuniorDoctor;
+          const juniorDoctor = user;
           dispatch(setCurrentDoctor(juniorDoctor.result));
         }
         dispatch(login(userType as string));

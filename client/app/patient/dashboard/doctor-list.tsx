@@ -1,6 +1,7 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
 import './doctor-list.css';
+import Image from 'next/image';
 
 export default function DoctorList() {
   const currentPatient = useAppSelector(
@@ -13,16 +14,18 @@ export default function DoctorList() {
       <div className='doctor-list-container'>
         <h1>Your Doctors</h1>
         <div className='doctor-list'>
-          {patientAppointments.map((appointment, idx) => {
+          {patientAppointments?.map((appointment, idx) => {
             const doctorId = appointment.doctorAppointment?.id;
             if (doctorId && !doctorIds.includes(doctorId)) {
               doctorIds.push(doctorId);
               return (
                 <div className='each-doctor' key={idx}>
-                  <img
-                    src={appointment.doctorAppointment?.profilePicture}
+                  <Image
+                    src={
+                      appointment.doctorAppointment?.profilePicture as string
+                    }
                     alt='Doctor Profile'
-                  />
+                  ></Image>
                   <div className='each-doctor-name'>
                     <h2>{appointment.doctorAppointment?.name}</h2>
                     <p>{appointment.doctorAppointment?.specialisation}</p>

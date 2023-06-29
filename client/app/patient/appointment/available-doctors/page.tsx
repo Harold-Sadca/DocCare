@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import './available-doctors.css';
@@ -9,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { TypeResponseAppointment } from '@/types/types';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
+import Image from 'next/image';
 
 export default function AvailableDoctorList() {
   const router = useRouter();
@@ -21,7 +23,6 @@ export default function AvailableDoctorList() {
   );
 
   console.log(availableSpecialists);
-
 
   async function makeAppointment(
     date: string,
@@ -128,7 +129,7 @@ export default function AvailableDoctorList() {
             const slots = availableSlots(available.slots);
             return (
               <div className='each-doctor' key={idx}>
-                <img src={doctorProfilePic}></img>
+                <Image src={doctorProfilePic} alt={doctorProfilePic}></Image>
                 <div className='each-doctor-name'>
                   <h2>{doctorName}</h2>
                   <p>{doctorAbout}</p>

@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import './appointment-dashboard.css';
@@ -12,24 +15,12 @@ import { TypeAvailableSpecialist } from '@/types/types';
 import { AppDispatch } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { setAvailableSpecialist } from '@/redux/features/available-doctors-slice';
+import Image from 'next/image';
 
 const initialState = {
   date: '',
   illnesses: '',
 };
-
-// choose the date (no time)
-// choose the illness
-// submit -> (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
-// choose the doctor and the time
-// submit ->
-// pass the day and the time slot
-// backend: go to the doctor, availability and
-// availability.day.push(time slot)
-// return doctor
-// success message and redirect to /patient
-
-// rule: dont allow choose weekends
 
 export default function PatientAppointment() {
   const dispatch = useDispatch<AppDispatch>();
@@ -80,9 +71,6 @@ export default function PatientAppointment() {
     console.log([year, formattedMonth, formattedDay]);
     return [Number(year), Number(formattedMonth), Number(formattedDay)];
   }
-
-  // formatStateDate(state.date);
-
   console.log(state);
 
   async function getAllTheDoctors() {
@@ -91,7 +79,7 @@ export default function PatientAppointment() {
       .getAllDoctors(token)
       .then((doctors) => {
         console.log(doctors);
-        setAllDoctors(doctors);
+        setAllDoctors(doctors as TypeDoctor[]);
       });
   }
 
@@ -168,14 +156,14 @@ export default function PatientAppointment() {
             <h1 className='appointment-heading'>Make an Appointment</h1>
             <div className='steps'>
               <div className='Consultation-1'>
-                <img src='/1.png' className='icon' />
+                <Image src='/1.png' className='icon' alt='icon'></Image>
                 <div>
                   <h2>Request Consultation</h2>
                   <p>Describe your Illness and choose the Date</p>
                 </div>
               </div>
               <div className='Doctor-2'>
-                <img src='/2.png' className='icon' />
+                <Image src='/2.png' className='icon' alt='icon'></Image>
                 <div>
                   <h2>Find a Doctor</h2>
                   <p>
@@ -185,7 +173,7 @@ export default function PatientAppointment() {
                 </div>
               </div>
               <div className='Solution-3'>
-                <img src='/3.png' className='icon' />
+                <Image src='/3.png' className='icon' alt='icon'></Image>
                 <div>
                   <h2>Get a Solution</h2>
                   <p>
@@ -204,7 +192,7 @@ export default function PatientAppointment() {
               </button>
             </div>
             <div className='female-doctor'>
-              <img src='/Female-Doctor-PNG-Image.png' />
+              <Image src='/Female-Doctor-PNG-Image.png' alt='doctor'></Image>
             </div>
           </div>
         </>
@@ -379,21 +367,7 @@ export default function PatientAppointment() {
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              {/* <Link
-                className='next-button'
-                href='/patient/appointment/available-doctors'
-              >
-                Next
-              </Link> */}
-              <button
-                className='next-button'
-                // onClick={() =>
-                //   router.push('/patient/appointment/available-doctors', {
-                //     query: { availableSpecialists },
-                //   })
-                // }
-                type='submit'
-              >
+              <button className='next-button' type='submit'>
                 Next
               </button>
             </Form>

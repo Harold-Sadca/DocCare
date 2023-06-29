@@ -214,7 +214,7 @@ async function createAppointment(
     .catch((error) => error.response.data.error);
 }
 
-async function getUser(token: string, user: string): Promise<TUser> {
+async function getUser(token: string, user: string) {
   console.log(token, user);
   return axios
     .get(`${PORT}/${user}`, {
@@ -223,7 +223,7 @@ async function getUser(token: string, user: string): Promise<TUser> {
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TUser>) => {
+    .then((res) => {
       return res.data;
     });
 }

@@ -20,7 +20,7 @@ type CurrentPatientState = {
   surgicalHistory: string;
   familyMedicalHistory: string;
   profilePicture?: string;
-  patientAppointments: TypeAppointment[];
+  patientAppointments: TypeAppointment[] | undefined;
 };
 const initialState = {
   value: {
