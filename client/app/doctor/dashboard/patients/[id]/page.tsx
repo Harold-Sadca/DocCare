@@ -55,27 +55,41 @@ export default function Patient({ params }: { params: { id: string } }) {
           </div>
           <h2>Medications:</h2>
           <h2>{currentPatient?.medications.toString()}</h2>
-          <h2>Next appointments:</h2>
-          {currentPatient?.patientAppointments
-            ?.filter(
-              (appointment) =>
-                appointment.doctor_id === currentDoctor.id &&
-                !appointment.attended
-            )
-            .map((appointment, idx) => (
-              <div key={idx}>
-                <h2>{appointment.date}</h2>
-                <h2>{appointment.date}</h2>
-                <h2 id="ilness-h2">Illness</h2>
-                <p className="all-illnesses">
-                  {appointment.illness.split(",").map((word, index) => (
-                    <span id="each-illness" key={index}>
-                      {toFirstLetterUpperCase(word) + word.slice(2)}
-                    </span>
-                  ))}
-                </p>
-              </div>
-            ))}
+          <div className="appointments-container">
+            <h2>Next appointments:</h2>
+            {currentPatient?.patientAppointments
+              ?.filter(
+                (appointment) =>
+                  appointment.doctor_id === currentDoctor.id &&
+                  !appointment.attended
+              )
+              .map((appointment, idx) => (
+                <div key={idx}>
+                  <h2>{appointment.date}</h2>
+                  <h2>{appointment.date}</h2>
+                </div>
+              ))}
+          </div>
+          <div>
+            {currentPatient?.patientAppointments
+              ?.filter(
+                (appointment) =>
+                  appointment.doctor_id === currentDoctor.id &&
+                  !appointment.attended
+              )
+              .map((appointment, idx) => (
+                <>
+                  <h2 id="ilness-h2">Illness</h2>
+                  <p className="all-illnesses">
+                    {appointment.illness.split(",").map((word, index) => (
+                      <span id="each-illness" key={index}>
+                        {toFirstLetterUpperCase(word) + word.slice(2)}
+                      </span>
+                    ))}
+                  </p>
+                </>
+              ))}
+          </div>
         </div>
       </div>
     </main>
