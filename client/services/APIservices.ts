@@ -74,7 +74,7 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
     });
 }
 
-async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
+async function login(user: TypeLogin, type: string) {
   let path;
   if (type == 'doctor') {
     path = '/doctor';
@@ -90,9 +90,10 @@ async function login(user: TypeLogin, type: string): Promise<TResponseUser> {
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TResponseUser>) => {
+    .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function getAllDoctors(token: string) {

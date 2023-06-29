@@ -9,6 +9,7 @@ import { login } from '../../redux/features/auth-slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { useRouter } from 'next/navigation';
+import { ExclamationCircleTwoTone } from '@ant-design/icons';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -44,20 +45,17 @@ export default function Login(props: Props) {
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     // e.preventDefault();
     const data = await apiService.login(state, props.user);
-    const { message, result, error } = data;
-    console.log({ result });
-    if (error) {
-      setFormError(`${error}`);
+    const { message, result } = data;
+    if (result) {
+      const username = result.userAuthenticated.name as string;
+      const userType = result.userAuthenticated.userType as string;
+      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('userType', userType);
+      setFormError('');
+      dispatch(login(username));
+      router.push(`/${userType}/dashboard`);
     } else {
-      if (result) {
-        const username = result.userAuthenticated.name as string;
-        const userType = result.userAuthenticated.userType as string;
-        localStorage.setItem('accessToken', result.accessToken);
-        localStorage.setItem('userType', userType);
-        setFormError('');
-        dispatch(login(username));
-        router.push(`/${userType}/dashboard`);
-      }
+      setFormError(`${data}`);
     }
     setState(initialState);
   };
@@ -110,7 +108,11 @@ export default function Login(props: Props) {
                   required
                 />
               </Form.Item>
-              {formError && <p className='error-message'>{formError}</p>}
+              {formError && (
+                <p className='error-message'>
+                  <ExclamationCircleTwoTone /> {formError}
+                </p>
+              )}
               <button
                 className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
                 type='submit'

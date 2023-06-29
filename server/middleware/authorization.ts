@@ -31,10 +31,14 @@ const patientAuthMiddleware = async (
   try {
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
     const patient = await PatientDB.findOne({ where: { id } });
-    if (!patient) return res.sendStatus(401);
+    if (!patient) {
+      console.log('no patient!');
+      return res.sendStatus(401);
+    }
     req.patient = patient;
     next();
   } catch (error) {
+    console.log(error);
     res.sendStatus(401);
   }
 };

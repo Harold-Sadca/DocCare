@@ -69,7 +69,8 @@ async function loginPatient(req: Request, res: Response) {
   try {
     const patient = await PatientDB.findOne({ where: { email: email } });
     if (!patient) {
-      throw new Error('Patient not found');
+      console.log('no patient');
+      return res.status(400).send({ error: 'Username or password not found' });
     }
     const patientPassword = patient.password;
     if (!patientPassword) {
@@ -87,7 +88,7 @@ async function loginPatient(req: Request, res: Response) {
       result: { accessToken, userAuthenticated },
     });
   } catch (error) {
-    res.status(401).json({ error: 'Username or password is incorrect' });
+    res.status(401).json({ error: 'Failed to login' });
   }
 }
 
