@@ -1,6 +1,6 @@
 'use client';
 import '../../css/globals.css';
-import '../../css/patient.css';
+import '../../css/doctor.css';
 import { useAppSelector } from '@/redux/store';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -12,9 +12,9 @@ export default function Profile() {
   );
 
   return (
-    <main>
-      <div className='profile'>
-        <div className='about-patient'>
+    <main className='profile-box'>
+      <div className='dashboard-container'>
+        <div className='about-user'>
           <Image
             src='https://images.pexels.com/photos/12495583/pexels-photo-12495583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
             alt='doctor-image'
@@ -22,13 +22,13 @@ export default function Profile() {
             width={150}
             className='profile-pic'
           ></Image>
-          <h1>{currentDoctor.name}</h1>
+          <h2>{currentDoctor.name}</h2>
         </div>
         <div className='general-info'>
           <p>{currentDoctor.specialisation}</p>
         </div>
-        <h2>About</h2>
-        <div className='checkup-container'>
+        <h3>About</h3>
+        <div className='profile-boxes profile-boxes-blue'>
           <p>{currentDoctor.about}</p>
         </div>
       </div>

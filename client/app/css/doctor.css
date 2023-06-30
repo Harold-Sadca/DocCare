@@ -1,0 +1,40 @@
+/* Profile */
+
+.doctor-patients-container {
+  position: relative;
+}
+.doctor-patients-container h3 {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+/* My patients */
+.each-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 15vh;
+  overflow-x: scroll;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+.btn-see-all {
+  display: flex;
+  align-self: self-end;
+}
+/* My appointments */
+
+.each-item-appointments {
+  justify-content: space-between;
+}
+
+.time-of-appointment {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.attend-btn {
+  cursor: pointer;
+  font-size: 1.5rem;
+}

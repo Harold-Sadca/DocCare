@@ -1,7 +1,5 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
-import '../../css/patient.css';
-import '../../css/globals.css';
 import Image from 'next/image';
 
 export default function Appointments() {
@@ -11,7 +9,7 @@ export default function Appointments() {
   const patientAppointments = currentPatient.patientAppointments;
 
   return (
-    <main className='patient-dashboard-container appointment-box'>
+    <main className='dashboard-container appointment-box'>
       <h3>Upcoming Appointments:</h3>
       <div className='list appointment-list'>
         {patientAppointments?.map((appointment, idx) => (

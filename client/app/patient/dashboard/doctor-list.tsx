@@ -1,7 +1,5 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
-import '../../css/patient.css';
-import '../../css/globals.css';
 import Image from 'next/image';
 
 export default function DoctorList() {
@@ -12,7 +10,7 @@ export default function DoctorList() {
   const doctorIds = [] as string[];
   return (
     <main className='doctor-list-box'>
-      <div className='patient-dashboard-container list-container'>
+      <div className='dashboard-container list-container'>
         <h3>Your Doctors</h3>
         <div className='list'>
           {patientAppointments?.map((appointment, idx) => {

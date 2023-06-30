@@ -1,3 +1,17 @@
+/* Generics */
+h2,
+h3,
+p {
+  color: black;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-weight: 500;
+}
 /* Grid dashboards */
 .grid-container {
   height: 100vh;
@@ -16,7 +30,56 @@
 
 /* Profile */
 
+.dashboard-container {
+  background-color: white;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.6);
+  border-radius: 10%;
+  padding: 1rem 2rem 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .profile-pic {
   object-fit: cover;
   border-radius: 50%;
+}
+
+.about-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.general-info p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.general-info h3 {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+.general-info p {
+  margin-top: 0.3rem;
+}
+
+.profile-boxes {
+  flex-direction: column;
+  text-align: center;
+  width: fit-content;
+  color: #a266b5;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  box-shadow: 0 1px 2px rgba(101, 100, 100, 0.6);
+}
+
+.profile-boxes-blue {
+  height: fit-content;
+  padding: 1rem;
+  background-color: #f0f6fc;
 }

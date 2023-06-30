@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import apiService from '@/services/APIservices';
-import '../../css/globals.css';
-import '../../css/patient.css';
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
@@ -54,11 +52,11 @@ export default function Profile() {
 
   return (
     <main className='profile-box'>
-      <div className='patient-dashboard-container'>
-        <div className='about-patient'>
+      <div className='dashboard-container'>
+        <div className='about-user'>
           <Image
             src={currentPatient.profilePicture as string}
-            alt='patient-profile'
+            alt='doctor-profile'
             width={150}
             height={150}
             className='profile-pic'
@@ -71,14 +69,14 @@ export default function Profile() {
           <p>Date of birth: {currentPatient.dateOfBirth}</p>
           <p>{currentPatient.gender}</p>
         </div>
-        <div className='ilnesses'>
+        <div className='patient-info'>
           <h3>Allergies:</h3>
-          <div className='patient-profile-boxes'>
+          <div className='profile-boxes'>
             <div>{currentPatient.allergies}</div>
           </div>
-          <div className='checkup'>
+          <div className='patient-info'>
             <h3>Last Checkup:</h3>
-            <div className='patient-profile-boxes checkup-container'>
+            <div className='profile-boxes profile-boxes-blue'>
               <p className='date'>{lastDate}</p>
               <div className='doctor-notes'>
                 <p>{message}</p>

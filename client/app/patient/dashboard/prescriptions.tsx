@@ -1,7 +1,5 @@
 'use client';
 import Image from 'next/image';
-import '../../css/patient.css';
-import '../../css/globals.css';
 import { useAppSelector } from '@/redux/store';
 
 export default function Prescriptions() {
@@ -10,7 +8,7 @@ export default function Prescriptions() {
   );
 
   return (
-    <main className='patient-dashboard-container prescriptions-container'>
+    <main className='dashboard-container prescriptions-container'>
       <h3>Your Medications</h3>
       <div className='each-medication-container'>
         <Image
