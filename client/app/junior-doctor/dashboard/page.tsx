@@ -9,9 +9,12 @@ import AllPatients from './patients';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
+import { io } from "socket.io-client";
+const socket = io("ws://localhost:3001");
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
+  const [logged, setLogged] = useState<Boolean>(true)
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
@@ -31,7 +34,11 @@ export default function JuniorDoctorDashBoard() {
     if (token && userType === 'junior-doctor') {
       getPatients(token);
     }
-  }, []);
+  }, [logged]);
+
+  socket.on('patient logged', async () => {
+    setLogged(!logged)
+  })
 
   return (
     <main>

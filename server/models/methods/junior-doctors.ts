@@ -9,6 +9,7 @@ const JuniorDoctorDB = db.JuniorDoctor;
 async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   try {
     const newJuniorDoctor = await JuniorDoctorDB.create(juniorDoctor);
+    newJuniorDoctor.password = null
     return newJuniorDoctor;
   } catch (error) {
     throw new Error();
@@ -25,6 +26,7 @@ async function getJuniorDoctorModel(id: string) {
         required: false,
       },
     });
+    juniorDoctor!.password = null
     return juniorDoctor;
   } catch (error) {
     throw new Error();

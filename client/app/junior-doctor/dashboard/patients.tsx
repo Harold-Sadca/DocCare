@@ -9,8 +9,6 @@ interface Props {
   allPatients: TypePatient[];
 }
 export default function AllPatients({ allPatients }: Props) {
-  // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
-  // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
   const dispatch = useDispatch<AppDispatch>();
 
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -33,33 +31,29 @@ export default function AllPatients({ allPatients }: Props) {
   return (
     <main className='flex min-h-screen flex-col box-border'>
       {allPatients.map((patient: TypePatient) => {
-        return (
-          <div key={patient.id}>
-            <h2>{patient.name}</h2>
-            <button
-              id={patient.id}
-              name='patient-details'
-              title={patient.name}
-              onClick={(e) => {
-                chatToPatient(e);
-              }}
-            >
-              Patient Details
-            </button>
-            <button
-              id={patient.id}
-              title={patient.name}
-              name='chat'
-              onClick={(e) => {
-                chatToPatient(e);
-              }}
-            >
-              Chat
-            </button>
-            {/* <div>{patient.patientAppointments?.map((appointment:TypeAppointment) => {
-              return <section key={appointment.id}>{appointment.date}</section>
-            })}</div> */}
-          </div>
+        return ( patient.status === 'Online' && <div key={patient.id}>
+        <h2>{patient.name}</h2>
+        <button
+          id={patient.id}
+          name='patient-details'
+          title={patient.name}
+          onClick={(e) => {
+            chatToPatient(e);
+          }}
+        >
+          Patient Details
+        </button>
+        <button
+          id={patient.id}
+          title={patient.name}
+          name='chat'
+          onClick={(e) => {
+            chatToPatient(e);
+          }}
+        >
+          Chat
+        </button>
+      </div>
         );
       })}
     </main>

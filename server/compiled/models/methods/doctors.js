@@ -16,7 +16,6 @@ exports.attendAppointmentModel = exports.createPatientSummaryModel = exports.cre
 const index_1 = __importDefault(require("../schema/index"));
 const Patient_1 = require("../schema/Patient");
 const Appointment_1 = require("../schema/Appointment");
-const logger_1 = __importDefault(require("../../logger"));
 const Doctor_1 = require("../schema/Doctor");
 const MedicalInfo_1 = require("../schema/MedicalInfo");
 const DoctorDB = index_1.default.Doctor;
@@ -28,7 +27,7 @@ function createDoctorModel(doctor) {
         try {
             console.log(doctor);
             const newDoctor = yield DoctorDB.create(doctor);
-            console.log(newDoctor);
+            newDoctor.password = null;
             return newDoctor;
         }
         catch (error) {
@@ -108,7 +107,9 @@ function getDoctorsModel() {
                     ],
                 },
             });
-            console.log(doctors);
+            doctors.map((doctor) => {
+                return doctor.password = null;
+            });
             return doctors;
         }
         catch (error) {
@@ -123,9 +124,7 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
-            logger_1.default.info(newMedicalInfo);
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
-            logger_1.default.info('here');
             patient.setMedicalInfo(medicalInfo);
             yield medicalInfo.save();
             return medicalInfo;

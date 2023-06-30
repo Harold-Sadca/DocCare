@@ -25,6 +25,7 @@ function createPatientModel(patient) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newPatient = yield PatientDB.create(patient);
+            newPatient.password = null;
             return newPatient;
         }
         catch (error) {
@@ -63,6 +64,7 @@ function getPatientModel(id) {
                     },
                 ],
             });
+            patient.password = null;
             return patient;
         }
         catch (error) {
@@ -101,7 +103,9 @@ function getPatientsModel() {
                     },
                 ],
             });
-            console.log(patients);
+            patients.map((patient) => {
+                return patient.password = null;
+            });
             return patients;
         }
         catch (error) {

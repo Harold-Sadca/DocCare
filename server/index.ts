@@ -33,6 +33,7 @@ app.use(messagesRouter);
 app.use(juniorDoctorRouter);
 app.use(doctorRouter);
 
+
 io.use((socket, next) => {
   // here we check if there is a name in the socket
   // we assigned this property in the frontend
@@ -47,6 +48,7 @@ io.use((socket, next) => {
 });
 
 io.on('connection', (socket) => {
+  socket.to('junior').emit('patient logged')
 
   // 'socket.join(room name)' would let us join the private room
   // but if its not there it will create it so in this case
@@ -78,6 +80,11 @@ io.on('connection', (socket) => {
     
   })
   logger.warn(newRoom)
+
+  socket.on('patient logged' , (args) => {
+    socket.to('junior').emit('patient logged')
+    logger.info('logged', args)
+  })
 });
 
 server.listen(port,() => {

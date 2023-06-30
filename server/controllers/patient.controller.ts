@@ -115,7 +115,6 @@ async function logoutPatient(req: Request, res: Response) {
   try {
     const id = req.params.id
     const patient = await logoutPatientModel(id)
-    logger.info(patient)
     res.status(200).json({
       message: `Goodbye, ${patient?.name}!`,
       result: patient

@@ -57,12 +57,12 @@ export default function Logout() {
         console.log(res)
         setMessageContent(res?.message as string)
         openMessage()
+        socket.emit('patient logged');
       })
     }
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userType');
     dispatch(logout());
-    socket.emit('logout');
     // setIsAuthenticated(false);
     router.push('/');
   }

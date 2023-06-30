@@ -15,7 +15,7 @@ async function createDoctorModel(doctor: TypeDoctor) {
   try {
     console.log(doctor);
     const newDoctor = await DoctorDB.create(doctor);
-    console.log(newDoctor);
+    newDoctor.password = null
     return newDoctor;
   } catch (error) {
     throw new Error();
@@ -89,7 +89,9 @@ async function getDoctorsModel() {
         ],
       },
     });
-    console.log(doctors);
+    doctors.map((doctor) => {
+      return doctor.password = null
+    })
     return doctors;
   } catch (error) {
     throw new Error();
@@ -104,9 +106,7 @@ async function createMedicalInfoModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    logger.info(newMedicalInfo);
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
-    logger.info('here');
     patient.setMedicalInfo(medicalInfo);
     await medicalInfo.save();
     return medicalInfo;

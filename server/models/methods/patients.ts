@@ -10,7 +10,6 @@ import { Message } from '../schema/Message';
 import { MedicalInfo } from '../schema/MedicalInfo';
 import { Doctor } from '../schema/Doctor';
 import logger from '../../logger';
-import { updatePatient } from '../../controllers/patient.controller';
 
 const PatientDB = db.Patient;
 const AppointmentDB = db.Appointment;
@@ -19,6 +18,7 @@ const DoctorDB = db.Doctor;
 async function createPatientModel(patient: TypePatient) {
   try {
     const newPatient = await PatientDB.create(patient);
+    newPatient.password = null
     return newPatient;
   } catch (error) {
     throw new Error();
@@ -54,6 +54,7 @@ async function getPatientModel(id: string) {
         },
       ],
     });
+    patient!.password = null
     return patient;
   } catch (error) {
     throw new Error();
@@ -89,7 +90,9 @@ async function getPatientsModel() {
         },
       ],
     });
-    console.log(patients);
+    patients.map((patient) => {
+      return patient.password = null
+    })
     return patients;
   } catch (error) {
     throw new Error();
