@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
 import AllPatients from './patients';
 import AuthNavbar from '@/app/(components)/auth-navbar';
+import  JuniorDoctorMessages from './messages'
+import { TUser } from '@/types/types';
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);

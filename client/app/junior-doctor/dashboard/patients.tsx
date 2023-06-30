@@ -33,10 +33,19 @@ export default function AllPatients({ allPatients }: Props) {
 
   return (
     <main className='flex min-h-screen flex-col box-border'>
+      <div className="container">
+       <section className="discussions">
+        <div className="discussion search">
+          <div className="searchbar">
+            <i className="fa fa-search" aria-hidden="true"></i>
+            <input type="text" placeholder="Search..."></input>
+            </div>
+            </div>
       {allPatients.map((patient: TypePatient) => {
         return (
-          <div key={patient.id}>
-            <h2>{patient.name}</h2>
+          <div className="discussion">
+          <div key={patient.id} className='desc-contact'>
+            <h2 className='name'>{patient.name}</h2>
             <button
               id={patient.id}
               name='patient-details'
@@ -61,8 +70,11 @@ export default function AllPatients({ allPatients }: Props) {
               return <section key={appointment.id}>{appointment.date}</section>
             })}</div> */}
           </div>
+          </div>
         );
       })}
+      </section>
+      </div>
     </main>
   );
 }

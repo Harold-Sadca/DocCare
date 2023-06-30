@@ -1,7 +1,6 @@
 'use client';
-
-import './messagess.css';
 import { io } from 'socket.io-client';
+import '../junior-doctor.css'
 import { useEffect, useState } from 'react';
 import {
   TypeChatUser,
