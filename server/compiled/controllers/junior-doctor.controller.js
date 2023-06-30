@@ -14,11 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.loginJuniorDoctor = exports.createJuniorNote = exports.getJuniorDoctor = exports.createJuniorDoctor = void 0;
 const junior_doctors_1 = require("../models/methods/junior-doctors");
+const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const index_1 = __importDefault(require("../models/schema/index"));
-const JuniorDoctor_1 = require("../models/schema/JuniorDoctor");
-const JuniorDoctorDB = index_1.default.JuniorDoctor;
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createJuniorDoctor(req, res) {
@@ -38,17 +36,16 @@ function createJuniorDoctor(req, res) {
                 profilePicture,
                 userType: 'junior-doctor',
             };
+            console.log({ newJuniorDoctor });
             const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
-            console.log(createJuniorDoctor);
-            console.log(accessToken);
             res.status(201).json({
                 message: 'Junior doctor account created successfully',
                 result: { createJuniorDoctor, accessToken },
             });
         }
         catch (error) {
-            res.status(400).json({ error: 'Failed to create a junior doctor account' });
+            res.status(500).json({ error: 'Failed to create a junior doctor account' });
         }
     });
 }

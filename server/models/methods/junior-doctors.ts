@@ -2,11 +2,9 @@ import { TypeJuniorDoctor } from '../../types/types';
 import { Message } from '../schema/Message';
 import { Patient } from '../schema/Patient';
 import db from '../schema/index';
-import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const PatientDB = db.Patient;
 const JuniorDoctorDB = db.JuniorDoctor;
-const SECRET_KEY = process.env.SECRET_KEY as string;
 
 async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   try {

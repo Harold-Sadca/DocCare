@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import {
   createDoctorModel,
   getDoctorModel,
@@ -6,7 +6,6 @@ import {
   createMedicalInfoModel,
   createPatientSummaryModel,
 } from '../models/methods/doctors';
-
 import {
   TypeDoctor,
   TypeMedicalInfo,
@@ -62,8 +61,6 @@ async function createDoctor(req: Request, res: Response) {
       availability: createEmptyAvailability(),
     } as TypeDoctor;
     const createDoctor = await createDoctorModel(newDoctor);
-    console.log('why');
-    console.log(createDoctor);
     const accessToken = jwt.sign({ id: createDoctor.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Doctor account created successfully',

@@ -50,8 +50,6 @@ function createDoctor(req, res) {
                 availability: createEmptyAvailability(),
             };
             const createDoctor = yield (0, doctors_1.createDoctorModel)(newDoctor);
-            console.log('why');
-            console.log(createDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createDoctor.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Doctor account created successfully',

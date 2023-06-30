@@ -17,7 +17,6 @@ const Message_1 = require("../schema/Message");
 const index_1 = __importDefault(require("../schema/index"));
 const PatientDB = index_1.default.Patient;
 const JuniorDoctorDB = index_1.default.JuniorDoctor;
-const SECRET_KEY = process.env.SECRET_KEY;
 function createJuniorDoctorModel(juniorDoctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {

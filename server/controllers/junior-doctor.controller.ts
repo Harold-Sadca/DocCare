@@ -1,15 +1,13 @@
-import { Express, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import {
   createJuniorDoctorModel,
   getJuniorDoctorModel,
   createJuniorNoteModel,
 } from '../models/methods/junior-doctors';
+import { JuniorDoctor } from '../models/schema/JuniorDoctor';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import db from '../models/schema/index';
-import logger from '../logger';
-import { JuniorDoctor } from '../models/schema/JuniorDoctor';
-const JuniorDoctorDB = db.JuniorDoctor;
+
 const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
@@ -25,7 +23,6 @@ async function createJuniorDoctor(req: Request, res: Response) {
       gender,
       profilePicture,
     } = req.body;
-    console.log(req.body);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const newJuniorDoctor = {
       name,
@@ -40,14 +37,13 @@ async function createJuniorDoctor(req: Request, res: Response) {
     };
     const createJuniorDoctor = await createJuniorDoctorModel(newJuniorDoctor);
     const accessToken = jwt.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
-    console.log(createJuniorDoctor);
-    console.log(accessToken);
     res.status(201).json({
       message: 'Junior doctor account created successfully',
-      result: { createJuniorDoctor, accessToken },
+      result: createJuniorDoctor,
+      accessToken,
     });
   } catch (error) {
-    res.status(400).json({ error: 'Failed to create a junior doctor account' });
+    res.status(500).json({ error: 'Failed to create a junior doctor account' });
   }
 }
 
