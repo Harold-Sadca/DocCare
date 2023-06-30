@@ -1,4 +1,5 @@
-
+/* CSS COPIED */
+/*
 .doctor-list-container{
     height: 400px;
     width: 300px;
@@ -7,7 +8,7 @@
     border-radius: 10%;
     margin-left: 20px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     overflow-x: scroll;
 }
 
@@ -52,7 +53,7 @@ font-weight: 20px;
 .each-doctor p{
 color: #A266B5;
 }
-    
+
 
 .doctor-list{
     height: fit-content;
@@ -69,4 +70,4 @@ color: #A266B5;
 display: flex;
 flex-direction: row;
 align-items: center;
-}
+} */

@@ -58,7 +58,7 @@ h3 {
 /* Dashboard Grid */
 
 .appointment-box {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   grid-column: col-start 2 / span 1;
   grid-row: col-start 1 / span 1;
   justify-self: center;
@@ -82,22 +82,14 @@ h3 {
 
 /* Profile */
 
-.profile-box-patient {
+.patient-dashboard-container {
   background-color: white;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.6);
   border-radius: 10%;
+  padding: 1rem 2rem 3rem 2rem;
   display: flex;
   flex-direction: column;
-  padding: 1rem 2rem 3rem 2rem;
 }
-
-/* .profile-pic {
-  width: 150px;
-  width: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-top: 1rem;
-} */
 
 .about-patient {
   display: flex;
@@ -115,9 +107,12 @@ h3 {
 
 .general-info h3,
 .ilnesses h3,
-.checkup h3 {
+.checkup h3,
+.prescriptions-container h3,
+.doctor-list-container h3,
+.appointment-box h3 {
   font-size: 1.3rem;
-  margin-top: 0.3rem;
+  margin-top: 0.5rem;
 }
 
 .general-info p,
@@ -151,4 +146,68 @@ h3 {
 .date {
   font-weight: bold;
   color: #397b6e;
+}
+
+/* Medications */
+.prescriptions-container {
+  height: 50vh;
+  width: 25vw;
+  flex-wrap: wrap;
+  overflow-x: scroll;
+}
+
+.each-medication-container {
+  color: #d7b765;
+  background-color: #fbf9f1;
+  width: 5vw;
+  height: 5vw;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  padding: 0.1rem;
+}
+
+/* List of doctors */
+
+.list-container {
+  height: 50vh;
+  width: 25vw;
+  overflow-x: scroll;
+}
+
+.list {
+  height: fit-content;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+}
+
+.each-doctor img {
+  display: flex;
+  align-items: center;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0.5rem 0 0 0.2rem;
+}
+
+.each-doctor-name p {
+  color: #a266b5;
+}
+
+/* List of appointments */
+
+.appointment-list {
+  background-color: #f0f6fc;
+}
+
+.each-appointment {
+  display: flex;
+  align-items: center;
+}
+
+.each-appointment img {
+  width: 5vw;
+  margin-right: 0.2rem;
 }

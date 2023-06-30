@@ -57,7 +57,7 @@ export default function Profile() {
 
   return (
     <main className='profile-box'>
-      <div className='profile-box-patient'>
+      <div className='patient-dashboard-container'>
         <div className='about-patient'>
           <Image
             src={currentPatient.profilePicture as string}
