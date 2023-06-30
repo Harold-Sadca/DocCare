@@ -57,11 +57,13 @@ export default function Profile() {
       <div className='profile'>
         <div className='about-patient'>
           <div className='profile-pic'>
-            {/* <img src='https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img> */}
-            <Image
+            <img src={currentPatient.profilePicture as string}></img>
+            {/* <Image
               src={currentPatient.profilePicture as string}
               alt='patient-profile'
-            ></Image>
+              width={400}
+              height={400}
+            ></Image> */}
           </div>
           <h1>{currentPatient.name}</h1>
           <p>{calculateAge(currentPatient.dateOfBirth)} years old</p>

@@ -104,3 +104,18 @@ h2 {
   margin-left: 600px;
   margin-top: -100px;
 }
+
+.form-radio-group {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+}
+
+.form-radio {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  align-self: self-start;
+}

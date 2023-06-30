@@ -117,15 +117,15 @@ export default function PatientAppointment() {
 
   useEffect(() => {
     setSpecialists(getSpecialists());
-    // if (state.date && state.illnesses) {
-    //   const availableDoctors = displayAvailability(
-    //     state.date,
-    //     formatStateDate(state.date),
-    //     state.illnesses
-    //   ) as TypeAvailableSpecialist[];
-    //   dispatch(setAvailableSpecialist(availableDoctors));
-    //   setAvailableSpecialists(availableDoctors);
-    // }
+    if (state.date && state.illnesses) {
+      const availableDoctors = displayAvailability(
+        state.date,
+        formatStateDate(state.date),
+        state.illnesses
+      ) as TypeAvailableSpecialist[];
+      dispatch(setAvailableSpecialist(availableDoctors));
+      setAvailableSpecialists(availableDoctors);
+    }
   }, [state]);
 
   // console.log(specialists);
@@ -156,14 +156,26 @@ export default function PatientAppointment() {
             <h1 className='appointment-heading'>Make an Appointment</h1>
             <div className='steps'>
               <div className='Consultation-1'>
-                <Image src='/1.png' className='icon' alt='icon'></Image>
+                <Image
+                  src='/1.png'
+                  className='icon'
+                  alt='icon'
+                  width={40}
+                  height={40}
+                ></Image>
                 <div>
                   <h2>Request Consultation</h2>
                   <p>Describe your Illness and choose the Date</p>
                 </div>
               </div>
               <div className='Doctor-2'>
-                <Image src='/2.png' className='icon' alt='icon'></Image>
+                <Image
+                  src='/2.png'
+                  className='icon'
+                  alt='icon'
+                  width={40}
+                  height={40}
+                ></Image>
                 <div>
                   <h2>Find a Doctor</h2>
                   <p>
@@ -173,7 +185,13 @@ export default function PatientAppointment() {
                 </div>
               </div>
               <div className='Solution-3'>
-                <Image src='/3.png' className='icon' alt='icon'></Image>
+                <Image
+                  src='/3.png'
+                  className='icon'
+                  alt='icon'
+                  width={40}
+                  height={40}
+                ></Image>
                 <div>
                   <h2>Get a Solution</h2>
                   <p>
@@ -192,7 +210,12 @@ export default function PatientAppointment() {
               </button>
             </div>
             <div className='female-doctor'>
-              <Image src='/Female-Doctor-PNG-Image.png' alt='doctor'></Image>
+              <Image
+                src='/Female-Doctor-PNG-Image.png'
+                alt='doctor'
+                width={400}
+                height={400}
+              ></Image>
             </div>
           </div>
         </>
@@ -225,148 +248,168 @@ export default function PatientAppointment() {
                 </Form.Item>
               </div>
               <h3>What kind of Illness are you experiencing?</h3>
-              <Form.Item htmlFor='illness'>
-                <Radio.Group id='illness' name='illnesses'>
-                  <Radio
-                    id='illness1'
-                    title='Common illnesses, minor injuries, preventive care, general
+              <div className='form'>
+                <Form.Item htmlFor='illness'>
+                  <Radio.Group
+                    id='illness'
+                    name='illnesses'
+                    className='form-radio-group'
+                  >
+                    <Radio
+                      id='illness1'
+                      title='Common illnesses, minor injuries, preventive care, general
                       health issues'
-                    value='General Practice'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Common illnesses, minor injuries, preventive care, general
-                    health issues{' '}
-                  </Radio>
-                  <Radio
-                    id='illness2'
-                    value='Internal Medicine'
-                    title='Chronic diseases, infections, autoimmune disorders, organ
+                      value='General Practice'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Common illnesses, minor injuries, preventive care, general
+                      health issues{' '}
+                    </Radio>
+                    <Radio
+                      id='illness2'
+                      value='Internal Medicine'
+                      title='Chronic diseases, infections, autoimmune disorders, organ
                       diseases'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Chronic diseases, infections, autoimmune disorders, organ
-                    diseases{' '}
-                  </Radio>
-                  <Radio
-                    id='illness3'
-                    value='Pediatrics'
-                    title='Childhood illnesses, growth and development issues,
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Chronic diseases, infections, autoimmune disorders, organ
+                      diseases{' '}
+                    </Radio>
+                    <Radio
+                      id='illness3'
+                      value='Pediatrics'
+                      title='Childhood illnesses, growth and development issues,
                       vaccinations, pediatric infections'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Childhood illnesses, growth and development issues,
-                    vaccinations, pediatric infections{' '}
-                  </Radio>
-                  <Radio
-                    id='illness4'
-                    title='Pregnancy-related conditions, gynecological disorders,
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Childhood illnesses, growth and development issues,
+                      vaccinations, pediatric infections{' '}
+                    </Radio>
+                    <Radio
+                      id='illness4'
+                      title='Pregnancy-related conditions, gynecological disorders,
                       fertility issues, childbirth complications'
-                    value='Obstetrics and Gynecology'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Pregnancy-related conditions, gynecological disorders,
-                    fertility issues, childbirth complications{' '}
-                  </Radio>
-                  <Radio
-                    id='illness5'
-                    title='Surgical conditions, injuries requiring surgical
+                      value='Obstetrics and Gynecology'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Pregnancy-related conditions, gynecological disorders,
+                      fertility issues, childbirth complications{' '}
+                    </Radio>
+                    <Radio
+                      id='illness5'
+                      title='Surgical conditions, injuries requiring surgical
                       intervention, post-operative care'
-                    value='Surgery'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Surgical conditions, injuries requiring surgical
-                    intervention, post-operative care{' '}
-                  </Radio>
-                  <Radio
-                    id='illness6'
-                    title='Mental health disorders, anxiety, depression, bipolar
+                      value='Surgery'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Surgical conditions, injuries requiring surgical
+                      intervention, post-operative care{' '}
+                    </Radio>
+                    <Radio
+                      id='illness6'
+                      title='Mental health disorders, anxiety, depression, bipolar
                       disorder, schizophrenia'
-                    value='Psychiatry'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Mental health disorders, anxiety, depression, bipolar
-                    disorder, schizophrenia{' '}
-                  </Radio>
-                  <Radio
-                    id='illness7'
-                    title='Skin conditions, dermatitis, acne, psoriasis, skin cancer'
-                    value='Dermatology'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Skin conditions, dermatitis, acne, psoriasis, skin cancer{' '}
-                  </Radio>
-                  <Radio
-                    id='illness8'
-                    title='Eye diseases, vision problems, cataracts, glaucoma, macular
+                      value='Psychiatry'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Mental health disorders, anxiety, depression, bipolar
+                      disorder, schizophrenia{' '}
+                    </Radio>
+                    <Radio
+                      id='illness7'
+                      title='Skin conditions, dermatitis, acne, psoriasis, skin cancer'
+                      value='Dermatology'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Skin conditions, dermatitis, acne, psoriasis, skin cancer{' '}
+                    </Radio>
+                    <Radio
+                      id='illness8'
+                      title='Eye diseases, vision problems, cataracts, glaucoma, macular
                       degeneration'
-                    value='Ophthalmology'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Eye diseases, vision problems, cataracts, glaucoma, macular
-                    degeneration
-                  </Radio>
-                  <Radio
-                    id='illness9'
-                    title='Ear infections, sinusitis, tonsillitis, hearing loss, vocal
+                      value='Ophthalmology'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Eye diseases, vision problems, cataracts, glaucoma,
+                      macular degeneration
+                    </Radio>
+                    <Radio
+                      id='illness9'
+                      title='Ear infections, sinusitis, tonsillitis, hearing loss, vocal
                       cord disorders'
-                    value='Ear Nose and Throat (ENT)'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Ear infections, sinusitis, tonsillitis, hearing loss, vocal
-                    cord disorders{' '}
-                  </Radio>
-                  <Radio
-                    id='illness10'
-                    title='Heart diseases, hypertension, heart failure, arrhythmias,
+                      value='Ear Nose and Throat (ENT)'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Ear infections, sinusitis, tonsillitis, hearing loss,
+                      vocal cord disorders{' '}
+                    </Radio>
+                    <Radio
+                      id='illness10'
+                      title='Heart diseases, hypertension, heart failure, arrhythmias,
                       coronary artery disease'
-                    value='Cardiology'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Heart diseases, hypertension, heart failure, arrhythmias,
-                    coronary artery disease{' '}
-                  </Radio>
-                  <Radio
-                    id='illness11'
-                    title='Diabetes, thyroid disorders, hormonal imbalances, metabolic
+                      value='Cardiology'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Heart diseases, hypertension, heart failure, arrhythmias,
+                      coronary artery disease{' '}
+                    </Radio>
+                    <Radio
+                      id='illness11'
+                      title='Diabetes, thyroid disorders, hormonal imbalances, metabolic
                       disorders'
-                    value='Endocrinology'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Diabetes, thyroid disorders, hormonal imbalances, metabolic
-                    disorders
-                  </Radio>
-                  <Radio
-                    id='illness12'
-                    title={`Digestive system disorders, gastrointestinal cancers,
+                      value='Endocrinology'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Diabetes, thyroid disorders, hormonal imbalances,
+                      metabolic disorders
+                    </Radio>
+                    <Radio
+                      id='illness12'
+                      title={`Digestive system disorders, gastrointestinal cancers,
                       irritable bowel syndrome, Crohn's disease`}
-                    value='Gastroenterology'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Digestive system disorders, gastrointestinal cancers,
-                    irritable bowel syndrome, Crohn's disease{' '}
-                  </Radio>
-                  <Radio
-                    id='illness13'
-                    value='Neurology'
-                    title='Neurological disorders, migraines, epilepsy, stroke,
+                      value='Gastroenterology'
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Digestive system disorders, gastrointestinal cancers,
+                      irritable bowel syndrome, Crohn's disease{' '}
+                    </Radio>
+                    <Radio
+                      id='illness13'
+                      value='Neurology'
+                      title='Neurological disorders, migraines, epilepsy, stroke,
                       multiple sclerosis'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Neurological disorders, migraines, epilepsy, stroke,
-                    multiple sclerosis{' '}
-                  </Radio>
-                  <Radio
-                    id='illness14'
-                    value='Oncology'
-                    title='Cancer, various types and stages, chemotherapy, radiation
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Neurological disorders, migraines, epilepsy, stroke,
+                      multiple sclerosis{' '}
+                    </Radio>
+                    <Radio
+                      id='illness14'
+                      value='Oncology'
+                      title='Cancer, various types and stages, chemotherapy, radiation
                       therapy, palliative care'
-                    onChange={(value) => handleChange(value)}
-                  >
-                    Cancer, various types and stages, chemotherapy, radiation
-                    therapy, palliative care{' '}
-                  </Radio>
-                </Radio.Group>
-              </Form.Item>
+                      onChange={(value) => handleChange(value)}
+                      className='form-radio'
+                    >
+                      Cancer, various types and stages, chemotherapy, radiation
+                      therapy, palliative care{' '}
+                    </Radio>
+                  </Radio.Group>
+                </Form.Item>
+              </div>
               <button className='next-button' type='submit'>
                 Next
               </button>

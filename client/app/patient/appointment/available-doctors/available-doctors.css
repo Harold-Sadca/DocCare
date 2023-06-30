@@ -1,71 +1,66 @@
 .doctor-list-container {
-    height: 700px;
-    width: 500px;
-    border-radius: 10%;
-    margin-left: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow-x: scroll;
+  height: 700px;
+  width: 80vw;
+  border-radius: 2%;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
 }
-
-
 
 ::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
-
-.doctor-list-container h1 {
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: black;
-    font-weight: bold;
-    font-size: 20px;
+h1 {
+  margin-left: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .doctor-list {
-    height: fit-content;
-    width: 230px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 10px;
-    background-color: #F5ECF7;
-    margin-left: 20px;
-    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+  height: fit-content;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  margin-left: 20px;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
 }
-
-
-
 
 .each-doctor-name {
-    margin-left: 20px;
+  margin-left: 20px;
 }
 
-
 .each-doctor img {
-    height: 70px;
-    width: 70px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-top: 20px;
-    margin-left: 10px;
+  height: 70px;
+  width: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 20px;
+  margin-left: 10px;
 }
 
 .each-doctor h2 {
-    color: black;
-    font-weight: 20px;
+  color: black;
+  font-weight: 20px;
 }
-
 
 .each-doctor p {
-    color: #A266B5;
+  color: #a266b5;
 }
 
-
-
 .each-doctor {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
 }
