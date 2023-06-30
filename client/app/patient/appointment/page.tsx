@@ -179,7 +179,7 @@ export default function PatientAppointment() {
             <div>
               <button
                 onClick={handleNextButtonClick}
-                className='text-white font-bold py-2 px-4 rounded btn-appointment btn-appointment-main'
+                className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded btn-appointment-main'
               >
                 Make an appointment
               </button>
@@ -384,7 +384,7 @@ export default function PatientAppointment() {
               </Form.Item>
 
               <button
-                className='bg-primary hover:bg-primary text-white font-bold py-2 px-4 m-2 rounded btn-appointment'
+                className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded'
                 type='submit'
               >
                 Next

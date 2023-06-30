@@ -32,14 +32,6 @@ h3 {
   align-items: center;
 }
 
-.btn-appointment {
-  background-color: var(--darkblue);
-}
-
-.btn-appointment:hover {
-  background-color: #5974de;
-}
-
 .btn-appointment-main {
   margin-left: 800px;
   margin-top: -500px;
@@ -216,7 +208,7 @@ h3 {
 
 .doctors-list {
   height: fit-content;
-  width: 55vw;
+  width: 60vw;
   padding: 1rem;
   margin-left: 1rem;
   border-radius: 2%;
