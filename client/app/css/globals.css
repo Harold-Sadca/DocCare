@@ -1,0 +1,22 @@
+/* Grid dashboards */
+.grid-container {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, [col-start] 1fr);
+  grid-template-rows: repeat(4, [col-start] 1fr);
+  grid-gap: 10px;
+}
+
+.profile-box {
+  grid-column: col-start 1 / span 1;
+  grid-row: col-start 1 / span 4;
+  justify-self: center;
+  align-self: center;
+}
+
+/* Profile */
+
+.profile-pic {
+  object-fit: cover;
+  border-radius: 50%;
+}

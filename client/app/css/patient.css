@@ -1,0 +1,154 @@
+/* Global Patient */
+
+h2,
+h3,
+p {
+  color: black;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+/* Appointment Dashboard */
+
+.patient-appointment-main {
+  height: 100vh;
+}
+
+.appointment-container h2 {
+  margin-top: 3rem;
+  margin-left: 18rem;
+}
+
+.appointment-description {
+  margin-left: 18rem;
+  margin-top: 1.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.btn-appointment {
+  background-color: var(--darkblue);
+}
+
+.btn-appointment:hover {
+  background-color: #5974de;
+}
+
+.btn-appointment-main {
+  margin-left: 800px;
+  margin-top: -500px;
+}
+
+.female-doctor {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+}
+
+.radio-form {
+  margin-bottom: 0.5rem;
+}
+
+/* Dashboard Grid */
+
+.appointment-box {
+  margin-top: 20px;
+  grid-column: col-start 2 / span 1;
+  grid-row: col-start 1 / span 1;
+  justify-self: center;
+  align-self: center;
+}
+
+.doctor-list-box {
+  justify-self: center;
+  margin-top: 20px;
+  grid-column: col-start 3 / span 1;
+  grid-row: col-start 1 / span 2;
+}
+
+.patient-messages {
+  position: sticky;
+  grid-column: col-start 3 / span 1;
+  grid-row: col-start 3 / span 2;
+  justify-self: center;
+  margin-top: -190px;
+}
+
+/* Profile */
+
+.profile-box-patient {
+  background-color: white;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.6);
+  border-radius: 10%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem 3rem 2rem;
+}
+
+/* .profile-pic {
+  width: 150px;
+  width: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-top: 1rem;
+} */
+
+.about-patient {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.general-info p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.general-info h3,
+.ilnesses h3,
+.checkup h3 {
+  font-size: 1.3rem;
+  margin-top: 0.3rem;
+}
+
+.general-info p,
+.ilnesses p,
+.checkup p {
+  margin-top: 0.3rem;
+}
+
+.each-illness {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.patient-profile-boxes {
+  flex-direction: column;
+  text-align: center;
+  width: fit-content;
+  color: #a266b5;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  box-shadow: 0 1px 2px rgba(101, 100, 100, 0.6);
+}
+
+.checkup-container {
+  height: fit-content;
+  padding: 1rem;
+  background-color: #f0f6fc;
+}
+
+.date {
+  font-weight: bold;
+  color: #397b6e;
+}

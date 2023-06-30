@@ -1,5 +1,6 @@
 'use client';
-
+import '../../css/globals.css';
+import '../../css/patient.css';
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
 import { useState } from 'react';

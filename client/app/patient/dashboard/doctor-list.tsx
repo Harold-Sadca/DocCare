@@ -10,7 +10,7 @@ export default function DoctorList() {
   const patientAppointments = currentPatient.patientAppointments;
   const doctorIds = [] as string[];
   return (
-    <main>
+    <main className='doctor-list-box'>
       <div className='doctor-list-container'>
         <h1>Your Doctors</h1>
         <div className='doctor-list'>

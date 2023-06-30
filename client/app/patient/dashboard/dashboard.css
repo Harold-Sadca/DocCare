@@ -1,17 +1,18 @@
-.grid-container {
+/* CSS COPIED */
+/* .grid-container {
   height: 100vh;
   display: grid;
   grid-template-columns: repeat(3, [col-start] 1fr);
   grid-template-rows: repeat(4, [col-start] 1fr);
   grid-gap: 10px;
-}
+} */
 
-.profile-box {
+/* .profile-box {
   grid-column: col-start 1 / span 1;
   grid-row: col-start 1 / span 4;
   justify-self: center;
   align-self: center;
-}
+} */
 
 .appointment-box {
   margin-top: 20px;

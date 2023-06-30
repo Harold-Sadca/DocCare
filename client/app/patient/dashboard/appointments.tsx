@@ -11,13 +11,18 @@ export default function Appointments() {
 
   return (
     <main>
-      <div className='apponitments-container'>
+      <div className='appointment-box'>
         <h1>Upcoming Appointments:</h1>
         <div className='appointment-list'>
           {patientAppointments?.map((appointment, idx) => (
             <div className='appointment-list-container' key={idx}>
               <div className='each-appointment'>
-                <Image src='/checkup-emoji.png' alt='checkup-emoji'></Image>
+                <Image
+                  src='/checkup-emoji.png'
+                  alt='checkup-emoji'
+                  width={100}
+                  height={100}
+                ></Image>
                 <div className='each-appointment-text'>
                   <h2>{appointment.doctorAppointment?.name}</h2>
                   <p>{appointment.date}</p>

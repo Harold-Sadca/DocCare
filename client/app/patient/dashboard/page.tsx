@@ -8,9 +8,7 @@ import DoctorList from './doctor-list';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import PatientMessages from './patient-messages';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-
-// import Cal from './calendar'
+import { useEffect } from 'react';
 
 export default function Patient() {
   const router = useRouter();
@@ -27,22 +25,11 @@ export default function Patient() {
     <div>
       <AuthNavbar user={'patient'} auth={'login'} />
       <main className='grid-container'>
-        <div className='profile-box'>
-          <Profile />
-        </div>
-        <div className='appointment-box'>
-          <Appointments />
-        </div>
-        <div className='prescriptions-box'>
-          <Prescriptions />
-        </div>
-        <div className='doctor-list-box'>
-          <DoctorList />
-        </div>
-        <div className='patient-messages'>
-          <PatientMessages />
-        </div>
-        {/* <Cal cellRender={cellRender} /> */}
+        <Profile />
+        <Appointments />
+        <Prescriptions />
+        <DoctorList />
+        <PatientMessages />
       </main>
     </div>
   );

@@ -102,7 +102,7 @@ export default function Register() {
     <>
       <Navbar />
       {contextHolder}
-      <div className='flex min-h-screen flex-col items-center justify-center'>
+      <div className='flex min-h-screen flex-col items-center justify-center my-6'>
         <h2 className='font-bold text-2xl text-primary'>Register</h2>
         <h3>Explore the future with us.</h3>
         <div className='flex min-h-screen flex-col items-center justify-center'>

@@ -3,14 +3,13 @@
 
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
-import './appointment-dashboard.css';
+import '../../css/patient.css';
 import { Form, Input, Radio, RadioChangeEvent } from 'antd';
 import React, { useEffect, useState } from 'react';
 const { TextArea } = Input;
 import { useRouter } from 'next/navigation';
 import apiService from '@/services/APIservices';
 import { TypeDoctor } from '@/../server/types/types';
-import Link from 'next/link';
 import { TypeAvailableSpecialist } from '@/types/types';
 import { AppDispatch } from '@/redux/store';
 import { useDispatch } from 'react-redux';
@@ -24,8 +23,8 @@ const initialState = {
 
 export default function PatientAppointment() {
   const dispatch = useDispatch<AppDispatch>();
-
   const router = useRouter();
+
   const [openForm, setOpenForm] = useState(true);
   const [state, setState] = useState(initialState);
   const [illness, setIllness] = useState<string>('');
@@ -63,7 +62,6 @@ export default function PatientAppointment() {
   }
 
   function formatStateDate(date: string) {
-    // 2023-07-01
     const [year, month, day] = date.split('-');
     const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
     const formattedDay = day.startsWith('0') ? day.substring(1) : day;
@@ -71,7 +69,6 @@ export default function PatientAppointment() {
     console.log([year, formattedMonth, formattedDay]);
     return [Number(year), Number(formattedMonth), Number(formattedDay)];
   }
-  console.log(state);
 
   async function getAllTheDoctors() {
     const token = localStorage.getItem('accessToken') as string;
@@ -117,24 +114,20 @@ export default function PatientAppointment() {
 
   useEffect(() => {
     setSpecialists(getSpecialists());
-    // if (state.date && state.illnesses) {
-    //   const availableDoctors = displayAvailability(
-    //     state.date,
-    //     formatStateDate(state.date),
-    //     state.illnesses
-    //   ) as TypeAvailableSpecialist[];
-    //   dispatch(setAvailableSpecialist(availableDoctors));
-    //   setAvailableSpecialists(availableDoctors);
-    // }
+    if (state.date && state.illnesses) {
+      const availableDoctors = displayAvailability(
+        state.date,
+        formatStateDate(state.date),
+        state.illnesses
+      ) as TypeAvailableSpecialist[];
+      dispatch(setAvailableSpecialist(availableDoctors));
+      setAvailableSpecialists(availableDoctors);
+    }
   }, [state]);
-
-  // console.log(specialists);
-  // console.log(allDoctors);
   console.log({ availableSpecialists });
 
   function submitForm() {
     // e.preventDefault();
-    // (filter doctos and map) show list of doctors (name, picture, about and availability + button) based on the illness
     if (state.date && state.illnesses) {
       const availableDoctors = displayAvailability(
         state.date,
@@ -152,32 +145,32 @@ export default function PatientAppointment() {
       <AuthNavbar user={'patient'} auth={'login'} />
       {openForm ? (
         <>
-          <div className='lay'>
-            <h1 className='appointment-heading'>Make an Appointment</h1>
-            <div className='steps'>
-              <div className='Consultation-1'>
-                <Image src='/1.png' className='icon' alt='icon'></Image>
+          <div className='appointment-container'>
+            <h2>Make an Appointment</h2>
+            <div>
+              <div className='appointment-description'>
+                <Image src='/1.png' alt='icon' width={100} height={100}></Image>
                 <div>
-                  <h2>Request Consultation</h2>
-                  <p>Describe your Illness and choose the Date</p>
+                  <h3>Request Consultation</h3>
+                  <p>Describe your illness and choose the date.</p>
                 </div>
               </div>
-              <div className='Doctor-2'>
-                <Image src='/2.png' className='icon' alt='icon'></Image>
+              <div className='appointment-description'>
+                <Image src='/2.png' alt='icon' width={100} height={100}></Image>
                 <div>
-                  <h2>Find a Doctor</h2>
+                  <h3>Find a Doctor</h3>
                   <p>
-                    Find a Doctor Related to the disease you are suffering from
+                    Find a doctor related to the disease you are suffering from
                     to get the best consultation.
                   </p>
                 </div>
               </div>
-              <div className='Solution-3'>
-                <Image src='/3.png' className='icon' alt='icon'></Image>
+              <div className='appointment-description'>
+                <Image src='/3.png' alt='icon' width={100} height={100}></Image>
                 <div>
-                  <h2>Get a Solution</h2>
+                  <h3>Get a Solution</h3>
                   <p>
-                    Our Doctor will give you a solution regarding the illness
+                    Our doctor will give you a solution regarding the illness
                     you're suffering from.
                   </p>
                 </div>
@@ -186,19 +179,24 @@ export default function PatientAppointment() {
             <div>
               <button
                 onClick={handleNextButtonClick}
-                className='button-make-appointment'
+                className='text-white font-bold py-2 px-4 rounded btn-appointment btn-appointment-main'
               >
-                Make the Appointment
+                Make an appointment
               </button>
             </div>
             <div className='female-doctor'>
-              <Image src='/Female-Doctor-PNG-Image.png' alt='doctor'></Image>
+              <Image
+                src='/Female-Doctor-PNG-Image.png'
+                alt='doctor'
+                width={400}
+                height={400}
+              ></Image>
             </div>
           </div>
         </>
       ) : (
-        <div className='form-appointment'>
-          <div>
+        <div className='flex min-h-screen flex-col items-center justify-center my-6'>
+          <div className='flex min-h-screen flex-col items-center justify-center'>
             <Form
               labelCol={{ span: 6 }}
               wrapperCol={{ span: 14 }}
@@ -211,20 +209,23 @@ export default function PatientAppointment() {
               method='post'
               onFinish={submitForm}
             >
-              <div className='appointment-date'>
-                <h3>Appointment Date</h3>
-                <Form.Item htmlFor='appointment'>
-                  <Input
-                    type='date'
-                    id='date'
-                    name='date'
-                    value={state.date}
-                    onChange={(e) => handleChange(e)}
-                    required
-                  />
-                </Form.Item>
-              </div>
-              <h3>What kind of Illness are you experiencing?</h3>
+              <h2 className=' text-2xl text-primary text-black my-2'>
+                Appointment Date
+              </h2>
+              <Form.Item htmlFor='appointment'>
+                <Input
+                  type='date'
+                  id='date'
+                  name='date'
+                  value={state.date}
+                  onChange={(e) => handleChange(e)}
+                  required
+                />
+              </Form.Item>
+
+              <h2 className='text-2xl text-primary text-black my-2'>
+                What kind of Illness are you experiencing?
+              </h2>
               <Form.Item htmlFor='illness'>
                 <Radio.Group id='illness' name='illnesses'>
                   <Radio
@@ -233,6 +234,7 @@ export default function PatientAppointment() {
                       health issues'
                     value='General Practice'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Common illnesses, minor injuries, preventive care, general
                     health issues{' '}
@@ -243,6 +245,7 @@ export default function PatientAppointment() {
                     title='Chronic diseases, infections, autoimmune disorders, organ
                       diseases'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Chronic diseases, infections, autoimmune disorders, organ
                     diseases{' '}
@@ -253,6 +256,7 @@ export default function PatientAppointment() {
                     title='Childhood illnesses, growth and development issues,
                       vaccinations, pediatric infections'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Childhood illnesses, growth and development issues,
                     vaccinations, pediatric infections{' '}
@@ -263,6 +267,7 @@ export default function PatientAppointment() {
                       fertility issues, childbirth complications'
                     value='Obstetrics and Gynecology'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Pregnancy-related conditions, gynecological disorders,
                     fertility issues, childbirth complications{' '}
@@ -273,6 +278,7 @@ export default function PatientAppointment() {
                       intervention, post-operative care'
                     value='Surgery'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Surgical conditions, injuries requiring surgical
                     intervention, post-operative care{' '}
@@ -283,6 +289,7 @@ export default function PatientAppointment() {
                       disorder, schizophrenia'
                     value='Psychiatry'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Mental health disorders, anxiety, depression, bipolar
                     disorder, schizophrenia{' '}
@@ -292,6 +299,7 @@ export default function PatientAppointment() {
                     title='Skin conditions, dermatitis, acne, psoriasis, skin cancer'
                     value='Dermatology'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Skin conditions, dermatitis, acne, psoriasis, skin cancer{' '}
                   </Radio>
@@ -301,6 +309,7 @@ export default function PatientAppointment() {
                       degeneration'
                     value='Ophthalmology'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Eye diseases, vision problems, cataracts, glaucoma, macular
                     degeneration
@@ -311,6 +320,7 @@ export default function PatientAppointment() {
                       cord disorders'
                     value='Ear Nose and Throat (ENT)'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Ear infections, sinusitis, tonsillitis, hearing loss, vocal
                     cord disorders{' '}
@@ -321,6 +331,7 @@ export default function PatientAppointment() {
                       coronary artery disease'
                     value='Cardiology'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Heart diseases, hypertension, heart failure, arrhythmias,
                     coronary artery disease{' '}
@@ -331,6 +342,7 @@ export default function PatientAppointment() {
                       disorders'
                     value='Endocrinology'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Diabetes, thyroid disorders, hormonal imbalances, metabolic
                     disorders
@@ -341,6 +353,7 @@ export default function PatientAppointment() {
                       irritable bowel syndrome, Crohn's disease`}
                     value='Gastroenterology'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Digestive system disorders, gastrointestinal cancers,
                     irritable bowel syndrome, Crohn's disease{' '}
@@ -351,6 +364,7 @@ export default function PatientAppointment() {
                     title='Neurological disorders, migraines, epilepsy, stroke,
                       multiple sclerosis'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Neurological disorders, migraines, epilepsy, stroke,
                     multiple sclerosis{' '}
@@ -361,13 +375,18 @@ export default function PatientAppointment() {
                     title='Cancer, various types and stages, chemotherapy, radiation
                       therapy, palliative care'
                     onChange={(value) => handleChange(value)}
+                    className='radio-form'
                   >
                     Cancer, various types and stages, chemotherapy, radiation
                     therapy, palliative care{' '}
                   </Radio>
                 </Radio.Group>
               </Form.Item>
-              <button className='next-button' type='submit'>
+
+              <button
+                className='bg-primary hover:bg-primary text-white font-bold py-2 px-4 m-2 rounded btn-appointment'
+                type='submit'
+              >
                 Next
               </button>
             </Form>

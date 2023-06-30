@@ -3,6 +3,9 @@
 
 import apiService from '@/services/APIservices';
 import './profile.css';
+import '../../css/globals.css';
+import '../../css/patient.css';
+
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
@@ -53,32 +56,32 @@ export default function Profile() {
   }, [currentPatient]);
 
   return (
-    <main>
-      <div className='profile'>
+    <main className='profile-box'>
+      <div className='profile-box-patient'>
         <div className='about-patient'>
-          <div className='profile-pic'>
-            {/* <img src='https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img> */}
-            <Image
-              src={currentPatient.profilePicture as string}
-              alt='patient-profile'
-            ></Image>
-          </div>
-          <h1>{currentPatient.name}</h1>
+          <Image
+            src={currentPatient.profilePicture as string}
+            alt='patient-profile'
+            width={150}
+            height={150}
+            className='profile-pic'
+          ></Image>
+          <h2>{currentPatient.name}</h2>
           <p>{calculateAge(currentPatient.dateOfBirth)} years old</p>
         </div>
         <div className='general-info'>
-          <h2>General info:</h2>
+          <h3>General info:</h3>
           <p>Date of birth: {currentPatient.dateOfBirth}</p>
           <p>{currentPatient.gender}</p>
         </div>
         <div className='ilnesses'>
           <h3>Allergies:</h3>
-          <div className='each-illness'>
+          <div className='patient-profile-boxes'>
             <div>{currentPatient.allergies}</div>
           </div>
           <div className='checkup'>
-            <h4>Last Checkup:</h4>
-            <div className='checkup-container'>
+            <h3>Last Checkup:</h3>
+            <div className='patient-profile-boxes checkup-container'>
               <p className='date'>{lastDate}</p>
               <div className='doctor-notes'>
                 <p>{message}</p>
