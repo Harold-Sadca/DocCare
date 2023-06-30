@@ -18,7 +18,7 @@ export default function AllPatients({ allPatients }: Props) {
     const target = e.target as HTMLButtonElement;
     if (target.name === 'patient-details') {
       //navigate to the patient details
-      router.push(`patient/${target.id}`);
+      router.push(`dashboard/patient/${target.id}`);
     } else if (target.name === 'chat') {
       //set the selected patient
       console.log('chat');
