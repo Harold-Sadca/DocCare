@@ -1,8 +1,8 @@
 .profile-image-patient {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 250px;
     object-fit: cover;
-    margin-top: 70px;
+    margin-top: 50px;
     margin-left: 90px;
     position: relative;
 }
@@ -18,7 +18,7 @@
 .main-info-patient {
     position: absolute;
     top: 180px;
-    left: 750px;
+    left: 600px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,34 +57,187 @@
 .mail-to {
     display: flex;
     align-items: center;
-  }
-  
-
-  .mail-to #icon-mail{
-   margin-right: 100px;
-  }
-
-#each-illness{
-flex-direction: column;
-margin-top: 15px;
-text-align: center;
-height: 30px;
-width: fit-content;
-padding-left: 15px;
-padding-right: 15px;
-border-radius: 15px;
-background-color:#F5ECF7 ;
-color: #A266B5;
-margin-left: 15px;
-box-shadow: 0 1px 2px rgba(101, 100, 100, 0.6);
-  }
+}
 
 
-  .all-illnesses{
+.mail-to #icon-mail {
+    margin-right: 100px;
+}
+
+#each-illness {
+    flex-direction: column;
+    margin-top: 15px;
+    text-align: center;
+    height: 30px;
+    width: fit-content;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 15px;
+    background-color: #F5ECF7;
+    color: #A266B5;
+    margin-left: 15px;
+    box-shadow: 0 1px 2px rgba(101, 100, 100, 0.6);
+}
+
+
+.all-illnesses {
     position: absolute;
     top: 450px;
-    left: 750px;
+    left: 560px;
     width: 400px;
     display: flex;
     flex-wrap: wrap;
-  }
+}
+
+#ilness-h2{
+    position: absolute;
+    top: 430px;
+    left: 575px;
+    color: black;
+    font-weight: 500;
+    font-size: 17px;
+}
+.appointments-container {
+    height: 300px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+    border-radius: 10%;
+    margin-left: 1100px;
+    margin-top: -270px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
+    position: relative;
+    z-index: 2;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+
+
+#heading-appointments {
+    position: absolute;
+    top: 20px; 
+    left: 35px; 
+    color: #1F4F5B;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+
+.each-appointment.empty {
+    height: fit-content;
+    width: fit-content;
+    border-radius: 10px;
+    background-color: #F0F6FC;
+    margin-left: 20px;
+    /* margin-top: 30px; */
+    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+    display: flex;
+}
+
+
+.each-appointment {
+    height: 100px;
+    margin-left: 30px;
+    margin-top: 15px;
+    width: 250px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    background-color: #F0F6FC;
+    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    position: relative;
+}
+
+#appointment-date{
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: black;
+    font-weight:bold;
+    font-size: 20px;   
+}
+
+
+.all-appointments{
+margin-top: 45px;
+}
+
+.medication-container{
+    height: 300px;
+    width: 300px;
+    background-color: white;
+    box-shadow: 0 7px 15px rgba(0, 0, 0, .6);
+    border-radius: 10%;
+    flex-direction: column;
+    margin-left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-x: scroll;
+    margin-left: 1100px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+::-webkit-scrollbar{
+    display: none;
+    }
+    
+
+.medication-container h2{
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: black;
+    font-weight:bold;
+    font-size: 20px;   
+}
+
+
+
+.each-medication-container{
+    margin-left: 30px;
+    color: #D7B765;
+    background-color: #FBF9F1;
+    width: 70px;
+    height: 70px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    }
+    
+    /* .each-medication-container img{
+    width:40px;
+    } */
+
+
+    #appointment-date{
+    color: #1F4F5B;
+    font-weight:bold;
+    font-size: 18px;   
+    }
+
+
+    #appointment-time{
+        font-size: 17px; 
+        display: flex;
+        margin-top: 35px;
+        align-items: center;
+        margin-left: -60px;
+    }
+
+    .time-of-appointment{
+    display: flex;
+    flex-direction: column;
+    }
+

@@ -11,7 +11,11 @@ import {
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
 
-const socket = io('ws://localhost:3001');
+const socket = io("ws://localhost:3001");
+
+
+// export default function JuniorDoctorMessages() {
+// export default function JuniorDoctorMessages({currentJunior}) {
 
 interface Props {
   currentJunior: TUser;
@@ -19,12 +23,10 @@ interface Props {
 export default function JuniorDoctorMessages({ currentJunior }: Props) {
   const initialState = { message: '', user: '' };
   const [messageState, setMessageState] = useState(initialState);
-  const [allReceivedMessages, setAllReceivedMessages] = useState<TypeMessage[]>(
-    []
-  );
-  const [allSentMessages, setSentAllMessages] = useState<TypeMessage[]>([]);
-  const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([]);
-  const [selectedPatient, setSelectedPatient] = useState<TypeChatUser>();
+  const [allReceivedMessages, setAllReceivedMessages] = useState<TypeMessage[]>([])
+  const [allSentMessages, setSentAllMessages] = useState<TypeMessage[]>([])
+  const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([])
+  // const [selectedPatient, setSelectedPatient] = useState<TypeChatUser>()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -33,8 +35,10 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     }));
   };
   // const currentJunior = useAppSelector((state) => state.currentPatientReducer.value);
+  const selectedPatient = useAppSelector((state) => state.chatPatientReducer.value);
+  console.log(selectedPatient)
 
-  console.log(currentJunior);
+  // console.log(currentJunior)
 
   //socket.io room name
   const name = 'junior';
@@ -45,20 +49,21 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
 
   function handleClick() {
     const newMessage = {
-      content: messageState.message,
-      sender_id: currentJunior.id,
-      sender_name: currentJunior.name,
-      receiver_id: 1,
-      receiver_name: 'Patient',
-    };
+      content:messageState.message,
+      sender_id:currentJunior.id,
+      sender_name:currentJunior.name,
+      receiver_id:selectedPatient.id,
+      receiver_name:selectedPatient.name
+    }
     // console.log(newMessage)
     // replace halord with currentPatient.name sadly
-    socket.emit('from junior', newMessage, 'halord');
+    socket.emit("from junior", newMessage, selectedPatient.name);
   }
 
   function socketConnect() {
-    socket.auth = { name };
-    socket.connect();
+    socket.auth = {name}
+    console.log(socket.auth, 'room name')
+    socket.connect()
   }
 
   socket.on('patient message', (args) => {

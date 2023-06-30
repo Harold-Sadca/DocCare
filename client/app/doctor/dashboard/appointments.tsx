@@ -3,6 +3,7 @@
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import {FieldTimeOutlined } from "@ant-design/icons";
 import './appointments.css'
 
 export default function Appointments() {
@@ -28,7 +29,7 @@ export default function Appointments() {
             </div>
             <div className='time-of-appointment'>           
             <p>{appointment.date}</p>
-            <p>{appointment.time.slice(0, 5)}</p>
+            <p> <FieldTimeOutlined /> {appointment.time.slice(0, 5)}</p>
             </div>
           </div>
         ))}

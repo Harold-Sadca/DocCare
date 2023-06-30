@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-key */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 'use client';
 
 import { TypePatient } from '@/../server/types/types';
@@ -6,6 +9,7 @@ import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import './appointment-list.css'
 
 export default function Appointments() {
   const router = useRouter();
@@ -15,13 +19,15 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
 
   return (
-    <main>
+    <main className='main-page'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <h2>All my appointments:</h2>
-      <div className='patients'>
+      <div className='appointment-list-container'>
+      <h2>All my appointments</h2>
         {appointments?.map((appointment, idx) => (
-          <div key={idx}>
-            <p>Patient: {appointment?.patientAppointment?.name}</p>
+             <div className='appoinment-list'>
+          <div key={idx} className='each-appointment'>
+            <div className='about-patient'>
+            <p id='name'>{appointment?.patientAppointment?.name}</p>
             <p>
               {' '}
               {calculateAge(
@@ -31,11 +37,17 @@ export default function Appointments() {
             </p>
             <p>{appointment?.patientAppointment?.gender}</p>
             <p>Summary: {appointment?.patientAppointment?.summary}</p>
-            <p>{appointment.date}</p>
-            <p>{appointment.time}</p>
+            </div>
+            <div className='appoitment-patient'>
+            <h3>Appoitment</h3>
+            <p> Date: {appointment.date}</p>
+            <p>Time: {appointment.time.slice(0, 5)}</p>
+            </div>
           </div>
+            </div>
         ))}
       </div>
-    </main>
+      <img src='/appointment-vector.png' id='appointment-vector'></img>
+      </main>
   );
 }

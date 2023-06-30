@@ -1,5 +1,4 @@
 "use client";
-
 import { TypePatient } from "@/../server/types/types";
 import AuthNavbar from "@/app/(components)/auth-navbar";
 import { calculateAge, toFirstLetterUpperCase } from "@/app/helper";
@@ -9,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { PhoneOutlined } from "@ant-design/icons";
 import { MailOutlined } from "@ant-design/icons";
+import {FieldTimeOutlined } from "@ant-design/icons";
 import "./each-patient-profile.css";
 import Image from "next/image";
 
@@ -32,7 +32,29 @@ export default function Patient({ params }: { params: { id: string } }) {
           src="https://images.pexels.com/photos/1819483/pexels-photo-1819483.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="profile-image-patient"
           alt='profile-image-patient'
-        ></Image>
+        /> 
+        <div className="appointments-container">
+          <h2 id="heading-appointments">Next appointments</h2>
+          <div className="all-appointments">
+            {currentPatient?.patientAppointments
+              ?.filter(
+                (appointment) =>
+                  appointment.doctor_id === currentDoctor.id &&
+                  !appointment.attended
+              )
+              .map((appointment, idx) => (
+                <div key={idx} className="each-appointment">
+                  <p id='appointment-date'>{appointment.date}</p>
+                  <p id='appointment-time'>
+                  <FieldTimeOutlined />{appointment.time.slice(0, 5)} 
+                  </p>
+                  <p id='appointment-attended'>{appointment.attended}</p>
+                  {/* display dependant on how many appoitments they had */}
+                </div>
+              ))}
+          </div>
+        </div>
+      
         <div className="all-info-about-patient">
           <div className="main-info-patient">
             <h2 id="name">{currentPatient?.name}</h2>
@@ -55,29 +77,32 @@ export default function Patient({ params }: { params: { id: string } }) {
               </a>
             </div>
           </div>
-          <h2>Medications:</h2>
-          <h2>{currentPatient?.medications.toString()}</h2>
-          <h2>Next appointments:</h2>
-          {currentPatient?.patientAppointments
-            ?.filter(
-              (appointment) =>
-                appointment.doctor_id === currentDoctor.id &&
-                !appointment.attended
-            )
-            .map((appointment, idx) => (
-              <div key={idx}>
-                <h2>{appointment.date}</h2>
-                <h2>{appointment.date}</h2>
-                <h2 id="ilness-h2">Illness</h2>
-                <p className="all-illnesses">
-                  {appointment.illness.split(",").map((word, index) => (
-                    <span id="each-illness" key={index}>
-                      {toFirstLetterUpperCase(word) + word.slice(2)}
-                    </span>
-                  ))}
-                </p>
-              </div>
-            ))}
+          <div className="medication-container">
+          <h2>Medications</h2>
+          <div className="each-medication-container">
+          <p>{currentPatient?.medications.toString()}</p>
+          </div>
+          </div>
+          <div>
+            {currentPatient?.patientAppointments
+              ?.filter(
+                (appointment) =>
+                  appointment.doctor_id === currentDoctor.id &&
+                  !appointment.attended
+              )
+              .map((appointment, idx) => (
+                <>
+                  <h2 id="ilness-h2">Illnesses</h2>
+                  <p className="all-illnesses">
+                    {appointment.illness.split(",").map((word, index) => (
+                      <span id="each-illness" key={index}>
+                        {toFirstLetterUpperCase(word) + word.slice(2)}
+                      </span>
+                    ))}
+                  </p>
+                </>
+              ))}
+          </div>
         </div>
       </div>
     </main>

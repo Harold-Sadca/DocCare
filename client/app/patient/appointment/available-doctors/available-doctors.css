@@ -1,38 +1,49 @@
-
-.doctor-list-container{
+.doctor-list-container {
     height: 700px;
     width: 500px;
     border-radius: 10%;
     margin-left: 20px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     overflow-x: scroll;
 }
 
 
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     display: none;
-    }
+}
 
 
-.doctor-list-container h1{
+.doctor-list-container h1 {
     margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
     color: black;
-    font-weight:bold;
+    font-weight: bold;
     font-size: 20px;
 }
 
-
-
-.each-doctor-name{
-margin-left: 20px;
+.doctor-list {
+    height: fit-content;
+    width: 230px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 10px;
+    background-color: #F5ECF7;
+    margin-left: 20px;
+    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
 }
 
 
-.each-doctor img{
+
+
+.each-doctor-name {
+    margin-left: 20px;
+}
+
+
+.each-doctor img {
     height: 70px;
     width: 70px;
     object-fit: cover;
@@ -41,30 +52,20 @@ margin-left: 20px;
     margin-left: 10px;
 }
 
-.each-doctor h2{
-color: black;
-font-weight: 20px;
+.each-doctor h2 {
+    color: black;
+    font-weight: 20px;
 }
 
 
-.each-doctor p{
-color: #A266B5;
-}
-    
-
-.doctor-list{
-    height: fit-content;
-    width: 230px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-radius: 10px;
-    background-color:#F5ECF7 ;
-    margin-left: 20px;
-    box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+.each-doctor p {
+    color: #A266B5;
 }
 
-.each-doctor{
-display: flex;
-flex-direction: row;
-align-items: center;
+
+
+.each-doctor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

@@ -190,7 +190,6 @@ function getLastCheckupModel(patientId) {
 }
 exports.getLastCheckupModel = getLastCheckupModel;
 function formatStateDate(date) {
-    // 2023-07-01
     const [year, month, day] = date.split('-');
     const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
     const formattedDay = day.startsWith('0') ? day.substring(1) : day;
@@ -199,7 +198,11 @@ function formatStateDate(date) {
 function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log('got in models');
+            console.log(appointment);
             const newAppointment = yield AppointmentDB.create(appointment);
+            console.log('whyyyyy');
+            console.log(newAppointment);
             const doctor = (yield DoctorDB.findOne({
                 where: { id: doctorId },
             }));
