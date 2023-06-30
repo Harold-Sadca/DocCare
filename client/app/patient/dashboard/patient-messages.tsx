@@ -6,13 +6,13 @@ import { useEffect, useState } from 'react';
 import { TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
 
+// sets the connection path for the socket
 const socket = io('ws://localhost:3001');
 
 export default function PatientMessages() {
   const initialState = { message: '', sender_name: '', receiver_name: '' };
   const [messageState, setMessageState] = useState(initialState);
-  const [sentMessages, setSentMessages] = useState<TypeMessage[]>([]);
-  const [receivedMessages, setReceivedMessages] = useState<TypeMessage[]>([]);
+  const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -26,8 +26,6 @@ export default function PatientMessages() {
       [name]: value,
     }));
   };
-  
-  // console.log(name, 'name')
 
   useEffect(() => {
     if(name != '') {
@@ -36,67 +34,47 @@ export default function PatientMessages() {
   }, [name]);
 
   let newMessage
-  // let socketId:string
 
   function handleClick() {
     newMessage = {
       content: messageState.message,
-      sender_id: id,
-      sender_name_: name,
-      receiver_id: 2,
-      receiver_name: 'Junior',
-    };
-
+      sender_id: id as string,
+      sender_name: name,
+      receiver_name: 'Doctor',
+      date: Date.now() as unknown as string
+    } as TypeMessage;
+    // 'patient message' is an event name we define
+    // which we can use on the backend to separate events and handle them accordingly
+    // 'emit' is a socket method that would send an event to the backend
+    // 'emit' sends an event to everyone except the sender
     socket.emit('patient message', newMessage);
+    setAllMessages([...allMessages, newMessage])
   }
 
   function socketConnect() {
+    //assigns a 'name' property on the socket auth for us to use on tha backend
+    //to authenticate and create a private room
     socket.auth = {name}
-    // console.log(socket.auth, 'socket name')
     socket.connect()
   }
+  // 'from junior' is an event we defined in the backend
+  // when we called emit we are invoking an event with that name
+  // and the backend will capture it when it spots it
 
-  socket.on('returned', (args) => {
-    console.log(args);
+  socket.on('from junior', (message) => {
+    setAllMessages([...allMessages, message])
   });
-
-  socket.on('from junior', (args) => {
-    console.log(args);
-  });
-
-  // socket.on("your id", (args:string) => {
-  //   console.log(args)
-  //   socketId = args
-  //   console.log(socketId)
-  // })
-
-  // socket.on("patient sent", (args:TypeMessage) => {
-  //   console.log(args)
-  //   setSentMessages([...sentMessages, args])
-  //   setMessageState(initialState)
-  // })
-  // socket.on('from junior', (args:TypeMessage) => {
-  //   setReceivedMessages([...sentMessages, args])
-  // })
 
   return (
     <main className='ChatBox-container'>
       <div className='Chatbox'>
-        {sentMessages.map((mes) => {
-          return (
-            <div className='patient-message' key={mes.id}>
-              {mes.content}
-            </div>
-          );
+        {allMessages.map((mes) => {
+          return (mes.receiver_name === 'Doctor' ? <div className='patient-message' key={mes.id}>
+          {mes.content}
+        </div> : <div className='junior-doctor-message' key={mes.id}>
+            {mes.content}
+          </div>)
         })}
-        {receivedMessages.map((mes) => {
-          return (
-            <div className='junior-doctor-message' key={mes.id}>
-              {mes.content}
-            </div>
-          );
-        })}
-        {/* <div className="junior-doctor-message"></div> */}
         <div className='send-container'>
           <input
             className='chat-input'
