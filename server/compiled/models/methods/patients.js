@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
+exports.logoutPatientModel = exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
 const Appointment_1 = require("../schema/Appointment");
 const Message_1 = require("../schema/Message");
@@ -250,3 +250,17 @@ function deleteAppointmentModel(appointmentId) {
     });
 }
 exports.deleteAppointmentModel = deleteAppointmentModel;
+function logoutPatientModel(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const updatedPatient = yield PatientDB.findOne({ where: { id } });
+            updatedPatient.status = 'Offline';
+            yield (updatedPatient === null || updatedPatient === void 0 ? void 0 : updatedPatient.save());
+            return updatedPatient;
+        }
+        catch (error) {
+            throw new Error();
+        }
+    });
+}
+exports.logoutPatientModel = logoutPatientModel;

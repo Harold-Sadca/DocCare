@@ -56,6 +56,9 @@ class Patient extends sequelize_1.Model {
             familyMedicalHistory: {
                 type: sequelize_1.DataTypes.STRING,
             },
+            status: {
+                type: sequelize_1.DataTypes.ENUM('Online', 'Offline'),
+            },
             userType: {
                 type: sequelize_1.DataTypes.STRING,
             },

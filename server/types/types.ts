@@ -118,6 +118,7 @@ export interface TypePatient {
   medications: string;
   surgicalHistory: string;
   familyMedicalHistory: string;
+  status: 'Online' | 'Offline';
   patientAppointments?: TypeAppointment[];
   userType?: string;
   createdAt?: Date;

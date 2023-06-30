@@ -7,9 +7,14 @@ import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
 import AllPatients from './patients';
 import AuthNavbar from '@/app/(components)/auth-navbar';
+import { useAppSelector } from '@/redux/store';
+import { TUser } from '@/types/types';
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
+  const currentJunior = useAppSelector(
+    (state) => state.currentJuniorReducer.value
+  );
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
@@ -34,7 +39,7 @@ export default function JuniorDoctorDashBoard() {
       <h1>Junior DashBoard</h1>
       <AllPatients allPatients={allPatients} />
       <div className='chat-box'>
-        {/* <JuniorDoctorMessages currentJunior={junior as TUser} /> */}
+        <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
       </div>
     </main>
   );

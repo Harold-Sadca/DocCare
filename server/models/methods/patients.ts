@@ -10,6 +10,7 @@ import { Message } from '../schema/Message';
 import { MedicalInfo } from '../schema/MedicalInfo';
 import { Doctor } from '../schema/Doctor';
 import logger from '../../logger';
+import { updatePatient } from '../../controllers/patient.controller';
 
 const PatientDB = db.Patient;
 const AppointmentDB = db.Appointment;
@@ -233,6 +234,17 @@ async function deleteAppointmentModel(appointmentId: string) {
   }
 }
 
+async function logoutPatientModel(id:string) {
+  try {
+    const updatedPatient = await PatientDB.findOne({where:{id}})
+    updatedPatient!.status = 'Offline'
+    await updatedPatient?.save()
+    return updatedPatient;
+  } catch (error) {
+    throw new Error()
+  }
+}
+
 export {
   createPatientModel,
   getPatientModel,
@@ -242,4 +254,5 @@ export {
   deletePatientModel,
   createAppointmentModel,
   deleteAppointmentModel,
+  logoutPatientModel
 };

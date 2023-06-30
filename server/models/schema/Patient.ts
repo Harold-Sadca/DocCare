@@ -49,6 +49,7 @@ export class Patient extends Model<
   declare medications: string | null;
   declare surgicalHistory: string | null;
   declare familyMedicalHistory: string | null;
+  declare status: 'Online' | 'Offline';
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -164,6 +165,9 @@ export class Patient extends Model<
         },
         familyMedicalHistory: {
           type: DataTypes.STRING,
+        },
+        status: {
+          type: DataTypes.ENUM('Online', 'Offline'),
         },
         userType: {
           type: DataTypes.STRING,
