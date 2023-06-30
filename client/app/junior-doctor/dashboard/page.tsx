@@ -3,27 +3,13 @@
 import JuniorDoctorMessages from './messages';
 import './dashboard.css';
 import apiService from '@/services/APIservices';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/redux/store';
-import { setCurrentJunior } from '@/redux/features/junior-slice';
 import { useEffect, useState } from 'react';
-import { TUser } from '@/types/types';
-import { TypeJuniorDoctor, TypePatient } from '../../../../server/types/types';
+import { TypePatient } from '../../../../server/types/types';
 import AllPatients from './patients';
+import AuthNavbar from '@/app/(components)/auth-navbar';
 
 export default function JuniorDoctorDashBoard() {
-  const dispatch = useDispatch<AppDispatch>();
-  const [junior, setJunior] = useState<TUser>();
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
-
-  async function authenticate(token: string, userType: string) {
-    const user = await apiService.getUser(token, userType);
-    setJunior(user);
-    console.log(user);
-    dispatch(setCurrentJunior(user as TypeJuniorDoctor));
-  }
-
-  console.log(allPatients);
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
@@ -38,17 +24,17 @@ export default function JuniorDoctorDashBoard() {
       typeof window !== 'undefined' &&
       (window.localStorage.getItem('userType') as string);
     if (token && userType === 'junior-doctor') {
-      authenticate(token, userType);
       getPatients(token);
     }
   }, []);
 
   return (
     <main>
-      <h1>Junior DashBoard!</h1>
+      <AuthNavbar user={'junior-doctor'} auth={'login'} />
+      <h1>Junior DashBoard</h1>
       <AllPatients allPatients={allPatients} />
       <div className='chat-box'>
-        <JuniorDoctorMessages currentJunior={junior as TUser} />
+        {/* <JuniorDoctorMessages currentJunior={junior as TUser} /> */}
       </div>
     </main>
   );

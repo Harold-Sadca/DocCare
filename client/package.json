@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "compile": "concurrently \"--watch app\" \"npm run build\""
+    "start:build": "next build && next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",

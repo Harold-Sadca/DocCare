@@ -5,7 +5,7 @@ export default function JuniorDoctor() {
   // const userType = typeof window !== 'undefined' && localStorage.getItem('userType') as string;
   // console.log(token)
   return (
-    <main className='flex min-h-screen flex-col box-border'>
+    <main>
       <h1>Junior page!</h1>
     </main>
   );

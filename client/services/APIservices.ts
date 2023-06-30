@@ -70,6 +70,7 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
       withCredentials: true,
     })
     .then((res: AxiosResponse<TypeRegister>) => {
+      console.log(res.data);
       return res.data;
     });
 }

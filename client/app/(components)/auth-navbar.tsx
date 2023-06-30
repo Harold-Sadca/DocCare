@@ -16,6 +16,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/features/auth-slice';
 import { setCurrentDoctor } from '@/redux/features/doctor-slice';
+import { setCurrentJunior } from '@/redux/features/junior-slice';
 
 interface Props {
   user: string;
@@ -31,7 +32,6 @@ function toFirstLetterUpperCase(text: string) {
 
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
-  const userType = useAppSelector((state) => state.authReducer.value.userType);
   const dispatch = useDispatch<AppDispatch>();
 
   async function getCurrentUser() {
@@ -48,7 +48,7 @@ export default function AuthNavbar(props: Props) {
           dispatch(setCurrentDoctor(doctor.result));
         } else if (userType === 'junior-doctor') {
           const juniorDoctor = user;
-          dispatch(setCurrentDoctor(juniorDoctor.result));
+          dispatch(setCurrentJunior(juniorDoctor.result));
         }
         dispatch(login(userType as string));
       } catch (error) {

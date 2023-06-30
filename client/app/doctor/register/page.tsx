@@ -1,12 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import { Form, Input, Radio, RadioChangeEvent, Upload } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Form, Input, Radio, RadioChangeEvent } from 'antd';
 const { TextArea } = Input;
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { message } from 'antd';
-
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
@@ -52,7 +50,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/doctor');
+        router.push('/doctor/dashboard');
       }, 2000);
     }, 1000);
   };
@@ -90,7 +88,6 @@ export default function Register() {
         localStorage.setItem('userType', result.userType as string);
         console.log(result);
         setMessageContent(message as string);
-        // setIsAuthenticated(true);
       }
     }
     setState(initialState);

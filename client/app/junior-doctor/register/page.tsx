@@ -1,25 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import {
-  Button,
-  Cascader,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Radio,
-  RadioChangeEvent,
-  Select,
-  Switch,
-  TreeSelect,
-  Upload,
-  message,
-} from 'antd';
+import { Form, Input, Radio, RadioChangeEvent, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
@@ -90,16 +75,13 @@ export default function Register() {
     // e.preventDefault();
     const data = await apiService.register(state, 'junior-doctor');
     const { message, result, error, accessToken } = data;
-    console.log(result);
     if (error) {
       setMessageContent(error);
     } else {
       if (result) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('userType', result.userType as string);
-        console.log(result);
         setMessageContent(message as string);
-        // setIsAuthenticated(true);
       }
     }
     setState(initialState);
