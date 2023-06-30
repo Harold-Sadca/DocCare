@@ -4,6 +4,7 @@ import { AppDispatch } from '@/redux/store';
 import { TypePatient } from '../../../../server/types/types';
 import { useDispatch } from 'react-redux';
 import { setChatPatient } from '@/redux/features/chat-patient-slice';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   allPatients: TypePatient[];
@@ -12,12 +13,13 @@ export default function AllPatients({ allPatients }: Props) {
   // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
   // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
   const dispatch = useDispatch<AppDispatch>();
-
+  const router = useRouter();
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target = e.target as HTMLButtonElement;
     if (target.name === 'patient-details') {
       //navigate to the patient details
-      console.log('details');
+      router.push(`patient-details/${target.id}`);
+      // console.log('details');
     } else if (target.name === 'chat') {
       //set the selected patient
       console.log('chat');
