@@ -56,9 +56,13 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
 
   return (
     <main className='ChatBox-container'>
-      <div className='Chatbox'>
+       <div className="header-chat">
+       {/* <i className="icon fa fa-user-o" aria-hidden="true"></i> */}
+       <p className="name">Megan Leib</p>
+       <div className="messages-chat">
       {allMessages.map((mes) => {
-          return (mes.sender_name === 'Doctor' ? <div className='patient-message' key={mes.id}>
+          return (mes.sender_name === 'Doctor' ? 
+          <div className='message text-only' key={mes.id}>
           {mes.content}
         </div> : <div className='junior-doctor-message' key={mes.id}>
             {mes.content}
@@ -75,8 +79,9 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
           <button className='send' onClick={handleClick}>
             Send
           </button>
+          </div>
         </div>
-      </div>
+        </div>
     </main>
   );
 }

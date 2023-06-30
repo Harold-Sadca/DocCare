@@ -5,6 +5,11 @@ import { TypePatient } from '../../../../server/types/types';
 import { useDispatch } from 'react-redux';
 import { setChatPatient } from '@/redux/features/chat-patient-slice';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useAppSelector } from '@/redux/store';
+import { TUser } from '@/types/types';
+import JuniorDoctorMessages from './messages';
+
 
 interface Props {
   allPatients: TypePatient[];
@@ -12,8 +17,18 @@ interface Props {
 export default function AllPatients({ allPatients }: Props) {
   // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
   // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
+  // const [displayChat, setDisplayChat] = useState(false);
+
+  // const chatToPatient = () => {
+  //   setDisplayChat(true);
+  // };
+  const currentJunior = useAppSelector(
+    (state) => state.currentJuniorReducer.value
+  );
+  
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     const target = e.target as HTMLButtonElement;
     if (target.name === 'patient-details') {
@@ -61,11 +76,14 @@ export default function AllPatients({ allPatients }: Props) {
               title={patient.name}
               name='chat'
               onClick={(e) => {
-                chatToPatient(e);
+              chatToPatient(e);
               }}
             >
               Chat
             </button>
+            <div className='chat'>
+            <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
+            </div>
             {/* <div>{patient.patientAppointments?.map((appointment:TypeAppointment) => {
               return <section key={appointment.id}>{appointment.date}</section>
             })}</div> */}
@@ -78,3 +96,4 @@ export default function AllPatients({ allPatients }: Props) {
     </main>
   );
 }
+
