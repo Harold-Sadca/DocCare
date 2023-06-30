@@ -5,19 +5,15 @@ import apiService from '@/services/APIservices';
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
-import { TypePatient } from '../../../../server/types/types';
 import Image from 'next/image';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
   const [lastDate, setLastDate] = useState('');
   const [illness, setIllness] = useState('');
-  const [patient, setPatient] = useState<TypePatient>();
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-
-  console.log(currentPatient);
 
   function calculateAge(dateOfBirth: string) {
     const today = new Date();

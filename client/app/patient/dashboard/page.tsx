@@ -8,7 +8,7 @@ import DoctorList from './doctor-list';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import PatientMessages from './patient-messages';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // import Cal from './calendar'
 

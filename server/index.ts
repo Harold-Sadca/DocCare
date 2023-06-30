@@ -34,86 +34,51 @@ app.use(juniorDoctorRouter);
 app.use(doctorRouter);
 
 io.use((socket, next) => {
-
+  // here we check if there is a name in the socket
+  // we assigned this property in the frontend
   const name = socket.handshake.auth.name;
-  // logger.warn(socket.handshake.auth.name)
-  // console.log({name})
   if (!name) {
+    // if there isnt a name we throw an error and refuse the connection
     return next(new Error("invalid username"));
   }
+  // if we manage to get here it means they have been authenticated
+  // so we call next to go to the next middleware
   next();
 });
 
 io.on('connection', (socket) => {
 
+  // 'socket.join(room name)' would let us join the private room
+  // but if its not there it will create it so in this case
+  // we are using it to create a private room
   const newRoom = socket.handshake.auth.name
-  if (newRoom === 'junior') {
+  if(newRoom === 'junior') {
     socket.join('junior')
   } else {
     socket.join(newRoom)
   }
-  logger.info(newRoom)
-  // socket.to(newRoom).emit('returned', 'test')
-  socket.on('from junior', (message, receiver) => {
-    socket.to(receiver).emit('from junior', message)
-  })
-  socket.on('patient message', (message) => {
-    socket.to('junior').emit('patient message', message)
-  })
-  // logger.info(io.sockets.adapter.rooms)
-  // io.of("/").adapter.on("create-room", (room) => {
-  //   socket.emit("room created")
-  // })
-  
-  // //if you join a room that doesnt exist it will create it...
-  // socket.emit("patients", patients);
 
-  // socket.on("private message", ({ content, to }) => {
-  //   socket.to(to).emit("private message", {
-  //     content,
-  //     from: socket.id,
-  //   });
-  // });
+  // here we check the events that are coming in from the frontend
+  // we have created this 'from junior' from frontend
+  // so this means when you detect an event called 'from junior' do the following
+  socket.on('from junior', async (message, receiver) => {
+    //this saves it to the database
+    const newMessage = await sendMessageModel(message)
+    logger.warn(newMessage)
+    // socket.to(room name) would send a message only to that room
+    // to all clients on the socket in room 'receiver' except the sender
+    socket.to(receiver).emit('from junior', newMessage)
+    // socket.to('junior').emit('junior sent', newMessage)
+    
+  })
+  socket.on('patient message', async (message) => {
+    const newMessage = await sendMessageModel(message)
+    socket.to('junior').emit('patient message', newMessage)
+    // socket.to(message.sender_name).emit('patient sent', newMessage)
+    
+  })
+  logger.warn(newRoom)
 });
-
-
-
-
-// io.on("connection", (socket) => {
-
-//   //verify or authenticate them
-//   //then close the connection if it failed
-//   // logger.info(socket.id)
-//   socket.emit("your id", socket.id)
-
-//   //closes the connection if a "logout" is sent
-//   socket.on('logout', () => {
-//     io.close()
-//   })
-
-//   socket.on("patient message", async (message, patientId, juniorId) => {
-//     //save it to the database then returns the created message
-//     const newMessage = await sendMessageModel(message)
-//     //this will send it to the junior doctor
-//     //access it from to the front using "from patient"
-//     socket.to(patientId).emit("from patient", newMessage)
-//     //this will send it back to the patient
-//     //access it from the front using "patient sent"
-//     //this way we can identify the message the patient sent / received
-//     logger.info(message, patientId)
-//     socket.to(patientId).emit("patient sent", newMessage)
-//     // socket.broadcast.emit("send", newMessage)
-//     // socket.emit("sent", newMessage)
-//   });
-
-//   //this just does the opposite
-//   socket.on("junior sent", async (message, patientId, juniorId) => {
-//     logger.info(message)
-//     const newMessage = await sendMessageModel(message)
-//     socket.to(patientId).emit("from junior", newMessage)
-//     socket.to(juniorId).emit("junior sent", newMessage)
-//   })
-// });
 
 server.listen(port,() => {
   logger.info(`Server is running at http://localhost:${port}`);
