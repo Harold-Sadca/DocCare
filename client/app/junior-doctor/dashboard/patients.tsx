@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
+import { setDisplayChat } from '@/redux/features/display-chat';
 
 
 interface Props {
@@ -17,14 +18,13 @@ interface Props {
 export default function AllPatients({ allPatients }: Props) {
   // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
   // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
-  const [displayChat, setDisplayChat] = useState(false);
-
-
+  // const [displayChat, setDisplayChat] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const displayChat = useAppSelector((state) => state.setDisplayChatReducer.value)
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
   
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -35,7 +35,7 @@ export default function AllPatients({ allPatients }: Props) {
     } else if (target.name === 'chat') {
       //set the selected patient
       console.log('chat');
-      setDisplayChat(true);
+      dispatch(setDisplayChat(true))
       const patientToChat = {
         id: target.id,
         name: target.title,
@@ -79,13 +79,7 @@ export default function AllPatients({ allPatients }: Props) {
               }}
             >
               Chat
-              {displayChat && (
-                    
-                    <JuniorDoctorMessages
-                      currentJunior={currentJunior as TUser}
-                    />
-              
-                )}
+
             </button>
           </div>
           </div>

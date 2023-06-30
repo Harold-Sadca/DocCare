@@ -1,37 +1,25 @@
-// import { TypeAvailableSpecialist } from '@/types/types';
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { TypeAvailableSpecialist } from '@/types/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// type InitialState = {
-//   value: AvailableSpecialistState[];
-// };
+type InitialState = {
+  value: Boolean;
+};
 
-// type AvailableSpecialistState = {
-//   doctorName: string;
-//   doctorId: string;
-//   doctorAbout: string;
-//   doctorProfilePic: string;
-//   slots: number[];
-//   date: string;
-//   illness: string;
-// };
+const initialState = {
+  value: false } as InitialState
+export const displayChat = createSlice({
+  name: 'displayChat',
+  initialState,
+  reducers: {
+    setDisplayChat: (
+      state,
+      action: PayloadAction<Boolean>
+    ) => {
+      const displayChat = action.payload;
+      state.value = displayChat;
+    },
+  },
+});
 
-// const initialState = {
-//   value: [] as AvailableSpecialistState[],
-// } as InitialState;
-
-// export const AvailableSpecialist = createSlice({
-//   name: 'AvailableSpecialist',
-//   initialState,
-//   reducers: {
-//     setAvailableSpecialist: (
-//       state,
-//       action: PayloadAction<TypeAvailableSpecialist[]>
-//     ) => {
-//       const specialists = action.payload;
-//       state.value = specialists;
-//     },
-//   },
-// });
-
-// export const { setAvailableSpecialist } = AvailableSpecialist.actions;
-// export default AvailableSpecialist.reducer;
+export const { setDisplayChat } = displayChat.actions;
+export default displayChat.reducer;
