@@ -255,6 +255,9 @@ function logoutPatientModel(id) {
         try {
             const updatedPatient = yield PatientDB.findOne({ where: { id } });
             updatedPatient.status = 'Offline';
+            // await updatedPatient?.update({
+            //   status:'Offline'
+            // })
             yield (updatedPatient === null || updatedPatient === void 0 ? void 0 : updatedPatient.save());
             return updatedPatient;
         }

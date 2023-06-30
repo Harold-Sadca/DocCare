@@ -238,6 +238,9 @@ async function logoutPatientModel(id:string) {
   try {
     const updatedPatient = await PatientDB.findOne({where:{id}})
     updatedPatient!.status = 'Offline'
+    // await updatedPatient?.update({
+    //   status:'Offline'
+    // })
     await updatedPatient?.save()
     return updatedPatient;
   } catch (error) {

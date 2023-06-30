@@ -87,6 +87,7 @@ async function loginPatient(req: Request, res: Response) {
 
     const userAuthenticated = await getPatientModel(patient.id);
     userAuthenticated!.status = 'Online'
+    await userAuthenticated?.save()
     res.status(200).json({
       message: `Welcome, ${patient?.name}!`,
       result: { accessToken, userAuthenticated },

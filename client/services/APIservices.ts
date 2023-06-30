@@ -156,6 +156,10 @@ async function getAllPatients(token: string) {
 //     });
 // }
 
+async function logoutPatient(patientId:string, patientDetails:TypePatient) {
+  return putData(`/patients/logout/${patientId}`, patientDetails)
+}
+
 async function editPatientDetails(
   patientId: string,
   patientDetails: TypePatient
@@ -259,6 +263,7 @@ const apiService = {
   createAppointment,
   getUser,
   createJuniorNote,
+  logoutPatient
 };
 
 export default apiService;

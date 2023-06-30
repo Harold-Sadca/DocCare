@@ -1,32 +1,64 @@
 'use client';
-import { Form } from 'antd';
+import { Form ,message } from 'antd';
 
 import React, { useState } from 'react';
-
 import Footer from '@/app/(components)/footer';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/redux/store';
+import { AppDispatch, useAppSelector } from '@/redux/store';
 import { logout } from '@/redux/features/auth-slice';
 import { io } from 'socket.io-client';
+import apiService from '@/services/APIservices';
+import { TypePatient } from '../../../server/types/types';
 const socket = io('ws://localhost:3001');
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
 export default function Logout() {
   const dispatch = useDispatch<AppDispatch>();
-
   const router = useRouter();
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
+  const key = 'updatable';
+  const currentPatient = useAppSelector(
+    (state) => state.currentPatientReducer.value
+  );
+  // const userType = typeof window !== 'undefined' && localStorage.getItem('userType') as string;
 
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);
   };
 
+  const openMessage = () => {
+    messageApi.open({
+      key,
+      type: 'loading',
+      content: 'Loading...',
+    });
+    setTimeout(() => {
+      messageApi.open({
+        key,
+        type: 'success',
+        content: messageContent,
+        duration: 2,
+      });
+    }, 1000);
+  };
+  
+
   function handleClick() {
+    console.log(currentPatient, 'logout')
+    if (currentPatient.name !== '') {
+      apiService.logoutPatient(currentPatient.id as string, currentPatient as TypePatient).then((res) => {
+        console.log(res)
+        setMessageContent(res?.message as string)
+        openMessage()
+      })
+    }
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userType');
     dispatch(logout());

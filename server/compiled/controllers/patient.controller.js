@@ -77,6 +77,7 @@ function loginPatient(req, res) {
             const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
             const userAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
             userAuthenticated.status = 'Online';
+            yield (userAuthenticated === null || userAuthenticated === void 0 ? void 0 : userAuthenticated.save());
             res.status(200).json({
                 message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
                 result: { accessToken, userAuthenticated },
