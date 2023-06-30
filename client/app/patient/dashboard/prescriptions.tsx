@@ -14,7 +14,9 @@ export default function Prescriptions() {
       <div className='prescriptions-container'>
         <h1>Your Medications</h1>
         <div className='each-medication-container'>
-          <Image src='/medicine-emoji.png' alt='medicine-emoji'></Image>
+          <Image src='/medicine-emoji.png' alt='medicine-emoji'
+           height={150}
+           width={150}></Image>
           <p>{currentPatient.medications}</p>
         </div>
       </div>

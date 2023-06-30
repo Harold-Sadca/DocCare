@@ -61,6 +61,8 @@ export default function Profile() {
             <Image
               src={currentPatient.profilePicture as string}
               alt='patient-profile'
+              height={150}
+              width={150}
             ></Image>
           </div>
           <h1>{currentPatient.name}</h1>

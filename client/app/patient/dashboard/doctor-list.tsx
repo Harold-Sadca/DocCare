@@ -25,6 +25,8 @@ export default function DoctorList() {
                       appointment.doctorAppointment?.profilePicture as string
                     }
                     alt='Doctor Profile'
+                    height={150}
+                    width={150}
                   ></Image>
                   <div className='each-doctor-name'>
                     <h2>{appointment.doctorAppointment?.name}</h2>

@@ -17,7 +17,10 @@ export default function Appointments() {
           {patientAppointments?.map((appointment, idx) => (
             <div className='appointment-list-container' key={idx}>
               <div className='each-appointment'>
-                <Image src='/checkup-emoji.png' alt='checkup-emoji'></Image>
+                <Image src='/checkup-emoji.png' alt='checkup-emoji'
+                 height={150}
+                 width={150}
+                ></Image>
                 <div className='each-appointment-text'>
                   <h2>{appointment.doctorAppointment?.name}</h2>
                   <p>{appointment.date}</p>

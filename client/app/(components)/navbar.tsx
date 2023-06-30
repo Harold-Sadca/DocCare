@@ -41,15 +41,15 @@ export default function Navbar() {
                     className='block h-14 w-auto lg:hidden'
                     src='/logo-dark.png'
                     alt='Your Company'
-                    width='800'
-                    height='800'
+                    height={150}
+                    width={150}
                   />
                   <Image
                     className='hidden h-14 w-auto lg:block'
                     src='/logo-dark.png'
                     alt='Your Company'
-                    width='800'
-                    height='800'
+                    height={150}
+                    width={150}
                   />
                 </div>
                 <div className='hidden sm:ml-6 sm:block'>

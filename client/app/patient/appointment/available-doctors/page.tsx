@@ -129,7 +129,10 @@ export default function AvailableDoctorList() {
             const slots = availableSlots(available.slots);
             return (
               <div className='each-doctor' key={idx}>
-                <Image src={doctorProfilePic} alt={doctorProfilePic}></Image>
+                <Image src={doctorProfilePic} alt={doctorProfilePic}
+                 height={150}
+                 width={150}
+                ></Image>
                 <div className='each-doctor-name'>
                   <h2>{doctorName}</h2>
                   <p>{doctorAbout}</p>

@@ -156,14 +156,20 @@ export default function PatientAppointment() {
             <h1 className='appointment-heading'>Make an Appointment</h1>
             <div className='steps'>
               <div className='Consultation-1'>
-                <Image src='/1.png' className='icon' alt='icon'></Image>
+                <Image src='/1.png' className='icon' alt='icon'
+                 height={150}
+                 width={150}
+                ></Image>
                 <div>
                   <h2>Request Consultation</h2>
                   <p>Describe your Illness and choose the Date</p>
                 </div>
               </div>
               <div className='Doctor-2'>
-                <Image src='/2.png' className='icon' alt='icon'></Image>
+                <Image src='/2.png' className='icon' alt='icon'
+                 height={150}
+                 width={150}
+                ></Image>
                 <div>
                   <h2>Find a Doctor</h2>
                   <p>
@@ -173,7 +179,10 @@ export default function PatientAppointment() {
                 </div>
               </div>
               <div className='Solution-3'>
-                <Image src='/3.png' className='icon' alt='icon'></Image>
+                <Image src='/3.png' className='icon' alt='icon'
+                 height={150}
+                 width={150}
+                ></Image>
                 <div>
                   <h2>Get a Solution</h2>
                   <p>
@@ -192,7 +201,11 @@ export default function PatientAppointment() {
               </button>
             </div>
             <div className='female-doctor'>
-              <Image src='/Female-Doctor-PNG-Image.png' alt='doctor'></Image>
+              <Image src='/Female-Doctor-PNG-Image.png' alt='doctor'
+               height={150}
+               width={150}
+              
+              ></Image>
             </div>
           </div>
         </>
