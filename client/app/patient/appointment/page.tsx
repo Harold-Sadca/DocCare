@@ -117,15 +117,15 @@ export default function PatientAppointment() {
 
   useEffect(() => {
     setSpecialists(getSpecialists());
-    // if (state.date && state.illnesses) {
-    //   const availableDoctors = displayAvailability(
-    //     state.date,
-    //     formatStateDate(state.date),
-    //     state.illnesses
-    //   ) as TypeAvailableSpecialist[];
-    //   dispatch(setAvailableSpecialist(availableDoctors));
-    //   setAvailableSpecialists(availableDoctors);
-    // }
+    if (state.date && state.illnesses) {
+      const availableDoctors = displayAvailability(
+        state.date,
+        formatStateDate(state.date),
+        state.illnesses
+      ) as TypeAvailableSpecialist[];
+      dispatch(setAvailableSpecialist(availableDoctors));
+      setAvailableSpecialists(availableDoctors);
+    }
   }, [state]);
 
   // console.log(specialists);
@@ -202,9 +202,8 @@ export default function PatientAppointment() {
             </div>
             <div className='female-doctor'>
               <Image src='/Female-Doctor-PNG-Image.png' alt='doctor'
-               height={150}
-               width={150}
-              
+               width={400}
+              height={400}
               ></Image>
             </div>
           </div>
