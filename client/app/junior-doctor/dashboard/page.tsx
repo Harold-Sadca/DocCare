@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import JuniorDoctorMessages from './messages';
 import './dashboard.css';
 import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
