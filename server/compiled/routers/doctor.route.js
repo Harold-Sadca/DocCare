@@ -12,3 +12,4 @@ doctorRouter.get('/doctor', authorization_1.doctorAuthMiddleware, doctor_control
 doctorRouter.get('/doctors', doctor_controller_1.getDoctors);
 doctorRouter.post('/doctor/:id/medical-info', authorization_1.doctorAuthMiddleware, doctor_controller_1.createMedicalInfo);
 doctorRouter.put('/doctor/summary/:id', authorization_1.doctorAuthMiddleware, doctor_controller_1.createPatientSummary);
+doctorRouter.put('/doctor/attend/:id', authorization_1.doctorAuthMiddleware, doctor_controller_1.attendAppointment);

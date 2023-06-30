@@ -51,6 +51,11 @@
   position: relative;
 }
 
+.appointment-list-container {
+  display: flex;
+  align-items: center;
+}
+
 .appointment-list-container h2 {
   color: #1f4f5b;
   font-weight: 400;
@@ -90,4 +95,5 @@
 
 .attend-btn {
   cursor: pointer;
+  margin-left: 0.5rem;
 }

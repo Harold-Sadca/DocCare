@@ -213,6 +213,24 @@ async function createAppointment(
     .catch((error) => error.response.data.error);
 }
 
+async function attendAppointment(
+  appointmentId: string,
+  token: string
+): Promise<TypeResponseJuniorNotes> {
+  console.log(token);
+  return axios
+    .put(`${PORT}/doctor/attend/${appointmentId}`, JSON.stringify({}), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res: AxiosResponse<TypeResponseJuniorNotes>) => {
+      return res.data;
+    })
+    .catch((error) => error.response.data.error);
+}
+
 async function getUser(token: string, user: string) {
   return axios
     .get(`${PORT}/${user}`, {
@@ -259,6 +277,7 @@ const apiService = {
   createAppointment,
   getUser,
   createJuniorNote,
+  attendAppointment,
 };
 
 export default apiService;
