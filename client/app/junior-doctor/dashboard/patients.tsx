@@ -17,11 +17,9 @@ interface Props {
 export default function AllPatients({ allPatients }: Props) {
   // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
   // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
-  // const [displayChat, setDisplayChat] = useState(false);
+  const [displayChat, setDisplayChat] = useState(false);
 
-  // const chatToPatient = () => {
-  //   setDisplayChat(true);
-  // };
+
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
@@ -37,6 +35,7 @@ export default function AllPatients({ allPatients }: Props) {
     } else if (target.name === 'chat') {
       //set the selected patient
       console.log('chat');
+      setDisplayChat(true);
       const patientToChat = {
         id: target.id,
         name: target.title,
@@ -81,12 +80,13 @@ export default function AllPatients({ allPatients }: Props) {
             >
               Chat
             </button>
-            <div className='chat'>
-            <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
-            </div>
-            {/* <div>{patient.patientAppointments?.map((appointment:TypeAppointment) => {
-              return <section key={appointment.id}>{appointment.date}</section>
-            })}</div> */}
+            {displayChat && (
+                      <div className="chat">
+                        <JuniorDoctorMessages
+                          currentJunior={currentJunior as TUser}
+                        />
+                      </div>
+                    )}
           </div>
           </div>
         );
