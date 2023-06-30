@@ -1,11 +1,4 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-}
-
-.appointment-list-container {
+/* .appointment-list-container {
   height: 700px;
   width: 500px;
   border-radius: 10%;
@@ -15,10 +8,6 @@ body {
   overflow-x: scroll;
   margin-left: 700px;
   margin-top: 50px;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 .appointment-list-container h2 {
@@ -74,4 +63,4 @@ body {
 
 .about-patient {
   margin-left: 40px;
-}
+} */

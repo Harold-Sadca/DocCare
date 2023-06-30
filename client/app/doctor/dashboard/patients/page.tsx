@@ -5,6 +5,7 @@ import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import '../../../css/doctor.css';
+import '../../../css/globals.css';
 
 export default function Patients() {
   const router = useRouter();
@@ -22,9 +23,9 @@ export default function Patients() {
       <div className='all-patients'>
         {patients?.map((patient, idx) => (
           <div key={idx} className='each-patient-profile'>
-            <p >{patient.name}</p>
-            <p >{patient.gender}</p>
-            <p >DOB: {patient.dateOfBirth}</p>
+            <p>{patient.name}</p>
+            <p>{patient.gender}</p>
+            <p>DOB: {patient.dateOfBirth}</p>
             <div className='button-see-patient'>
               <Link
                 href={`/doctor/dashboard/patients/${patient.id}`}

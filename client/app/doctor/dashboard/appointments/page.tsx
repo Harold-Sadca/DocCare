@@ -3,13 +3,13 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client';
 
-import { TypePatient } from '@/../server/types/types';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import './appointment-list.css';
 import '../../../css/doctor.css';
+import '../../../css/globals.css';
 
 export default function Appointments() {
   const router = useRouter();
@@ -21,13 +21,13 @@ export default function Appointments() {
   return (
     <main className='appointments-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <div className='appointment-list-container'>
+      <div className='all-patients appointment-list-container'>
         <h2>All my appointments</h2>
         {appointments?.map((appointment, idx) => (
-          <div className='appoinment-list'>
-            <div key={idx} className='each-appointment'>
-              <div className='about-user'>
-                <p id='name'>{appointment?.patientAppointment?.name}</p>
+          <div className='each-patient-profile'>
+            <div key={idx} className='each-appointment appoinment-list'>
+              <div className='about-user-appointment'>
+                <p>{appointment?.patientAppointment?.name}</p>
                 <p>
                   {' '}
                   {calculateAge(
