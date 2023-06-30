@@ -23,7 +23,6 @@ function createJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, licenseNumber, gender, profilePicture, } = req.body;
-            console.log(req.body);
             const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newJuniorDoctor = {
                 name,
@@ -36,12 +35,12 @@ function createJuniorDoctor(req, res) {
                 profilePicture,
                 userType: 'junior-doctor',
             };
-            console.log({ newJuniorDoctor });
             const createJuniorDoctor = yield (0, junior_doctors_1.createJuniorDoctorModel)(newJuniorDoctor);
             const accessToken = jsonwebtoken_1.default.sign({ id: createJuniorDoctor.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Junior doctor account created successfully',
-                result: { createJuniorDoctor, accessToken },
+                result: createJuniorDoctor,
+                accessToken,
             });
         }
         catch (error) {

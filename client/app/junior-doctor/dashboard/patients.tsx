@@ -34,8 +34,8 @@ export default function AllPatients({ allPatients }: Props) {
     <main className='flex min-h-screen flex-col box-border'>
       {allPatients.map((patient: TypePatient) => {
         return (
-          <>
-            <h2 key={patient.id}>{patient.name}</h2>
+          <div key={patient.id}>
+            <h2>{patient.name}</h2>
             <button
               id={patient.id}
               name='patient-details'
@@ -59,7 +59,7 @@ export default function AllPatients({ allPatients }: Props) {
             {/* <div>{patient.patientAppointments?.map((appointment:TypeAppointment) => {
               return <section key={appointment.id}>{appointment.date}</section>
             })}</div> */}
-          </>
+          </div>
         );
       })}
     </main>
