@@ -30,7 +30,7 @@ export default function JuniorDoctorDashBoard() {
   return (
     <main>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <h1>Junior DashBoard</h1>
+    
       <AllPatients allPatients={allPatients} />
       <div className='chat-box'>
         {/* <JuniorDoctorMessages currentJunior={junior as TUser} /> */}
