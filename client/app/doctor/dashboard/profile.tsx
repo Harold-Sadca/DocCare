@@ -1,8 +1,7 @@
 'use client';
 import './profile.css';
 import { useAppSelector } from '@/redux/store';
-import { useEffect, useState } from 'react';
-import { calculateAge } from '@/app/helper';
+import { useState } from 'react';
 import Image from 'next/image';
 export default function Profile() {
   const [message, setMessage] = useState('');

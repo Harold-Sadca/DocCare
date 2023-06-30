@@ -9,6 +9,7 @@ import { MedicalInfo } from '../schema/MedicalInfo';
 const DoctorDB = db.Doctor;
 const PatientDB = db.Patient;
 const MedicalInfoDB = db.MedicalInfo;
+const AppointmentDB = db.Appointment;
 
 async function createDoctorModel(doctor: TypeDoctor) {
   try {
@@ -130,10 +131,27 @@ async function createPatientSummaryModel(
   }
 }
 
+async function attendAppointmentModel(
+  newPatientSummary: string,
+  appointmentId: string
+) {
+  try {
+    const appointment = (await AppointmentDB.findOne({
+      where: { id: appointmentId },
+    })) as Appointment;
+    appointment.attended = true;
+    await appointment.save();
+    return appointment;
+  } catch (error) {
+    throw new Error();
+  }
+}
+
 export {
   createDoctorModel,
   getDoctorModel,
   getDoctorsModel,
   createMedicalInfoModel,
   createPatientSummaryModel,
+  attendAppointmentModel,
 };

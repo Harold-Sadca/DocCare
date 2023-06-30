@@ -3,8 +3,8 @@
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import {FieldTimeOutlined } from "@ant-design/icons";
-import './appointments.css'
+import { CheckSquareTwoTone, FieldTimeOutlined } from '@ant-design/icons';
+import './appointments.css';
 
 export default function Appointments() {
   const router = useRouter();
@@ -14,36 +14,54 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
   console.log(appointments);
 
+  function handleAttendAppointment(patientId: string) {
+    console.log(' clicked');
+    console.log(patientId);
+    appointments?.map((appointment) => {
+      if (appointment.id === patientId) return (appointment.attended = true);
+    });
+  }
+
   return (
     <main>
       <div className='appointments-container'>
-      <h2>My appointments</h2>
-      <div className='appointment-list'>
-      <div className='appointment-list-container'>
-
-        {appointments?.slice(0, 3).map((appointment, idx) => (
-          <div key={idx}  className='each-appointment'>
-            <div className='about-patient'>
-            <p id='name'>{appointment.patientAppointment?.name}</p>
-            <p id='gender'>{appointment.patientAppointment?.gender}</p> 
-            </div>
-            <div className='time-of-appointment'>           
-            <p>{appointment.date}</p>
-            <p> <FieldTimeOutlined /> {appointment.time}</p>
-            </div>
+        <h2>My appointments</h2>
+        <div className='appointment-list'>
+          <div className='appointment-list-container'>
+            {appointments?.slice(0, 3).map((appointment, idx) => (
+              <div key={idx} className='each-appointment'>
+                <span
+                  className='attend-btn'
+                  onClick={() =>
+                    handleAttendAppointment(appointment.id as string)
+                  }
+                >
+                  <CheckSquareTwoTone />
+                </span>
+                <div className='about-patient'>
+                  <p id='name'>{appointment.patientAppointment?.name}</p>
+                  <p id='gender'>{appointment.patientAppointment?.gender}</p>
+                </div>
+                <div className='time-of-appointment'>
+                  <p>{appointment.date}</p>
+                  <p>
+                    {' '}
+                    <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-         </div>
-         <div className='see-more'>
-        <Link
-          href='/doctor/dashboard/appointments'
-          className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
-          // onClick={() => router.push('/doctor/dashboard/patients')}
-        >
-          See all
-        </Link>
+          <div className='see-more'>
+            <Link
+              href='/doctor/dashboard/appointments'
+              className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
+              // onClick={() => router.push('/doctor/dashboard/patients')}
+            >
+              See all
+            </Link>
+          </div>
         </div>
-      </div>
       </div>
     </main>
   );

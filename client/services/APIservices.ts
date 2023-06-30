@@ -196,7 +196,6 @@ async function createAppointment(
   appointment: TypeAppointment,
   doctorId: string
 ) {
-  console.log({ appointment });
   return axios
     .post(
       `${PORT}/patient/appointment/${patientId}`,
@@ -209,14 +208,12 @@ async function createAppointment(
       }
     )
     .then((res) => {
-      console.log(res);
       return res.data;
     })
     .catch((error) => error.response.data.error);
 }
 
 async function getUser(token: string, user: string) {
-  console.log(token, user);
   return axios
     .get(`${PORT}/${user}`, {
       headers: {
