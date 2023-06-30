@@ -6,14 +6,6 @@ body {
 }
 
 
-.chat-box{
-grid-column: col-start 3/ span 1;
-grid-row: col-start 3/ span 2;
-justify-self: center;
-align-self: center;
-position: fixed; 
-}
-
 
 
 
@@ -28,12 +20,14 @@ position: fixed;
 } */
 
 
-.container {
+/* .container {
   padding:0;
   background-color: #FFF; 
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   height: 700px;
-}
+  position: fixed; 
+  
+} */
 
 .discussions {
   width: 35%;
@@ -115,8 +109,13 @@ position: fixed;
 
 
 .chat {
-  width: calc(65% - 85px);
+  width: calc(75% - 85px);
   z-index: 2;
+  padding:0;
+  background-color: #FFF; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  height: 700px;
+  position: fixed; 
 }
 
 .chat .header-chat .icon {
@@ -125,12 +124,12 @@ position: fixed;
   font-size: 14pt;
 }
 
-.chat .header-chat .name {
+/* .chat .header-chat .name {
   margin: 0 0 0 20px;
   text-transform: uppercase;
   font-size: 13pt;
   color:#515151;
-}
+} */
 
 .chat .messages-chat {
   padding: 25px 35px;

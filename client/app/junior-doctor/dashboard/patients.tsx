@@ -79,14 +79,14 @@ export default function AllPatients({ allPatients }: Props) {
               }}
             >
               Chat
-            </button>
-            {displayChat && (
+              {displayChat && (
                     
-                        <JuniorDoctorMessages
-                          currentJunior={currentJunior as TUser}
-                        />
-                  
-                    )}
+                    <JuniorDoctorMessages
+                      currentJunior={currentJunior as TUser}
+                    />
+              
+                )}
+            </button>
           </div>
           </div>
         );
