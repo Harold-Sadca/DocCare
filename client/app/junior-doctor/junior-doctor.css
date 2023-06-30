@@ -82,7 +82,7 @@ position: fixed;
   border:none;
 }
 
-.discussions .search .searchbar *::-webkit-input-placeholder {
+/* .discussions .search .searchbar *::-webkit-input-placeholder {
     color: #E0E0E0;
 }
 .discussions .search .searchbar input *:-moz-placeholder {
@@ -93,7 +93,7 @@ position: fixed;
 }
 .discussions .search .searchbar input *:-ms-input-placeholder {
     color: #E0E0E0;
-}
+} */
 
 
 .desc-contact {
@@ -116,6 +116,7 @@ position: fixed;
 
 .chat {
   width: calc(65% - 85px);
+  z-index: 2;
 }
 
 .chat .header-chat .icon {

@@ -55,7 +55,10 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   });
 
   return (
-    <main className='ChatBox-container'>
+    <main>
+        <div className="chat-box">
+    <div className="container">
+        <section className="chat">
        <div className="header-chat">
        {/* <i className="icon fa fa-user-o" aria-hidden="true"></i> */}
        <p className="name">Megan Leib</p>
@@ -80,6 +83,9 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
             Send
           </button>
           </div>
+        </div>
+        </div>
+        </section>
         </div>
         </div>
     </main>
