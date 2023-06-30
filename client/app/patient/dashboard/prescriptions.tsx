@@ -1,5 +1,4 @@
 'use client';
-
 import Image from 'next/image';
 import '../../css/patient.css';
 import '../../css/globals.css';

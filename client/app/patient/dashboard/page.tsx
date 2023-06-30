@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import './dashboard.css';
 import Profile from './profile';
 import Appointments from './appointments';
 import Prescriptions from './prescriptions';

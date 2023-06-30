@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-
 import apiService from '@/services/APIservices';
-import './profile.css';
 import '../../css/globals.css';
 import '../../css/patient.css';
-
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
