@@ -1,6 +1,4 @@
 'use client';
-import '../../css/globals.css';
-import '../../css/doctor.css';
 import { useAppSelector } from '@/redux/store';
 import { useState } from 'react';
 import Image from 'next/image';

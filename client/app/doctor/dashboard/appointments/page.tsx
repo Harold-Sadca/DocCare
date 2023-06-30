@@ -9,6 +9,7 @@ import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import './appointment-list.css';
+import '../../../css/doctor.css';
 
 export default function Appointments() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
 
   return (
-    <main className='main-page'>
+    <main className='appointments-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
       <div className='appointment-list-container'>
         <h2>All my appointments</h2>

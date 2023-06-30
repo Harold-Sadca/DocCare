@@ -38,3 +38,37 @@
   cursor: pointer;
   font-size: 1.5rem;
 }
+
+/* Appointments */
+
+.all-patients {
+  height: 100vh;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: scroll;
+  position: relative;
+}
+
+.each-patient-profile {
+  height: fit-content;
+  width: 50vw;
+  padding: 1.5rem;
+  border-radius: 2%;
+  background-color: #f5ecf7;
+  margin: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+  display: flex;
+  flex-direction: column;
+}
+
+.each-patient-profile p:first-child {
+  font-weight: bold;
+  color: #1f4f5b;
+  font-size: 1.5rem;
+}
+
+.button-see-patient {
+  display: flex;
+  align-self: self-end;
+}
