@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
-import './available-doctors.css';
+import '../../../css/patient.css';
+import '../../../css/globals.css';
 import { useAppSelector } from '@/redux/store';
 import apiService from '@/services/APIservices';
 import { IllnessOptions } from '../../../../../server/types/types';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { TypeResponseAppointment } from '@/types/types';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import Image from 'next/image';
 
@@ -80,7 +80,6 @@ export default function AvailableDoctorList() {
       });
       return newSlots;
     }
-    // return showSlots;
   }
 
   const [messageApi, contextHolder] = message.useMessage();
@@ -116,51 +115,77 @@ export default function AvailableDoctorList() {
     <main>
       <AuthNavbar user={'patient'} auth={'login'} />
       {contextHolder}
-      <div className='doctor-list-container'>
-        <h1>Your Doctors</h1>
-        <div className='doctor-list'>
-          {availableSpecialists.map((available, idx) => {
-            const doctorName = available.doctorName;
-            const doctorId = available.doctorId;
-            const doctorAbout = available.doctorAbout;
-            const doctorProfilePic = available.doctorProfilePic;
-            const illness = available.illness as IllnessOptions;
-            const date = available.date;
-            const slots = availableSlots(available.slots);
-            return (
-              <div className='each-doctor' key={idx}>
-                <Image src={doctorProfilePic} alt={doctorProfilePic}></Image>
-                <div className='each-doctor-name'>
-                  <h2>{doctorName}</h2>
-                  <p>{doctorAbout}</p>
-                  {formError && (
-                    <p className='error-message'>
-                      <ExclamationCircleTwoTone /> {formError}
-                    </p>
-                  )}
-                  {slots.map((slot, idx) => (
-                    <div key={idx}>
-                      <button
-                        id={slot.toString()}
-                        onClick={() =>
-                          makeAppointment(
-                            date,
-                            slot.toString(),
-                            illness,
-                            doctorId
-                          )
-                        }
-                      >
-                        {slot}:00
-                      </button>
+      {availableSpecialists.length > 0 ? (
+        <>
+          <h2 className='text-2xl text-primary text-black m-4'>
+            Choose your doctor and time slot
+          </h2>
+
+          <div className='doctors-list'>
+            {availableSpecialists.map((available, idx) => {
+              const doctorName = available.doctorName;
+              const doctorId = available.doctorId;
+              const doctorAbout = available.doctorAbout;
+              const doctorProfilePic = available.doctorProfilePic;
+              const illness = available.illness as IllnessOptions;
+              const date = available.date;
+              const slots = availableSlots(available.slots);
+              return (
+                <div className='each-doctor' key={idx}>
+                  <Image
+                    src={doctorProfilePic}
+                    alt={doctorProfilePic}
+                    width={70}
+                    height={70}
+                    className='profile-pic'
+                  ></Image>
+                  <div className='each-doctor-name'>
+                    <h2>{doctorName}</h2>
+                    <p>{doctorAbout}</p>
+                    {formError && (
+                      <p className='error-message'>
+                        <ExclamationCircleTwoTone /> {formError}
+                      </p>
+                    )}
+                    <div className='slots'>
+                      {slots.map((slot, idx) => (
+                        <div key={idx}>
+                          <button
+                            className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-1 border border-tertiary hover:border-transparent rounded'
+                            id={slot.toString()}
+                            onClick={() =>
+                              makeAppointment(
+                                date,
+                                slot.toString(),
+                                illness,
+                                doctorId
+                              )
+                            }
+                          >
+                            {slot}:00
+                          </button>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div>
+          <h2 className='text-2xl text-primary text-black m-4'>
+            Sorry, there is no doctors available for this date.
+          </h2>
+          <button
+            className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded'
+            onClick={() => router.back()}
+          >
+            Please, select another date
+          </button>
         </div>
-      </div>
+      )}
     </main>
   );
 }

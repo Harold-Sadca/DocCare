@@ -211,3 +211,25 @@ h3 {
   width: 5vw;
   margin-right: 0.2rem;
 }
+
+/* Available doctors */
+
+.doctors-list {
+  height: fit-content;
+  width: 55vw;
+  padding: 1rem;
+  margin-left: 1rem;
+  border-radius: 2%;
+  background-color: #f5ecf7;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+}
+
+.each-doctor {
+  display: flex;
+  align-items: center;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+}

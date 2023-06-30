@@ -209,7 +209,7 @@ export default function PatientAppointment() {
               method='post'
               onFinish={submitForm}
             >
-              <h2 className=' text-2xl text-primary text-black my-2'>
+              <h2 className='text-2xl text-primary text-black my-2'>
                 Appointment Date
               </h2>
               <Form.Item htmlFor='appointment'>
