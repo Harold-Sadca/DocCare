@@ -41,7 +41,7 @@ export default function Appointments() {
             <div className='appoitment-patient'>
             <h3>Appoitment</h3>
             <p> Date: {appointment.date}</p>
-            <p>Time: {appointment.time.slice(0, 5)}</p>
+            <p>Time: {appointment.time}</p>
             </div>
           </div>
             </div>
@@ -51,3 +51,5 @@ export default function Appointments() {
       </main>
   );
 }
+
+

@@ -29,7 +29,7 @@ export default function Appointments() {
             </div>
             <div className='time-of-appointment'>           
             <p>{appointment.date}</p>
-            <p> <FieldTimeOutlined /> {appointment.time.slice(0, 5)}</p>
+            <p> <FieldTimeOutlined /> {appointment.time}</p>
             </div>
           </div>
         ))}

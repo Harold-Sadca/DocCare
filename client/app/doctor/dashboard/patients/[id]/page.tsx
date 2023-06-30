@@ -32,6 +32,8 @@ export default function Patient({ params }: { params: { id: string } }) {
           src="https://images.pexels.com/photos/1819483/pexels-photo-1819483.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           className="profile-image-patient"
           alt='profile-image-patient'
+          height={150}
+            width={150}
         /> 
         <div className="appointments-container">
           <h2 id="heading-appointments">Next appointments</h2>
@@ -46,7 +48,7 @@ export default function Patient({ params }: { params: { id: string } }) {
                 <div key={idx} className="each-appointment">
                   <p id='appointment-date'>{appointment.date}</p>
                   <p id='appointment-time'>
-                  <FieldTimeOutlined />{appointment.time.slice(0, 5)} 
+                  <FieldTimeOutlined />{appointment.time} 
                   </p>
                   <p id='appointment-attended'>{appointment.attended}</p>
                   {/* display dependant on how many appoitments they had */}
@@ -96,7 +98,7 @@ export default function Patient({ params }: { params: { id: string } }) {
                   <p className="all-illnesses">
                     {appointment.illness.split(",").map((word, index) => (
                       <span id="each-illness" key={index}>
-                        {toFirstLetterUpperCase(word) + word.slice(2)}
+                        {word}
                       </span>
                     ))}
                   </p>
