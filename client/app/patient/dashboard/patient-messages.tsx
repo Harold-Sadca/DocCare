@@ -5,6 +5,8 @@ import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
+import { Button, Popover, Space } from 'antd';
+
 
 const socket = io('ws://localhost:3001');
 
