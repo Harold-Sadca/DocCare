@@ -63,7 +63,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/junior-doctor');
+        router.push('/junior-doctor/dashboard');
       }, 2000);
     }, 1000);
   };
