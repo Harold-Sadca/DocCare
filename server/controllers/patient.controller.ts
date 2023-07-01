@@ -8,15 +8,15 @@ import {
   deletePatientModel,
   createAppointmentModel,
   deleteAppointmentModel,
+  logoutPatientModel,
 } from '../models/methods/patients';
-import { TypeAppointment } from '../types/types';
+import { TypePatient } from '../types/types';
 import db from '.././models/schema/index';
 const PatientDB = db.Patient;
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import logger from '../logger';
 
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 async function createPatient(req: Request, res: Response) {
@@ -36,11 +36,11 @@ async function createPatient(req: Request, res: Response) {
       surgicalHistory,
       familyMedicalHistory,
     } = req.body;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const newPatient = {
       name,
       email,
-      password: hashedPassword,
+      password,
       phoneNumber,
       address,
       dateOfBirth,
@@ -52,9 +52,8 @@ async function createPatient(req: Request, res: Response) {
       surgicalHistory,
       familyMedicalHistory,
       userType: 'patient',
-    };
+    } as TypePatient;
     const createPatient = await createPatientModel(newPatient);
-    console.log(createPatient);
     const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Patient account created successfully',
@@ -107,7 +106,18 @@ async function getPatient(req: Request, res: Response) {
   }
 }
 
-async function logout(req: Request, res: Response) {}
+async function logoutPatient(req: Request, res: Response) {
+  try {
+    const id = req.params.id
+    const patient = await logoutPatientModel(id)
+    res.status(200).json({
+      message: `Goodbye, ${patient?.name}!`,
+      result: patient
+    })
+  } catch (error) {
+    res.status(400).json({error: 'Unable to logout'})
+  }
+}
 
 async function getPatients(req: Request, res: Response) {
   try {
@@ -156,9 +166,7 @@ async function deletePatient(req: Request, res: Response) {
 async function getLastCheckup(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    console.log({ id });
     const patientLastCheckup = await getLastCheckupModel(id);
-    console.log({ patientLastCheckup });
     if (patientLastCheckup?.lastDate === undefined) {
       res.status(200).json({ message: `You haven't had any appointments yet` });
     } else {
@@ -175,17 +183,12 @@ async function getLastCheckup(req: Request, res: Response) {
 async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
-    console.log(patientId);
     const { doctorId, appointment } = req.body;
-    console.log(req.body);
-    // console.log({ appointment });
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,
       appointment
     );
-    console.log('got here??');
-    console.log(createAppointment);
     res.status(201).json({
       message: 'Appointment created successfully',
       result: createAppointment,
@@ -210,7 +213,7 @@ async function deleteAppointment(req: Request, res: Response) {
 export {
   createPatient,
   getPatient,
-  logout,
+  logoutPatient,
   getPatients,
   updatePatient,
   deletePatient,

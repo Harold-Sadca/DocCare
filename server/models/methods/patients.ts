@@ -18,6 +18,7 @@ const DoctorDB = db.Doctor;
 async function createPatientModel(patient: TypePatient) {
   try {
     const newPatient = await PatientDB.create(patient);
+    newPatient.password = null
     return newPatient;
   } catch (error) {
     throw new Error();
@@ -53,6 +54,9 @@ async function getPatientModel(id: string) {
         },
       ],
     });
+    patient!.status = 'Online'
+    patient?.save()
+    patient!.password = null
     return patient;
   } catch (error) {
     throw new Error();
@@ -88,7 +92,9 @@ async function getPatientsModel() {
         },
       ],
     });
-    console.log(patients);
+    patients.map((patient) => {
+      return patient.password = null
+    })
     return patients;
   } catch (error) {
     throw new Error();
@@ -111,9 +117,7 @@ async function updatePatientModel(
 
 async function deletePatientModel(patientId: string) {
   try {
-    console.log(patientId);
     const patient = await PatientDB.findOne({ where: { id: patientId } });
-    console.log(patient);
     await patient?.destroy();
     return patient;
   } catch (error) {
@@ -122,7 +126,6 @@ async function deletePatientModel(patientId: string) {
 }
 
 async function getLastCheckupModel(patientId: string) {
-  console.log('model working');
   try {
     const patient = await PatientDB.findOne({
       where: { id: patientId },
@@ -147,7 +150,6 @@ async function getLastCheckupModel(patientId: string) {
     const appointmentsAttended = patient?.patientAppointments?.filter(
       (appointment) => appointment.attended
     );
-    console.log({ appointmentsAttended });
     if (appointmentsAttended && appointmentsAttended.length > 0) {
       const doctorNote = patient?.medicalInfo?.doctorNote;
       const sortedAppointments = appointmentsAttended?.sort((a, b) => {
@@ -158,8 +160,6 @@ async function getLastCheckupModel(patientId: string) {
         return dateA.getTime() - dateB.getTime();
       }) as Appointment[];
       const lastDate = sortedAppointments[0];
-      console.log(patient?.medicalInfo, 'medical info');
-      console.log(doctorNote, 'doctor note');
       return { doctorNote, lastDate };
     } else return undefined;
   } catch (error) {
@@ -180,11 +180,8 @@ async function createAppointmentModel(
   appointment: TypeAppointment
 ) {
   try {
-    console.log('got in models');
-    console.log(appointment);
     const newAppointment = await AppointmentDB.create(appointment);
     console.log('whyyyyy');
-    console.log(newAppointment);
     const doctor = (await DoctorDB.findOne({
       where: { id: doctorId },
     })) as Doctor;
@@ -233,6 +230,17 @@ async function deleteAppointmentModel(appointmentId: string) {
   }
 }
 
+async function logoutPatientModel(id:string) {
+  try {
+    const updatedPatient = await PatientDB.findOne({where:{id}})
+    updatedPatient!.status = 'Offline'
+    await updatedPatient?.save()
+    return updatedPatient;
+  } catch (error) {
+    throw new Error()
+  }
+}
+
 export {
   createPatientModel,
   getPatientModel,
@@ -242,4 +250,5 @@ export {
   deletePatientModel,
   createAppointmentModel,
   deleteAppointmentModel,
+  logoutPatientModel
 };

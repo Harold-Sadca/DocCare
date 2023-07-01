@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
+exports.logoutPatientModel = exports.deleteAppointmentModel = exports.createAppointmentModel = exports.deletePatientModel = exports.getLastCheckupModel = exports.updatePatientModel = exports.getPatientsModel = exports.getPatientModel = exports.createPatientModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
 const Appointment_1 = require("../schema/Appointment");
 const Message_1 = require("../schema/Message");
@@ -25,6 +25,7 @@ function createPatientModel(patient) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newPatient = yield PatientDB.create(patient);
+            newPatient.password = null;
             return newPatient;
         }
         catch (error) {
@@ -63,6 +64,9 @@ function getPatientModel(id) {
                     },
                 ],
             });
+            patient.status = 'Online';
+            patient === null || patient === void 0 ? void 0 : patient.save();
+            patient.password = null;
             return patient;
         }
         catch (error) {
@@ -101,7 +105,9 @@ function getPatientsModel() {
                     },
                 ],
             });
-            console.log(patients);
+            patients.map((patient) => {
+                return patient.password = null;
+            });
             return patients;
         }
         catch (error) {
@@ -127,9 +133,7 @@ exports.updatePatientModel = updatePatientModel;
 function deletePatientModel(patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(patientId);
             const patient = yield PatientDB.findOne({ where: { id: patientId } });
-            console.log(patient);
             yield (patient === null || patient === void 0 ? void 0 : patient.destroy());
             return patient;
         }
@@ -142,7 +146,6 @@ exports.deletePatientModel = deletePatientModel;
 function getLastCheckupModel(patientId) {
     var _a, _b;
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('model working');
         try {
             const patient = yield PatientDB.findOne({
                 where: { id: patientId },
@@ -165,7 +168,6 @@ function getLastCheckupModel(patientId) {
                 ],
             });
             const appointmentsAttended = (_a = patient === null || patient === void 0 ? void 0 : patient.patientAppointments) === null || _a === void 0 ? void 0 : _a.filter((appointment) => appointment.attended);
-            console.log({ appointmentsAttended });
             if (appointmentsAttended && appointmentsAttended.length > 0) {
                 const doctorNote = (_b = patient === null || patient === void 0 ? void 0 : patient.medicalInfo) === null || _b === void 0 ? void 0 : _b.doctorNote;
                 const sortedAppointments = appointmentsAttended === null || appointmentsAttended === void 0 ? void 0 : appointmentsAttended.sort((a, b) => {
@@ -176,8 +178,6 @@ function getLastCheckupModel(patientId) {
                     return dateA.getTime() - dateB.getTime();
                 });
                 const lastDate = sortedAppointments[0];
-                console.log(patient === null || patient === void 0 ? void 0 : patient.medicalInfo, 'medical info');
-                console.log(doctorNote, 'doctor note');
                 return { doctorNote, lastDate };
             }
             else
@@ -198,11 +198,8 @@ function formatStateDate(date) {
 function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log('got in models');
-            console.log(appointment);
             const newAppointment = yield AppointmentDB.create(appointment);
             console.log('whyyyyy');
-            console.log(newAppointment);
             const doctor = (yield DoctorDB.findOne({
                 where: { id: doctorId },
             }));
@@ -250,3 +247,17 @@ function deleteAppointmentModel(appointmentId) {
     });
 }
 exports.deleteAppointmentModel = deleteAppointmentModel;
+function logoutPatientModel(id) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const updatedPatient = yield PatientDB.findOne({ where: { id } });
+            updatedPatient.status = 'Offline';
+            yield (updatedPatient === null || updatedPatient === void 0 ? void 0 : updatedPatient.save());
+            return updatedPatient;
+        }
+        catch (error) {
+            throw new Error();
+        }
+    });
+}
+exports.logoutPatientModel = logoutPatientModel;

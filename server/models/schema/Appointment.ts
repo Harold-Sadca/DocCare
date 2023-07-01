@@ -13,6 +13,7 @@ import {
 } from 'sequelize';
 import type { Doctor } from './Doctor';
 import type { Patient } from './Patient';
+import { v4 as uuidv4 } from 'uuid';
 
 type AppointmentAssociations = 'doctorAppointment' | 'patientAppointment';
 
@@ -63,9 +64,8 @@ export class Appointment extends Model<
     Appointment.init(
       {
         id: {
-          type: DataTypes.INTEGER.UNSIGNED,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
           allowNull: false,
         },
         date: {
@@ -103,6 +103,11 @@ export class Appointment extends Model<
         },
       },
       {
+        hooks:{
+          beforeValidate: (appointment) => {
+            appointment.id = uuidv4()
+          }
+        },
         sequelize,
       }
     );

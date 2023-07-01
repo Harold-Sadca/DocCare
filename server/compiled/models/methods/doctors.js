@@ -16,7 +16,6 @@ exports.attendAppointmentModel = exports.createPatientSummaryModel = exports.cre
 const index_1 = __importDefault(require("../schema/index"));
 const Patient_1 = require("../schema/Patient");
 const Appointment_1 = require("../schema/Appointment");
-const logger_1 = __importDefault(require("../../logger"));
 const Doctor_1 = require("../schema/Doctor");
 const MedicalInfo_1 = require("../schema/MedicalInfo");
 const DoctorDB = index_1.default.Doctor;
@@ -26,9 +25,8 @@ const AppointmentDB = index_1.default.Appointment;
 function createDoctorModel(doctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(doctor);
             const newDoctor = yield DoctorDB.create(doctor);
-            console.log(newDoctor);
+            newDoctor.password = null;
             return newDoctor;
         }
         catch (error) {
@@ -39,7 +37,6 @@ function createDoctorModel(doctor) {
 exports.createDoctorModel = createDoctorModel;
 function getDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(id);
         try {
             const doctor = yield DoctorDB.findOne({
                 where: { id: id },
@@ -93,7 +90,6 @@ exports.getDoctorModel = getDoctorModel;
 function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log('working?');
             const doctors = yield DoctorDB.findAll({
                 include: {
                     model: Appointment_1.Appointment,
@@ -108,7 +104,9 @@ function getDoctorsModel() {
                     ],
                 },
             });
-            console.log(doctors);
+            doctors.map((doctor) => {
+                return doctor.password = null;
+            });
             return doctors;
         }
         catch (error) {
@@ -123,9 +121,7 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
-            logger_1.default.info(newMedicalInfo);
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
-            logger_1.default.info('here');
             patient.setMedicalInfo(medicalInfo);
             yield medicalInfo.save();
             return medicalInfo;

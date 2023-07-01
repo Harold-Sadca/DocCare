@@ -12,23 +12,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginPatient = exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logout = exports.getPatient = exports.createPatient = void 0;
+exports.loginPatient = exports.deleteAppointment = exports.createAppointment = exports.getLastCheckup = exports.deletePatient = exports.updatePatient = exports.getPatients = exports.logoutPatient = exports.getPatient = exports.createPatient = void 0;
 const patients_1 = require("../models/methods/patients");
 const index_1 = __importDefault(require(".././models/schema/index"));
 const PatientDB = index_1.default.Patient;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, dateOfBirth, gender, profilePicture, allergies, bloodType, medications, surgicalHistory, familyMedicalHistory, } = req.body;
-            const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newPatient = {
                 name,
                 email,
-                password: hashedPassword,
+                password,
                 phoneNumber,
                 address,
                 dateOfBirth,
@@ -42,7 +40,6 @@ function createPatient(req, res) {
                 userType: 'patient',
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
-            console.log(createPatient);
             const accessToken = jsonwebtoken_1.default.sign({ id: createPatient.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Patient account created successfully',
@@ -102,10 +99,22 @@ function getPatient(req, res) {
     });
 }
 exports.getPatient = getPatient;
-function logout(req, res) {
-    return __awaiter(this, void 0, void 0, function* () { });
+function logoutPatient(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const id = req.params.id;
+            const patient = yield (0, patients_1.logoutPatientModel)(id);
+            res.status(200).json({
+                message: `Goodbye, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
+                result: patient
+            });
+        }
+        catch (error) {
+            res.status(400).json({ error: 'Unable to logout' });
+        }
+    });
 }
-exports.logout = logout;
+exports.logoutPatient = logoutPatient;
 function getPatients(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -163,9 +172,7 @@ function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const id = req.params.id;
-            console.log({ id });
             const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(id);
-            console.log({ patientLastCheckup });
             if ((patientLastCheckup === null || patientLastCheckup === void 0 ? void 0 : patientLastCheckup.lastDate) === undefined) {
                 res.status(200).json({ message: `You haven't had any appointments yet` });
             }
@@ -186,13 +193,8 @@ function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patientId = req.params.id;
-            console.log(patientId);
             const { doctorId, appointment } = req.body;
-            console.log(req.body);
-            // console.log({ appointment });
             const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, appointment);
-            console.log('got here??');
-            console.log(createAppointment);
             res.status(201).json({
                 message: 'Appointment created successfully',
                 result: createAppointment,

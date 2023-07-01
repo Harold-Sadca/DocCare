@@ -53,6 +53,7 @@ io.use((socket, next) => {
     next();
 });
 io.on('connection', (socket) => {
+    socket.to('junior').emit('patient logged');
     // 'socket.join(room name)' would let us join the private room
     // but if its not there it will create it so in this case
     // we are using it to create a private room
@@ -81,6 +82,10 @@ io.on('connection', (socket) => {
         // socket.to(message.sender_name).emit('patient sent', newMessage)
     }));
     logger_1.default.warn(newRoom);
+    socket.on('patient logged', (args) => {
+        socket.to('junior').emit('patient logged');
+        logger_1.default.info('logged', args);
+    });
 });
 server.listen(port, () => {
     logger_1.default.info(`Server is running at http://localhost:${port}`);
