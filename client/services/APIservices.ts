@@ -75,6 +75,18 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
     });
 }
 
+const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+
+async function saveImage(imageData: {}) {
+  return axios
+    .post(endpoint, imageData)
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((error) => console.log(error));
+}
+
 async function login(user: TypeLogin, type: string) {
   let path;
   if (type == 'doctor') {
@@ -259,6 +271,7 @@ const apiService = {
   createAppointment,
   getUser,
   createJuniorNote,
+  saveImage,
 };
 
 export default apiService;

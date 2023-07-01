@@ -14,6 +14,7 @@ export async function getSignature () {
 
 export async function saveToDatabase (data) {
   console.log(data)
+
   // verify the data
   // const expectedSignature = cloudinary.utils.api_sign_request(
   //   { public_id, version },

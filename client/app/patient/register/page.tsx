@@ -1,6 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import { Form, Input, Radio, RadioChangeEvent, Upload, message } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Upload,
+  message,
+} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -38,6 +47,7 @@ export default function Register() {
     profilePicture: '',
   };
   const [state, setState] = useState(initialState);
+  const [images, setImages] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
   const key = 'updatable';
@@ -67,22 +77,61 @@ export default function Register() {
     }
   }, [messageContent]);
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setImages((prevImg) => ({
+        ...prevImg,
+        profilePicture: file,
+      }));
+    }
+  };
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | RadioChangeEvent
   ) => {
     const { name, value } = e.target;
-    console.log({ name });
-    console.log({ value });
     setState((prevState) => ({
       ...prevState,
       [name as string]: value,
     }));
   };
-  const [images, setImages] = useState([]);
-  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
+
+  console.log(images);
+  console.log('???');
+  console.log(state);
+
+  const handleFormSubmit = async (
+    e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log('please work');
+    console.log(e.target);
+    // if (e.target instanceof HTMLInputElement) {
+    console.log('got here');
+    e.preventDefault();
+    const fileInput = e.currentTarget.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    console.log({ file });
+    formData.append('file', file);
+    formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
+    formData.append('folder', 'next');
+    formData.append('upload_preset', 'jujbod4w');
+
+    await apiService.saveImage(formData).then((data: any) => {
+      console.log(data);
+      console.log(data.data);
+      console.log(data.data.secure_url);
+      state.profilePicture = data.data.secure_url && data.data.secure_url;
+    });
+
     const data = await apiService.register(state, 'patient');
     const { message, result, error, accessToken } = data;
     console.log(result);
@@ -100,47 +149,47 @@ export default function Register() {
     setState(initialState);
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      const file = files[0];
-      setImages((prevImg) => ({
-        ...prevImg,
-        profilePicture: file,
-      }));
-    }
-  };
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const files = event.target.files;
+  //   if (files && files.length > 0) {
+  //     const file = files[0];
+  //     setImages((prevImg) => ({
+  //       ...prevImg,
+  //       profilePicture: file,
+  //     }));
+  //   }
+  // };
 
-  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const fileInput = e.currentTarget.querySelector(
-      'input[type="file"]'
-    ) as HTMLInputElement;
-    if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
+  // async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+  //   // e.preventDefault();
+  //   const fileInput = e.currentTarget.querySelector(
+  //     'input[type="file"]'
+  //   ) as HTMLInputElement;
+  //   if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
 
-    const file = fileInput.files[0];
-    const formData = new FormData();
+  //   const file = fileInput.files[0];
+  //   const formData = new FormData();
 
-    formData.append('file', file);
-    formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
-    // formData.append('timestamp', timestamp.toString());
-    // formData.append('signature', signature);
-    formData.append('folder', 'next');
-    formData.append('upload_preset', 'wzvpvzn8');
+  //   formData.append('file', file);
+  //   formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
+  //   // formData.append('timestamp', timestamp.toString());
+  //   // formData.append('signature', signature);
+  //   formData.append('folder', 'next');
+  //   formData.append('upload_preset', 'wzvpvzn8');
 
-    const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
-    const data = await fetch(endpoint, {
-      method: 'POST',
-      body: formData,
-    }).then((res) => res.json());
-    await saveToDatabase(data);
-    // write to database using server actions
-    // await saveToDatabase({
-    //   public_id: data?.public_id,
-    //   version: data?.version,
-    //   signature: data?.signature,
-    // });
-  }
+  //   const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+  //   const data = await fetch(endpoint, {
+  //     method: 'POST',
+  //     body: formData,
+  //   }).then((res) => res.json());
+  //   await saveToDatabase(data);
+  //   // write to database using server actions
+  //   // await saveToDatabase({
+  //   //   public_id: data?.public_id,
+  //   //   version: data?.version,
+  //   //   signature: data?.signature,
+  //   // });
+  // }
 
   return (
     <>
@@ -150,19 +199,19 @@ export default function Register() {
         <h2 className='font-bold text-2xl text-primary'>Register</h2>
         <h3>Explore the future with us.</h3>
         <div className='flex min-h-screen flex-col items-center justify-center'>
-          <Form
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 14 }}
-            layout='horizontal'
-            initialValues={{ size: componentSize }}
-            onValuesChange={onFormLayoutChange}
-            size={componentSize as SizeType}
-            style={{ maxWidth: 900, minWidth: 600 }}
-            action='/'
-            method='post'
-            onFinish={handleFormSubmit}
+          <form
+            // labelCol={{ span: 6 }}
+            // wrapperCol={{ span: 14 }}
+            // layout='horizontal'
+            // initialValues={{ size: componentSize }}
+            // onValuesChange={onFormLayoutChange}
+            // size={componentSize as SizeType}
+            // style={{ maxWidth: 900, minWidth: 600 }}
+            // action='/'
+            // method='post'
+            onSubmit={handleFormSubmit}
           >
-            {/* <Form.Item label='Name' htmlFor='name'>
+            <Form.Item label='Name' htmlFor='name'>
               <Input
                 type='text'
                 id='name'
@@ -239,27 +288,28 @@ export default function Register() {
                   Female
                 </Radio>
               </Radio.Group>
-            </Form.Item> */}
-            {/* <Form.Item label='Profile Picture' htmlFor='profile'>
-              <Upload action={cloudinaryURL} listType='picture-card'>
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </div>
-              </Upload>
-            </Form.Item> */}
-            <Form.Item label='Profile Picture' htmlFor='profilePicture'>
-              <input
+            </Form.Item>
+            <Form.Item label='Profile Picture' htmlFor='profile'>
+              {/* <input
                 type='file'
                 id='profilePicture'
                 name='profilePicture'
                 accept='image/*'
                 value={state.profilePicture}
                 onChange={handleImageChange}
+                className='picture-upload'
+                required
+              /> */}
+
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleImageChange}
                 required
               />
             </Form.Item>
-            {/* <Form.Item label='Blood Type' htmlFor='bloodType'>
+
+            <Form.Item label='Blood Type' htmlFor='bloodType'>
               <Input
                 type='text'
                 id='bloodType'
@@ -311,22 +361,14 @@ export default function Register() {
                 onChange={(e) => handleChange(e)}
                 required
               />
-            </Form.Item> */}
+            </Form.Item>
+
             <button
               className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
               type='submit'
             >
               Register
             </button>
-          </Form>
-          <form onSubmit={handleFormSubmit}>
-            <input
-              type='file'
-              accept='image/*'
-              onChange={handleImageChange}
-              required
-            />
-            <button type='submit'>Upload</button>
           </form>
         </div>
       </div>
