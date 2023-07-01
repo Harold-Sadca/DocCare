@@ -53,7 +53,6 @@ export default function JuniorDoctorDashBoard() {
     <main>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
       <AllPatients allPatients={allPatients} />
-<<<<<<< HEAD
       {displayChat && (
                     <div className='message-container'>
                     <JuniorDoctorMessages
@@ -61,11 +60,6 @@ export default function JuniorDoctorDashBoard() {
                     />
                    </div>
                 )}
-=======
-      <div className='chat-box'>
-        <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
-      </div>
->>>>>>> backend-cleanup-Harold
     </main>
   );
 }
