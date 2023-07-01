@@ -64,13 +64,15 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
               <div className="messages-chat">
                 {allMessages.map((mes) => {
                   return mes.sender_name === "Doctor" ? (
-                    <div  className="message">
+                    <div  className="message text-only">
+                    <div className="response">
                     <div className="text" key={mes.id}>
                       {mes.content}
                     </div>
                     </div>
+                    </div>
                   ) : (
-                    <div className="message text-only">
+                    <div className="message">
                       <div className="response">
                     <div className="text" key={mes.id}>
                       {mes.content}

@@ -3,6 +3,7 @@ body {
   height: 100%;
   margin: 0;
   overflow: hidden;
+  background-color: white;
 }
 
 
@@ -70,7 +71,7 @@ body {
   border: none;
 }
 
-/* .discussions .search .searchbar *::-webkit-input-placeholder {
+.discussions .search .searchbar *::-webkit-input-placeholder {
     color: #E0E0E0;
 }
 .discussions .search .searchbar input *:-moz-placeholder {
@@ -81,7 +82,7 @@ body {
 }
 .discussions .search .searchbar input *:-ms-input-placeholder {
     color: #E0E0E0;
-} */
+}
 
 
 .desc-contact {
@@ -103,13 +104,12 @@ body {
 
 
 .chat {
-  width: calc(75% - 85px);
   z-index: 2;
   padding:0;
   background-color: #FFF; 
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   height: 700px;
-  grid-column: col-start 2/ span 4;
+  grid-column: col-start 2/ span 6;
 }
 .header-chat {
   background-color: #FFF;
@@ -138,7 +138,7 @@ body {
 
 .chat .messages-chat .text {
   margin: 0 35px;
-  background-color: #f6f6f6;
+  background-color: #F5ECF7;
   padding: 15px;
   border-radius: 12px;
 }
@@ -160,7 +160,7 @@ body {
 
 
 .footer-chat {
-  width: calc(57% - 60px);
+  width: calc(90% - 60px);
   height: 90px;
   display:flex;
   align-items: center;
@@ -172,9 +172,9 @@ body {
 
 .write-message {
   border:none !important;
-  width:100%;
+  width:400px;
   height: 50px;
-  margin-left: 0px;
+  margin-left: 30px;
   padding: 10px;
 }
 
@@ -183,7 +183,7 @@ body {
   color:#fff;
   background-color: #A266B5;
   position: absolute;
-  right:70px;
+  right:200px;
   padding: 12px 12px 12px 12px;
   border-radius: 50px;
   font-size: 14pt; 
