@@ -17,7 +17,6 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import logger from '../logger';
 
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 async function createPatient(req: Request, res: Response) {
@@ -37,11 +36,11 @@ async function createPatient(req: Request, res: Response) {
       surgicalHistory,
       familyMedicalHistory,
     } = req.body;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const newPatient = {
       name,
       email,
-      password: hashedPassword,
+      password,
       phoneNumber,
       address,
       dateOfBirth,
@@ -56,7 +55,6 @@ async function createPatient(req: Request, res: Response) {
       userType: 'patient',
     } as TypePatient;
     const createPatient = await createPatientModel(newPatient);
-    console.log(createPatient);
     const accessToken = jwt.sign({ id: createPatient.id }, SECRET_KEY);
     res.status(201).json({
       message: 'Patient account created successfully',

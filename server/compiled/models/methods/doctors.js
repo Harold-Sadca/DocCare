@@ -25,7 +25,6 @@ const AppointmentDB = index_1.default.Appointment;
 function createDoctorModel(doctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log(doctor);
             const newDoctor = yield DoctorDB.create(doctor);
             newDoctor.password = null;
             return newDoctor;
@@ -38,7 +37,6 @@ function createDoctorModel(doctor) {
 exports.createDoctorModel = createDoctorModel;
 function getDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(id);
         try {
             const doctor = yield DoctorDB.findOne({
                 where: { id: id },
@@ -92,7 +90,6 @@ exports.getDoctorModel = getDoctorModel;
 function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            console.log('working?');
             const doctors = yield DoctorDB.findAll({
                 include: {
                     model: Appointment_1.Appointment,

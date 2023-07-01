@@ -22,6 +22,8 @@ import { TypeAvailability, TypeDoctor } from '../../types/types';
 import type { Appointment } from './Appointment';
 import type { Patient } from './Patient';
 import { v4 as uuidv4 } from 'uuid';
+const saltRounds = 12;
+import bcrypt from 'bcrypt';
 
 type DoctorAssociations = 'doctorAppointments' | 'patients';
 
@@ -173,8 +175,10 @@ export class Doctor extends Model<
         },
       },
       { hooks:{
-        beforeValidate: (doctor) => {
-          doctor.id = uuidv4()
+        beforeValidate: async (doctor) => {
+          doctor.id = uuidv4();
+          const hashedPassword = await bcrypt.hash(doctor.password as string, saltRounds);
+          doctor.password = hashedPassword;
         }
       },
         sequelize,

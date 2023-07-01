@@ -13,7 +13,6 @@ const AppointmentDB = db.Appointment;
 
 async function createDoctorModel(doctor: TypeDoctor) {
   try {
-    console.log(doctor);
     const newDoctor = await DoctorDB.create(doctor);
     newDoctor.password = null
     return newDoctor;
@@ -23,7 +22,6 @@ async function createDoctorModel(doctor: TypeDoctor) {
 }
 
 async function getDoctorModel(id: string) {
-  console.log(id);
   try {
     const doctor = await DoctorDB.findOne({
       where: { id: id },
@@ -74,7 +72,6 @@ async function getDoctorModel(id: string) {
 
 async function getDoctorsModel() {
   try {
-    console.log('working?');
     const doctors = await DoctorDB.findAll({
       include: {
         model: Appointment,

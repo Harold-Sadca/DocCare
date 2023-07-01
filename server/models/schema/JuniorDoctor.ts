@@ -20,6 +20,9 @@ import {
 } from 'sequelize';
 import type { Message } from './Message';
 import { v4 as uuidv4 } from 'uuid';
+const saltRounds = 12;
+import bcrypt from 'bcrypt';
+
 type JuniorDoctorAssociations = 'juniorMessages';
 export class JuniorDoctor extends Model<
   InferAttributes<JuniorDoctor, { omit: JuniorDoctorAssociations }>,
@@ -96,8 +99,10 @@ export class JuniorDoctor extends Model<
       },
       {
         hooks:{
-          beforeValidate: (junior) => {
+          beforeValidate: async (junior) => {
             junior.id = uuidv4()
+            const hashedPassword = await bcrypt.hash(junior.password as string, saltRounds);
+            junior.password = hashedPassword;
           }
         },
         sequelize,

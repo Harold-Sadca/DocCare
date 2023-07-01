@@ -25,6 +25,9 @@ import { v4 as uuidv4 } from 'uuid';
 import type { Appointment } from './Appointment';
 import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
+const saltRounds = 12;
+import bcrypt from 'bcrypt';
+
 type PatientAssociations =
   | 'patientMessages'
   | 'patientAppointments'
@@ -181,8 +184,10 @@ export class Patient extends Model<
       },
       {
         hooks:{
-          beforeValidate: (patient) => {
+          beforeValidate: async (patient) => {
             patient.id = uuidv4()
+            const hashedPassword = await bcrypt.hash(patient.password as string, saltRounds);
+            patient.password = hashedPassword;
           }
         },
         sequelize,

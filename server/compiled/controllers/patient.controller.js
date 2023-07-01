@@ -18,17 +18,15 @@ const index_1 = __importDefault(require(".././models/schema/index"));
 const PatientDB = index_1.default.Patient;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, phoneNumber, address, dateOfBirth, gender, profilePicture, allergies, bloodType, medications, surgicalHistory, familyMedicalHistory, } = req.body;
-            const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newPatient = {
                 name,
                 email,
-                password: hashedPassword,
+                password,
                 phoneNumber,
                 address,
                 dateOfBirth,
@@ -43,7 +41,6 @@ function createPatient(req, res) {
                 userType: 'patient',
             };
             const createPatient = yield (0, patients_1.createPatientModel)(newPatient);
-            console.log(createPatient);
             const accessToken = jsonwebtoken_1.default.sign({ id: createPatient.id }, SECRET_KEY);
             res.status(201).json({
                 message: 'Patient account created successfully',
