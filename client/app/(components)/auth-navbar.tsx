@@ -63,18 +63,22 @@ export default function AuthNavbar(props: Props) {
     getCurrentUser();
   }, []);
 
-  const navItem = isAuth
-    ? [
-        {
+  const navPatientItem =
+    props.user === 'patient'
+      ? {
           name: 'Make an appointment',
           href: '/patient/appointment',
           current: false,
-        },
+        }
+      : undefined;
+  const navItem = isAuth
+    ? [
         {
           name: 'Logout',
           href: '/logout',
           current: false,
         },
+        ...(navPatientItem ? [navPatientItem] : []),
       ]
     : [
         {

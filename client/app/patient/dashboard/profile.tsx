@@ -55,13 +55,15 @@ export default function Profile() {
     <main className='profile-box'>
       <div className='dashboard-container'>
         <div className='about-user'>
-          <Image
-            src={currentPatient.profilePicture as string}
-            alt='doctor-profile'
-            width={150}
-            height={150}
-            className='profile-pic'
-          ></Image>
+          {currentPatient.profilePicture && (
+            <Image
+              src={currentPatient.profilePicture as string}
+              alt='doctor-profile'
+              height={150}
+              width={150}
+              className='profile-pic'
+            ></Image>
+          )}
           <h2>{currentPatient.name}</h2>
           <p>{calculateAge(currentPatient.dateOfBirth)} years old</p>
         </div>
