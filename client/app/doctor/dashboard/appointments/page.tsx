@@ -7,7 +7,6 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
-import './appointment-list.css';
 import '../../../css/doctor.css';
 import '../../../css/globals.css';
 

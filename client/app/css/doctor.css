@@ -83,6 +83,7 @@
   overflow-x: scroll;
   position: relative;
 }
+
 .appointment-list-container {
   margin: 1rem 1rem 1rem 35rem;
   text-align: justify;
