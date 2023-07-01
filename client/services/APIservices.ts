@@ -5,6 +5,7 @@ import {
   TypeJuniorDoctor,
   TypeMedicalInfo,
   TypeAppointment,
+  TypeMessage,
 } from '../../server/types/types';
 import {
   TypeResponseDoctor,
@@ -250,6 +251,19 @@ async function createJuniorNote(
     });
 }
 
+async function getAllMessages() {
+  return axios
+  .get(`${PORT}/messages`, {
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    withCredentials: true,
+  })
+  .then((res: AxiosResponse<TypeMessage[]>) => {
+    return res.data;
+  });
+}
+
 const apiService = {
   register,
   login,
@@ -263,7 +277,8 @@ const apiService = {
   createAppointment,
   getUser,
   createJuniorNote,
-  logoutPatient
+  logoutPatient,
+  getAllMessages
 };
 
 export default apiService;
