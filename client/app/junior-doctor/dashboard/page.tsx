@@ -25,15 +25,26 @@ export default function JuniorDoctorDashBoard() {
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
+  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
 
   async function getPatients(token: string) {
-    const patients = await apiService.getAllPatients(token);
-    setAllPatients(patients as TypePatient[]);
+    const patients = await apiService.getAllPatients(token) as TypePatient[];
+    setAllPatients(patients);
+    const ids = patients.map((patient) => {
+      if(patient.status === 'Online') {
+        return patient.id
+      }
+    })
+    setOnlinePatientsId(ids as string[])
   }
 
-  // useEffect(()=>{
-  // console.log(displayChat, 'hereeeeee')
-  // })
+  useEffect(() => {
+    socketConnect();
+  }, []);
+  function socketConnect() {
+    socket.auth = { name: "junior" };
+    socket.connect();
+  }
 
   useEffect(() => {
     const token =
@@ -47,7 +58,8 @@ export default function JuniorDoctorDashBoard() {
     }
   }, [logged]);
 
-  socket.on('patient logged', async () => {
+  socket.on('patient logged', () => {
+    console.log('logged')
     setLogged(!logged)
   })
 
