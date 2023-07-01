@@ -46,6 +46,8 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
 
     socket.emit("from junior", newMessage, selectedPatient.name);
     setAllMessages([...allMessages, newMessage]);
+    //added to clear input
+    setMessageState(initialState);
   }
 
   function socketConnect() {
