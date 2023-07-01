@@ -21,6 +21,7 @@ import {
   NonAttribute,
   Sequelize,
 } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 import type { Appointment } from './Appointment';
 import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
@@ -116,9 +117,8 @@ export class Patient extends Model<
     Patient.init(
       {
         id: {
-          type: DataTypes.INTEGER.UNSIGNED,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
           allowNull: false,
         },
         name: {
@@ -180,6 +180,11 @@ export class Patient extends Model<
         },
       },
       {
+        hooks:{
+          beforeValidate: (patient) => {
+            patient.id = uuidv4()
+          }
+        },
         sequelize,
       }
     );

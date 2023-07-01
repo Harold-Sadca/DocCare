@@ -18,9 +18,10 @@ import {
   NonAttribute,
   Sequelize,
 } from 'sequelize';
-import { TypeAvailability } from '../../types/types';
+import { TypeAvailability, TypeDoctor } from '../../types/types';
 import type { Appointment } from './Appointment';
 import type { Patient } from './Patient';
+import { v4 as uuidv4 } from 'uuid';
 
 type DoctorAssociations = 'doctorAppointments' | 'patients';
 
@@ -108,10 +109,10 @@ export class Doctor extends Model<
     Doctor.init(
       {
         id: {
-          type: DataTypes.INTEGER.UNSIGNED,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
           allowNull: false,
+          
         },
         name: {
           type: DataTypes.STRING,
@@ -171,7 +172,11 @@ export class Doctor extends Model<
           type: DataTypes.DATE,
         },
       },
-      {
+      { hooks:{
+        beforeValidate: (doctor) => {
+          doctor.id = uuidv4()
+        }
+      },
         sequelize,
       }
     );

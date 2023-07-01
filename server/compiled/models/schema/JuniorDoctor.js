@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.JuniorDoctor = void 0;
 const sequelize_1 = require("sequelize");
+const uuid_1 = require("uuid");
 class JuniorDoctor extends sequelize_1.Model {
     static initModel(sequelize) {
         JuniorDoctor.init({
             id: {
-                type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+                type: sequelize_1.DataTypes.STRING,
                 primaryKey: true,
-                autoIncrement: true,
                 allowNull: false,
             },
             name: {
@@ -45,6 +45,11 @@ class JuniorDoctor extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.DATE,
             },
         }, {
+            hooks: {
+                beforeValidate: (junior) => {
+                    junior.id = (0, uuid_1.v4)();
+                }
+            },
             sequelize,
         });
         return JuniorDoctor;

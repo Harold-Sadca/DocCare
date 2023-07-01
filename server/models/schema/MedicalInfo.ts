@@ -6,6 +6,7 @@ import {
   Model,
   Sequelize,
 } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 export class MedicalInfo extends Model<
   InferAttributes<MedicalInfo>,
   InferCreationAttributes<MedicalInfo>
@@ -21,9 +22,8 @@ export class MedicalInfo extends Model<
     MedicalInfo.init(
       {
         id: {
-          type: DataTypes.INTEGER.UNSIGNED,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
           allowNull: false,
         },
         prescription: {
@@ -43,6 +43,11 @@ export class MedicalInfo extends Model<
         },
       },
       {
+        hooks:{
+          beforeValidate: (info) => {
+            info.id = uuidv4()
+          }
+        },
         sequelize,
       }
     );
