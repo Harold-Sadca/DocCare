@@ -36,6 +36,8 @@ body {
   overflow: hidden;
   background-color: #87a3ec;
   display: inline-block;
+  overflow-y: scroll;
+
 }
 
 
@@ -46,8 +48,7 @@ body {
   border-bottom: solid 1px #E0E0E0;
   display:flex;
   align-items: center;
-  cursor: pointer;
-  
+  /* cursor: pointer; */  
 }
 
 .discussions .search {
@@ -56,6 +57,9 @@ body {
   justify-content: center;
   color: #E0E0E0;
 }
+
+
+
 
 .discussions .search .searchbar {
   height: 40px;
@@ -66,7 +70,7 @@ body {
   border: 1px solid #EEEEEE;
   display:flex;
   align-items: center;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .discussions .search .searchbar input {
@@ -94,8 +98,8 @@ body {
   height: 43px;
   width:50%;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
 }
 
 

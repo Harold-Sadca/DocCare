@@ -17,7 +17,7 @@ import JuniorDoctorMessages from './messages';
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
   const dispatch = useDispatch<AppDispatch>();
-  const displayChat = useAppSelector((state) => state.setDisplayChatReducer.value)
+  const displayChat = useAppSelector((state) => state.displayChatReducer.value)
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
@@ -37,6 +37,8 @@ export default function JuniorDoctorDashBoard() {
       getPatients(token);
     }
   }, []);
+
+
   return (
     <main>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />

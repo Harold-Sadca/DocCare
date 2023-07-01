@@ -12,34 +12,36 @@ import JuniorDoctorMessages from './messages';
 import { setDisplayChat } from '@/redux/features/display-chat';
 
 
+
 interface Props {
   allPatients: TypePatient[];
 }
+
 export default function AllPatients({ allPatients }: Props) {
   // const token = typeof window !== 'undefined' && localStorage.getItem('accessToken');
   // const userType = typeof window !== 'undefined' &&  localStorage.getItem('userType') as string;
   // const [displayChat, setDisplayChat] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const displayChat = useAppSelector((state) => state.setDisplayChatReducer.value)
+  const displayChat = useAppSelector((state) => state.displayChatReducer.value)
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
   
-  const router = useRouter();
-  
+  const router = useRouter();  
+
   function chatToPatient(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    const target = e.target as HTMLButtonElement;
+    const target = e.target as HTMLButtonElement
     if (target.name === 'patient-details') {
       //navigate to the patient details
       router.push(`dashboard/patient/${target.id}`);
     } else if (target.name === 'chat') {
       //set the selected patient
       console.log('chat');
-      dispatch(setDisplayChat(true))
       const patientToChat = {
         id: target.id,
         name: target.title,
       };
+      dispatch(setDisplayChat(true))
       console.log(patientToChat);
       dispatch(setChatPatient(patientToChat));
     }
@@ -90,4 +92,5 @@ export default function AllPatients({ allPatients }: Props) {
     </main>
   );
 }
+
 
