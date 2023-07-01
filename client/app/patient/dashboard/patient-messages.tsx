@@ -17,7 +17,8 @@ export default function PatientMessages() {
   const initialState = { message: '', sender_name: '', receiver_name: '' };
   const [messageState, setMessageState] = useState(initialState);
   const allMessages = useAppSelector(state => state.allMessagesReducer.value)
-  const [patientMessages, setAllPatientMessages] = useState<TypeMessage[]>([])
+  const [patientMessages, setPatientMessages] = useState<TypeMessage[]>([])
+  const [loaded, setLoaded] = useState<Boolean>(false)
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -33,11 +34,13 @@ export default function PatientMessages() {
   };
 
   console.log(allMessages)
+  console.log(patientMessages)
 
   useEffect(() => {
     if(name != '') {
       socketConnect();
-      setAllPatientMessages(allMessages.filter(mes => mes.sender_id === id || mes.receiver_id === id))
+      setPatientMessages(allMessages.filter(mes => mes.sender_id === id || mes.receiver_id === id))
+      setLoaded(true)
     }
   }, [name]);
 
@@ -56,7 +59,7 @@ export default function PatientMessages() {
     // 'emit' is a socket method that would send an event to the backend
     // 'emit' sends an event to everyone except the sender
     socket.emit('patient message', newMessage);
-    setAllPatientMessages([...patientMessages, newMessage])
+    setPatientMessages([...patientMessages, newMessage])
   }
 
   function socketConnect() {
@@ -70,32 +73,32 @@ export default function PatientMessages() {
   // and the backend will capture it when it spots it
 
   socket.on('from junior', (message) => {
-    setAllPatientMessages([...patientMessages, message])
+    setPatientMessages([...patientMessages, message])
   });
 
   return (
-    <main className='ChatBox-container'>
-      <div className='Chatbox'>
-        {patientMessages.map((mes) => {
-          return (mes.receiver_name === 'Doctor' ? <div className='patient-message' key={mes.id}>
+    loaded && <main className='ChatBox-container'>
+    <div className='Chatbox'>
+      {patientMessages.map((mes) => {
+        return (mes.receiver_name === 'Doctor' ? <div className='patient-message' key={mes.id}>
+        {mes.content}
+      </div> : <div className='junior-doctor-message' key={mes.id}>
           {mes.content}
-        </div> : <div className='junior-doctor-message' key={mes.id}>
-            {mes.content}
-          </div>)
-        })}
-        <div className='send-container'>
-          <input
-            className='chat-input'
-            name='message'
-            value={messageState.message}
-            onChange={(e) => handleChange(e)}
-            placeholder='Type your message...'
-          ></input>
-          <button className='send' onClick={handleClick}>
-            Send
-          </button>
-        </div>
+        </div>)
+      })}
+      <div className='send-container'>
+        <input
+          className='chat-input'
+          name='message'
+          value={messageState.message}
+          onChange={(e) => handleChange(e)}
+          placeholder='Type your message...'
+        ></input>
+        <button className='send' onClick={handleClick}>
+          Send
+        </button>
       </div>
-    </main>
+    </div>
+  </main>
   );
 }
