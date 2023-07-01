@@ -41,7 +41,6 @@ export default function AllPatients({ allPatients }: Props) {
   }
 
   return (
-<<<<<<< HEAD
     <main className="flex min-h-screen flex-col box-border">
       <div className="container">
         <section className="discussions">
@@ -82,35 +81,6 @@ export default function AllPatients({ allPatients }: Props) {
           })}
         </section>
       </div>
-=======
-    <main className='flex min-h-screen flex-col box-border'>
-      {allPatients.map((patient: TypePatient) => {
-        return ( patient.status === 'Online' && <div key={patient.id}>
-        <h2>{patient.name}</h2>
-        <button
-          id={patient.id}
-          name='patient-details'
-          title={patient.name}
-          onClick={(e) => {
-            chatToPatient(e);
-          }}
-        >
-          Patient Details
-        </button>
-        <button
-          id={patient.id}
-          title={patient.name}
-          name='chat'
-          onClick={(e) => {
-            chatToPatient(e);
-          }}
-        >
-          Chat
-        </button>
-      </div>
-        );
-      })}
->>>>>>> backend-cleanup-Harold
     </main>
   );
 }
