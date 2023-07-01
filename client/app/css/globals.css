@@ -1,4 +1,5 @@
-/* Generics */
+/* ------------------ Generics ------------------ */
+
 h2,
 h3,
 p {
@@ -12,22 +13,57 @@ h2 {
 h3 {
   font-weight: 500;
 }
-/* Grid dashboards */
+/* ------------------ Grid dashboards ------------------ */
 .grid-container {
-  height: 100vh;
   display: grid;
-  grid-template-columns: repeat(3, [col-start] 1fr);
-  grid-template-rows: repeat(4, [col-start] 1fr);
-  grid-gap: 10px;
+  grid-template-columns: repeat(12, [col-start] 1fr);
+  grid-column: col-start / span 12;
+  margin: 2rem 1rem;
+  row-gap: 2rem;
 }
 
+.grid-container > * {
+  grid-column: col-start / span 12;
+}
+
+/* -------- Doctor and Patient -------- */
+
+@media (min-width: 500px) {
+  .grid-container {
+    column-gap: 4rem;
+    row-gap: 2rem;
+    margin: 2rem 3rem;
+  }
+  .profile-box {
+    grid-column: col-start 1 / span 4;
+    grid-row: 1 / span 2;
+  }
+
+  .appointment-box {
+    grid-column: col-start 5 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .prescriptions-box {
+    grid-column: col-start 5 / span 4;
+    grid-row: 2 / span 1;
+  }
+
+  .doctor-list-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .messages-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 2 / span 1;
+  }
+}
 .profile-box {
-  grid-column: col-start 1 / span 1;
-  grid-row: col-start 1 / span 4;
-  justify-self: center;
-  align-self: center;
+  width: 100%;
 }
 
+/* -------- Doctor -------- */
 .patients-box {
   grid-column: col-start 2 / span 1;
   grid-row: col-start 1 / span 1;
@@ -42,9 +78,45 @@ h3 {
   align-self: center;
 }
 
-/* Profile */
+/* -------- Patient -------- */
+
+.appointment-box {
+  /* margin-top: 20px; */
+  /* grid-column: col-start 2 / span 1;
+  grid-row: col-start 1 / span 1; */
+  /* justify-self: center;
+  align-self: center; */
+  /* grid-row: 1; */
+}
+
+.prescriptions-box {
+  /* justify-self: center;
+  align-self: center; */
+  /* grid-row: 1; */
+}
+
+.doctor-list-box {
+  /* justify-self: center; */
+  /* grid-column: col-start 3 / span 1;
+  grid-row: col-start 1 / span 2; */
+  /* grid-row: 1; */
+}
+
+.messages-box {
+  /* position: sticky; */
+  /* grid-column: col-start 3 / span 1;
+  grid-row: col-start 3 / span 2; */
+  /* justify-self: center; */
+  /* margin-top: -190px; */
+  /* grid-row: 1; */
+}
+
+/* ------------------ Profile ------------------ */
 
 .dashboard-container {
+  /* min-height: 100vh; */
+  /* min-height: 85vh; */
+  height: 85vh;
   background-color: white;
   box-shadow: 0 7px 15px rgba(0, 0, 0, 0.6);
   border-radius: 10%;

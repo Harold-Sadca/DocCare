@@ -8,6 +8,8 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import PatientMessages from './patient-messages';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import '../../css/globals.css';
+import '../../css/patient.css';
 
 export default function Patient() {
   const router = useRouter();

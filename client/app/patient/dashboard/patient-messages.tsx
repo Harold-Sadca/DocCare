@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import './patient-messagess.css';
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
+import { SendOutlined } from '@ant-design/icons';
 
 const socket = io('ws://localhost:3001');
 
@@ -26,16 +26,16 @@ export default function PatientMessages() {
       [name]: value,
     }));
   };
-  
+
   // console.log(name, 'name')
 
   useEffect(() => {
-    if(name != '') {
+    if (name != '') {
       socketConnect();
     }
   }, [name]);
 
-  let newMessage
+  let newMessage;
   // let socketId:string
 
   function handleClick() {
@@ -51,9 +51,9 @@ export default function PatientMessages() {
   }
 
   function socketConnect() {
-    socket.auth = {name}
+    socket.auth = { name };
     // console.log(socket.auth, 'socket name')
-    socket.connect()
+    socket.connect();
   }
 
   socket.on('returned', (args) => {
@@ -80,34 +80,45 @@ export default function PatientMessages() {
   // })
 
   return (
-    <main className='ChatBox-container'>
-      <div className='Chatbox'>
-        {sentMessages.map((mes) => {
-          return (
-            <div className='patient-message' key={mes.id}>
-              {mes.content}
-            </div>
-          );
-        })}
-        {receivedMessages.map((mes) => {
-          return (
-            <div className='junior-doctor-message' key={mes.id}>
-              {mes.content}
-            </div>
-          );
-        })}
-        {/* <div className="junior-doctor-message"></div> */}
-        <div className='send-container'>
-          <input
-            className='chat-input'
-            name='message'
-            value={messageState.message}
-            onChange={(e) => handleChange(e)}
-            placeholder='Type your message...'
-          ></input>
-          <button className='send' onClick={handleClick}>
-            Send
-          </button>
+    <main className='messages-box'>
+      <div className='messages-container dashboard-container'>
+        <div className='messages-container-top'>
+          <div className='chat-container'>
+            {sentMessages.map((mes) => {
+              return (
+                <div className='user-message patient-message' key={mes.id}>
+                  <div className='message'>
+                    <span id='bot-response'>{mes.content}</span>
+                  </div>
+                </div>
+              );
+            })}
+            {receivedMessages.map((mes) => {
+              return (
+                <div
+                  className='user-message junior-doctor-message'
+                  key={mes.id}
+                >
+                  <div className='message'>
+                    <span id='bot-response'>{mes.content}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className='messages-container-bottom'>
+          <div className='chat-input'>
+            <input
+              name='message'
+              value={messageState.message}
+              onChange={(e) => handleChange(e)}
+              placeholder='Type a message...'
+            ></input>
+            <button className='send' onClick={handleClick}>
+              <SendOutlined />
+            </button>
+          </div>
         </div>
       </div>
     </main>

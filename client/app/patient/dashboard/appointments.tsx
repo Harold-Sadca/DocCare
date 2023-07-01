@@ -9,24 +9,26 @@ export default function Appointments() {
   const patientAppointments = currentPatient.patientAppointments;
 
   return (
-    <main className='dashboard-container appointment-box'>
-      <h3>Upcoming Appointments:</h3>
-      <div className='list appointment-list'>
-        {patientAppointments?.map((appointment, idx) => (
-          <div className='each-appointment' key={idx}>
-            <Image
-              src='/checkup-emoji.png'
-              alt='checkup-emoji'
-              width={100}
-              height={100}
-            ></Image>
-            <div className='each-appointment-text'>
-              <h3>{appointment.doctorAppointment?.name}</h3>
-              <p>{appointment.date}</p>
-              <p>{appointment.time}</p>
+    <main className='appointment-box'>
+      <div className='dashboard-container appointment-container'>
+        <h3>Upcoming Appointments:</h3>
+        <div className='list appointment-list'>
+          {patientAppointments?.map((appointment, idx) => (
+            <div className='each-appointment' key={idx}>
+              <Image
+                src='/checkup-emoji.png'
+                alt='checkup-emoji'
+                width={100}
+                height={100}
+              ></Image>
+              <div className='each-appointment-text'>
+                <h3>{appointment.doctorAppointment?.name}</h3>
+                <p>{appointment.date}</p>
+                <p>{appointment.time}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </main>
   );
