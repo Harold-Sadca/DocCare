@@ -24,6 +24,7 @@ import {
 } from '@/types/types';
 
 const PORT = 'http://localhost:3001';
+const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
   return axios
@@ -74,8 +75,6 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
       return res.data;
     });
 }
-
-const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 async function saveImage(imageData: {}) {
   return axios

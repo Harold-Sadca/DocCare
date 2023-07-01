@@ -10,18 +10,26 @@ export default function Profile() {
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );
-
+  console.log('hello from doctor page');
+  console.log(currentDoctor);
   return (
     <main>
       <div className='profile'>
         <div className='about-patient'>
-          <Image
+          {/* <Image
             src='https://images.pexels.com/photos/12495583/pexels-photo-12495583.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
             alt='doctor-image'
             height={150}
             width={150}
             className='profile-pic'
-          ></Image>
+          ></Image> */}
+          {currentDoctor.profilePicture && (
+            <Image
+              src={currentDoctor.profilePicture as string}
+              alt='doctor-profile'
+            ></Image>
+          )}
+
           <h1>{currentDoctor.name}</h1>
         </div>
         <div className='general-info'>

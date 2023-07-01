@@ -17,9 +17,9 @@ export default function Register() {
     'default'
   );
 
-  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-    setComponentSize(size);
-  };
+  // const onFormLayoutChange = ({ size }: { size: SizeType }) => {
+  //   setComponentSize(size);
+  // };
 
   const initialState = {
     email: '',
@@ -32,6 +32,7 @@ export default function Register() {
     profilePicture: '',
   };
   const [state, setState] = useState(initialState);
+  const [images, setImages] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
   const [messageContent, setMessageContent] = useState('');
   const key = 'updatable';
@@ -61,6 +62,17 @@ export default function Register() {
     }
   }, [messageContent]);
 
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setImages((prevImg) => ({
+        ...prevImg,
+        profilePicture: file,
+      }));
+    }
+  };
+
   const handleChange = (
     e:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,8 +87,33 @@ export default function Register() {
     }));
   };
 
-  const submitForm = async (e: FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
+  const handleFormSubmit = async (
+    e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log('please work');
+    console.log(e.target);
+    console.log('got here');
+    e.preventDefault();
+    const fileInput = e.currentTarget.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+    console.log({ file });
+    formData.append('file', file);
+    formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
+    formData.append('folder', 'next');
+    formData.append('upload_preset', 'jujbod4w');
+
+    await apiService.saveImage(formData).then((data: any) => {
+      console.log(data);
+      console.log(data.data);
+      console.log(data.data.secure_url);
+      state.profilePicture = data.data.secure_url && data.data.secure_url;
+    });
+
     const data = await apiService.register(state, 'doctor');
     const { message, result, error, accessToken } = data;
     console.log(result);
@@ -92,6 +129,24 @@ export default function Register() {
     }
     setState(initialState);
   };
+
+  // const submitForm = async (e: FormEvent<HTMLFormElement>) => {
+  //   // e.preventDefault();
+  // const data = await apiService.register(state, 'doctor');
+  // const { message, result, error, accessToken } = data;
+  // console.log(result);
+  // if (error) {
+  //   setMessageContent(error);
+  // } else {
+  //   if (result) {
+  //     localStorage.setItem('accessToken', accessToken);
+  //     localStorage.setItem('userType', result.userType as string);
+  //     console.log(result);
+  //     setMessageContent(message as string);
+  //   }
+  // }
+  // setState(initialState);
+  // };
   return (
     <>
       <Navbar />
@@ -100,17 +155,18 @@ export default function Register() {
         <h2 className='font-bold text-2xl text-primary'>Register</h2>
         <h3>Explore the future with us.</h3>
         <div className='flex min-h-screen flex-col items-center justify-center'>
-          <Form
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 14 }}
-            layout='horizontal'
-            initialValues={{ size: componentSize }}
-            onValuesChange={onFormLayoutChange}
-            size={componentSize as SizeType}
-            style={{ maxWidth: 900 }}
-            action='/'
-            method='post'
-            onFinish={submitForm}
+          <form
+            // labelCol={{ span: 6 }}
+            // wrapperCol={{ span: 14 }}
+            // layout='horizontal'
+            // initialValues={{ size: componentSize }}
+            // onValuesChange={onFormLayoutChange}
+            // size={componentSize as SizeType}
+            // style={{ maxWidth: 900 }}
+            // action='/'
+            // method='post'
+            // onFinish={submitForm}
+            onSubmit={handleFormSubmit}
           >
             <Form.Item label='Name' htmlFor='name'>
               <Input
@@ -200,24 +256,15 @@ export default function Register() {
                 onChange={(e) => handleChange(e)}
               />
             </Form.Item>
-            <Form.Item label='Profile Picture' htmlFor='profilePicture'>
-              <Input
-                type='text'
-                id='profilePicture'
-                name='profilePicture'
-                value={state.profilePicture}
-                onChange={(e) => handleChange(e)}
+            <Form.Item label='Profile Picture' htmlFor='profile'>
+              <input
+                type='file'
+                accept='image/*'
+                onChange={handleImageChange}
                 required
               />
             </Form.Item>
-            {/* <Form.Item label='Profile Picture' htmlFor='profile'>
-              <Upload action='/upload.do' listType='picture-card'>
-                <div>
-                  <PlusOutlined />
-                  <div style={{ marginTop: 8 }}>Upload</div>
-                </div>
-              </Upload>
-            </Form.Item> */}
+
             <Form.Item label='Specialisation' htmlFor='specialisation'>
               <Radio.Group id='specialisation' name='specialisation'>
                 <Radio
@@ -327,7 +374,7 @@ export default function Register() {
             >
               Register
             </button>
-          </Form>
+          </form>
         </div>
       </div>
       <Footer />

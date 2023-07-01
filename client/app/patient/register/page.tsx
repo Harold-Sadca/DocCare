@@ -1,19 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import {
-  Button,
-  Form,
-  Input,
-  Radio,
-  RadioChangeEvent,
-  Upload,
-  message,
-} from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Radio, RadioChangeEvent, message } from 'antd';
 const { TextArea } = Input;
-import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { saveToDatabase } from '../../_actions';
+import React, { FormEvent, useEffect, useState } from 'react';
 
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
@@ -28,9 +18,9 @@ export default function Register() {
     'default'
   );
 
-  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-    setComponentSize(size);
-  };
+  // const onFormLayoutChange = ({ size }: { size: SizeType }) => {
+  //   setComponentSize(size);
+  // };
 
   const initialState = {
     email: '',
@@ -100,16 +90,11 @@ export default function Register() {
     }));
   };
 
-  console.log(images);
-  console.log('???');
-  console.log(state);
-
   const handleFormSubmit = async (
     e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
     console.log('please work');
     console.log(e.target);
-    // if (e.target instanceof HTMLInputElement) {
     console.log('got here');
     e.preventDefault();
     const fileInput = e.currentTarget.querySelector(
@@ -148,48 +133,6 @@ export default function Register() {
     }
     setState(initialState);
   };
-
-  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const files = event.target.files;
-  //   if (files && files.length > 0) {
-  //     const file = files[0];
-  //     setImages((prevImg) => ({
-  //       ...prevImg,
-  //       profilePicture: file,
-  //     }));
-  //   }
-  // };
-
-  // async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
-  //   // e.preventDefault();
-  //   const fileInput = e.currentTarget.querySelector(
-  //     'input[type="file"]'
-  //   ) as HTMLInputElement;
-  //   if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
-
-  //   const file = fileInput.files[0];
-  //   const formData = new FormData();
-
-  //   formData.append('file', file);
-  //   formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
-  //   // formData.append('timestamp', timestamp.toString());
-  //   // formData.append('signature', signature);
-  //   formData.append('folder', 'next');
-  //   formData.append('upload_preset', 'wzvpvzn8');
-
-  //   const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
-  //   const data = await fetch(endpoint, {
-  //     method: 'POST',
-  //     body: formData,
-  //   }).then((res) => res.json());
-  //   await saveToDatabase(data);
-  //   // write to database using server actions
-  //   // await saveToDatabase({
-  //   //   public_id: data?.public_id,
-  //   //   version: data?.version,
-  //   //   signature: data?.signature,
-  //   // });
-  // }
 
   return (
     <>
@@ -290,17 +233,6 @@ export default function Register() {
               </Radio.Group>
             </Form.Item>
             <Form.Item label='Profile Picture' htmlFor='profile'>
-              {/* <input
-                type='file'
-                id='profilePicture'
-                name='profilePicture'
-                accept='image/*'
-                value={state.profilePicture}
-                onChange={handleImageChange}
-                className='picture-upload'
-                required
-              /> */}
-
               <input
                 type='file'
                 accept='image/*'
