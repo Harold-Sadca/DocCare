@@ -13,8 +13,8 @@ export default function Patients() {
   const patients = currentDoctor.patients;
 
   return (
-    <main>
-      <div className='dashboard-container patients-list-container doctor-patients-container'>
+    <main className='doctor-patients-box'>
+      <div className='dashboard-container doctor-patients-container'>
         <h3>My Patients</h3>
         {patients?.slice(0, 3).map((patient, idx) => (
           <div className='profile-boxes each-item' key={idx}>

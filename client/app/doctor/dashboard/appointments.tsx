@@ -22,8 +22,8 @@ export default function Appointments() {
   }
 
   return (
-    <main>
-      <div className='dashboard-container patients-list-container doctor-patients-container'>
+    <main className='doctor-appointments-box'>
+      <div className='dashboard-container doctor-patients-container'>
         <h3>My appointments</h3>
         {appointments?.slice(0, 3).map((appointment, idx) => (
           <div

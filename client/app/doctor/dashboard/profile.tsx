@@ -12,7 +12,7 @@ export default function Profile() {
   console.log(currentDoctor);
   return (
     <main className='profile-box'>
-      <div className='dashboard-container'>
+      <div className='dashboard-container margin-right-4'>
         <div className='about-user'>
           {currentDoctor.profilePicture && (
             <Image

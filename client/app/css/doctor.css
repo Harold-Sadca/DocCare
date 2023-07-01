@@ -2,6 +2,7 @@
 
 .doctor-patients-container {
   position: relative;
+  height: 80vh;
 }
 .doctor-patients-container h3 {
   font-size: 1.3rem;

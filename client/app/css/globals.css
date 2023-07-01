@@ -14,6 +14,11 @@ h3 {
   font-weight: 500;
 }
 
+@media (max-width: 600px) {
+  .margin-right-4 {
+    margin-right: 4rem;
+  }
+}
 /* ------------------ Grid dashboards ------------------ */
 .grid-container {
   display: grid;
@@ -60,24 +65,36 @@ h3 {
     grid-row: 2 / span 1;
   }
 }
+
 .profile-box {
   width: 100%;
 }
 
 /* -------- Doctor -------- */
+
+@media (min-width: 600px) {
+  .doctor-appointments-box {
+    grid-column: col-start 5 / span 4;
+    grid-row: 1 / span 2;
+  }
+  .doctor-patients-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 1 / span 2;
+  }
+}
 .patients-box {
   grid-column: col-start 2 / span 1;
   grid-row: col-start 1 / span 1;
   justify-self: center;
   align-self: center;
 }
-
+/*
 .appointments-box {
   grid-column: col-start 3 / span 1;
   grid-row: col-start 1 / span 1;
   justify-self: center;
   align-self: center;
-}
+} */
 
 /* -------- Patient -------- */
 
