@@ -41,8 +41,6 @@ export default function AllPatients({ allPatients }: Props) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col box-border">
-      <div className="container">
         <section className="discussions">
           <div className="discussion search">
             <div className="searchbar">
@@ -80,7 +78,5 @@ export default function AllPatients({ allPatients }: Props) {
             );
           })}
         </section>
-      </div>
-    </main>
   );
 }

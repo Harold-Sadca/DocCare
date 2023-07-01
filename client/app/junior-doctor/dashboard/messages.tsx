@@ -58,11 +58,9 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   });
 
   return (
-    <main>
-        <div className="container">
           <section className="chat">
             <div className="header-chat">
-              {/* <i className="icon fa fa-user-o" aria-hidden="true"></i> */}
+              </div>
               <div className="messages-chat">
                 {allMessages.map((mes) => {
                   return mes.sender_name === "Doctor" ? (
@@ -88,9 +86,6 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
                   </button>
                 </div>
               </div>
-            </div>
             </section>
-        </div>
-    </main>
   );
 }
