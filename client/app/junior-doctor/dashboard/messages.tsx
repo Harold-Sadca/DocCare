@@ -27,9 +27,9 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     (state) => state.chatPatientReducer.value
   );
 
-  useEffect(()=>{
-    console.log('doc messages')
-    })
+  useEffect(() => {
+    console.log("doc messages");
+  });
 
   useEffect(() => {
     socketConnect();
@@ -60,44 +60,45 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   });
 
   return (
-          <section className="chat">
-            <div className="header-chat">
+    <section className="chat">
+      <div className="header-chat">
+        <p className="name">{selectedPatient.name}</p>
+      </div>
+      <div className="messages-chat">
+        {allMessages.map((mes) => {
+          return mes.sender_name === "Doctor" ? (
+            <div className="message text-only">
+              <div className="response">
+                <div className="text" key={mes.id}>
+                  {mes.content}
+                </div>
               </div>
-              <div className="messages-chat">
-                {allMessages.map((mes) => {
-                  return mes.sender_name === "Doctor" ? (
-                    <div  className="message text-only">
-                    <div className="response">
-                    <div className="text" key={mes.id}>
-                      {mes.content}
-                    </div>
-                    </div>
-                    </div>
-                  ) : (
-                    <div className="message">
-                      <div className="response">
-                    <div className="text" key={mes.id}>
-                      {mes.content}
-                    </div>
-                    </div>
-                    </div>
-                  );
-                })}
-                   </div>
-                   <div className="footer-chat">
-                <div className="send-container">
-                  <input
-                    className="write-message"
-                    name="message"
-                    value={messageState.message}
-                    onChange={(e) => handleChange(e)}
-                    placeholder="Type your message..."
-                  ></input>
-                  <button className="send-button" onClick={handleClick}>
-                    Send
-                  </button>
+            </div>
+          ) : (
+            <div className="message">
+              <div className="response">
+                <div className="text" key={mes.id}>
+                  {mes.content}
                 </div>
-                </div>
-            </section>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="footer-chat">
+        <div className="send-container">
+          <input
+            className="write-message"
+            name="message"
+            value={messageState.message}
+            onChange={(e) => handleChange(e)}
+            placeholder="Type your message..."
+          ></input>
+          <button className="send-button" onClick={handleClick}>
+            Send
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
