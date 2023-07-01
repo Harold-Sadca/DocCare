@@ -16,29 +16,55 @@ h3 {
 
 /* ------------------ Appointment Dashboard ------------------  */
 
-.patient-appointment-main {
-  height: 100vh;
+@media only screen and (min-width: 800px) {
+  .make-appointment-container .appointment-button {
+    justify-content: center;
+  }
 }
 
-.appointment-container h2 {
+@media only screen and (min-width: 600px) {
+  .make-appointment-container .female-doctor {
+    display: flex;
+  }
+
+  .make-appointment-container h2 {
+    margin-left: 18rem;
+  }
+
+  .appointment-description {
+    margin-left: 18rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.make-appointment-container h2 {
   margin-top: 3rem;
-  margin-left: 18rem;
 }
 
 .appointment-description {
-  margin-left: 18rem;
   margin-top: 1.3rem;
   display: flex;
   align-items: center;
 }
 
-.btn-appointment-main {
-  margin-left: 800px;
-  margin-top: -500px;
+.appointment-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.patient-appointment-main {
+  height: 100vh;
+}
+
+.make-appointment-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .female-doctor {
   position: absolute;
+  display: none;
   z-index: 1;
   bottom: 0;
 }
@@ -81,7 +107,7 @@ h3 {
   overflow-y: scroll;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .each-medication-container {
     width: 20vw;
   }
@@ -264,11 +290,18 @@ input::placeholder {
 
 /* ------------------ Available doctors ------------------ */
 
+@media only screen and (min-width: 600px) {
+  main .doctors-list {
+    width: 60vw;
+    margin-right: 2rem;
+  }
+}
+
 .doctors-list {
   height: fit-content;
-  width: 60vw;
+  width: 100%;
+  margin: 1rem;
   padding: 1rem;
-  margin-left: 1rem;
   border-radius: 2%;
   background-color: #f5ecf7;
   box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);

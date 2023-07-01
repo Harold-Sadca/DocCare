@@ -18,9 +18,9 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
 
   return (
-    <main className='appointments-box'>
+    <div className='appointments-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <div className='all-patients appointment-list-container'>
+      <main className='all-patients appointment-list-container'>
         <h2>All my appointments</h2>
         {appointments?.map((appointment, idx) => (
           <div className='each-patient-profile'>
@@ -45,8 +45,8 @@ export default function Appointments() {
             </div>
           </div>
         ))}
-      </div>
+      </main>
       <img src='/appointment-vector.png' id='appointment-vector'></img>
-    </main>
+    </div>
   );
 }

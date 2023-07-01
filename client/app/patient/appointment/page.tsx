@@ -141,11 +141,11 @@ export default function PatientAppointment() {
   }
 
   return (
-    <main className='patient-appointment-main'>
+    <div className='patient-appointment-main'>
       <AuthNavbar user={'patient'} auth={'login'} />
       {openForm ? (
         <>
-          <div className='appointment-container'>
+          <main className='make-appointment-container'>
             <h2>Make an Appointment</h2>
             <div>
               <div className='appointment-description'>
@@ -176,10 +176,10 @@ export default function PatientAppointment() {
                 </div>
               </div>
             </div>
-            <div>
+            <div className='appointment-button'>
               <button
                 onClick={handleNextButtonClick}
-                className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded btn-appointment-main'
+                className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded'
               >
                 Make an appointment
               </button>
@@ -192,10 +192,10 @@ export default function PatientAppointment() {
                 height={400}
               ></Image>
             </div>
-          </div>
+          </main>
         </>
       ) : (
-        <div className='flex min-h-screen flex-col items-center justify-center my-6'>
+        <main className='flex min-h-screen flex-col items-center justify-center my-6'>
           <div className='flex min-h-screen flex-col items-center justify-center'>
             <Form
               labelCol={{ span: 6 }}
@@ -391,8 +391,8 @@ export default function PatientAppointment() {
               </button>
             </Form>
           </div>
-        </div>
+        </main>
       )}
-    </main>
+    </div>
   );
 }

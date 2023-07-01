@@ -26,6 +26,13 @@
   padding: 0;
 }
 
+@media (max-width: 600px) {
+  main {
+    margin-right: 2rem !important;
+    margin-left: 2rem !important;
+  }
+}
+
 body {
   color: rgba(22, 78, 99, 0.668);
   background-color: rgb(240 249 255);

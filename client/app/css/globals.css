@@ -13,6 +13,7 @@ h2 {
 h3 {
   font-weight: 500;
 }
+
 /* ------------------ Grid dashboards ------------------ */
 .grid-container {
   display: grid;
@@ -28,7 +29,7 @@ h3 {
 
 /* -------- Doctor and Patient -------- */
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
   .grid-container {
     column-gap: 4rem;
     row-gap: 2rem;

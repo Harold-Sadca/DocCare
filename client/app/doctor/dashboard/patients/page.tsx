@@ -17,7 +17,7 @@ export default function Patients() {
   console.log('hello from /patients');
 
   return (
-    <main className='patients-box'>
+    <div className='patients-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
       <h2 className='text-2xl text-primary text-black m-4'>My patients</h2>
       <div className='all-patients'>
@@ -37,6 +37,6 @@ export default function Patients() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

@@ -112,16 +112,15 @@ export default function AvailableDoctorList() {
   }, [messageContent]);
 
   return (
-    <main>
+    <div>
       <AuthNavbar user={'patient'} auth={'login'} />
       {contextHolder}
       {availableSpecialists.length > 0 ? (
-        <>
+        <main>
           <h2 className='text-2xl text-primary text-black m-4'>
             Choose your doctor and time slot
           </h2>
-
-          <div className='doctors-list'>
+          <div>
             {availableSpecialists.map((available, idx) => {
               const doctorName = available.doctorName;
               const doctorId = available.doctorId;
@@ -131,7 +130,7 @@ export default function AvailableDoctorList() {
               const date = available.date;
               const slots = availableSlots(available.slots);
               return (
-                <div className='each-doctor' key={idx}>
+                <div className='doctors-list each-doctor' key={idx}>
                   <Image
                     src={doctorProfilePic}
                     alt={doctorProfilePic}
@@ -172,9 +171,9 @@ export default function AvailableDoctorList() {
               );
             })}
           </div>
-        </>
+        </main>
       ) : (
-        <div>
+        <main>
           <h2 className='text-2xl text-primary text-black m-4'>
             Sorry, there is no doctors available for this date.
           </h2>
@@ -184,8 +183,8 @@ export default function AvailableDoctorList() {
           >
             Please, select another date
           </button>
-        </div>
+        </main>
       )}
-    </main>
+    </div>
   );
 }
