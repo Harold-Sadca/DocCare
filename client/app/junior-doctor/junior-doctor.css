@@ -19,21 +19,24 @@
   height: 700px;
   box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.20);
   overflow: hidden;
-  background-color: #87a3ec;
   display: inline-block;
   overflow-y: scroll;
-
 }
 
 
+
+.buttons-see-more-detail{
+
+}
+
 .discussions .discussion {
   width: 100%;
-  height: 90px;
+  height: 100px;
   background-color: #FAFAFA;
   border-bottom: solid 1px #E0E0E0;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  flex-direction: column;
 }
 
 .discussions .search {
@@ -64,7 +67,6 @@
 }
 
 .desc-contact {
-  height: 43px;
   width: 50%;
   white-space: nowrap;
   overflow: hidden;
@@ -73,8 +75,7 @@
 
 .discussions .discussion .name {
   margin: 0 0 0 20px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 11pt;
+  font-size: 15pt;
   color: #515151;
 }
 

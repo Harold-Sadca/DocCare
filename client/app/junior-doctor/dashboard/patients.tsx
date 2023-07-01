@@ -53,6 +53,7 @@ export default function AllPatients({ allPatients }: Props) {
               <div className="discussion" key={patient.id}>
                 <div className="desc-contact">
                   <h2 className="name">{patient.name}</h2>
+                  <div className='buttons-see-more-detail'>
                   <button
                     id={patient.id}
                     name="patient-details"
@@ -73,6 +74,7 @@ export default function AllPatients({ allPatients }: Props) {
                   >
                     Chat
                   </button>
+                  </div>
                 </div>
               </div>
             );
