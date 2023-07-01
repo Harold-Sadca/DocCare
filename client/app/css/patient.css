@@ -53,7 +53,8 @@ h3 {
 
 .patient-info h3,
 .prescriptions-container h3,
-.appointment-box h3 {
+.appointment-box h3,
+.doctor-list-box h3 {
   font-size: 1.3rem;
   margin-top: 0.5rem;
 }
@@ -75,21 +76,21 @@ h3 {
 /* --------  Medications --------  */
 
 .prescriptions-container {
-  height: 40vh;
+  height: 35vh;
   flex-wrap: wrap;
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
 
-@media (min-width: 500px) {
+@media (max-width: 500px) {
   .each-medication-container {
-    width: 5vw;
-    height: 5vh;
+    width: 20vw;
   }
 }
 
 .each-medication-container {
   color: #d7b765;
-  width: 20vw;
+  width: 5vw;
+  height: 5vw;
   background-color: #fbf9f1;
   flex-direction: column;
   display: flex;
@@ -100,13 +101,12 @@ h3 {
 /* --------  List of doctors --------  */
 
 .list-container {
-  height: 40vh;
-  /* width: 25vw; */
-  overflow-x: scroll;
+  height: 35vh;
 }
 
 .list {
   height: fit-content;
+  margin: 1rem 0;
   max-height: 35vh;
   overflow-x: scroll;
   width: 100%;
@@ -131,16 +131,17 @@ h3 {
 /* List of appointments */
 
 .appointment-container {
-  height: 40vh;
+  height: 35vh;
 }
 
-.appointment-list {
-  background-color: #f0f6fc;
+.scroll-y {
+  overflow-y: scroll;
 }
 
 .each-appointment {
   display: flex;
   align-items: center;
+  background-color: #f0f6fc;
 }
 
 .each-appointment img {
@@ -151,7 +152,7 @@ h3 {
 /* Messages */
 
 .messages-container {
-  height: 40vh;
+  height: 35vh;
   background-color: #f5ecf7;
   overflow-y: auto;
   margin: 0;

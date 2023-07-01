@@ -12,9 +12,9 @@ export default function Appointments() {
     <main className='appointment-box'>
       <div className='dashboard-container appointment-container'>
         <h3>Upcoming Appointments:</h3>
-        <div className='list appointment-list'>
+        <div className='scroll-y'>
           {patientAppointments?.map((appointment, idx) => (
-            <div className='each-appointment' key={idx}>
+            <div className='list each-appointment' key={idx}>
               <Image
                 src='/checkup-emoji.png'
                 alt='checkup-emoji'
