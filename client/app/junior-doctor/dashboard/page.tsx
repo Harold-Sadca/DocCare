@@ -55,14 +55,15 @@ export default function JuniorDoctorDashBoard() {
   return (
     <main>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
+      <div className="messages-container-juniorDoctor">
       <AllPatients allPatients={allPatients} />
       {displayChat && (
-                    <div className='message-container'>
+                   
                     <JuniorDoctorMessages
                       currentJunior={currentJunior as TUser}
                     />
-                   </div>
                 )}
+                  </div>
     </main>
   );
 }

@@ -65,7 +65,7 @@ function getPatientModel(id) {
                 ],
             });
             patient.status = 'Online';
-            patient === null || patient === void 0 ? void 0 : patient.save();
+            // patient?.save()
             patient.password = null;
             return patient;
         }
@@ -252,7 +252,7 @@ function logoutPatientModel(id) {
         try {
             const updatedPatient = yield PatientDB.findOne({ where: { id } });
             updatedPatient.status = 'Offline';
-            yield (updatedPatient === null || updatedPatient === void 0 ? void 0 : updatedPatient.save());
+            // await updatedPatient?.save()
             return updatedPatient;
         }
         catch (error) {

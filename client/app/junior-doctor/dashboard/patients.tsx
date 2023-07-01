@@ -8,6 +8,7 @@ import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
 import { toggleDisplayChat } from '@/redux/features/display-chat';
 import JuniorDoctorMessages from './messages';
+import { MessageOutlined} from '@ant-design/icons';
 
 interface Props {
   allPatients: TypePatient[];
@@ -41,8 +42,6 @@ export default function AllPatients({ allPatients }: Props) {
   }
 
   return (
-    <main className="flex min-h-screen flex-col box-border">
-      <div className="container">
         <section className="discussions">
           <div className="discussion search">
             <div className="searchbar">
@@ -50,11 +49,12 @@ export default function AllPatients({ allPatients }: Props) {
               <input type="text" placeholder="Search..." />
             </div>
           </div>
-          {allPatients.map((patient: TypePatient) => {
+          {allPatients && allPatients.map((patient: TypePatient) => {
             return (
               <div className="discussion" key={patient.id}>
                 <div className="desc-contact">
                   <h2 className="name">{patient.name}</h2>
+                  <div className='buttons-see-more-detail'>
                   <button
                     id={patient.id}
                     name="patient-details"
@@ -73,14 +73,12 @@ export default function AllPatients({ allPatients }: Props) {
                       chatToPatient(e);
                     }}
                   >
-                    Chat
-                  </button>
+Chat                  </button>
+                  </div>
                 </div>
               </div>
             );
           })}
         </section>
-      </div>
-    </main>
   );
 }

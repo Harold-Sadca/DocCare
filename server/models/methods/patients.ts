@@ -55,7 +55,7 @@ async function getPatientModel(id: string) {
       ],
     });
     patient!.status = 'Online'
-    patient?.save()
+    // patient?.save()
     patient!.password = null
     return patient;
   } catch (error) {
@@ -234,7 +234,7 @@ async function logoutPatientModel(id:string) {
   try {
     const updatedPatient = await PatientDB.findOne({where:{id}})
     updatedPatient!.status = 'Offline'
-    await updatedPatient?.save()
+    // await updatedPatient?.save()
     return updatedPatient;
   } catch (error) {
     throw new Error()

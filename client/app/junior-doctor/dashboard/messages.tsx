@@ -27,9 +27,9 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     (state) => state.chatPatientReducer.value
   );
 
-  useEffect(()=>{
-    console.log('doc messages')
-    })
+  useEffect(() => {
+    console.log("doc messages");
+  });
 
   useEffect(() => {
     socketConnect();
@@ -46,6 +46,8 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
 
     socket.emit("from junior", newMessage, selectedPatient.name);
     setAllMessages([...allMessages, newMessage]);
+    //added to clear input
+    setMessageState(initialState);
   }
 
   function socketConnect() {
@@ -58,39 +60,45 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   });
 
   return (
-    <main>
-        <div className="container">
-          <section className="chat">
-            <div className="header-chat">
-              {/* <i className="icon fa fa-user-o" aria-hidden="true"></i> */}
-              <div className="messages-chat">
-                {allMessages.map((mes) => {
-                  return mes.sender_name === "Doctor" ? (
-                    <div className="message text-only" key={mes.id}>
-                      {mes.content}
-                    </div>
-                  ) : (
-                    <div className="junior-doctor-message" key={mes.id}>
-                      {mes.content}
-                    </div>
-                  );
-                })}
-                <div className="send-container">
-                  <input
-                    className="chat-input"
-                    name="message"
-                    value={messageState.message}
-                    onChange={(e) => handleChange(e)}
-                    placeholder="Type your message..."
-                  ></input>
-                  <button className="send" onClick={handleClick}>
-                    Send
-                  </button>
+    <section className="chat">
+      <div className="header-chat">
+        <p className="name">{selectedPatient.name}</p>
+      </div>
+      <div className="messages-chat">
+        {allMessages.map((mes) => {
+          return mes.sender_name === "Doctor" ? (
+            <div className="message text-only">
+              <div className="response">
+                <div className="text" key={mes.id}>
+                  {mes.content}
                 </div>
               </div>
             </div>
-            </section>
+          ) : (
+            <div className="message">
+              <div className="response">
+                <div className="text" key={mes.id}>
+                  {mes.content}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="footer-chat">
+        <div className="send-container">
+          <input
+            className="write-message"
+            name="message"
+            value={messageState.message}
+            onChange={(e) => handleChange(e)}
+            placeholder="Type your message..."
+          ></input>
+          <button className="send-button" onClick={handleClick}>
+            Send
+          </button>
         </div>
-    </main>
+      </div>
+    </section>
   );
 }
