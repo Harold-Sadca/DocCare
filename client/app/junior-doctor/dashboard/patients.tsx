@@ -49,7 +49,7 @@ export default function AllPatients({ allPatients }: Props) {
               <input type="text" placeholder="Search..." />
             </div>
           </div>
-          {allPatients.map((patient: TypePatient) => {
+          {allPatients && allPatients.map((patient: TypePatient) => {
             return (
               <div className="discussion" key={patient.id}>
                 <div className="desc-contact">

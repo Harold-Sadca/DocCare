@@ -12,11 +12,14 @@ import { AppDispatch } from '@/redux/store';
 import { displayChat } from '@/redux/features/display-chat';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
+import { io } from "socket.io-client";
 
 
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
+  const [logged, setLogged] = useState<Boolean>(true)
+  const socket = io("ws://localhost:3001");
   const dispatch = useDispatch<AppDispatch>();
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value)
   const currentJunior = useAppSelector(
