@@ -64,28 +64,36 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
               <div className="messages-chat">
                 {allMessages.map((mes) => {
                   return mes.sender_name === "Doctor" ? (
-                    <div className="message text-only" key={mes.id}>
+                    <div  className="message">
+                    <div className="text" key={mes.id}>
                       {mes.content}
                     </div>
+                    </div>
                   ) : (
-                    <div className="junior-doctor-message" key={mes.id}>
+                    <div className="message text-only">
+                      <div className="response">
+                    <div className="text" key={mes.id}>
                       {mes.content}
+                    </div>
+                    </div>
                     </div>
                   );
                 })}
+                   </div>
+                   <div className="footer-chat">
                 <div className="send-container">
                   <input
-                    className="chat-input"
+                    className="write-message"
                     name="message"
                     value={messageState.message}
                     onChange={(e) => handleChange(e)}
                     placeholder="Type your message..."
                   ></input>
-                  <button className="send" onClick={handleClick}>
+                  <button className="send-button" onClick={handleClick}>
                     Send
                   </button>
                 </div>
-              </div>
+                </div>
             </section>
   );
 }
