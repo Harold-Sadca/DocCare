@@ -51,7 +51,6 @@ async function createPatient(req: Request, res: Response) {
       medications,
       surgicalHistory,
       familyMedicalHistory,
-      status: 'Online',
       userType: 'patient',
     } as TypePatient;
     const createPatient = await createPatientModel(newPatient);
@@ -84,8 +83,6 @@ async function loginPatient(req: Request, res: Response) {
     const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
 
     const userAuthenticated = await getPatientModel(patient.id);
-    userAuthenticated!.status = 'Online'
-    await userAuthenticated?.save()
     res.status(200).json({
       message: `Welcome, ${patient?.name}!`,
       result: { accessToken, userAuthenticated },

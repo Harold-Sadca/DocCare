@@ -54,6 +54,8 @@ async function getPatientModel(id: string) {
         },
       ],
     });
+    patient!.status = 'Online'
+    patient?.save()
     patient!.password = null
     return patient;
   } catch (error) {

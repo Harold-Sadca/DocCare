@@ -64,6 +64,8 @@ function getPatientModel(id) {
                     },
                 ],
             });
+            patient.status = 'Online';
+            patient === null || patient === void 0 ? void 0 : patient.save();
             patient.password = null;
             return patient;
         }

@@ -84,10 +84,11 @@ class Patient extends sequelize_1.Model {
             },
         }, {
             hooks: {
-                beforeValidate: (patient) => __awaiter(this, void 0, void 0, function* () {
+                beforeCreate: (patient) => __awaiter(this, void 0, void 0, function* () {
                     patient.id = (0, uuid_1.v4)();
                     const hashedPassword = yield bcrypt_1.default.hash(patient.password, saltRounds);
                     patient.password = hashedPassword;
+                    patient.status = 'Online';
                 })
             },
             sequelize,

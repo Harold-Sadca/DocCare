@@ -88,6 +88,7 @@ async function loginDoctor(req: Request, res: Response) {
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
     const userAuthenticated = await getDoctorModel(doctor.id);
+    userAuthenticated!.password = null
     res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
       result: { accessToken, userAuthenticated },

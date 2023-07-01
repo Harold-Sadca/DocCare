@@ -27,6 +27,7 @@ import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
 const saltRounds = 12;
 import bcrypt from 'bcrypt';
+import logger from '../../logger';
 
 type PatientAssociations =
   | 'patientMessages'
@@ -184,10 +185,11 @@ export class Patient extends Model<
       },
       {
         hooks:{
-          beforeValidate: async (patient) => {
+          beforeCreate: async (patient) => {
             patient.id = uuidv4()
             const hashedPassword = await bcrypt.hash(patient.password as string, saltRounds);
             patient.password = hashedPassword;
+            patient.status = 'Online'
           }
         },
         sequelize,

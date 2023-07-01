@@ -79,6 +79,7 @@ function loginDoctor(req, res) {
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
             const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
+            userAuthenticated.password = null;
             res.status(200).json({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
                 result: { accessToken, userAuthenticated },
