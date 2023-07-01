@@ -17,7 +17,6 @@ const doctors_1 = require("../models/methods/doctors");
 const Doctor_1 = require("../models/schema/Doctor");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createEmptyAvailability() {
     const availability = {};
@@ -34,11 +33,10 @@ function createDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { name, email, password, specialisation, phoneNumber, address, licenseNumber, gender, about, profilePicture, } = req.body;
-            const hashedPassword = yield bcrypt_1.default.hash(password, saltRounds);
             const newDoctor = {
                 name,
                 email,
-                password: hashedPassword,
+                password,
                 specialisation,
                 phoneNumber,
                 address,
@@ -67,7 +65,6 @@ function loginDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
         try {
-            console.log(req.body);
             const doctor = yield Doctor_1.Doctor.findOne({ where: { email } });
             if (!doctor) {
                 throw new Error('Patient not found');
@@ -81,9 +78,8 @@ function loginDoctor(req, res) {
                 throw new Error('Invalid password');
             }
             const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
-            console.log(accessToken);
             const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
-            console.log(userAuthenticated);
+            userAuthenticated.password = null;
             res.status(200).json({
                 message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
                 result: { accessToken, userAuthenticated },
@@ -116,7 +112,6 @@ function getDoctors(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctors = yield (0, doctors_1.getDoctorsModel)();
-            console.log(doctors);
             res.status(200).send(doctors);
         }
         catch (error) {

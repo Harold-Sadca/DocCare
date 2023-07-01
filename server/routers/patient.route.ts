@@ -1,4 +1,3 @@
-import express from 'express';
 import { Router } from 'express';
 import {
   createPatient,
@@ -9,6 +8,7 @@ import {
   getLastCheckup,
   createAppointment,
   loginPatient,
+  logoutPatient,
 } from '../controllers/patient.controller';
 import {
   patientAuthMiddleware,
@@ -22,7 +22,7 @@ patientRouter.post('/patient/register', createPatient);
 patientRouter.post('/patient/login', loginPatient);
 patientRouter.get('/patient', patientAuthMiddleware, getPatient);
 patientRouter.get('/patients', getPatients);
-// patientRouter.get('/patients', anyDoctorAuthMiddleware, getPatients);
+patientRouter.put('/patients/logout/:id', logoutPatient);
 patientRouter.post('/patient/appointment/:id', createAppointment);
 patientRouter.put('/patient', patientAuthMiddleware, updatePatient);
 patientRouter.delete('/patient/:id', patientAuthMiddleware, deletePatient);

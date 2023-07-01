@@ -42,7 +42,11 @@ export default function JuniorDoctorDashBoard() {
     if (token && userType === 'junior-doctor') {
       getPatients(token);
     }
-  }, []);
+  }, [logged]);
+
+  socket.on('patient logged', async () => {
+    setLogged(!logged)
+  })
 
 
   return (

@@ -21,9 +21,14 @@ import {
   NonAttribute,
   Sequelize,
 } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid';
 import type { Appointment } from './Appointment';
 import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
+const saltRounds = 12;
+import bcrypt from 'bcrypt';
+import logger from '../../logger';
+
 type PatientAssociations =
   | 'patientMessages'
   | 'patientAppointments'
@@ -49,6 +54,7 @@ export class Patient extends Model<
   declare medications: string | null;
   declare surgicalHistory: string | null;
   declare familyMedicalHistory: string | null;
+  declare status: 'Online' | 'Offline';
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
@@ -115,9 +121,8 @@ export class Patient extends Model<
     Patient.init(
       {
         id: {
-          type: DataTypes.INTEGER.UNSIGNED,
+          type: DataTypes.STRING,
           primaryKey: true,
-          autoIncrement: true,
           allowNull: false,
         },
         name: {
@@ -165,6 +170,9 @@ export class Patient extends Model<
         familyMedicalHistory: {
           type: DataTypes.STRING,
         },
+        status: {
+          type: DataTypes.ENUM('Online', 'Offline'),
+        },
         userType: {
           type: DataTypes.STRING,
         },
@@ -176,6 +184,14 @@ export class Patient extends Model<
         },
       },
       {
+        hooks:{
+          beforeCreate: async (patient) => {
+            patient.id = uuidv4()
+            const hashedPassword = await bcrypt.hash(patient.password as string, saltRounds);
+            patient.password = hashedPassword;
+            patient.status = 'Online'
+          }
+        },
         sequelize,
       }
     );

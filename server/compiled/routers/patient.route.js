@@ -10,7 +10,7 @@ patientRouter.post('/patient/register', patient_controller_1.createPatient);
 patientRouter.post('/patient/login', patient_controller_1.loginPatient);
 patientRouter.get('/patient', authorization_1.patientAuthMiddleware, patient_controller_1.getPatient);
 patientRouter.get('/patients', patient_controller_1.getPatients);
-// patientRouter.get('/patients', anyDoctorAuthMiddleware, getPatients);
+patientRouter.put('/patients/logout/:id', patient_controller_1.logoutPatient);
 patientRouter.post('/patient/appointment/:id', patient_controller_1.createAppointment);
 patientRouter.put('/patient', authorization_1.patientAuthMiddleware, patient_controller_1.updatePatient);
 patientRouter.delete('/patient/:id', authorization_1.patientAuthMiddleware, patient_controller_1.deletePatient);

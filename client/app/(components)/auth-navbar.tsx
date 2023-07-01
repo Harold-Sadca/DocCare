@@ -8,11 +8,6 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { setCurrentPatient } from '@/redux/features/patient-slice';
-import {
-  TypeDoctor,
-  TypeJuniorDoctor,
-  TypePatient,
-} from '@/../server/types/types';
 import { useDispatch } from 'react-redux';
 import { login } from '@/redux/features/auth-slice';
 import { setCurrentDoctor } from '@/redux/features/doctor-slice';

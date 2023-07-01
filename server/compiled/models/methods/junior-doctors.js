@@ -21,6 +21,7 @@ function createJuniorDoctorModel(juniorDoctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newJuniorDoctor = yield JuniorDoctorDB.create(juniorDoctor);
+            newJuniorDoctor.password = null;
             return newJuniorDoctor;
         }
         catch (error) {
@@ -40,6 +41,7 @@ function getJuniorDoctorModel(id) {
                     required: false,
                 },
             });
+            juniorDoctor.password = null;
             return juniorDoctor;
         }
         catch (error) {
