@@ -120,6 +120,7 @@ export default function AvailableDoctorList() {
           <h2 className='text-2xl text-primary text-black m-4'>
             Choose your doctor and time slot
           </h2>
+
           <div>
             {availableSpecialists.map((available, idx) => {
               const doctorName = available.doctorName;
@@ -175,7 +176,7 @@ export default function AvailableDoctorList() {
       ) : (
         <main>
           <h2 className='text-2xl text-primary text-black m-4'>
-            Sorry, there is no doctors available for this date.
+            Choose your doctor and time slot
           </h2>
           <button
             className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded'

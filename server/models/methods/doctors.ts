@@ -131,10 +131,7 @@ async function createPatientSummaryModel(
   }
 }
 
-async function attendAppointmentModel(
-  newPatientSummary: string,
-  appointmentId: string
-) {
+async function attendAppointmentModel(appointmentId: string) {
   try {
     const appointment = (await AppointmentDB.findOne({
       where: { id: appointmentId },

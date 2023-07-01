@@ -7,6 +7,7 @@ import {
   createPatientSummary,
   createMedicalInfo,
   loginDoctor,
+  attendAppointment,
 } from '../controllers/doctor.controller';
 import { doctorAuthMiddleware } from '../middleware/authorization';
 
@@ -26,5 +27,6 @@ doctorRouter.put(
   doctorAuthMiddleware,
   createPatientSummary
 );
+doctorRouter.put('/doctor/attend/:id', doctorAuthMiddleware, attendAppointment);
 
 export { doctorRouter };

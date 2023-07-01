@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
+exports.attendAppointmentModel = exports.createPatientSummaryModel = exports.createMedicalInfoModel = exports.getDoctorsModel = exports.getDoctorModel = exports.createDoctorModel = void 0;
 const index_1 = __importDefault(require("../schema/index"));
 const Patient_1 = require("../schema/Patient");
 const Appointment_1 = require("../schema/Appointment");
@@ -22,6 +22,7 @@ const MedicalInfo_1 = require("../schema/MedicalInfo");
 const DoctorDB = index_1.default.Doctor;
 const PatientDB = index_1.default.Patient;
 const MedicalInfoDB = index_1.default.MedicalInfo;
+const AppointmentDB = index_1.default.Appointment;
 function createDoctorModel(doctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -151,3 +152,19 @@ function createPatientSummaryModel(newPatientSummary, patientId) {
     });
 }
 exports.createPatientSummaryModel = createPatientSummaryModel;
+function attendAppointmentModel(appointmentId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const appointment = (yield AppointmentDB.findOne({
+                where: { id: appointmentId },
+            }));
+            appointment.attended = true;
+            yield appointment.save();
+            return appointment;
+        }
+        catch (error) {
+            throw new Error();
+        }
+    });
+}
+exports.attendAppointmentModel = attendAppointmentModel;
