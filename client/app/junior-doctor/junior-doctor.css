@@ -26,7 +26,8 @@
 
 
 .buttons-see-more-detail{
-
+display: flex;
+flex-direction: column;
 }
 
 .discussions .discussion {
@@ -67,7 +68,7 @@
 }
 
 .desc-contact {
-  width: 50%;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -75,7 +76,7 @@
 
 .discussions .discussion .name {
   margin: 0 0 0 20px;
-  font-size: 15pt;
+  font-size: 14pt;
   color: #515151;
 }
 

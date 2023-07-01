@@ -8,6 +8,7 @@ import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
 import { toggleDisplayChat } from '@/redux/features/display-chat';
 import JuniorDoctorMessages from './messages';
+import { MessageOutlined} from '@ant-design/icons';
 
 interface Props {
   allPatients: TypePatient[];
@@ -72,8 +73,7 @@ export default function AllPatients({ allPatients }: Props) {
                       chatToPatient(e);
                     }}
                   >
-                    Chat
-                  </button>
+Chat                  </button>
                   </div>
                 </div>
               </div>
