@@ -9,7 +9,6 @@ import {
   CheckSquareTwoTone,
   FieldTimeOutlined,
 } from '@ant-design/icons';
-import './appointments.css';
 import apiService from '@/services/APIservices';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
@@ -98,7 +97,7 @@ export default function Appointments() {
               >
                 <CheckSquareOutlined />
               </span>
-              <div className='see-more'>
+              {/* <div className='see-more'>
                 <Link
                   href='/doctor/dashboard/appointments'
                   className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
@@ -117,7 +116,7 @@ export default function Appointments() {
                     <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
           ))}
 
