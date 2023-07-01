@@ -4,7 +4,8 @@ import currentPatientReducer from './features/patient-slice';
 import currentDoctorReducer from './features/doctor-slice';
 import chatPatientReducer from './features/chat-patient-slice';
 import currentJuniorReducer from './features/junior-slice';
-import displayChatReducer from './features/display-chat';
+import toggleDisplayChat from './features/display-chat';
+import displayChat from './features/display-chat';
 import AvailableSpecialist from './features/available-doctors-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 export const store = configureStore({
@@ -15,7 +16,8 @@ export const store = configureStore({
     chatPatientReducer,
     AvailableSpecialist,
     currentJuniorReducer,
-    displayChatReducer,  
+    toggleDisplayChat,  
+    displayChat,
   },
 });
 // type of store:

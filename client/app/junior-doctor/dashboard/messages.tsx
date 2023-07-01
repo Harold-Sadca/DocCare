@@ -27,6 +27,10 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     (state) => state.chatPatientReducer.value
   );
 
+  useEffect(()=>{
+    console.log('doc messages')
+    })
+
   useEffect(() => {
     socketConnect();
   }, []);

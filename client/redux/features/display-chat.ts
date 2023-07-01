@@ -1,25 +1,24 @@
-import { TypeAvailableSpecialist } from '@/types/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
-  value: Boolean;
+  value: boolean;
 };
 
-const initialState = {
-  value: false } as InitialState
+const initialState: InitialState = {
+  value: false,
+};
+
 export const displayChat = createSlice({
   name: 'displayChat',
   initialState,
   reducers: {
-    setDisplayChat: (
-      state,
-      action: PayloadAction<Boolean>
-    ) => {
-      const displayChat = action.payload;
-      state.value = displayChat;
+    toggleDisplayChat: (state) => {
+      console.log('hello')
+      // console.log(state.value)
+      state.value = true;
     },
   },
 });
 
-export const { setDisplayChat } = displayChat.actions;
+export const { toggleDisplayChat } = displayChat.actions;
 export default displayChat.reducer;
