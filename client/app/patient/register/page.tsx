@@ -1,9 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+// /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { Form, Input, Radio, RadioChangeEvent, Upload, message } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { TextArea } = Input;
-import React, { FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { saveToDatabase } from '../../_actions';
 
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
@@ -79,7 +80,7 @@ export default function Register() {
       [name as string]: value,
     }));
   };
-
+  const [images, setImages] = useState([]);
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     // e.preventDefault();
     const data = await apiService.register(state, 'patient');
@@ -98,6 +99,49 @@ export default function Register() {
     }
     setState(initialState);
   };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setImages((prevImg) => ({
+        ...prevImg,
+        profilePicture: file,
+      }));
+    }
+  };
+
+  async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const fileInput = e.currentTarget.querySelector(
+      'input[type="file"]'
+    ) as HTMLInputElement;
+    if (!fileInput || !fileInput.files || fileInput.files.length === 0) return;
+
+    const file = fileInput.files[0];
+    const formData = new FormData();
+
+    formData.append('file', file);
+    formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
+    // formData.append('timestamp', timestamp.toString());
+    // formData.append('signature', signature);
+    formData.append('folder', 'next');
+    formData.append('upload_preset', 'wzvpvzn8');
+
+    const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
+    const data = await fetch(endpoint, {
+      method: 'POST',
+      body: formData,
+    }).then((res) => res.json());
+    await saveToDatabase(data);
+    // write to database using server actions
+    // await saveToDatabase({
+    //   public_id: data?.public_id,
+    //   version: data?.version,
+    //   signature: data?.signature,
+    // });
+  }
+
   return (
     <>
       <Navbar />
@@ -116,9 +160,9 @@ export default function Register() {
             style={{ maxWidth: 900, minWidth: 600 }}
             action='/'
             method='post'
-            onFinish={submitForm}
+            onFinish={handleFormSubmit}
           >
-            <Form.Item label='Name' htmlFor='name'>
+            {/* <Form.Item label='Name' htmlFor='name'>
               <Input
                 type='text'
                 id='name'
@@ -195,9 +239,9 @@ export default function Register() {
                   Female
                 </Radio>
               </Radio.Group>
-            </Form.Item>
+            </Form.Item> */}
             {/* <Form.Item label='Profile Picture' htmlFor='profile'>
-              <Upload action='/upload.do' listType='picture-card'>
+              <Upload action={cloudinaryURL} listType='picture-card'>
                 <div>
                   <PlusOutlined />
                   <div style={{ marginTop: 8 }}>Upload</div>
@@ -205,16 +249,17 @@ export default function Register() {
               </Upload>
             </Form.Item> */}
             <Form.Item label='Profile Picture' htmlFor='profilePicture'>
-              <Input
-                type='text'
+              <input
+                type='file'
                 id='profilePicture'
                 name='profilePicture'
+                accept='image/*'
                 value={state.profilePicture}
-                onChange={(e) => handleChange(e)}
+                onChange={handleImageChange}
                 required
               />
             </Form.Item>
-            <Form.Item label='Blood Type' htmlFor='bloodType'>
+            {/* <Form.Item label='Blood Type' htmlFor='bloodType'>
               <Input
                 type='text'
                 id='bloodType'
@@ -266,7 +311,7 @@ export default function Register() {
                 onChange={(e) => handleChange(e)}
                 required
               />
-            </Form.Item>
+            </Form.Item> */}
             <button
               className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
               type='submit'
@@ -274,6 +319,15 @@ export default function Register() {
               Register
             </button>
           </Form>
+          <form onSubmit={handleFormSubmit}>
+            <input
+              type='file'
+              accept='image/*'
+              onChange={handleImageChange}
+              required
+            />
+            <button type='submit'>Upload</button>
+          </form>
         </div>
       </div>
       <Footer />

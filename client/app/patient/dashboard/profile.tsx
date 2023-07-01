@@ -7,6 +7,7 @@ import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
 import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
@@ -58,10 +59,17 @@ export default function Profile() {
         <div className='about-patient'>
           <div className='profile-pic'>
             {/* <img src='https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img> */}
-            <Image
+            {/* <Image
               src={currentPatient.profilePicture as string}
               alt='patient-profile'
-            ></Image>
+            ></Image> */}
+            <CldImage
+              width='960'
+              height='600'
+              src='<Public ID>'
+              sizes='100vw'
+              alt='Description of my image'
+            />
           </div>
           <h1>{currentPatient.name}</h1>
           <p>{calculateAge(currentPatient.dateOfBirth)} years old</p>
