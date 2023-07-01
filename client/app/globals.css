@@ -6,10 +6,10 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-
   --primary: #1f4f5b;
   --secondary: #f0f6fc;
   --tertiary: #a266b5;
+  --darkblue: #3c5de3;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,11 +20,23 @@
   }
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   color: rgba(22, 78, 99, 0.668);
   background-color: rgb(240 249 255);
+  /* overflow: hidden; */
+  overflow: scroll;
 }
 
 .error-message {
   color: red !important;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }

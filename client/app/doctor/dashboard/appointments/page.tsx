@@ -3,13 +3,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client';
 
-import { TypePatient } from '@/../server/types/types';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import { calculateAge } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import './appointment-list.css'
+import '../../../css/doctor.css';
+import '../../../css/globals.css';
 
 export default function Appointments() {
   const router = useRouter();
@@ -19,35 +18,35 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
 
   return (
-    <main className='main-page'>
+    <main className='appointments-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <div className='appointment-list-container'>
-      <h2>All my appointments</h2>
+      <div className='all-patients appointment-list-container'>
+        <h2>All my appointments</h2>
         {appointments?.map((appointment, idx) => (
-             <div className='appoinment-list'>
-          <div key={idx} className='each-appointment'>
-            <div className='about-patient'>
-            <p id='name'>{appointment?.patientAppointment?.name}</p>
-            <p>
-              {' '}
-              {calculateAge(
-                appointment?.patientAppointment?.dateOfBirth as string
-              ).toString()}{' '}
-              years old
-            </p>
-            <p>{appointment?.patientAppointment?.gender}</p>
-            <p>Summary: {appointment?.patientAppointment?.summary}</p>
-            </div>
-            <div className='appoitment-patient'>
-            <h3>Appoitment</h3>
-            <p> Date: {appointment.date}</p>
-            <p>Time: {appointment.time.slice(0, 5)}</p>
+          <div className='each-patient-profile'>
+            <div key={idx} className='each-appointment appoinment-list'>
+              <div className='about-user-appointment'>
+                <p>{appointment?.patientAppointment?.name}</p>
+                <p>
+                  {' '}
+                  {calculateAge(
+                    appointment?.patientAppointment?.dateOfBirth as string
+                  ).toString()}{' '}
+                  years old
+                </p>
+                <p>{appointment?.patientAppointment?.gender}</p>
+                <p>Summary: {appointment?.patientAppointment?.summary}</p>
+              </div>
+              <div className='appoitment-patient'>
+                <h3>Appoitment</h3>
+                <p> Date: {appointment.date}</p>
+                <p>Time: {appointment.time.slice(0, 5)}</p>
+              </div>
             </div>
           </div>
-            </div>
         ))}
       </div>
       <img src='/appointment-vector.png' id='appointment-vector'></img>
-      </main>
+    </main>
   );
 }
