@@ -10,6 +10,7 @@ import { useAppSelector } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { displayChat } from '@/redux/features/display-chat';
+import { setAllPatient } from '@/redux/features/all-patients-slice';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
 import { io } from "socket.io-client";
@@ -29,6 +30,7 @@ export default function JuniorDoctorDashBoard() {
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
     setAllPatients(patients as TypePatient[]);
+    dispatch(setAllPatient(patients as TypePatient[]))
   }
 
   // useEffect(()=>{

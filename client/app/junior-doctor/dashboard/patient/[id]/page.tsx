@@ -13,16 +13,8 @@ import Image from "next/image";
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
-  const [patient, setPatient] = useState({});
-  const currentDoctor = useAppSelector(
-    (state) => state.currentDoctorReducer.value
-  );
-  const patients = currentDoctor.patients;
-  const currentPatient = patients?.find((patient) => {
-    return patient.id?.toString() == params.id;
-  });
-
-  console.log(currentPatient?.patientAppointments);
+  
+  const selectedPatient = useAppSelector(state => state.patientToViewReducer.value)
   return (
     <main>
       <AuthNavbar user={"doctor"} auth={"login"} />
@@ -37,13 +29,8 @@ export default function Patient({ params }: { params: { id: string } }) {
         <div className="appointments-container">
           <h2 id="heading-appointments">Next appointments</h2>
           <div className="all-appointments">
-            {currentPatient?.patientAppointments
-              ?.filter(
-                (appointment) =>
-                  appointment.doctor_id === currentDoctor.id &&
-                  !appointment.attended
-              )
-              .map((appointment, idx) => (
+            {selectedPatient?.patientAppointments
+               .map((appointment, idx) => (
                 <div key={idx} className="each-appointment">
                   <p id='appointment-date'>{appointment.date}</p>
                   <p id='appointment-time'>
@@ -58,22 +45,22 @@ export default function Patient({ params }: { params: { id: string } }) {
       
         <div className="all-info-about-patient">
           <div className="main-info-patient">
-            <h2 id="name">{currentPatient?.name}</h2>
+            <h2 id="name">{selectedPatient?.name}</h2>
             <h2 id="age">
-              {calculateAge(currentPatient?.dateOfBirth as string).toString()}{" "}
+              {calculateAge(selectedPatient?.dateOfBirth as string).toString()}{" "}
               years old
             </h2>
-            <p id="gender">{currentPatient?.gender}</p>
-            <h2 id="DOB">DOB: {currentPatient?.dateOfBirth}</h2>
+            <p id="gender">{selectedPatient?.gender}</p>
+            <h2 id="DOB">DOB: {selectedPatient?.dateOfBirth}</h2>
             <div className="phone-call">
-              <a href={`tel:${currentPatient?.phoneNumber}`}>
-                {currentPatient?.phoneNumber}
+              <a href={`tel:${selectedPatient?.phoneNumber}`}>
+                {selectedPatient?.phoneNumber}
                 <PhoneOutlined style={{ fontSize: "30px" }} />
               </a>
             </div>
             <div className="mail-to">
-              <a href={`mailto:${currentPatient?.email}`}>
-                <p>{currentPatient?.email}</p>
+              <a href={`mailto:${selectedPatient?.email}`}>
+                <p>{selectedPatient?.email}</p>
                 <MailOutlined style={{ fontSize: "20px" }} id="icon-mail" />
               </a>
             </div>
@@ -81,11 +68,11 @@ export default function Patient({ params }: { params: { id: string } }) {
           <div className="medication-container">
           <h2>Medications</h2>
           <div className="each-medication-container">
-          <p>{currentPatient?.medications.toString()}</p>
+          <p>{selectedPatient?.medications.toString()}</p>
           </div>
           </div>
           <div>
-            {currentPatient?.patientAppointments
+            {selectedPatient?.patientAppointments
               ?.filter(
                 (appointment) =>
                   appointment.doctor_id === currentDoctor.id &&
