@@ -27,14 +27,6 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     (state) => state.chatPatientReducer.value
   );
 
-  useEffect(()=>{
-    console.log('doc messages')
-    })
-
-  useEffect(() => {
-    socketConnect();
-  }, []);
-
   function handleClick() {
     const newMessage = {
       content: messageState.message,
@@ -44,13 +36,8 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       receiver_name: selectedPatient.name,
     } as TypeMessage;
 
-    socket.emit("from junior", newMessage, selectedPatient.name);
+    socket.emit("from junior", newMessage, selectedPatient.id);
     setAllMessages([...allMessages, newMessage]);
-  }
-
-  function socketConnect() {
-    socket.auth = { name: "junior" };
-    socket.connect();
   }
 
   socket.on("patient message", (message) => {

@@ -185,7 +185,7 @@ export class Patient extends Model<
       },
       {
         hooks:{
-          beforeCreate: async (patient) => {
+          beforeValidate: async (patient) => {
             patient.id = uuidv4()
             const hashedPassword = await bcrypt.hash(patient.password as string, saltRounds);
             patient.password = hashedPassword;
