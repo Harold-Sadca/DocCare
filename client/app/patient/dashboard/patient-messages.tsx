@@ -39,6 +39,7 @@ export default function PatientMessages() {
   useEffect(() => {
     if(name != '') {
       socketConnect();
+      socket.emit('patient logged');
       setPatientMessages(allMessages.filter(mes => mes.sender_id === id || mes.receiver_id === id))
       setLoaded(true)
     }

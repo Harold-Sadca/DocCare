@@ -22,7 +22,7 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([]);
   const [messages, setMessages] = useState<TypeMessage[]>([]);
   const allMessages = useAppSelector(state => state.allMessagesReducer.value)
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -30,13 +30,16 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       [name]: value,
     }));
   };
+  const chatToPatient = useAppSelector(
+    (state) => state.chatPatientReducer.value
+  );
   const selectedPatient = useAppSelector(
     (state) => state.chatPatientReducer.value
   );
 
   useEffect(() => {
     setMessages(allMessages.filter(mes => mes.sender_id === selectedPatient.id || mes.receiver_id === selectedPatient.id))
-  }, [])
+  }, [chatToPatient.name])
 
 
   function handleClick() {
@@ -51,8 +54,8 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     socket.auth = { name: "junior" };
     socket.connect();
     socket.emit("from junior", newMessage, selectedPatient.id);
-    setMessages([...allMessages, newMessage]);
-    //added to clear input
+    setMessages([...messages, newMessage]);
+    dispatch(setAllMessages([...allMessages, newMessage]))
     setMessageState(initialState);
   }
 
