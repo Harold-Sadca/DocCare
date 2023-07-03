@@ -72,11 +72,10 @@ export default function AllPatients({ allPatients }: Props) {
                     id={patient.id}
                     title={patient.name}
                     name="chat"
-                    onClick={(e) => {
-                      chatToPatient(e, patient);
-                    }}
+                    onClick={(e) => chatToPatient(e, patient)}
                   >
-Chat                  </button>
+                    <MessageOutlined />
+                  </button>
                   </div>
                 </div>
               </div>
