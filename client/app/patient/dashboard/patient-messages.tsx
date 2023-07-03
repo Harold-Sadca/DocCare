@@ -8,6 +8,7 @@ import { useAppSelector } from '@/redux/store';
 import { Button, Popover, Space } from 'antd';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
+import LoadingSpinner from '@/app/(components)/loading';
 
 
 // sets the connection path for the socket
@@ -18,7 +19,6 @@ export default function PatientMessages() {
   const [messageState, setMessageState] = useState(initialState);
   const allMessages = useAppSelector(state => state.allMessagesReducer.value)
   const [patientMessages, setPatientMessages] = useState<TypeMessage[]>([])
-  const [loaded, setLoaded] = useState<Boolean>(false)
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -33,15 +33,11 @@ export default function PatientMessages() {
     }));
   };
 
-  console.log(allMessages)
-  console.log(patientMessages)
-
   useEffect(() => {
     if(name != '') {
       socketConnect();
       socket.emit('patient logged');
       setPatientMessages(allMessages.filter(mes => mes.sender_id === id || mes.receiver_id === id))
-      setLoaded(true)
     }
   }, [name]);
 
@@ -64,7 +60,7 @@ export default function PatientMessages() {
   }
 
   function socketConnect() {
-    //assigns a 'name' property on the socket auth for us to use on tha backend
+    //assigns a 'name' property on the socket auth for us to use on the backend
     //to authenticate and create a private room
     socket.auth = {name}
     socket.connect()
@@ -78,7 +74,7 @@ export default function PatientMessages() {
   });
 
   return (
-    loaded && <main className='ChatBox-container'>
+    <main className='ChatBox-container'>
     <div className='Chatbox'>
       {patientMessages.map((mes) => {
         return (mes.receiver_name === 'Doctor' ? <div className='patient-message' key={mes.id}>
@@ -101,5 +97,5 @@ export default function PatientMessages() {
       </div>
     </div>
   </main>
-  );
+  )
 }
