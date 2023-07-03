@@ -14,18 +14,19 @@ import { setAllPatient } from '@/redux/features/all-patients-slice';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
 import { io } from "socket.io-client";
+const socket = io("ws://localhost:3001");
 
 
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
   const [logged, setLogged] = useState<Boolean>(true)
-  const socket = io("ws://localhost:3001");
   const dispatch = useDispatch<AppDispatch>();
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value)
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
+  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
@@ -33,9 +34,13 @@ export default function JuniorDoctorDashBoard() {
     dispatch(setAllPatient(patients as TypePatient[]))
   }
 
-  // useEffect(()=>{
-  // console.log(displayChat, 'hereeeeee')
-  // })
+  useEffect(() => {
+    socketConnect();
+  }, []);
+  function socketConnect() {
+    socket.auth = { name: "junior" };
+    socket.connect();
+  }
 
   useEffect(() => {
     const token =
@@ -49,7 +54,8 @@ export default function JuniorDoctorDashBoard() {
     }
   }, [logged]);
 
-  socket.on('patient logged', async () => {
+  socket.on('patient logged', () => {
+    console.log('logged')
     setLogged(!logged)
   })
 

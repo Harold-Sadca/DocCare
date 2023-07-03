@@ -53,7 +53,7 @@ io.use((socket, next) => {
     next();
 });
 io.on('connection', (socket) => {
-    socket.to('junior').emit('patient logged');
+    // socket.to('junior').emit('patient logged')
     // 'socket.join(room name)' would let us join the private room
     // but if its not there it will create it so in this case
     // we are using it to create a private room
@@ -78,12 +78,14 @@ io.on('connection', (socket) => {
     }));
     socket.on('patient message', (message) => __awaiter(void 0, void 0, void 0, function* () {
         const newMessage = yield (0, messages_1.sendMessageModel)(message);
+        logger_1.default.warn(newMessage);
         socket.to('junior').emit('patient message', newMessage);
         // socket.to(message.sender_name).emit('patient sent', newMessage)
+        socket.broadcast.to('junior').emit('patient logged');
     }));
     logger_1.default.warn(newRoom);
     socket.on('patient logged', (args) => {
-        socket.to('junior').emit('patient logged');
+        socket.broadcast.to('junior').emit('patient logged');
         logger_1.default.info('logged', args);
     });
 });

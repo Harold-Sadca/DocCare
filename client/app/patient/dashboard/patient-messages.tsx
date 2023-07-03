@@ -19,7 +19,7 @@ export default function PatientMessages() {
     (state) => state.currentPatientReducer.value
   );
   const { id } = currentPatient;
-  const name = currentPatient.name;
+  const name = id;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
