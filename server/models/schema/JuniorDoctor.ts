@@ -100,8 +100,11 @@ export class JuniorDoctor extends Model<
         hooks:{
           beforeValidate: async (junior) => {
             junior.id = uuidv4()
+          },
+          afterCreate: async (junior) => {
             const hashedPassword = await bcrypt.hash(junior.password as string, saltRounds);
             junior.password = hashedPassword;
+            await junior.save()
           }
         },
         sequelize,

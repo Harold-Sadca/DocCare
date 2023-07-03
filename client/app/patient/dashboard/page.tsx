@@ -40,6 +40,7 @@ export default function Patient() {
 
   return (
     <div>
+      <AuthNavbar user={'patient'} auth={'login'} />
       {loaded ? (<main className='grid-container'>
         <Profile />
         <Appointments />

@@ -78,7 +78,7 @@ export default function PatientMessages() {
       <div className='messages-container dashboard-container'>
         <div className='messages-container-top'>
           <div className='chat-container'>
-            {allMessages.map((mes) => {
+            {patientMessages.map((mes) => {
                return (mes.receiver_name === 'Doctor' ? <div className='user-message patient-message' key={mes.id}>
                 <div className='message'>
                     <span id='bot-response'>{mes.content}</span>

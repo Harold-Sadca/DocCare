@@ -44,22 +44,13 @@ export default function AvailableDoctorList() {
         appointment,
         doctorId
       );
+      const { message, result } = data;
       console.log(data);
-      if (currentPatient && currentPatient.id) {
-        console.log(currentPatient);
-        const data = await apiService.createAppointment(
-          currentPatient.id,
-          appointment,
-          doctorId
-        );
-        const { message, result } = data;
-        console.log(data);
-        if (result) {
-          setMessageContent(message as string);
-          setFormError('');
-        } else {
-          setFormError(`${data}`);
-        }
+      if (result) {
+        setMessageContent(message as string);
+        setFormError('');
+      } else {
+        setFormError(`${data}`);
       }
     }
   }

@@ -70,8 +70,11 @@ class Doctor extends sequelize_1.Model {
         }, { hooks: {
                 beforeValidate: (doctor) => __awaiter(this, void 0, void 0, function* () {
                     doctor.id = (0, uuid_1.v4)();
+                }),
+                afterCreate: (doctor) => __awaiter(this, void 0, void 0, function* () {
                     const hashedPassword = yield bcrypt_1.default.hash(doctor.password, saltRounds);
                     doctor.password = hashedPassword;
+                    yield doctor.save();
                 })
             },
             sequelize, });

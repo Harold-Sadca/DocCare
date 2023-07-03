@@ -1,10 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt (value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled (value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected (value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step (result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -22,7 +22,7 @@ const DoctorDB = index_1.default.Doctor;
 const PatientDB = index_1.default.Patient;
 const MedicalInfoDB = index_1.default.MedicalInfo;
 const AppointmentDB = index_1.default.Appointment;
-function createDoctorModel (doctor) {
+function createDoctorModel(doctor) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newDoctor = yield DoctorDB.create(doctor);
@@ -35,7 +35,7 @@ function createDoctorModel (doctor) {
     });
 }
 exports.createDoctorModel = createDoctorModel;
-function getDoctorModel (id) {
+function getDoctorModel(id) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctor = yield DoctorDB.findOne({
@@ -87,7 +87,7 @@ function getDoctorModel (id) {
     });
 }
 exports.getDoctorModel = getDoctorModel;
-function getDoctorsModel () {
+function getDoctorsModel() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const doctors = yield DoctorDB.findAll({
@@ -115,7 +115,7 @@ function getDoctorsModel () {
     });
 }
 exports.getDoctorsModel = getDoctorsModel;
-function createMedicalInfoModel (newMedicalInfo, patientId) {
+function createMedicalInfoModel(newMedicalInfo, patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patient = (yield PatientDB.findOne({
@@ -132,7 +132,7 @@ function createMedicalInfoModel (newMedicalInfo, patientId) {
     });
 }
 exports.createMedicalInfoModel = createMedicalInfoModel;
-function createPatientSummaryModel (newPatientSummary, patientId) {
+function createPatientSummaryModel(newPatientSummary, patientId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patient = (yield PatientDB.findOne({
@@ -148,7 +148,7 @@ function createPatientSummaryModel (newPatientSummary, patientId) {
     });
 }
 exports.createPatientSummaryModel = createPatientSummaryModel;
-function attendAppointmentModel (newPatientSummary, appointmentId) {
+function attendAppointmentModel(appointmentId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const appointment = (yield AppointmentDB.findOne({
