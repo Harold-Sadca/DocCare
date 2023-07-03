@@ -2,84 +2,6 @@
 /* CHAT-BOX  */
 
 
-/* .messages-container-juniorDoctor {
-  padding: 0;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  height: 700px;
-  display: grid;
-  grid-template-columns: repeat(5, [col-start] 1fr);
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  background-color: white;
-}
-
-.discussions {
-  grid-column: col-start 1/ span 1;
-  height: 700px;
-  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.20);
-  overflow: hidden;
-  display: inline-block;
-  overflow-y: scroll;
-}
-
-
-
-.buttons-see-more-detail{
-display: flex;
-flex-direction: column;
-}
-
-.discussions .discussion {
-  width: 100%;
-  height: 100px;
-  background-color: #FAFAFA;
-  border-bottom: solid 1px #E0E0E0;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.discussions .search {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #939090;
-}
-
-
-.discussions .search .searchbar {
-  height: 40px;
-  background-color: #FFF;
-  width: 70%;
-  padding: 0 20px;
-  border-radius: 50px;
-  border: 1px solid #EEEEEE;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.discussions .search .searchbar input {
-  margin-left: 15px;
-  height: 38px;
-  width: 100%;
-  border: none;
-}
-
-.desc-contact {
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.discussions .discussion .name {
-  margin: 0 0 0 20px;
-  font-size: 14pt;
-  color: #515151;
-}
- */
 
  .messages-container-juniorDoctor {
   padding: 0;
@@ -108,7 +30,7 @@ flex-direction: column;
 
 .discussions .discussion {
   width: 100%;
-  height: 10rem;
+  height: 7rem;
   background-color: #FAFAFA;
   border-bottom: solid 1px #E0E0E0;
   display: flex;
@@ -126,19 +48,19 @@ flex-direction: column;
 .discussions .search .searchbar {
   height: 2.5rem;
   background-color: #FFF;
-  width: 43.75vw;
+  /* width: 44vw; */
   padding: 0 1.25rem;
-  border-radius: 3.125rem;
-  border: 1px solid #EEEEEE;
+  border-radius: 3rem;
+  border: 0.1rem solid #EEEEEE;
   display: flex;
   align-items: center;
   cursor: pointer;
 }
 
 .discussions .search .searchbar input {
-  margin-left: 0.9375rem;
-  height: 2.375rem;
-  width: 100%;
+  /* margin-left: 0.9rem; */
+  height: 2rem;
+  width: 10vw;
   border: none;
 }
 
@@ -151,7 +73,7 @@ flex-direction: column;
 
 .discussions .discussion .name {
   margin: 0 0 0 1.25rem;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   color: #515151;
 }
 

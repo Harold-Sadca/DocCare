@@ -69,7 +69,7 @@ export default function JuniorDoctorDashBoard() {
   return (
     <div>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <main>
+      <div>
         {loaded ? (
           <div className='messages-container-juniorDoctor'>
             <AllPatients allPatients={allPatients} />
@@ -80,7 +80,7 @@ export default function JuniorDoctorDashBoard() {
         ) : (
           <LoadingSpinner />
         )}
-      </main>
+      </div>
     </div>
   );
 }
