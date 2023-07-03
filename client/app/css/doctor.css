@@ -69,9 +69,28 @@
   font-size: 1.5rem;
 }
 
+.each-patient-profile span {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
 .button-see-patient {
   display: flex;
   align-self: self-end;
+}
+
+.male-doctor {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .appointment-list-container .male-doctor {
+    display: flex;
+  }
 }
 
 /* My appointments */
@@ -102,15 +121,22 @@
   flex-direction: row;
   justify-content: space-between;
 }
-#appointment-vector {
-  z-index: 2;
-  margin-top: -500px;
-}
-
-.appoitment-patient {
-  margin-left: 70px;
-}
 
 .about-patient {
   margin-left: 40px;
+}
+
+.previous-appointments {
+  background-color: #1f4f5b;
+}
+
+.previous-appointments p,
+.previous-appointments h3 {
+  color: #f5ecf7;
+}
+
+.previous-appointments p:first-child {
+  font-weight: bold;
+  color: #f5ecf7;
+  font-size: 1.5rem;
 }

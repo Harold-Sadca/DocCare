@@ -19,11 +19,69 @@ export default function Appointments() {
   console.log(appointments);
 
   return (
-    <div className='appointments-box'>
+    <div className='patients-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <main className='all-patients appointment-list-container'>
-        <h2>Next appointments</h2>
+      {/* <main className='all-patients appointment-list-container'> */}
+      <div className='patients-grid'>
+        <h2 className='text-2xl text-primary text-black m-4'>
+          Next appointments
+        </h2>
+        {/* <div className='all-patients'> */}
         {appointments
+          ?.filter((appointment) => !appointment.attended)
+          .map((appointment, idx) => (
+            <div className='each-patient-profile' key={idx}>
+              <p>{appointment?.patientAppointment?.name}</p>
+              <p>
+                {calculateAge(
+                  appointment?.patientAppointment?.dateOfBirth as string
+                ).toString()}
+                years old
+              </p>
+              <p>{appointment?.patientAppointment?.gender}</p>
+              <p>
+                <span> Summary: </span>{' '}
+                {appointment?.patientAppointment?.summary}
+              </p>
+              <p>
+                <span>Appoitment</span>
+              </p>
+              <p> Date: {appointment.date}</p>
+              <p>Time: {appointment.time.slice(0, 5)}</p>
+            </div>
+          ))}
+        {/* </div> */}
+        <h2 className='text-2xl text-primary text-black m-4'>
+          Previous appointments
+        </h2>
+        {appointments
+          ?.filter((appointment) => appointment.attended)
+          .map((appointment, idx) => (
+            <div
+              className='each-patient-profile previous-appointments'
+              key={idx}
+            >
+              <p>{appointment?.patientAppointment?.name}</p>
+              <p>
+                {calculateAge(
+                  appointment?.patientAppointment?.dateOfBirth as string
+                ).toString()}
+                years old
+              </p>
+              <p>{appointment?.patientAppointment?.gender}</p>
+              <p>
+                <span> Summary: </span>{' '}
+                {appointment?.patientAppointment?.summary}
+              </p>
+              <p>
+                <span>Appoitment</span>
+              </p>
+              <p> Date: {appointment.date}</p>
+              <p>Time: {appointment.time.slice(0, 5)}</p>
+            </div>
+          ))}
+
+        {/* {appointments
           ?.filter((appointment) => !appointment.attended)
           .map((appointment, idx) => (
             <div className='each-patient-profile' key={idx}>
@@ -33,7 +91,7 @@ export default function Appointments() {
                   <p>
                     {calculateAge(
                       appointment?.patientAppointment?.dateOfBirth as string
-                    ).toString()}{' '}
+                    ).toString()}
                     years old
                   </p>
                   <p>{appointment?.patientAppointment?.gender}</p>
@@ -47,19 +105,20 @@ export default function Appointments() {
               </div>
             </div>
           ))}
-        <h2>Previous appointments</h2>
+        <h2 className='text-2xl text-primary text-black m-4'>
+          Previous appointments
+        </h2>
         {appointments
           ?.filter((appointment) => appointment.attended)
           .map((appointment, idx) => (
-            <div className='appoinment-list attended' key={idx}>
-              <div className='each-appointment'>
-                <div className='about-patient'>
+            <div className='each-patient-profile' key={idx}>
+              <div className='each-appointment appoinment-list'>
+                <div className='about-user-appointment'>
                   <p id='name'>{appointment?.patientAppointment?.name}</p>
                   <p>
-                    {' '}
                     {calculateAge(
                       appointment?.patientAppointment?.dateOfBirth as string
-                    ).toString()}{' '}
+                    ).toString()}
                     years old
                   </p>
                   <p>{appointment?.patientAppointment?.gender}</p>
@@ -73,8 +132,11 @@ export default function Appointments() {
               </div>
             </div>
           ))}
-      </main>
-      <img src='/appointment-vector.png' id='appointment-vector'></img>
+        <div className='male-doctor'>
+          <img src='/appointment-vector.png' id='appointment-vector'></img>
+        </div>
+        </main> */}
+      </div>
     </div>
   );
 }
