@@ -22,7 +22,7 @@ export default function Appointments() {
                 height={100}
               ></Image>
               <div className='each-appointment-text'>
-                <h2>{appointment.doctorAppointment?.name}</h2>
+                <h3>{appointment.doctorAppointment?.name}</h3>
                 <p>{appointment.date}</p>
                 <p>{appointment.time}</p>
               </div>
