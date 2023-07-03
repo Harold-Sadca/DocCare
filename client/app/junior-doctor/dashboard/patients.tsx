@@ -3,7 +3,7 @@ import { TypePatient } from "../../../../server/types/types";
 import { useDispatch } from "react-redux";
 import { setChatPatient } from "@/redux/features/chat-patient-slice";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ChangeEvent,useState } from "react";
 import { useAppSelector } from "@/redux/store";
 import { TUser } from "@/types/types";
 import { toggleDisplayChat } from "@/redux/features/display-chat";
@@ -33,16 +33,17 @@ export default function AllPatients({ allPatients }: Props) {
     (state) => state.patients.filteredPatients
   );
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   function chatToPatient(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     patient: TypePatient
   ) {
-    console.log('invoked')
-    console.log(e)
-    //@ts-ignore
-    const target = e.target.name? e.target as HTMLButtonElement : e.target.parentNode.parentNode;
+
+    const target = (e.target as HTMLElement).nodeName === 'BUTTON'
+    ? (e.target as HTMLButtonElement )
+    : ((e.target as HTMLElement).parentNode?.parentNode as HTMLButtonElement );    
     if (target.name === "patient-details") {
       // navigate to the patient details
       dispatch(setPatientToView(patient));
@@ -60,8 +61,8 @@ export default function AllPatients({ allPatients }: Props) {
     }
   }
 
-  function handleSearch(e) {
-    setSearchQuery(e.target.value)
+  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value);    
     const filteredPatients = allPatients.filter((patient) =>
       patient.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -69,7 +70,7 @@ export default function AllPatients({ allPatients }: Props) {
   }
   return (
     <section className="discussions">
-      <div className="discussion search">
+      <div className="discussion search"> 
         <div className="searchbar">
           <input
             type="text"
@@ -77,7 +78,7 @@ export default function AllPatients({ allPatients }: Props) {
             value={searchQuery}
             onChange={handleSearch}
           />
-          <button onClick={handleSearch}>
+        <button onClick={(e) => handleSearch(e as unknown as ChangeEvent<HTMLInputElement>)}>
             <SearchOutlined />
           </button>
         </div>
