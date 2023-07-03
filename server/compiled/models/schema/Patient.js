@@ -91,7 +91,8 @@ class Patient extends sequelize_1.Model {
                     const hashedPassword = yield bcrypt_1.default.hash(patient.password, saltRounds);
                     patient.password = hashedPassword;
                     patient.status = 'Online';
-                }),
+                    yield patient.save();
+                })
             },
             sequelize,
         });
