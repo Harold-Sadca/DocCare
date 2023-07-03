@@ -35,7 +35,7 @@ export default function Patient({ params }: { params: { id: string } }) {
         <div className='grid-container'>
           <div className='patient-picture-box'>
             <Image
-              src='{selectedPatient?.profilePicture}'
+              src={selectedPatient.profilePicture as string}
               className='profile-image-patient'
               alt='profile-image-patient'
               height={150}
