@@ -3,7 +3,7 @@ import { TypePatient } from "../../../../server/types/types";
 import { useDispatch } from "react-redux";
 import { setChatPatient } from "@/redux/features/chat-patient-slice";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { ChangeEvent,useState } from "react";
 import { useAppSelector } from "@/redux/store";
 import { TUser } from "@/types/types";
 import { toggleDisplayChat } from "@/redux/features/display-chat";
@@ -11,8 +11,7 @@ import JuniorDoctorMessages from "./messages";
 import { MessageOutlined } from "@ant-design/icons";
 import { setPatientToView } from "@/redux/features/patient-to-view-slice";
 import { SearchOutlined } from "@ant-design/icons";
-import { setFilteredPatients } from '@/redux/features/search-patient';
-
+import { setFilteredPatients } from "@/redux/features/search-patient";
 
 interface Props {
   allPatients: TypePatient[];
@@ -30,15 +29,21 @@ export default function AllPatients({ allPatients }: Props) {
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-  const filteredPatients = useAppSelector((state) => state.filteredPatients);
+  const filteredPatients = useAppSelector(
+    (state) => state.patients.filteredPatients
+  );
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   function chatToPatient(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     patient: TypePatient
   ) {
-    const target = e.target as HTMLButtonElement;
+
+    const target = (e.target as HTMLElement).nodeName === 'BUTTON'
+    ? (e.target as HTMLButtonElement )
+    : ((e.target as HTMLElement).parentNode?.parentNode as HTMLButtonElement );    
     if (target.name === "patient-details") {
       // navigate to the patient details
       dispatch(setPatientToView(patient));
@@ -51,37 +56,36 @@ export default function AllPatients({ allPatients }: Props) {
         id: target.id,
         name: target.title,
       };
-      console.log(patientToChat);
+      // console.log(patientToChat);
       dispatch(setChatPatient(patientToChat));
     }
   }
 
-//Trying to implement search
-  function handleSearch() {
+  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+    setSearchQuery(e.target.value);    
     const filteredPatients = allPatients.filter((patient) =>
       patient.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
     dispatch(setFilteredPatients(filteredPatients));
   }
-
- 
   return (
     <section className="discussions">
-      <div className="discussion search">
+      <div className="discussion search"> 
         <div className="searchbar">
-          <i className="fa fa-search" aria-hidden="true"></i>
           <input
             type="text"
             placeholder="Search..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          ></input>
-          <SearchOutlined onClick={handleSearch} />
+            onChange={handleSearch}
+          />
+        <button onClick={(e) => handleSearch(e as unknown as ChangeEvent<HTMLInputElement>)}>
+            <SearchOutlined />
+          </button>
         </div>
       </div>
-      {allPatients &&
-        allPatients.map((patient: TypePatient) => {
-          return (
+      {searchQuery === ""
+        ? allPatients &&
+          allPatients.map((patient: TypePatient) => (
             <div className="discussion" key={patient.id}>
               <div className="desc-contact">
                 <h2 className="name">{patient.name}</h2>
@@ -90,9 +94,7 @@ export default function AllPatients({ allPatients }: Props) {
                     id={patient.id}
                     name="patient-details"
                     title={patient.name}
-                    onClick={(e) => {
-                      chatToPatient(e, patient);
-                    }}
+                    onClick={(e) => chatToPatient(e, patient)}
                   >
                     Patient Details
                   </button>
@@ -107,8 +109,33 @@ export default function AllPatients({ allPatients }: Props) {
                 </div>
               </div>
             </div>
-          );
-        })}
+          ))
+        : filteredPatients &&
+          filteredPatients.map((patient: TypePatient) => (
+            <div className="discussion" key={patient.id}>
+              <div className="desc-contact">
+                <h2 className="name">{patient.name}</h2>
+                <div className="buttons-see-more-detail">
+                  <button
+                    id={patient.id}
+                    name="patient-details"
+                    title={patient.name}
+                    onClick={(e) => chatToPatient(e, patient)}
+                  >
+                    Patient Details
+                  </button>
+                  <button
+                    id={patient.id}
+                    title={patient.name}
+                    name="chat"
+                    onClick={(e) => chatToPatient(e, patient)}
+                  >
+                    <MessageOutlined />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
     </section>
   );
 }

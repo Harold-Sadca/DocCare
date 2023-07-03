@@ -46,6 +46,7 @@ export default function JuniorDoctorDashBoard() {
   useEffect(() => {
     socketConnect();
   }, []);
+  
   function socketConnect() {
     socket.auth = { name: 'junior' };
     socket.connect();
