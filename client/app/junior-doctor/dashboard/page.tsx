@@ -13,19 +13,22 @@ import { displayChat } from '@/redux/features/display-chat';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
 import { io } from "socket.io-client";
+import LoadingSpinner from '@/app/(components)/loading';
 const socket = io("ws://localhost:3001");
 
 
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
+  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
+  const [loaded, setLoaded] = useState<Boolean>(false)
   const [logged, setLogged] = useState<Boolean>(true)
   const dispatch = useDispatch<AppDispatch>();
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value)
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
+  
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token) as TypePatient[];
@@ -36,6 +39,7 @@ export default function JuniorDoctorDashBoard() {
       }
     })
     setOnlinePatientsId(ids as string[])
+    setLoaded(true)
   }
 
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function JuniorDoctorDashBoard() {
   return (
     <main>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <div className="messages-container-juniorDoctor">
+      {loaded ? (<div className="messages-container-juniorDoctor">
       <AllPatients allPatients={allPatients} />
       {displayChat && (
                    
@@ -75,7 +79,7 @@ export default function JuniorDoctorDashBoard() {
                       currentJunior={currentJunior as TUser}
                     />
                 )}
-                  </div>
+                  </div>) : <LoadingSpinner />}
     </main>
   );
 }
