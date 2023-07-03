@@ -10,6 +10,10 @@ import setAllPatientReducer from './features/all-patients-slice';
 import patientToViewReducer from './features/patient-to-view-slice';
 import AvailableSpecialist from './features/available-doctors-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import searchPatientReducer from './features/search-patient'
+import filteredPatientsReducer from './features/search-patient';
+
+
 export const store = configureStore({
   reducer: {
     authReducer,
@@ -22,6 +26,8 @@ export const store = configureStore({
     displayChat,    
     setAllPatientReducer,
     patientToViewReducer,
+    patients: searchPatientReducer,
+    filteredPatients: filteredPatientsReducer,
   },
 });
 // type of store:
