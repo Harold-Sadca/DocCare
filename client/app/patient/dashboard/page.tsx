@@ -17,7 +17,7 @@ import LoadingSpinner from '@/app/(components)/loading';
 
 export default function Patient() {
   const router = useRouter();
-  const [loaded, setLoaded] = useState<Boolean>(false)
+  const [loaded, setLoaded] = useState<Boolean>(false);
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -33,20 +33,25 @@ export default function Patient() {
 
   useEffect(() => {
     if (id !== '') {
-      console.log(id)
-      setLoaded(true)
+      console.log(id);
+      setLoaded(true);
     }
-  }, [id])
+  }, [id]);
 
   return (
     <div>
-      {loaded ? (<main className='grid-container'>
-        <Profile />
-        <Appointments />
-        <Prescriptions />
-        <DoctorList />
-        <PatientMessages />
-      </main>) : <LoadingSpinner />}
+      <AuthNavbar user={'patient'} auth={'login'} />
+      {loaded ? (
+        <main className='grid-container'>
+          <Profile />
+          <Appointments />
+          <Prescriptions />
+          <DoctorList />
+          <PatientMessages />
+        </main>
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
-  )
+  );
 }

@@ -74,7 +74,7 @@ export default function Login(props: Props) {
   };
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
-    // e.preventDefault();
+    e.preventDefault();
     const data = await apiService.login(state, props.user);
     const { message, result } = data;
     if (result) {
