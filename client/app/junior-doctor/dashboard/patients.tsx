@@ -10,6 +10,7 @@ import { toggleDisplayChat } from '@/redux/features/display-chat';
 import JuniorDoctorMessages from './messages';
 import { MessageOutlined} from '@ant-design/icons';
 import { setPatientToView } from '@/redux/features/patient-to-view-slice';
+import {SearchOutlined} from '@ant-design/icons';
 
 
 interface Props {
@@ -49,7 +50,8 @@ export default function AllPatients({ allPatients }: Props) {
           <div className="discussion search">
             <div className="searchbar">
               <i className="fa fa-search" aria-hidden="true"></i>
-              <input type="text" placeholder="Search..." />
+              <input type="text" placeholder="Search..." ></input>
+              <SearchOutlined />
             </div>
           </div>
           {allPatients && allPatients.map((patient: TypePatient) => {
