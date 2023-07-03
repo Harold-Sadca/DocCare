@@ -23,7 +23,7 @@ export default function Patients() {
               alt='patient-profile'
               width={150}
               height={150}
-              className='profile-pic'
+              className='profile-pic mr-4'
             ></Image>
             <p>{patient.name}</p>
           </div>

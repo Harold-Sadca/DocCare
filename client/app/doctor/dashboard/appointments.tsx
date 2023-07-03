@@ -76,47 +76,28 @@ export default function Appointments() {
               className='profile-boxes profile-boxes-blue each-item each-item-appointments'
               key={idx}
             >
-              <div className='each-appointment'>
-                <div className='about-patient'>
-                  <p id='name'>{appointment.patientAppointment?.name}</p>
-                  <p id='gender'>{appointment.patientAppointment?.gender}</p>
-                </div>
-                <div className='time-of-appointment'>
-                  <p>{appointment.date}</p>
-                  <p>
-                    {' '}
-                    <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
-                  </p>
-                </div>
+              <div>
+                <p id='name'>{appointment.patientAppointment?.name}</p>
+                <p id='gender'>{appointment.patientAppointment?.gender}</p>
               </div>
-              <span
-                className='attend-btn'
-                onClick={() =>
-                  handleAttendAppointment(appointment.id as string)
-                }
-              >
-                <CheckSquareOutlined />
-              </span>
-              {/* <div className='see-more'>
-                <Link
-                  href='/doctor/dashboard/appointments'
-                  className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
-                  // onClick={() => router.push('/doctor/dashboard/patients')}
+              <div className='time-of-appointment'>
+                <p>{appointment.date}</p>
+                <p>
+                  {' '}
+                  <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
+                </p>
+              </div>
+              <div>
+                {' '}
+                <span
+                  className='attend-btn'
+                  onClick={() =>
+                    handleAttendAppointment(appointment.id as string)
+                  }
                 >
-                  <CheckSquareTwoTone />
-                </Link>
-                <div className='about-user'>
-                  <p>{appointment.patientAppointment?.name}</p>
-                  <p>{appointment.patientAppointment?.gender}</p>
-                </div>
-                <div className='time-of-appointment'>
-                  <p>{appointment.date}</p>
-                  <p>
-                    {' '}
-                    <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
-                  </p>
-                </div>
-              </div> */}
+                  <CheckSquareOutlined />
+                </span>
+              </div>
             </div>
           ))}
 
