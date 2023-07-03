@@ -94,68 +94,43 @@ export default function Login(props: Props) {
   return (
     <>
       {contextHolder}
-      <div className='flex min-h-screen flex-col'>
-        <div className='grid grid-cols-2 gap-4 h-screen'>
-          <div className='flex flex-col items-center justify-evenly'>
-            <div className='flex flex-row items-start justify-start'>
-              {/* <img
-                className='h-auto w-44 rounded'
-                src='/doctor-mobile.png'
-                alt='Your Company'
-              /> */}
-            </div>
-          </div>
-          <div className='flex flex-col items-center justify-center'>
-            <h2 className='font-bold text-2xl text-primary'>Login</h2>
-            <h3>Explore the future with us.</h3>
-            <Form
-              labelCol={{ span: 6 }}
-              wrapperCol={{ span: 14 }}
-              layout='horizontal'
-              initialValues={{ size: componentSize }}
-              onValuesChange={onFormLayoutChange}
-              size={componentSize as SizeType}
-              style={{ maxWidth: 900 }}
-              action={`${props.user}`}
-              method='post'
-              onFinish={submitForm}
-            >
-              <Form.Item label='Email' htmlFor='email'>
-                <Input
-                  type='email'
-                  id='email'
-                  name='email'
-                  required
-                  value={state.email}
-                  onChange={(e) => handleChange(e)}
-                />
-              </Form.Item>
-              <Form.Item label='Password' htmlFor='password'>
-                <Input
-                  type='password'
-                  id='password'
-                  name='password'
-                  value={state.password}
-                  onChange={(e) => handleChange(e)}
-                  required
-                />
-              </Form.Item>
-              {formError && (
-                <p className='error-message'>
-                  <ExclamationCircleTwoTone /> {formError}
-                </p>
-              )}
-              <button
-                className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
-                type='submit'
-              >
-                Login
-              </button>
-            </Form>
-          </div>
-        </div>
-      </div>
-
+      <main className='flex min-h-screen flex-col items-center justify-center'>
+        <h2 className='font-bold text-2xl text-primary'>Login</h2>
+        <h3>Explore the future with us.</h3>
+        <form onSubmit={submitForm}>
+          <Form.Item label='Email' htmlFor='email'>
+            <Input
+              type='email'
+              id='email'
+              name='email'
+              required
+              value={state.email}
+              onChange={(e) => handleChange(e)}
+            />
+          </Form.Item>
+          <Form.Item label='Password' htmlFor='password'>
+            <Input
+              type='password'
+              id='password'
+              name='password'
+              value={state.password}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          {formError && (
+            <p className='error-message'>
+              <ExclamationCircleTwoTone /> {formError}
+            </p>
+          )}
+          <button
+            className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
+            type='submit'
+          >
+            Login
+          </button>
+        </form>
+      </main>
       <Footer />
     </>
   );

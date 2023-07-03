@@ -24,6 +24,10 @@ h3 {
     margin-right: 4rem;
   }
 }
+
+form {
+  max-width: 900px;
+}
 /* ------------------ Grid dashboards ------------------ */
 .grid-container {
   display: grid;

@@ -138,172 +138,159 @@ export default function Register() {
     <>
       <Navbar />
       {contextHolder}
-      <div className='flex min-h-screen flex-col items-center justify-center my-6'>
+      <main className='flex min-h-screen flex-col items-center justify-center my-6'>
         <h2 className='font-bold text-2xl text-primary'>Register</h2>
-        <h3>Explore the future with us.</h3>
-        <div className='flex min-h-screen flex-col items-center justify-center'>
-          <form
-            // labelCol={{ span: 6 }}
-            // wrapperCol={{ span: 14 }}
-            // layout='horizontal'
-            // initialValues={{ size: componentSize }}
-            // onValuesChange={onFormLayoutChange}
-            // size={componentSize as SizeType}
-            // style={{ maxWidth: 900, minWidth: 600 }}
-            // action='/'
-            // method='post'
-            onSubmit={handleFormSubmit}
+        <h3>Your health in your hands.</h3>
+        <form onSubmit={handleFormSubmit}>
+          <Form.Item label='Name' htmlFor='name'>
+            <Input
+              type='text'
+              id='name'
+              name='name'
+              value={state.name}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Email' htmlFor='email'>
+            <Input
+              type='email'
+              id='email'
+              name='email'
+              value={state.email}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Password' htmlFor='password'>
+            <Input
+              type='password'
+              id='password'
+              name='password'
+              value={state.password}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Phone Number' htmlFor='phoneNumber'>
+            <Input
+              type='tel'
+              id='phoneNumber'
+              name='phoneNumber'
+              value={state.phoneNumber}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Address' htmlFor='address'>
+            <Input
+              type='text'
+              id='address'
+              name='address'
+              value={state.address}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Date of Birth' htmlFor='dateOfBirth'>
+            <Input
+              type='date'
+              id='dateOfBirth'
+              name='dateOfBirth'
+              value={state.dateOfBirth}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Gender' htmlFor='gender'>
+            <Radio.Group id='gender' name='gender'>
+              <Radio
+                id='male'
+                value='male'
+                onChange={(value) => handleChange(value)}
+              >
+                Male
+              </Radio>
+              <Radio
+                id='female'
+                value='female'
+                onChange={(value) => handleChange(value)}
+              >
+                Female
+              </Radio>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item label='Profile Picture' htmlFor='profile'>
+            <input
+              type='file'
+              accept='image/*'
+              onChange={handleImageChange}
+              required
+            />
+          </Form.Item>
+
+          <Form.Item label='Blood Type' htmlFor='bloodType'>
+            <Input
+              type='text'
+              id='bloodType'
+              name='bloodType'
+              value={state.bloodType}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Allergies' htmlFor='allergies'>
+            <TextArea
+              rows={2}
+              id='allergies'
+              name='allergies'
+              value={state.allergies}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Medications' htmlFor='medications'>
+            <TextArea
+              rows={2}
+              id='medications'
+              name='medications'
+              value={state.medications}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item label='Surgical History' htmlFor='surgicalHistory'>
+            <TextArea
+              rows={2}
+              id='surgicalHistory'
+              name='surgicalHistory'
+              value={state.surgicalHistory}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
+          <Form.Item
+            label='Family Medical History'
+            htmlFor='familyMedicalHistory'
           >
-            <Form.Item label='Name' htmlFor='name'>
-              <Input
-                type='text'
-                id='name'
-                name='name'
-                value={state.name}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Email' htmlFor='email'>
-              <Input
-                type='email'
-                id='email'
-                name='email'
-                value={state.email}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Password' htmlFor='password'>
-              <Input
-                type='password'
-                id='password'
-                name='password'
-                value={state.password}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Phone Number' htmlFor='phoneNumber'>
-              <Input
-                type='tel'
-                id='phoneNumber'
-                name='phoneNumber'
-                value={state.phoneNumber}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Address' htmlFor='address'>
-              <Input
-                type='text'
-                id='address'
-                name='address'
-                value={state.address}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Date of Birth' htmlFor='dateOfBirth'>
-              <Input
-                type='date'
-                id='dateOfBirth'
-                name='dateOfBirth'
-                value={state.dateOfBirth}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Gender' htmlFor='gender'>
-              <Radio.Group id='gender' name='gender'>
-                <Radio
-                  id='male'
-                  value='male'
-                  onChange={(value) => handleChange(value)}
-                >
-                  Male
-                </Radio>
-                <Radio
-                  id='female'
-                  value='female'
-                  onChange={(value) => handleChange(value)}
-                >
-                  Female
-                </Radio>
-              </Radio.Group>
-            </Form.Item>
-            <Form.Item label='Profile Picture' htmlFor='profile'>
-              <input
-                type='file'
-                accept='image/*'
-                onChange={handleImageChange}
-                required
-              />
-            </Form.Item>
+            <TextArea
+              rows={2}
+              id='familyMedicalHistory'
+              name='familyMedicalHistory'
+              value={state.familyMedicalHistory}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+          </Form.Item>
 
-            <Form.Item label='Blood Type' htmlFor='bloodType'>
-              <Input
-                type='text'
-                id='bloodType'
-                name='bloodType'
-                value={state.bloodType}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Allergies' htmlFor='allergies'>
-              <TextArea
-                rows={2}
-                id='allergies'
-                name='allergies'
-                value={state.allergies}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Medications' htmlFor='medications'>
-              <TextArea
-                rows={2}
-                id='medications'
-                name='medications'
-                value={state.medications}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item label='Surgical History' htmlFor='surgicalHistory'>
-              <TextArea
-                rows={2}
-                id='surgicalHistory'
-                name='surgicalHistory'
-                value={state.surgicalHistory}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-            <Form.Item
-              label='Family Medical History'
-              htmlFor='familyMedicalHistory'
-            >
-              <TextArea
-                rows={2}
-                id='familyMedicalHistory'
-                name='familyMedicalHistory'
-                value={state.familyMedicalHistory}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </Form.Item>
-
-            <button
-              className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
-              type='submit'
-            >
-              Register
-            </button>
-          </form>
-        </div>
-      </div>
+          <button
+            className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
+            type='submit'
+          >
+            Register
+          </button>
+        </form>
+      </main>
       <Footer />
     </>
   );
