@@ -73,6 +73,11 @@ form {
     grid-column: col-start 9 / span 4;
     grid-row: 2 / span 1;
   }
+
+  .messages-box-start-chat {
+    grid-column: col-start 9 / span 4;
+    grid-row: 2 / span 2;
+  }
 }
 
 .profile-box {

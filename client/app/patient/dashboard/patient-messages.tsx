@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
-import { SendOutlined } from '@ant-design/icons';
+import { MessageOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Popover, Space } from 'antd';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
@@ -16,6 +16,7 @@ const socket = io('ws://localhost:3001');
 export default function PatientMessages() {
   const initialState = { message: '', sender_name: '', receiver_name: '' };
   const [messageState, setMessageState] = useState(initialState);
+  const [startChat, setStartChat] = useState<boolean>(false);
   const allMessages = useAppSelector((state) => state.allMessagesReducer.value);
   const [patientMessages, setPatientMessages] = useState<TypeMessage[]>([]);
   const currentPatient = useAppSelector(
@@ -78,49 +79,62 @@ export default function PatientMessages() {
   });
 
   return (
-    <main className='messages-box'>
-      <div className='messages-container dashboard-container'>
-        <div className='messages-container-top'>
-          <div className='chat-container'>
-            {patientMessages.map((mes) => {
-              return mes.receiver_name === 'Doctor' ? (
-                <div className='user-message patient-message' key={mes.id}>
-                  <div className='message'>
-                    <p>
-                      {' '}
-                      <span id='bot-response'>{mes.content}</span>
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div
-                  className='user-message junior-doctor-message'
-                  key={mes.id}
-                >
-                  <div className='message'>
-                    <p>
-                      {' '}
-                      <span id='bot-response'>{mes.content}</span>
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <div className='messages-container-bottom'>
-          <div className='chat-input'>
-            <input
-              name='message'
-              value={messageState.message}
-              onChange={(e) => handleChange(e)}
-              placeholder='Type a message...'
-            ></input>
-            <button className='send' onClick={handleClick}>
-              <SendOutlined />
-            </button>
-          </div>
-        </div>
+    <main className={startChat ? 'messages-box-start-chat' : 'messages-box'}>
+      <div
+        className={
+          startChat
+            ? 'messages-container-start-chat dashboard-container'
+            : 'messages-container dashboard-container'
+        }
+      >
+        <h3 onClick={() => setStartChat(!startChat)}>
+          <MessageOutlined /> Talk to the doctor
+        </h3>
+        {startChat && (
+          <>
+            <div className='messages-container-top'>
+              <div className='chat-container'>
+                {patientMessages.map((mes) => {
+                  return mes.receiver_name === 'Doctor' ? (
+                    <div className='user-message patient-message' key={mes.id}>
+                      <div className='message'>
+                        <p>
+                          {' '}
+                          <span id='bot-response'>{mes.content}</span>
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div
+                      className='user-message junior-doctor-message'
+                      key={mes.id}
+                    >
+                      <div className='message'>
+                        <p>
+                          {' '}
+                          <span id='bot-response'>{mes.content}</span>
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className='messages-container-bottom'>
+              <div className='chat-input'>
+                <input
+                  name='message'
+                  value={messageState.message}
+                  onChange={(e) => handleChange(e)}
+                  placeholder='Type a message...'
+                ></input>
+                <button className='send' onClick={handleClick}>
+                  <SendOutlined />
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </main>
   );

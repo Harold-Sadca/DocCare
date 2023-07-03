@@ -80,7 +80,8 @@ h3 {
 .patient-info h3,
 .prescriptions-container h3,
 .appointment-box h3,
-.doctor-list-box h3 {
+.doctor-list-box h3,
+.messages-container h3 {
   font-size: 1.3rem;
   margin-top: 0.5rem;
 }
@@ -177,26 +178,32 @@ h3 {
 
 /* Messages */
 
-.messages-container {
+.messages-container-start-chat {
   height: 35vh;
   background-color: #f5ecf7;
-  /* overflow-y: auto; */
-  margin: 0;
+}
+.messages-container {
+  height: 10vh;
+  background-color: #f5ecf7;
+}
+
+.messages-container h3 {
+  cursor: pointer;
 }
 
 .messages-container-top {
   height: 70%;
-  width: 100%;
-  margin: 0;
+  width: 90%;
+  /* margin: 0; */
   overflow-y: auto;
 }
 
 .messages-container-bottom {
   height: 30%;
-  width: 100%;
+  width: 90%;
   border-radius: 2%;
   background-color: #a266b5;
-  margin: 0;
+  /* margin: 0; */
   display: flex;
 }
 
@@ -210,47 +217,35 @@ h3 {
   position: relative;
   padding: 1rem;
   margin: 1rem 0.5rem;
-  border-radius: 2%;
+  border-radius: 10px;
   display: flex;
 }
 
 .patient-message {
-  margin-left: 1rem;
-  background-color: #a8ddfd;
-  border: 1px solid #97c6e3;
+  background-color: #f0f6fc;
   text-align: left;
   align-self: flex-end;
+  width: 50%;
+}
+
+.patient-message p {
+  color: var(--primary);
 }
 
 .junior-doctor-message {
-  margin-right: 1rem;
-  background-color: #397b6e;
-  border: 1px solid #397b6e;
+  background-color: var(--primary);
   text-align: right;
   align-self: flex-start;
+  width: 50%;
 }
 
-/* TODO: */
-.message {
-  /* color: #000; */
-  clear: both;
-  position: relative;
-  margin: 8px 0;
-  max-width: 85%;
-  /* word-wrap: break-word; */
-  /* z-index: 2;
-  position: relative;
-  bottom: 0; */
-  min-height: 1.5vw;
-  border: 0.15vw solid #777;
-  /* background-color: #fff; */
-  border-radius: 0px 1.5vw 1.5vw 1.8vw;
-  padding: 1vw;
-  margin: 1.5vw 0;
+.junior-doctor-message p {
+  color: #f0f6fc;
 }
 
 .chat-input {
   width: 100%;
+  border-radius: 10px;
   padding: 0 0.5rem;
   background-color: #a266b5;
   display: flex;
@@ -265,8 +260,6 @@ h3 {
   border: none;
   min-width: 0.5vw;
   outline: none;
-  height: 5vw;
-  width: 26vw;
   color: white;
 }
 
