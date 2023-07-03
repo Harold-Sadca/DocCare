@@ -106,7 +106,7 @@ function getPatientsModel() {
                 ],
             });
             patients.map((patient) => {
-                return patient.password = null;
+                return (patient.password = null);
             });
             return patients;
         }
@@ -197,6 +197,7 @@ function formatStateDate(date) {
 }
 function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log(appointment);
         try {
             const newAppointment = yield AppointmentDB.create(appointment);
             console.log('whyyyyy');
