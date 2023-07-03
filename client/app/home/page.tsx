@@ -4,13 +4,15 @@ import Image from 'next/image';
 import Footer from '../(components)/footer';
 import Navbar from './navbar';
 import Users from './users';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import '../css/home.css';
 import '../css/globals.css';
 
 export default function Home() {
   const router = useRouter();
+  const usersRef = useRef<HTMLElement | null>(null);
+  const executeScroll = () => usersRef?.current?.scrollIntoView();
   useEffect(() => {
     const userType = localStorage.getItem('userType') as string;
     if (userType) {
@@ -41,7 +43,10 @@ export default function Home() {
                 <button className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 mr-2 rounded'>
                   Try for free
                 </button>
-                <button className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 mr-2 border border-tertiary hover:border-transparent rounded'>
+                <button
+                  className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 mr-2 border border-tertiary hover:border-transparent rounded'
+                  onClick={executeScroll}
+                >
                   See how it works
                 </button>
               </div>
@@ -60,8 +65,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        <Users />
+        <main ref={usersRef}>
+          {' '}
+          <Users />
+        </main>
       </main>
       <Footer />
     </div>
