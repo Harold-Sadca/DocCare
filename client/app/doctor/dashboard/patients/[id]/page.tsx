@@ -1,9 +1,7 @@
 'use client';
-import { TypePatient } from '@/../server/types/types';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import { calculateAge, toFirstLetterUpperCase } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PhoneOutlined } from '@ant-design/icons';
@@ -15,8 +13,6 @@ import '../../../../css/doctor.css';
 import Image from 'next/image';
 
 export default function Patient({ params }: { params: { id: string } }) {
-  const router = useRouter();
-  const [patient, setPatient] = useState({});
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );
