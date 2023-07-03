@@ -39,7 +39,10 @@ export default function AllPatients({ allPatients }: Props) {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     patient: TypePatient
   ) {
-    const target = e.target as HTMLButtonElement;
+    console.log('invoked')
+    console.log(e)
+    //@ts-ignore
+    const target = e.target.name? e.target as HTMLButtonElement : e.target.parentNode.parentNode;
     if (target.name === "patient-details") {
       // navigate to the patient details
       dispatch(setPatientToView(patient));
@@ -52,12 +55,13 @@ export default function AllPatients({ allPatients }: Props) {
         id: target.id,
         name: target.title,
       };
-      console.log(patientToChat);
+      // console.log(patientToChat);
       dispatch(setChatPatient(patientToChat));
     }
   }
 
-  function handleSearch() {
+  function handleSearch(e) {
+    setSearchQuery(e.target.value)
     const filteredPatients = allPatients.filter((patient) =>
       patient.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -67,12 +71,11 @@ export default function AllPatients({ allPatients }: Props) {
     <section className="discussions">
       <div className="discussion search">
         <div className="searchbar">
-          <SearchOutlined className="search-icon" />
           <input
             type="text"
             placeholder="Search..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearch}
           />
           <button onClick={handleSearch}>
             <SearchOutlined />
@@ -100,9 +103,7 @@ export default function AllPatients({ allPatients }: Props) {
                     name="chat"
                     onClick={(e) => chatToPatient(e, patient)}
                   >
-                    <span>
                     <MessageOutlined />
-                    </span>
                   </button>
                 </div>
               </div>
