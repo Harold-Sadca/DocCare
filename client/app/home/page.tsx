@@ -29,16 +29,16 @@ export default function Home() {
               className='block h-28 w-auto lg:hidden'
               src='/logo-light.png'
               alt='Your Company'
-              width='800'
-              height='800'
+              height={150}
+              width={150}
             />
             <Image
               priority={true}
               className='hidden h-28 w-auto lg:block'
               src='/logo-light.png'
               alt='Your Company'
-              width='800'
-              height='800'
+              height={150}
+              width={150}
             />
           </div>
           <div className='flex flex-col items-center justify-center'>

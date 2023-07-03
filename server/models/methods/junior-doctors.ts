@@ -2,19 +2,17 @@ import { TypeJuniorDoctor } from '../../types/types';
 import { Message } from '../schema/Message';
 import { Patient } from '../schema/Patient';
 import db from '../schema/index';
-
 const PatientDB = db.Patient;
 const JuniorDoctorDB = db.JuniorDoctor;
-
 async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   try {
     const newJuniorDoctor = await JuniorDoctorDB.create(juniorDoctor);
+    newJuniorDoctor.password = null
     return newJuniorDoctor;
   } catch (error) {
     throw new Error();
   }
 }
-
 async function getJuniorDoctorModel(id: string) {
   try {
     const juniorDoctor = await JuniorDoctorDB.findOne({
@@ -25,6 +23,7 @@ async function getJuniorDoctorModel(id: string) {
         required: false,
       },
     });
+    juniorDoctor!.password = null
     return juniorDoctor;
   } catch (error) {
     throw new Error();

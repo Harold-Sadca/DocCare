@@ -1,32 +1,21 @@
-'use client';
-
-import './messagess.css';
-import { io } from 'socket.io-client';
-import { useEffect, useState } from 'react';
-import {
-  TypeChatUser,
-  TypeMessage,
-  TypePatient,
-} from '../../../../server/types/types';
-import { useAppSelector } from '@/redux/store';
-import { TUser } from '@/types/types';
+"use client";
+import { io } from "socket.io-client";
+import "../junior-doctor.css";
+import { useEffect, useState } from "react";
+import { TypeChatUser, TypeMessage } from "../../../../server/types/types";
+import { useAppSelector } from "@/redux/store";
+import { TUser } from "@/types/types";
 
 const socket = io("ws://localhost:3001");
-
-
-// export default function JuniorDoctorMessages() {
-// export default function JuniorDoctorMessages({currentJunior}) {
 
 interface Props {
   currentJunior: TUser;
 }
 export default function JuniorDoctorMessages({ currentJunior }: Props) {
-  const initialState = { message: '', user: '' };
+  const initialState = { message: "", user: "" };
   const [messageState, setMessageState] = useState(initialState);
-  const [allReceivedMessages, setAllReceivedMessages] = useState<TypeMessage[]>([])
-  const [allSentMessages, setSentAllMessages] = useState<TypeMessage[]>([])
-  const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([])
-  // const [selectedPatient, setSelectedPatient] = useState<TypeChatUser>()
+  const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
+  const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -34,73 +23,69 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       [name]: value,
     }));
   };
-  // const currentJunior = useAppSelector((state) => state.currentPatientReducer.value);
-  const selectedPatient = useAppSelector((state) => state.chatPatientReducer.value);
-  console.log(selectedPatient)
-
-  // console.log(currentJunior)
-
-  //socket.io room name
-  const name = 'junior';
-
-  useEffect(() => {
-    socketConnect();
-  }, []);
+  const selectedPatient = useAppSelector(
+    (state) => state.chatPatientReducer.value
+  );
 
   function handleClick() {
     const newMessage = {
-      content:messageState.message,
-      sender_id:currentJunior.id,
-      sender_name:currentJunior.name,
-      receiver_id:selectedPatient.id,
-      receiver_name:selectedPatient.name
-    }
-    // console.log(newMessage)
-    // replace halord with currentPatient.name sadly
-    socket.emit("from junior", newMessage, selectedPatient.name);
+      content: messageState.message,
+      sender_id: currentJunior.id,
+      sender_name: "Doctor",
+      receiver_id: selectedPatient.id,
+      receiver_name: selectedPatient.name,
+    } as TypeMessage;
+
+    socket.emit("from junior", newMessage, selectedPatient.id);
+    setAllMessages([...allMessages, newMessage]);
+    //added to clear input
+    setMessageState(initialState);
   }
 
-  function socketConnect() {
-    socket.auth = {name}
-    console.log(socket.auth, 'room name')
-    socket.connect()
-  }
-
-  socket.on('patient message', (args) => {
-    console.log(args);
+  socket.on("patient message", (message) => {
+    setAllMessages([...allMessages, message]);
   });
 
   return (
-    <main className='ChatBox-container'>
-      <div className='Chatbox'>
-        {allReceivedMessages.map((mes) => {
-          return (
-            <div className='patient-message' key={mes.id}>
-              <span>{mes.content}</span>
+    <section className="chat">
+      <div className="header-chat">
+        <p className="name">{selectedPatient.name}</p>
+      </div>
+      <div className="messages-chat">
+        {allMessages.map((mes) => {
+          return mes.sender_name === "Doctor" ? (
+            <div className="message text-only">
+              <div className="response">
+                <div className="text" key={mes.id}>
+                  {mes.content}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="message">
+              <div className="response">
+                <div className="text" key={mes.id}>
+                  {mes.content}
+                </div>
+              </div>
             </div>
           );
         })}
-        {allReceivedMessages.map((mes) => {
-          return (
-            <div className='junior-doctor-message' key={mes.id}>
-              {mes.content}
-            </div>
-          );
-        })}
-        {/* <div className="junior-doctor-message"></div> */}
-        <div className='send-container'>
+      </div>
+      <div className="footer-chat">
+        <div className="send-container">
           <input
-            className='chat-input'
-            name='message'
+            className="write-message"
+            name="message"
             value={messageState.message}
             onChange={(e) => handleChange(e)}
-            placeholder='Type your message...'
+            placeholder="Type your message..."
           ></input>
-          <button className='send' onClick={handleClick}>
+          <button className="send-button" onClick={handleClick}>
             Send
           </button>
         </div>
       </div>
-    </main>
+    </section>
   );
 }

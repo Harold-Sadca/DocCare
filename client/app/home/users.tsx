@@ -12,8 +12,8 @@ export default function Users() {
             className='hidden h-28 w-auto lg:block'
             src='/patient.png'
             alt='Your Company'
-            width='800'
-            height='800'
+            height={150}
+            width={150}
           />
           <Link
             href='/patient/login'
@@ -31,8 +31,8 @@ export default function Users() {
             className='hidden h-28 w-auto lg:block'
             src='/junior.png'
             alt='Your Company'
-            width='800'
-            height='800'
+            height={150}
+            width={150}
           />
           <Link
             href='/junior-doctor/login'
@@ -48,8 +48,8 @@ export default function Users() {
             className='hidden h-28 w-auto lg:block'
             src='/doctor.png'
             alt='Your Company'
-            width='800'
-            height='800'
+            height={150}
+            width={150}
           />
           <Link
             href='/doctor/login'

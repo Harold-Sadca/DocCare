@@ -118,7 +118,8 @@ const seedDB = async () => {
       bloodType: 'AB-',
       medications: 'N/A',
       surgicalHistory: 'N/A',
-      familyMedicalHistory: 'N/A'
+      familyMedicalHistory: 'N/A',
+      status: 'Online'
     })
   }
 }

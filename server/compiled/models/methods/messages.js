@@ -39,14 +39,3 @@ function getMessagesModel() {
     });
 }
 exports.getMessagesModel = getMessagesModel;
-// const newMessage = MessageDB.build(message);
-// if(sender_type == 'patient') {
-//   newMessage.setPatientSent(sender_id)
-//   newMessage.setJuniorReceived(receiver_id)
-//   await newMessage.save()
-// } else {
-//   newMessage.setJuniorSent(sender_id)
-//   newMessage.setPatientReceived(receiver_id)
-//   await newMessage.save()
-// }
-// return newMessage;

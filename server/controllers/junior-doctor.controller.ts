@@ -8,7 +8,6 @@ import { JuniorDoctor } from '../models/schema/JuniorDoctor';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 async function createJuniorDoctor(req: Request, res: Response) {
@@ -23,11 +22,11 @@ async function createJuniorDoctor(req: Request, res: Response) {
       gender,
       profilePicture,
     } = req.body;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const newJuniorDoctor = {
       name,
       email,
-      password: hashedPassword,
+      password,
       phoneNumber,
       address,
       licenseNumber,
@@ -50,15 +49,10 @@ async function createJuniorDoctor(req: Request, res: Response) {
 async function loginJuniorDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    // console.log(req.body);
-    // console.log(email);
     const juniorDoctor = await JuniorDoctor.findOne({
       where: { email },
     });
-    console.log('here!');
-    console.log({ juniorDoctor });
     if (!juniorDoctor) {
-      console.log('Junior doctor not found');
       throw new Error('Junior doctor not found');
     }
     const juniorDoctorPassword = juniorDoctor.password;
@@ -70,7 +64,6 @@ async function loginJuniorDoctor(req: Request, res: Response) {
       throw new Error('Invalid credentials');
     }
     const accessToken = jwt.sign({ id: juniorDoctor.id }, SECRET_KEY);
-    console.log(accessToken);
     const userAuthenticated = await getJuniorDoctorModel(juniorDoctor.id);
     res.status(200).json({
       message: `Welcome, ${juniorDoctor?.name}!`,
@@ -83,9 +76,7 @@ async function loginJuniorDoctor(req: Request, res: Response) {
 
 async function getJuniorDoctor(req: Request, res: Response) {
   try {
-    console.log(req);
     const auth = req.juniorDoctor;
-    console.log(auth);
     const id = auth?.id as string;
     const juniorDoctor = await getJuniorDoctorModel(id);
     res.status(200).send(juniorDoctor);
@@ -113,3 +104,5 @@ export {
   createJuniorNote,
   loginJuniorDoctor,
 };
+
+//Very well done Ati- Ali <3

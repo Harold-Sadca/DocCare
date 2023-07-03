@@ -6,6 +6,7 @@ import {
   Model,
   Sequelize
 } from 'sequelize'
+import { v4 as uuidv4 } from 'uuid';
 
 export class Message extends Model<
   InferAttributes<Message>,
@@ -24,9 +25,8 @@ export class Message extends Model<
   static initModel(sequelize: Sequelize): typeof Message {
     Message.init({
       id: {
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.STRING,
         primaryKey: true,
-        autoIncrement: true,
         allowNull: false
       },
       content: {
@@ -55,6 +55,11 @@ export class Message extends Model<
         type: DataTypes.DATE
       }
     }, {
+      hooks:{
+        beforeValidate: (message) => {
+          message.id = uuidv4()
+        }
+      },
       sequelize
     })
     

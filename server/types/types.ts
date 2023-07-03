@@ -94,7 +94,7 @@ export interface TypeMessage {
   content: string;
   sender_id: string;
   sender_name: string;
-  receiver_id: string;
+  receiver_id?: string;
   receiver_name: string;
   date: string;
   createdAt?: Date;
@@ -118,6 +118,7 @@ export interface TypePatient {
   medications: string;
   surgicalHistory: string;
   familyMedicalHistory: string;
+  status: 'Online' | 'Offline';
   patientAppointments?: TypeAppointment[];
   userType?: string;
   createdAt?: Date;

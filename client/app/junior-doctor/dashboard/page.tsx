@@ -1,19 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import JuniorDoctorMessages from './messages';
-import './dashboard.css';
+import '.././junior-doctor.css';
 import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
 import AllPatients from './patients';
 import AuthNavbar from '@/app/(components)/auth-navbar';
+import { useAppSelector } from '@/redux/store';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { displayChat } from '@/redux/features/display-chat';
+import { setAllPatient } from '@/redux/features/all-patients-slice';
+import { TUser } from '@/types/types';
+import JuniorDoctorMessages from './messages';
+import { io } from "socket.io-client";
+const socket = io("ws://localhost:3001");
+
+
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
+  const [logged, setLogged] = useState<Boolean>(true)
+  const dispatch = useDispatch<AppDispatch>();
+  const displayChat = useAppSelector((state) => state.toggleDisplayChat.value)
+  const currentJunior = useAppSelector(
+    (state) => state.currentJuniorReducer.value
+  );
+  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
     setAllPatients(patients as TypePatient[]);
+    dispatch(setAllPatient(patients as TypePatient[]))
+  }
+
+  useEffect(() => {
+    socketConnect();
+  }, []);
+  function socketConnect() {
+    socket.auth = { name: "junior" };
+    socket.connect();
   }
 
   useEffect(() => {
@@ -26,16 +52,33 @@ export default function JuniorDoctorDashBoard() {
     if (token && userType === 'junior-doctor') {
       getPatients(token);
     }
-  }, []);
+  }, [logged]);
+
+  socket.on('patient logged', () => {
+    console.log('logged')
+    setLogged(!logged)
+  })
+
 
   return (
     <div>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <h1>Junior DashBoard</h1>
+      <div className="messages-container-juniorDoctor">
       <AllPatients allPatients={allPatients} />
-      <div className='chat-box'>
-        {/* <JuniorDoctorMessages currentJunior={junior as TUser} /> */}
-      </div>
-    </div>
+      {displayChat && (
+
+                    <JuniorDoctorMessages
+                      currentJunior={currentJunior as TUser}
+                    />
+                )}
+                  </div>
+    </main>
   );
 }
+
+
+
+
+
+
+

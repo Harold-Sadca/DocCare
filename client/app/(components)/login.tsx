@@ -12,6 +12,8 @@ import { AppDispatch } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { message } from 'antd';
+import { io } from 'socket.io-client';
+const socket = io('ws://localhost:3001');
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -80,6 +82,10 @@ export default function Login(props: Props) {
     if (result) {
       const username = result.userAuthenticated.name as string;
       const userType = result.userAuthenticated.userType as string;
+      if(userType === 'patient') {
+        console.log('patient')
+        socket.emit('patient logged', 'show this');
+      }
       localStorage.setItem('accessToken', result.accessToken);
       localStorage.setItem('userType', userType);
       setFormError('');

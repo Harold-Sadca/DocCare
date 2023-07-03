@@ -11,8 +11,8 @@ export default function Footer() {
               className='block h-8 w-auto lg:block'
               src='/logo-dark.png'
               alt='Your Company'
-              width='800'
-              height='800'
+              height={150}
+              width={150}
             />
           </div>
 

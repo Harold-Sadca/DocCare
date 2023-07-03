@@ -2,13 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Message = void 0;
 const sequelize_1 = require("sequelize");
+const uuid_1 = require("uuid");
 class Message extends sequelize_1.Model {
     static initModel(sequelize) {
         Message.init({
             id: {
-                type: sequelize_1.DataTypes.INTEGER.UNSIGNED,
+                type: sequelize_1.DataTypes.STRING,
                 primaryKey: true,
-                autoIncrement: true,
                 allowNull: false
             },
             content: {
@@ -37,6 +37,11 @@ class Message extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.DATE
             }
         }, {
+            hooks: {
+                beforeValidate: (message) => {
+                    message.id = (0, uuid_1.v4)();
+                }
+            },
             sequelize
         });
         return Message;

@@ -17,7 +17,6 @@ import { Doctor } from '../models/schema/Doctor';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-const saltRounds = 12;
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 function createEmptyAvailability() {
@@ -46,11 +45,11 @@ async function createDoctor(req: Request, res: Response) {
       about,
       profilePicture,
     } = req.body;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const newDoctor = {
       name,
       email,
-      password: hashedPassword,
+      password,
       specialisation,
       phoneNumber,
       address,
@@ -76,7 +75,6 @@ async function createDoctor(req: Request, res: Response) {
 async function loginDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    console.log(req.body);
     const doctor = await Doctor.findOne({ where: { email } });
     if (!doctor) {
       throw new Error('Patient not found');
@@ -90,9 +88,8 @@ async function loginDoctor(req: Request, res: Response) {
       throw new Error('Invalid password');
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
-    console.log(accessToken);
     const userAuthenticated = await getDoctorModel(doctor.id);
-    console.log(userAuthenticated);
+    userAuthenticated!.password = null
     res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
       result: { accessToken, userAuthenticated },
@@ -118,7 +115,6 @@ async function getDoctor(req: Request, res: Response) {
 async function getDoctors(req: Request, res: Response) {
   try {
     const doctors = await getDoctorsModel();
-    console.log(doctors);
     res.status(200).send(doctors);
   } catch (error) {
     res.status(500).json({ error: 'Failed to get doctors account' });
