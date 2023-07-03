@@ -15,6 +15,7 @@ import { AppDispatch } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { setAvailableSpecialist } from '@/redux/features/available-doctors-slice';
 import Image from 'next/image';
+import { futureDate } from '@/app/helper';
 
 const initialState = {
   date: '',
@@ -24,7 +25,7 @@ const initialState = {
 export default function PatientAppointment() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-
+  const [formError, setFormError] = useState('');
   const [openForm, setOpenForm] = useState(true);
   const [state, setState] = useState(initialState);
   const [illness, setIllness] = useState<string>('');
@@ -128,6 +129,11 @@ export default function PatientAppointment() {
 
   function submitForm() {
     // e.preventDefault();
+
+    if (futureDate(state.date)) {
+      setFormError('Plase choose a future date.');
+      return;
+    }
     if (state.date && state.illnesses) {
       const availableDoctors = displayAvailability(
         state.date,
@@ -376,6 +382,7 @@ export default function PatientAppointment() {
                   </Radio.Group>
                 </Form.Item>
               </div>
+              {formError && <p className='error-message'>{formError}</p>}
               <button
                 className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded'
                 type='submit'

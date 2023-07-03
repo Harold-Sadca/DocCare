@@ -18,3 +18,9 @@ export function calculateAge(dateOfBirth: string) {
 export function toFirstLetterUpperCase(word: string) {
   return word.charAt(1).toUpperCase();
 }
+
+export function futureDate(date: string) {
+  const now = new Date();
+  const inputStartDate = new Date(date);
+  if (inputStartDate < now) return true;
+}
