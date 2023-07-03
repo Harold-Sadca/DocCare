@@ -236,8 +236,7 @@ export default function PatientAppointment() {
                   >
                     <Radio
                       id='illness1'
-                      title='Common illnesses, minor injuries, preventive care, general
-                      health issues'
+                      title='Common illnesses, minor injuries, preventive care, general health issues'
                       value='General Practice'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -248,8 +247,7 @@ export default function PatientAppointment() {
                     <Radio
                       id='illness2'
                       value='Internal Medicine'
-                      title='Chronic diseases, infections, autoimmune disorders, organ
-                      diseases'
+                      title='Chronic diseases, infections, autoimmune disorders, organ diseases'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
                     >
@@ -259,8 +257,7 @@ export default function PatientAppointment() {
                     <Radio
                       id='illness3'
                       value='Pediatrics'
-                      title='Childhood illnesses, growth and development issues,
-                      vaccinations, pediatric infections'
+                      title='Childhood illnesses, growth and development issues, vaccinations, pediatric infections'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
                     >
@@ -269,8 +266,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness4'
-                      title='Pregnancy-related conditions, gynecological disorders,
-                      fertility issues, childbirth complications'
+                      title='Pregnancy-related conditions, gynecological disorders, fertility issues, childbirth complications'
                       value='Obstetrics and Gynecology'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -280,8 +276,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness5'
-                      title='Surgical conditions, injuries requiring surgical
-                      intervention, post-operative care'
+                      title='Surgical conditions, injuries requiring surgical intervention, post-operative care'
                       value='Surgery'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -291,8 +286,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness6'
-                      title='Mental health disorders, anxiety, depression, bipolar
-                      disorder, schizophrenia'
+                      title='Mental health disorders, anxiety, depression, bipolar disorder, schizophrenia'
                       value='Psychiatry'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -311,8 +305,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness8'
-                      title='Eye diseases, vision problems, cataracts, glaucoma, macular
-                      degeneration'
+                      title='Eye diseases, vision problems, cataracts, glaucoma, macular degeneration'
                       value='Ophthalmology'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -322,8 +315,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness9'
-                      title='Ear infections, sinusitis, tonsillitis, hearing loss, vocal
-                      cord disorders'
+                      title='Ear infections, sinusitis, tonsillitis, hearing loss, vocal cord disorders'
                       value='Ear Nose and Throat (ENT)'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -333,8 +325,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness10'
-                      title='Heart diseases, hypertension, heart failure, arrhythmias,
-                      coronary artery disease'
+                      title='Heart diseases, hypertension, heart failure, arrhythmias, coronary artery disease'
                       value='Cardiology'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -344,8 +335,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness11'
-                      title='Diabetes, thyroid disorders, hormonal imbalances, metabolic
-                      disorders'
+                      title='Diabetes, thyroid disorders, hormonal imbalances, metabolic disorders'
                       value='Endocrinology'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -355,8 +345,7 @@ export default function PatientAppointment() {
                     </Radio>
                     <Radio
                       id='illness12'
-                      title={`Digestive system disorders, gastrointestinal cancers,
-                      irritable bowel syndrome, Crohn's disease`}
+                      title={`Digestive system disorders, gastrointestinal cancers, irritable bowel syndrome, Crohn's disease`}
                       value='Gastroenterology'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
@@ -367,8 +356,7 @@ export default function PatientAppointment() {
                     <Radio
                       id='illness13'
                       value='Neurology'
-                      title='Neurological disorders, migraines, epilepsy, stroke,
-                      multiple sclerosis'
+                      title='Neurological disorders, migraines, epilepsy, stroke, multiple sclerosis'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
                     >
@@ -378,8 +366,7 @@ export default function PatientAppointment() {
                     <Radio
                       id='illness14'
                       value='Oncology'
-                      title='Cancer, various types and stages, chemotherapy, radiation
-                      therapy, palliative care'
+                      title='Cancer, various types and stages, chemotherapy, radiation therapy, palliative care'
                       onChange={(value) => handleChange(value)}
                       className='radio-form'
                     >
