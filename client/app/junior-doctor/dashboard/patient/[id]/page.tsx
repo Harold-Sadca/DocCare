@@ -1,15 +1,18 @@
-"use client";
-import { TypePatient } from "@/../server/types/types";
-import AuthNavbar from "@/app/(components)/auth-navbar";
-import { calculateAge, toFirstLetterUpperCase } from "@/app/helper";
-import { useAppSelector } from "@/redux/store";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { PhoneOutlined } from "@ant-design/icons";
-import { MailOutlined } from "@ant-design/icons";
-import { FieldTimeOutlined } from "@ant-design/icons";
-import "../../../junior-doctor.css";
-import Image from "next/image";
+'use client';
+import { TypePatient } from '@/../server/types/types';
+import AuthNavbar from '@/app/(components)/auth-navbar';
+import { calculateAge, toFirstLetterUpperCase } from '@/app/helper';
+import { useAppSelector } from '@/redux/store';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { PhoneOutlined } from '@ant-design/icons';
+import { MailOutlined } from '@ant-design/icons';
+import { FieldTimeOutlined } from '@ant-design/icons';
+// import '../../../junior-doctor.css';
+import '../../../../css/globals.css';
+import '../../../../css/patient.css';
+import '../../../../css/doctor.css';
+import Image from 'next/image';
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -26,86 +29,105 @@ export default function Patient({ params }: { params: { id: string } }) {
   }
 
   return (
-    <main>
-      <AuthNavbar user={"doctor"} auth={"login"} />
-      <div className="patient">
-        <Image
-          src={selectedPatient.profilePicture as string}
-          alt="patient-profile"
-          height={150}
-          width={150}
-        ></Image>
-        <div className="appointments-container">
-          <h2 id="heading-appointments">Next appointments</h2>
-          <div className="all-appointments">
-            {selectedPatient &&
-              selectedPatient.patientAppointments &&
-              selectedPatient.patientAppointments.map(
-                (appointment: Appointment, idx: number) => (
-                  <div key={idx} className="each-appointment">
-                    <p id="appointment-date">{appointment.date}</p>
-                    <p id="appointment-time">
-                      <FieldTimeOutlined />
-                      {appointment.time}
-                    </p>
-                    <p id="appointment-attended">{appointment.attended}</p>
-                  </div>
-                )
-              )}
+    <>
+      <AuthNavbar user={'doctor'} auth={'login'} />
+      <main>
+        <div className='grid-container'>
+          <div className='patient-picture-box'>
+            <Image
+              src='{selectedPatient?.profilePicture}'
+              className='profile-image-patient'
+              alt='profile-image-patient'
+              height={150}
+              width={150}
+            />
           </div>
-        </div>
 
-        <div className="all-info-about-patient">
-          <div className="main-info-patient">
-            <h2 id="name">{selectedPatient?.name}</h2>
-            <h2 id="age">
-              {calculateAge(selectedPatient?.dateOfBirth as string).toString()}{" "}
+          <div className='main-info-patient-box main-info-patient'>
+            <h3 className='text-3xl'>{selectedPatient?.name}</h3>
+            <h3 className='text-xl'>
+              {calculateAge(selectedPatient?.dateOfBirth as string).toString()}{' '}
               years old
-            </h2>
-            <p>Allergies: {selectedPatient?.allergies}</p>
-            <p>Blood Type: {selectedPatient?.bloodType}</p>
-            <p>
+            </h3>
+            <p className='text-xl'>{selectedPatient?.gender}</p>
+            <h3 className='text-base'>DOB: {selectedPatient?.dateOfBirth}</h3>
+            <p className='text-xl'>Allergies: {selectedPatient?.allergies}</p>
+            <p className='text-xl'>Blood Type: {selectedPatient?.bloodType}</p>
+            <p className='text-xl'>
               Family Medical History: {selectedPatient.familyMedicalHistory}
             </p>
-            <p id="gender">{selectedPatient?.gender}</p>
-            <h2 id="DOB">DOB: {selectedPatient?.dateOfBirth}</h2>
-            <div className="phone-call">
+            <div className='phone-email-container'>
               <a href={`tel:${selectedPatient?.phoneNumber}`}>
                 {selectedPatient?.phoneNumber}
-                <PhoneOutlined style={{ fontSize: "30px" }} />
+                <PhoneOutlined style={{ fontSize: '30px' }} />
               </a>
             </div>
-            <div className="mail-to">
+            <div className='phone-email-container'>
               <a href={`mailto:${selectedPatient?.email}`}>
-                <p>{selectedPatient?.email}</p>
-                <MailOutlined style={{ fontSize: "20px" }} id="icon-mail" />
+                <div className='email'>
+                  {' '}
+                  <p>{selectedPatient?.email}</p>
+                  <MailOutlined style={{ fontSize: '20px' }} />
+                </div>
               </a>
             </div>
-          </div>
-          <div className="medication-container">
-            <h2>Medications</h2>
-            <div className="each-medication-container">
-              <p>{selectedPatient?.medications.toString()}</p>
-            </div>
-          </div>
-          <div>
-            <h2 id="ilness-h2">Illnesses</h2>
-            {/* {selectedPatient &&
-              selectedPatient.patientAppointments &&
-              selectedPatient.patientAppointments.map(
-                (illness: Appointment, idx: number) => (
-                  <div key={idx} className="all-ilnesses">
-                    {illness.split(",").map((word, index) => (
-                      <span id="each-illness" key={index}>
-                        {word}
-                      </span>
+            <div>
+              {selectedPatient?.patientAppointments?.map((appointment, idx) => (
+                <div className='illnesses-container' key={idx}>
+                  <h3>Illnesses</h3>
+                  <div>
+                    {appointment.illness.split(',').map((word, index) => (
+                      <p className='each-illness' key={index}>
+                        {toFirstLetterUpperCase(word) + word.slice(2)}
+                      </p>
                     ))}
                   </div>
-                )
-              )} */}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='small-appointment-box'>
+            <div className='dashboard-container prescriptions-container'>
+              <h3>Medications</h3>
+              <div className='each-medication-container'>
+                <Image
+                  src='/medicine-emoji.png'
+                  alt='medicine-emoji'
+                  width={100}
+                  height={100}
+                ></Image>
+                <p>{selectedPatient?.medications.toString()}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='small-medications-box'>
+            <div className='dashboard-container prescriptions-container'>
+              <h3>Next appointments</h3>
+              <div className='all-appointments'>
+                {selectedPatient?.patientAppointments?.map(
+                  (appointment, idx) => (
+                    <div
+                      key={idx}
+                      className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'
+                    >
+                      <div className='time-of-appointment'>
+                        <p>{appointment.doctorAppointment?.name}</p>
+                        <p>{appointment.date}</p>
+                        <p>
+                          <FieldTimeOutlined />
+                          {appointment.time.slice(0, 5)}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

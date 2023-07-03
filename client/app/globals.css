@@ -33,6 +33,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgba(22, 78, 99, 0.668);
   background-color: rgb(240 249 255);

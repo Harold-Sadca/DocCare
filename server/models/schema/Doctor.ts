@@ -24,9 +24,7 @@ import type { Patient } from './Patient';
 import { v4 as uuidv4 } from 'uuid';
 const saltRounds = 12;
 import bcrypt from 'bcrypt';
-
 type DoctorAssociations = 'doctorAppointments' | 'patients';
-
 export class Doctor extends Model<
   InferAttributes<Doctor, { omit: DoctorAssociations }>,
   InferCreationAttributes<Doctor, { omit: DoctorAssociations }>
@@ -60,7 +58,6 @@ export class Doctor extends Model<
   declare userType: string | null;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
-
   // Doctor hasMany Appointment (as DoctorAppointments)
   declare doctorAppointments?: NonAttribute<Appointment[]>;
   declare getDoctorAppointments: HasManyGetAssociationsMixin<Appointment>;
@@ -88,7 +85,6 @@ export class Doctor extends Model<
     number
   >;
   declare countDoctorAppointments: HasManyCountAssociationsMixin;
-
   // Doctor hasMany Patient (as Patients)
   declare patients?: NonAttribute<Patient[]>;
   declare getPatients: HasManyGetAssociationsMixin<Patient>;
@@ -101,12 +97,10 @@ export class Doctor extends Model<
   declare hasPatient: HasManyHasAssociationMixin<Patient, number>;
   declare hasPatients: HasManyHasAssociationsMixin<Patient, number>;
   declare countPatients: HasManyCountAssociationsMixin;
-
   declare static associations: {
     doctorAppointments: Association<Doctor, Appointment>;
     patients: Association<Doctor, Patient>;
   };
-
   static initModel(sequelize: Sequelize): typeof Doctor {
     Doctor.init(
       {
@@ -114,7 +108,6 @@ export class Doctor extends Model<
           type: DataTypes.STRING,
           primaryKey: true,
           allowNull: false,
-          
         },
         name: {
           type: DataTypes.STRING,
@@ -174,17 +167,23 @@ export class Doctor extends Model<
           type: DataTypes.DATE,
         },
       },
-      { hooks:{
-        beforeValidate: async (doctor) => {
-          doctor.id = uuidv4();
-          const hashedPassword = await bcrypt.hash(doctor.password as string, saltRounds);
-          doctor.password = hashedPassword;
-        }
-      },
+      {
+        hooks: {
+          beforeValidate: async (doctor) => {
+            doctor.id = uuidv4();
+          },
+          afterCreate: async (doctor) => {
+            const hashedPassword = await bcrypt.hash(
+              doctor.password as string,
+              saltRounds
+            );
+            doctor.password = hashedPassword;
+            await doctor.save();
+          },
+        },
         sequelize,
       }
     );
-
     return Doctor;
   }
 }

@@ -29,7 +29,7 @@ export default function JuniorDoctorDashBoard() {
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-  
+
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token) as TypePatient[];
@@ -75,7 +75,7 @@ export default function JuniorDoctorDashBoard() {
       {loaded ? (<div className="messages-container-juniorDoctor">
       <AllPatients allPatients={allPatients} />
       {displayChat && (
-                   
+
                     <JuniorDoctorMessages
                       currentJunior={currentJunior as TUser}
                     />

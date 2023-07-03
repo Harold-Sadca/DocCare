@@ -1,0 +1,93 @@
+/* -------- Main page -------- */
+@media (min-width: 700px) {
+  .grid-home {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-home .home-right,
+  .grid-home .home-right-image {
+    display: flex;
+  }
+}
+
+.home-right {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  background-color: var(--primary);
+}
+
+.home-right-image {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  padding: 2rem;
+}
+
+.home-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  padding: 2rem;
+}
+
+.home-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  padding: 2rem 4rem;
+}
+
+@media (max-width: 900px) {
+  .home-text {
+    padding: 2rem;
+  }
+}
+
+.home-btns {
+  margin-top: 2rem;
+  display: flex;
+  /* justify-content: center;
+  justify-items: center; */
+}
+
+.home-left h2 {
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+/* -------- Users -------- */
+
+@media (min-width: 700px) {
+  .grid-users {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.grid-users {
+  margin: 2rem;
+}
+
+.users {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.users .users-left {
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+}
+
+.users-center {
+}

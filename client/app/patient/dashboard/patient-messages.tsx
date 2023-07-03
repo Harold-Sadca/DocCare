@@ -10,15 +10,14 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import LoadingSpinner from '@/app/(components)/loading';
 
-
 // sets the connection path for the socket
 const socket = io('ws://localhost:3001');
 
 export default function PatientMessages() {
   const initialState = { message: '', sender_name: '', receiver_name: '' };
   const [messageState, setMessageState] = useState(initialState);
-  const allMessages = useAppSelector(state => state.allMessagesReducer.value)
-  const [patientMessages, setPatientMessages] = useState<TypeMessage[]>([])
+  const allMessages = useAppSelector((state) => state.allMessagesReducer.value);
+  const [patientMessages, setPatientMessages] = useState<TypeMessage[]>([]);
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -37,11 +36,15 @@ export default function PatientMessages() {
     if (name != '') {
       socketConnect();
       socket.emit('patient logged');
-      setPatientMessages(allMessages.filter(mes => mes.sender_id === id || mes.receiver_id === id))
+      setPatientMessages(
+        allMessages.filter(
+          (mes) => mes.sender_id === id || mes.receiver_id === id
+        )
+      );
     }
   }, [name]);
 
-  let newMessage
+  let newMessage;
 
   function handleClick() {
     newMessage = {
@@ -49,28 +52,28 @@ export default function PatientMessages() {
       sender_id: id as string,
       sender_name: name,
       receiver_name: 'Doctor',
-      date: Date.now() as unknown as string
+      date: Date.now() as unknown as string,
     } as TypeMessage;
     // 'patient message' is an event name we define
     // which we can use on the backend to separate events and handle them accordingly
     // 'emit' is a socket method that would send an event to the backend
     // 'emit' sends an event to everyone except the sender
     socket.emit('patient message', newMessage);
-    setPatientMessages([...patientMessages, newMessage])
+    setPatientMessages([...patientMessages, newMessage]);
   }
 
   function socketConnect() {
     //assigns a 'name' property on the socket auth for us to use on the backend
     //to authenticate and create a private room
-    socket.auth = {name}
-    socket.connect()
+    socket.auth = { name };
+    socket.connect();
   }
   // 'from junior' is an event we defined in the backend
   // when we called emit we are invoking an event with that name
   // and the backend will capture it when it spots it
 
   socket.on('from junior', (message) => {
-    setPatientMessages([...patientMessages, message])
+    setPatientMessages([...patientMessages, message]);
   });
 
   return (
@@ -78,16 +81,23 @@ export default function PatientMessages() {
       <div className='messages-container dashboard-container'>
         <div className='messages-container-top'>
           <div className='chat-container'>
-            {allMessages.map((mes) => {
-               return (mes.receiver_name === 'Doctor' ? <div className='user-message patient-message' key={mes.id}>
-                <div className='message'>
+            {patientMessages.map((mes) => {
+              return mes.receiver_name === 'Doctor' ? (
+                <div className='user-message patient-message' key={mes.id}>
+                  <div className='message'>
                     <span id='bot-response'>{mes.content}</span>
                   </div>
-             </div> : <div className='user-message junior-doctor-message' key={mes.id}>
-             <div className='message'>
+                </div>
+              ) : (
+                <div
+                  className='user-message junior-doctor-message'
+                  key={mes.id}
+                >
+                  <div className='message'>
                     <span id='bot-response'>{mes.content}</span>
                   </div>
-               </div>)
+                </div>
+              );
             })}
           </div>
         </div>
@@ -105,6 +115,6 @@ export default function PatientMessages() {
           </div>
         </div>
       </div>
-  </main>
-  )
+    </main>
+  );
 }

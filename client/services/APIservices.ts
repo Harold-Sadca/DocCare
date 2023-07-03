@@ -168,8 +168,8 @@ async function getAllPatients(token: string) {
 //     });
 // }
 
-async function logoutPatient(patientId:string, patientDetails:TypePatient) {
-  return putData(`/patients/logout/${patientId}`, patientDetails)
+async function logoutPatient(patientId: string, patientDetails: TypePatient) {
+  return putData(`/patients/logout/${patientId}`, patientDetails);
 }
 
 async function editPatientDetails(
@@ -212,6 +212,7 @@ async function createAppointment(
   appointment: TypeAppointment,
   doctorId: string
 ) {
+  console.log(appointment);
   return axios
     .post(
       `${PORT}/patient/appointment/${patientId}`,
@@ -282,15 +283,15 @@ async function createJuniorNote(
 
 async function getAllMessages() {
   return axios
-  .get(`${PORT}/messages`, {
-    headers: {
-      'Content-type': 'application/json; charset=UTF-8',
-    },
-    withCredentials: true,
-  })
-  .then((res: AxiosResponse<TypeMessage[]>) => {
-    return res.data;
-  });
+    .get(`${PORT}/messages`, {
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+      withCredentials: true,
+    })
+    .then((res: AxiosResponse<TypeMessage[]>) => {
+      return res.data;
+    });
 }
 
 const apiService = {
@@ -309,7 +310,7 @@ const apiService = {
   saveImage,
   attendAppointment,
   logoutPatient,
-  getAllMessages
+  getAllMessages,
 };
 
 export default apiService;
