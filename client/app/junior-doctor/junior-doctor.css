@@ -2,7 +2,7 @@
 /* CHAT-BOX  */
 
 
-.messages-container-juniorDoctor {
+/* .messages-container-juniorDoctor {
   padding: 0;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   height: 700px;
@@ -79,57 +79,136 @@ flex-direction: column;
   font-size: 14pt;
   color: #515151;
 }
+ */
+
+ .messages-container-juniorDoctor {
+  padding: 0;
+  /* box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.19), 0 0.8vh 0.8vh rgba(0, 0, 0, 0.2); */
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, [col-start] 1fr);
+  margin: 0;
+  overflow: hidden;
+}
+
+.discussions {
+  grid-column: col-start 1 / span 1;
+  height: 100%;
+  box-shadow: 0px 0.5rem 0.7rem rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: inline-block;
+  overflow-y: scroll;
+}
+
+.buttons-see-more-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.discussions .discussion {
+  width: 100%;
+  height: 10rem;
+  background-color: #FAFAFA;
+  border-bottom: solid 1px #E0E0E0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.discussions .search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #939090;
+}
+
+.discussions .search .searchbar {
+  height: 2.5rem;
+  background-color: #FFF;
+  width: 43.75vw;
+  padding: 0 1.25rem;
+  border-radius: 3.125rem;
+  border: 1px solid #EEEEEE;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.discussions .search .searchbar input {
+  margin-left: 0.9375rem;
+  height: 2.375rem;
+  width: 100%;
+  border: none;
+}
+
+.desc-contact {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.discussions .discussion .name {
+  margin: 0 0 0 1.25rem;
+  font-size: 0.875rem;
+  color: #515151;
+}
 
 
+
+/* DONE */
 .chat {
   z-index: 2;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #FFF;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-  height: 700px;
-  grid-column: col-start 2/ span 6;
+  box-shadow: 0 1.43vh 2.86vh rgba(0, 0, 0, 0.19), 0 0.86vh 0.86vh rgba(0, 0, 0, 0.23);
+  height: 100%;
+  grid-column: col-start 2 / span 6;
 }
 
 .header-chat {
   background-color: #FFF;
-  height: 90px;
-  box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.100);
+  height: 10vh;
+  box-shadow: 0px 0.21vh 0.14vh rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
 }
 
 .chat .header-chat .name {
-  margin: 0 0 0 20px;
+  margin: 0 0 0 1.43vw;
   text-transform: uppercase;
-  font-size: 13pt;
-  color:#515151;
+  font-size: 1rem;
+  color: #515151;
 }
 
 .chat .messages-chat {
-  padding: 25px 35px;
+  padding: 3.57vh 5vw;
 }
-
 .chat .messages-chat .message {
   display: flex;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .chat .messages-chat .text {
-  margin: 0 35px;
+  margin: 0 2rem;
   background-color: #F5ECF7;
-  padding: 15px;
-  border-radius: 12px;
+  padding: 1rem;
+  border-radius: 0.75rem;
 }
 
 
 .text-only {
-  margin-left: 45px;
+  margin-left: 2.5rem;
 }
 
 .response {
   float: right;
-  margin-right: 0px !important;
+  margin-right: 0rem !important;
   margin-left: auto;
 }
 
@@ -139,38 +218,39 @@ flex-direction: column;
 
 
 .footer-chat {
-  width: calc(90% - 60px);
-  height: 90px;
+  width: calc(100% - 3rem);
+  height: 5rem;
   display: flex;
   align-items: center;
-  position: absolute;
-  bottom: 0;
   background-color: transparent;
   border-top: 2px solid #EEE;
+
 }
 
 .write-message {
   border: none !important;
-  width: 400px;
-  height: 50px;
-  margin-left: 40px;
+  width: 12rem;
+  height:  3rem;
+  margin-right: 10vw;
+  margin-left: 5vw;
   padding: 10px;
 }
 
 
 .send-button {
-  color: #fff;
-  background-color: #A266B5;
-  position: absolute;
-  right: 200px;
-  padding: 12px 12px 12px 12px;
-  border-radius: 50px;
-  font-size: 14pt;
+  display: flex;
+  margin: 0.3rem;
+  border-radius: 50%;
+  background-color: #d4a8fd;
+  padding: 0.8rem;
+  border: none;
+  cursor: pointer;
 }
 
-
-
-
+.send-container{
+display:flex;
+justify-content: space-between;
+}
 
 
 

@@ -9,6 +9,7 @@ import apiService from "@/services/APIservices";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { setAllMessages } from "@/redux/features/messages-slice";
+import {SendOutlined} from "@ant-design/icons";
 
 const socket = io("ws://localhost:3001");
 
@@ -97,7 +98,7 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
             placeholder="Type your message..."
           ></input>
           <button className="send-button" onClick={handleClick}>
-            Send
+          <SendOutlined />
           </button>
         </div>
       </div>
