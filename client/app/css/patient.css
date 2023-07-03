@@ -180,7 +180,7 @@ h3 {
 .messages-container {
   height: 35vh;
   background-color: #f5ecf7;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   margin: 0;
 }
 
@@ -188,6 +188,7 @@ h3 {
   height: 70%;
   width: 100%;
   margin: 0;
+  overflow-y: auto;
 }
 
 .messages-container-bottom {
@@ -231,21 +232,18 @@ h3 {
 
 /* TODO: */
 .message {
-  color: #000;
+  /* color: #000; */
   clear: both;
-  line-height: 1.2vw;
-  font-size: 1.2vw;
-  padding: 8px;
   position: relative;
   margin: 8px 0;
   max-width: 85%;
-  word-wrap: break-word;
-  z-index: 2;
+  /* word-wrap: break-word; */
+  /* z-index: 2;
   position: relative;
-  bottom: 0;
+  bottom: 0; */
   min-height: 1.5vw;
   border: 0.15vw solid #777;
-  background-color: #fff;
+  /* background-color: #fff; */
   border-radius: 0px 1.5vw 1.5vw 1.8vw;
   padding: 1vw;
   margin: 1.5vw 0;

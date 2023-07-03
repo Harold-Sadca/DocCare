@@ -60,6 +60,7 @@ export default function PatientMessages() {
     // 'emit' sends an event to everyone except the sender
     socket.emit('patient message', newMessage);
     setPatientMessages([...patientMessages, newMessage]);
+    messageState.message = '';
   }
 
   function socketConnect() {
@@ -85,7 +86,10 @@ export default function PatientMessages() {
               return mes.receiver_name === 'Doctor' ? (
                 <div className='user-message patient-message' key={mes.id}>
                   <div className='message'>
-                    <span id='bot-response'>{mes.content}</span>
+                    <p>
+                      {' '}
+                      <span id='bot-response'>{mes.content}</span>
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -94,7 +98,10 @@ export default function PatientMessages() {
                   key={mes.id}
                 >
                   <div className='message'>
-                    <span id='bot-response'>{mes.content}</span>
+                    <p>
+                      {' '}
+                      <span id='bot-response'>{mes.content}</span>
+                    </p>
                   </div>
                 </div>
               );
