@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-
 import apiService from '@/services/APIservices';
-import './profile.css';
 import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { CldImage } from 'next-cloudinary';
 
 export default function Profile() {
   const [message, setMessage] = useState('');
@@ -49,34 +48,35 @@ export default function Profile() {
   }, [currentPatient]);
 
   return (
-    <main>
-      <div className='profile'>
-        <div className='about-patient'>
-          <div className='profile-pic'>
-            {/* <img src='https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'></img> */}
+    <main className='profile-box'>
+      <div className='dashboard-container'>
+        <div className='profile-pic'>
+          {currentPatient.profilePicture && (
             <Image
               src={currentPatient.profilePicture as string}
-              alt='patient-profile'
+              alt='doctor-profile'
               height={150}
               width={150}
+              className='profile-pic'
             ></Image>
-          </div>
-          <h1>{currentPatient.name}</h1>
+          )}
+
+          <h2>{currentPatient.name}</h2>
           <p>{calculateAge(currentPatient.dateOfBirth)} years old</p>
         </div>
         <div className='general-info'>
-          <h2>General info:</h2>
+          <h3>General info:</h3>
           <p>Date of birth: {currentPatient.dateOfBirth}</p>
           <p>{currentPatient.gender}</p>
         </div>
-        <div className='ilnesses'>
+        <div className='patient-info'>
           <h3>Allergies:</h3>
-          <div className='each-illness'>
+          <div className='profile-boxes'>
             <div>{currentPatient.allergies}</div>
           </div>
-          <div className='checkup'>
-            <h4>Last Checkup:</h4>
-            <div className='checkup-container'>
+          <div className='patient-info'>
+            <h3>Last Checkup:</h3>
+            <div className='profile-boxes profile-boxes-blue'>
               <p className='date'>{lastDate}</p>
               <div className='doctor-notes'>
                 <p>{message}</p>

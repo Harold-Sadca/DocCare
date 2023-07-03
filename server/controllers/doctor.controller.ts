@@ -5,6 +5,7 @@ import {
   getDoctorsModel,
   createMedicalInfoModel,
   createPatientSummaryModel,
+  attendAppointmentModel,
 } from '../models/methods/doctors';
 import {
   TypeDoctor,
@@ -160,6 +161,20 @@ async function createPatientSummary(req: Request, res: Response) {
   }
 }
 
+async function attendAppointment(req: Request, res: Response) {
+  console.log('working');
+  try {
+    const appointmentId = req.params.id;
+    const attendAppointment = await attendAppointmentModel(appointmentId);
+    res.status(201).json({
+      message: 'Mark appointment as attended successfully',
+      result: attendAppointment,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to mark appointment as attended' });
+  }
+}
+
 export {
   createDoctor,
   getDoctor,
@@ -167,4 +182,5 @@ export {
   createMedicalInfo,
   createPatientSummary,
   loginDoctor,
+  attendAppointment,
 };

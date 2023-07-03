@@ -1,0 +1,218 @@
+/* ------------------ Generics ------------------ */
+
+h2,
+h3,
+p {
+  color: black;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .margin-right-4 {
+    margin-right: 4rem;
+  }
+}
+/* ------------------ Grid dashboards ------------------ */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, [col-start] 1fr);
+  grid-column: col-start / span 12;
+  margin: 2rem 1rem;
+  row-gap: 2rem;
+}
+
+.grid-container > * {
+  grid-column: col-start / span 12;
+}
+
+/* -------- Doctor and Patient -------- */
+
+@media (min-width: 600px) {
+  .grid-container {
+    column-gap: 4rem;
+    row-gap: 2rem;
+    margin: 3rem;
+  }
+  .profile-box {
+    grid-column: col-start 1 / span 4;
+    grid-row: 1 / span 2;
+  }
+
+  .appointment-box {
+    grid-column: col-start 5 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .prescriptions-box {
+    grid-column: col-start 5 / span 4;
+    grid-row: 2 / span 1;
+  }
+
+  .doctor-list-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .messages-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 2 / span 1;
+  }
+}
+
+.profile-box {
+  width: 100%;
+}
+
+/* -------- Doctor -------- */
+
+@media (min-width: 600px) {
+  .doctor-appointments-box {
+    grid-column: col-start 5 / span 4;
+    grid-row: 1 / span 2;
+  }
+  .doctor-patients-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 1 / span 2;
+  }
+}
+.patients-box {
+  grid-column: col-start 2 / span 1;
+  grid-row: col-start 1 / span 1;
+  justify-self: center;
+  align-self: center;
+}
+/*
+.appointments-box {
+  grid-column: col-start 3 / span 1;
+  grid-row: col-start 1 / span 1;
+  justify-self: center;
+  align-self: center;
+} */
+
+/* -------- Patient -------- */
+
+/* ------------------ Profile ------------------ */
+
+.dashboard-container {
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.6);
+  border-radius: 4%;
+  padding: 1rem 2rem 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-pic {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.about-user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.general-info p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.general-info h3 {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+.general-info p {
+  margin-top: 0.3rem;
+}
+
+.profile-boxes {
+  flex-direction: column;
+  text-align: center;
+  width: fit-content;
+  color: #a266b5;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  box-shadow: 0 1px 2px rgba(101, 100, 100, 0.6);
+}
+
+.profile-boxes-blue {
+  height: fit-content;
+  padding: 1rem;
+  background-color: #f0f6fc;
+}
+
+/* Each patient profile */
+
+@media (min-width: 700px) {
+  .patient-picture-box {
+    grid-column: col-start 1 / span 3;
+    grid-row: 1 / span 2;
+  }
+
+  .main-info-patient-box {
+    grid-column: col-start 4 / span 5;
+    grid-row: 1 / span 2;
+  }
+
+  .small-appointment-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 1 / span 1;
+  }
+
+  .small-medications-box {
+    grid-column: col-start 9 / span 4;
+    grid-row: 2 / span 1;
+  }
+}
+
+.main-info-patient {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.phone-email-container {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.phone-email-container .email {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.illnesses-container h3 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.each-illness {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  text-align: center;
+  height: 30px;
+  width: fit-content;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  color: #a266b5;
+  box-shadow: 0 1px 2px rgba(101, 100, 100, 0.6);
+}

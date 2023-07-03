@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginDoctor = exports.createPatientSummary = exports.createMedicalInfo = exports.getDoctors = exports.getDoctor = exports.createDoctor = void 0;
+exports.attendAppointment = exports.loginDoctor = exports.createPatientSummary = exports.createMedicalInfo = exports.getDoctors = exports.getDoctor = exports.createDoctor = void 0;
 const doctors_1 = require("../models/methods/doctors");
 const Doctor_1 = require("../models/schema/Doctor");
 const bcrypt_1 = __importDefault(require("bcrypt"));
@@ -160,3 +160,20 @@ function createPatientSummary(req, res) {
     });
 }
 exports.createPatientSummary = createPatientSummary;
+function attendAppointment(req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log('working');
+        try {
+            const appointmentId = req.params.id;
+            const attendAppointment = yield (0, doctors_1.attendAppointmentModel)(appointmentId);
+            res.status(201).json({
+                message: 'Mark appointment as attended successfully',
+                result: attendAppointment,
+            });
+        }
+        catch (error) {
+            res.status(500).json({ error: 'Failed to mark appointment as attended' });
+        }
+    });
+}
+exports.attendAppointment = attendAppointment;

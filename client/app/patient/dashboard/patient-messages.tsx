@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import './patient-messagess.css';
 import { io } from 'socket.io-client';
 import { useEffect, useState } from 'react';
 import { TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
+import { SendOutlined } from '@ant-design/icons';
 import { Button, Popover, Space } from 'antd';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import LoadingSpinner from '@/app/(components)/loading';
 
 
 // sets the connection path for the socket
@@ -14,7 +17,8 @@ const socket = io('ws://localhost:3001');
 export default function PatientMessages() {
   const initialState = { message: '', sender_name: '', receiver_name: '' };
   const [messageState, setMessageState] = useState(initialState);
-  const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
+  const allMessages = useAppSelector(state => state.allMessagesReducer.value)
+  const [patientMessages, setPatientMessages] = useState<TypeMessage[]>([])
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
@@ -30,8 +34,10 @@ export default function PatientMessages() {
   };
 
   useEffect(() => {
-    if(name != '') {
+    if (name != '') {
       socketConnect();
+      socket.emit('patient logged');
+      setPatientMessages(allMessages.filter(mes => mes.sender_id === id || mes.receiver_id === id))
     }
   }, [name]);
 
@@ -50,11 +56,11 @@ export default function PatientMessages() {
     // 'emit' is a socket method that would send an event to the backend
     // 'emit' sends an event to everyone except the sender
     socket.emit('patient message', newMessage);
-    setAllMessages([...allMessages, newMessage])
+    setPatientMessages([...patientMessages, newMessage])
   }
 
   function socketConnect() {
-    //assigns a 'name' property on the socket auth for us to use on tha backend
+    //assigns a 'name' property on the socket auth for us to use on the backend
     //to authenticate and create a private room
     socket.auth = {name}
     socket.connect()
@@ -64,32 +70,41 @@ export default function PatientMessages() {
   // and the backend will capture it when it spots it
 
   socket.on('from junior', (message) => {
-    setAllMessages([...allMessages, message])
+    setPatientMessages([...patientMessages, message])
   });
 
   return (
-    <main className='ChatBox-container'>
-      <div className='Chatbox'>
-        {allMessages.map((mes) => {
-          return (mes.receiver_name === 'Doctor' ? <div className='patient-message' key={mes.id}>
-          {mes.content}
-        </div> : <div className='junior-doctor-message' key={mes.id}>
-            {mes.content}
-          </div>)
-        })}
-        <div className='send-container'>
-          <input
-            className='chat-input'
-            name='message'
-            value={messageState.message}
-            onChange={(e) => handleChange(e)}
-            placeholder='Type your message...'
-          ></input>
-          <button className='send' onClick={handleClick}>
-            Send
-          </button>
+    <main className='messages-box'>
+      <div className='messages-container dashboard-container'>
+        <div className='messages-container-top'>
+          <div className='chat-container'>
+            {allMessages.map((mes) => {
+               return (mes.receiver_name === 'Doctor' ? <div className='user-message patient-message' key={mes.id}>
+                <div className='message'>
+                    <span id='bot-response'>{mes.content}</span>
+                  </div>
+             </div> : <div className='user-message junior-doctor-message' key={mes.id}>
+             <div className='message'>
+                    <span id='bot-response'>{mes.content}</span>
+                  </div>
+               </div>)
+            })}
+          </div>
+        </div>
+        <div className='messages-container-bottom'>
+          <div className='chat-input'>
+            <input
+              name='message'
+              value={messageState.message}
+              onChange={(e) => handleChange(e)}
+              placeholder='Type a message...'
+            ></input>
+            <button className='send' onClick={handleClick}>
+              <SendOutlined />
+            </button>
+          </div>
         </div>
       </div>
-    </main>
-  );
+  </main>
+  )
 }

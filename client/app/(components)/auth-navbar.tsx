@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '@/redux/features/auth-slice';
 import { setCurrentDoctor } from '@/redux/features/doctor-slice';
 import { setCurrentJunior } from '@/redux/features/junior-slice';
+import { setAllMessages } from '@/redux/features/messages-slice';
 
 interface Props {
   user: string;
@@ -28,6 +29,11 @@ function toFirstLetterUpperCase(text: string) {
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
   const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    apiService.getAllMessages().then((res) => {
+      dispatch(setAllMessages(res))
+    })
+  }, [])
 
   async function getCurrentUser() {
     const token = localStorage.getItem('accessToken');
@@ -58,18 +64,22 @@ export default function AuthNavbar(props: Props) {
     getCurrentUser();
   }, []);
 
-  const navItem = isAuth
-    ? [
-        {
+  const navPatientItem =
+    props.user === 'patient'
+      ? {
           name: 'Make an appointment',
           href: '/patient/appointment',
           current: false,
-        },
+        }
+      : undefined;
+  const navItem = isAuth
+    ? [
         {
           name: 'Logout',
           href: '/logout',
           current: false,
         },
+        ...(navPatientItem ? [navPatientItem] : []),
       ]
     : [
         {

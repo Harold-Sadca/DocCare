@@ -148,7 +148,7 @@ function createPatientSummaryModel(newPatientSummary, patientId) {
     });
 }
 exports.createPatientSummaryModel = createPatientSummaryModel;
-function attendAppointmentModel(newPatientSummary, appointmentId) {
+function attendAppointmentModel(appointmentId) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const appointment = (yield AppointmentDB.findOne({

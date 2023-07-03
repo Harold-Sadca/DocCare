@@ -49,6 +49,7 @@ io.use((socket, next) => {
 
 
 io.on('connection', (socket) => {
+  socket.broadcast.emit('patient logged')
   
   // socket.to('junior').emit('patient logged')
 
@@ -60,6 +61,7 @@ io.on('connection', (socket) => {
     socket.join('junior')
   } else {
     socket.join(newRoom)
+    
   }
 
   // here we check the events that are coming in from the frontend
@@ -80,14 +82,14 @@ io.on('connection', (socket) => {
     logger.warn(newMessage)
     socket.to('junior').emit('patient message', newMessage)
     // socket.to(message.sender_name).emit('patient sent', newMessage)
-    socket.broadcast.to('junior').emit('patient logged')
+    socket.broadcast.emit('patient logged')
     
   })
   logger.warn(newRoom)
 
   socket.on('patient logged' , (args) => {
-    socket.broadcast.to('junior').emit('patient logged')
     logger.info('logged', args)
+    socket.broadcast.emit('patient logged')
   })
 });
 

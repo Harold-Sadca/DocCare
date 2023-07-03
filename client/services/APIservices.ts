@@ -5,6 +5,7 @@ import {
   TypeJuniorDoctor,
   TypeMedicalInfo,
   TypeAppointment,
+  TypeMessage,
 } from '../../server/types/types';
 import {
   TypeResponseDoctor,
@@ -24,6 +25,7 @@ import {
 } from '@/types/types';
 
 const PORT = 'http://localhost:3001';
+const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
 
 async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
   return axios
@@ -73,6 +75,16 @@ async function register(user: TUser, type: string): Promise<TypeRegister> {
       console.log(res.data);
       return res.data;
     });
+}
+
+async function saveImage(imageData: {}) {
+  return axios
+    .post(endpoint, imageData)
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((error) => console.log(error));
 }
 
 async function login(user: TypeLogin, type: string) {
@@ -217,6 +229,24 @@ async function createAppointment(
     .catch((error) => error.response.data.error);
 }
 
+async function attendAppointment(
+  appointmentId: string,
+  token: string
+): Promise<TypeResponseJuniorNotes> {
+  console.log(token);
+  return axios
+    .put(`${PORT}/doctor/attend/${appointmentId}`, JSON.stringify({}), {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res: AxiosResponse<TypeResponseJuniorNotes>) => {
+      return res.data;
+    })
+    .catch((error) => error.response.data.error);
+}
+
 async function getUser(token: string, user: string) {
   return axios
     .get(`${PORT}/${user}`, {
@@ -250,6 +280,19 @@ async function createJuniorNote(
     });
 }
 
+async function getAllMessages() {
+  return axios
+  .get(`${PORT}/messages`, {
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+    withCredentials: true,
+  })
+  .then((res: AxiosResponse<TypeMessage[]>) => {
+    return res.data;
+  });
+}
+
 const apiService = {
   register,
   login,
@@ -263,7 +306,10 @@ const apiService = {
   createAppointment,
   getUser,
   createJuniorNote,
-  logoutPatient
+  saveImage,
+  attendAppointment,
+  logoutPatient,
+  getAllMessages
 };
 
 export default apiService;

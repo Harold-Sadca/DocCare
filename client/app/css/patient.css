@@ -1,0 +1,318 @@
+/* ------------------ Global Patient ------------------ */
+
+h2,
+h3,
+p {
+  color: black;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-weight: 500;
+}
+
+/* ------------------ Appointment Dashboard ------------------  */
+
+@media only screen and (min-width: 800px) {
+  .make-appointment-container .appointment-button {
+    justify-content: center;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .make-appointment-container .female-doctor {
+    display: flex;
+  }
+
+  .make-appointment-container h2 {
+    margin-left: 18rem;
+  }
+
+  .appointment-description {
+    margin-left: 18rem;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.make-appointment-container h2 {
+  margin-top: 3rem;
+}
+
+.appointment-description {
+  margin-top: 1.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.appointment-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.patient-appointment-main {
+  height: 100vh;
+}
+
+.make-appointment-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.female-doctor {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  bottom: 0;
+}
+
+.radio-form {
+  margin-bottom: 0.5rem;
+}
+
+/* ------------------ Dashboard ------------------ */
+
+/* -------- Profile --------  */
+
+.patient-info h3,
+.prescriptions-container h3,
+.appointment-box h3,
+.doctor-list-box h3 {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+}
+
+.patient-info p {
+  margin-top: 0.3rem;
+}
+
+.each-illness {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.date {
+  font-weight: bold;
+  color: #397b6e;
+}
+
+/* --------  Medications --------  */
+
+.prescriptions-container {
+  height: 35vh;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+@media (max-width: 600px) {
+  .each-medication-container {
+    width: 20vw;
+  }
+}
+
+.each-medication-container {
+  color: #d7b765;
+  width: 5vw;
+  height: 5vw;
+  background-color: #fbf9f1;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  padding: 0.1rem;
+}
+
+/* --------  List of doctors --------  */
+
+.list-container {
+  height: 35vh;
+}
+
+.list {
+  height: fit-content;
+  margin: 1rem 0;
+  max-height: 35vh;
+  overflow-x: scroll;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #f5ecf7;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+}
+
+.each-doctor img {
+  display: flex;
+  align-items: center;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0.5rem 0 0 0.2rem;
+}
+
+.each-doctor-name p {
+  color: #a266b5;
+}
+
+/* List of appointments */
+
+.appointment-container {
+  height: 35vh;
+}
+
+.scroll-y {
+  overflow-y: scroll;
+}
+
+.each-appointment {
+  display: flex;
+  align-items: center;
+  background-color: #f0f6fc;
+}
+
+.each-appointment img {
+  width: 5vw;
+  margin-right: 0.2rem;
+}
+
+/* Messages */
+
+.messages-container {
+  height: 35vh;
+  background-color: #f5ecf7;
+  overflow-y: auto;
+  margin: 0;
+}
+
+.messages-container-top {
+  height: 70%;
+  width: 100%;
+  margin: 0;
+}
+
+.messages-container-bottom {
+  height: 30%;
+  width: 100%;
+  border-radius: 2%;
+  background-color: #a266b5;
+  margin: 0;
+  display: flex;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-message {
+  position: relative;
+  padding: 1rem;
+  margin: 1rem 0.5rem;
+  border-radius: 2%;
+  display: flex;
+}
+
+.patient-message {
+  margin-left: 1rem;
+  background-color: #a8ddfd;
+  border: 1px solid #97c6e3;
+  text-align: left;
+  align-self: flex-end;
+}
+
+.junior-doctor-message {
+  margin-right: 1rem;
+  background-color: #397b6e;
+  border: 1px solid #397b6e;
+  text-align: right;
+  align-self: flex-start;
+}
+
+/* TODO: */
+.message {
+  color: #000;
+  clear: both;
+  line-height: 1.2vw;
+  font-size: 1.2vw;
+  padding: 8px;
+  position: relative;
+  margin: 8px 0;
+  max-width: 85%;
+  word-wrap: break-word;
+  z-index: 2;
+  position: relative;
+  bottom: 0;
+  min-height: 1.5vw;
+  border: 0.15vw solid #777;
+  background-color: #fff;
+  border-radius: 0px 1.5vw 1.5vw 1.8vw;
+  padding: 1vw;
+  margin: 1.5vw 0;
+}
+
+.chat-input {
+  width: 100%;
+  padding: 0 0.5rem;
+  background-color: #a266b5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.chat-input input {
+  background-color: #a266b5;
+  padding: 0.2rem;
+  border: none;
+  min-width: 0.5vw;
+  outline: none;
+  height: 5vw;
+  width: 26vw;
+  color: white;
+}
+
+input::placeholder {
+  color: white;
+}
+
+.send {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.3rem;
+  border-radius: 50%;
+  background-color: #d4a8fd;
+  padding: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+
+/* ------------------ Available doctors ------------------ */
+
+@media only screen and (min-width: 600px) {
+  main .doctors-list {
+    width: 60vw;
+    margin-right: 2rem;
+  }
+}
+
+.doctors-list {
+  height: fit-content;
+  width: 100%;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 2%;
+  background-color: #f5ecf7;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+}
+
+.each-doctor {
+  display: flex;
+  align-items: center;
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+}
