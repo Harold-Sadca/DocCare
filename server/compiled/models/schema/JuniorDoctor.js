@@ -62,9 +62,12 @@ class JuniorDoctor extends sequelize_1.Model {
             hooks: {
                 beforeValidate: (junior) => __awaiter(this, void 0, void 0, function* () {
                     junior.id = (0, uuid_1.v4)();
+                }),
+                afterCreate: (junior) => __awaiter(this, void 0, void 0, function* () {
                     const hashedPassword = yield bcrypt_1.default.hash(junior.password, saltRounds);
                     junior.password = hashedPassword;
-                })
+                    yield junior.save();
+                }),
             },
             sequelize,
         });
