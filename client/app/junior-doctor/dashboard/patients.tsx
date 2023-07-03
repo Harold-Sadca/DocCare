@@ -61,6 +61,8 @@ export default function AllPatients({ allPatients }: Props) {
     const filteredPatients = allPatients.filter((patient) =>
       patient.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    //getting the filtered patients 
+    // console.log(filteredPatients)
     dispatch(setFilteredPatients(filteredPatients));
   }
 
@@ -75,8 +77,10 @@ export default function AllPatients({ allPatients }: Props) {
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-          ></input>
-          <SearchOutlined onClick={handleSearch} />
+          />
+          <button onClick={handleSearch} >
+          <SearchOutlined/>
+            </button>
         </div>
       </div>
       {allPatients &&
