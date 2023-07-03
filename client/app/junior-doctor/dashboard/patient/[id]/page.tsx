@@ -89,6 +89,20 @@ export default function Patient({ params }: { params: { id: string } }) {
             </div>
           </div>
           <div>
+            <h2 id="ilness-h2">Illnesses</h2>
+            {/* {selectedPatient &&
+              selectedPatient.patientAppointments &&
+              selectedPatient.patientAppointments.map(
+                (illness: Appointment, idx: number) => (
+                  <div key={idx} className="all-ilnesses">
+                    {illness.split(",").map((word, index) => (
+                      <span id="each-illness" key={index}>
+                        {word}
+                      </span>
+                    ))}
+                  </div>
+                )
+              )} */}
           </div>
         </div>
       </div>
