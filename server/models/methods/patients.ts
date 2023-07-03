@@ -18,7 +18,7 @@ const DoctorDB = db.Doctor;
 async function createPatientModel(patient: TypePatient) {
   try {
     const newPatient = await PatientDB.create(patient);
-    newPatient.password = null
+    newPatient.password = null;
     return newPatient;
   } catch (error) {
     throw new Error();
@@ -54,9 +54,9 @@ async function getPatientModel(id: string) {
         },
       ],
     });
-    patient!.status = 'Online'
+    patient!.status = 'Online';
     // patient?.save()
-    patient!.password = null
+    patient!.password = null;
     return patient;
   } catch (error) {
     throw new Error();
@@ -93,8 +93,8 @@ async function getPatientsModel() {
       ],
     });
     patients.map((patient) => {
-      return patient.password = null
-    })
+      return (patient.password = null);
+    });
     return patients;
   } catch (error) {
     throw new Error();
@@ -179,6 +179,7 @@ async function createAppointmentModel(
   doctorId: string,
   appointment: TypeAppointment
 ) {
+  console.log(appointment);
   try {
     const newAppointment = await AppointmentDB.create(appointment);
     console.log('whyyyyy');
@@ -230,14 +231,14 @@ async function deleteAppointmentModel(appointmentId: string) {
   }
 }
 
-async function logoutPatientModel(id:string) {
+async function logoutPatientModel(id: string) {
   try {
-    const updatedPatient = await PatientDB.findOne({where:{id}})
-    updatedPatient!.status = 'Offline'
+    const updatedPatient = await PatientDB.findOne({ where: { id } });
+    updatedPatient!.status = 'Offline';
     // await updatedPatient?.save()
     return updatedPatient;
   } catch (error) {
-    throw new Error()
+    throw new Error();
   }
 }
 
@@ -250,5 +251,5 @@ export {
   deletePatientModel,
   createAppointmentModel,
   deleteAppointmentModel,
-  logoutPatientModel
+  logoutPatientModel,
 };
