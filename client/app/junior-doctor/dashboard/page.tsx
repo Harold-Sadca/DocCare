@@ -13,32 +13,30 @@ import { displayChat } from '@/redux/features/display-chat';
 import { setAllPatient } from '@/redux/features/all-patients-slice';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
-import { io } from "socket.io-client";
-const socket = io("ws://localhost:3001");
-
-
+import { io } from 'socket.io-client';
+const socket = io('ws://localhost:3001');
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
-  const [logged, setLogged] = useState<Boolean>(true)
+  const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
-  const displayChat = useAppSelector((state) => state.toggleDisplayChat.value)
+  const displayChat = useAppSelector((state) => state.toggleDisplayChat.value);
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
+  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
 
   async function getPatients(token: string) {
     const patients = await apiService.getAllPatients(token);
     setAllPatients(patients as TypePatient[]);
-    dispatch(setAllPatient(patients as TypePatient[]))
+    dispatch(setAllPatient(patients as TypePatient[]));
   }
 
   useEffect(() => {
     socketConnect();
   }, []);
   function socketConnect() {
-    socket.auth = { name: "junior" };
+    socket.auth = { name: 'junior' };
     socket.connect();
   }
 
@@ -55,30 +53,19 @@ export default function JuniorDoctorDashBoard() {
   }, [logged]);
 
   socket.on('patient logged', () => {
-    console.log('logged')
-    setLogged(!logged)
-  })
-
+    console.log('logged');
+    setLogged(!logged);
+  });
 
   return (
     <div>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <div className="messages-container-juniorDoctor">
-      <AllPatients allPatients={allPatients} />
-      {displayChat && (
-
-                    <JuniorDoctorMessages
-                      currentJunior={currentJunior as TUser}
-                    />
-                )}
-                  </div>
-    </main>
+      <div className='messages-container-juniorDoctor'>
+        <AllPatients allPatients={allPatients} />
+        {displayChat && (
+          <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
+        )}
+      </div>
+    </div>
   );
 }
-
-
-
-
-
-
-
