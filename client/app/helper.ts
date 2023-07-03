@@ -31,7 +31,7 @@ export function formatTime(time:string) {
   return formattedTime;
 }
 
-export function getNth(date:string) {
+export function formatDate(date:string) {
   let append
   const dateSplit = date.split('-')
   const day = dateSplit[dateSplit.length-1].split('')
@@ -45,5 +45,5 @@ export function getNth(date:string) {
   } else {
     append = 'th'
   }
-  return `${date+append} of ${months[Number(month[1])]}`
+  return `${day.join('')+append} of ${months[Number(month[1]) -1]}`
 }

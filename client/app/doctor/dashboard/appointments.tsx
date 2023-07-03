@@ -12,6 +12,7 @@ import {
 import apiService from '@/services/APIservices';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
+import { formatDate, formatTime } from '@/app/helper';
 
 export default function Appointments() {
   const router = useRouter();
@@ -81,10 +82,10 @@ export default function Appointments() {
                 <p id='gender'>{appointment.patientAppointment?.gender}</p>
               </div>
               <div className='time-of-appointment'>
-                <p>{appointment.date}</p>
+                <p>{formatDate(appointment.date)}</p>
                 <p>
                   {' '}
-                  <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
+                  <FieldTimeOutlined /> {formatTime(appointment.time.slice(0, 5))}
                 </p>
               </div>
               <div>

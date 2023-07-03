@@ -1,4 +1,5 @@
 'use client';
+import { formatDate, formatTime } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import Image from 'next/image';
 
@@ -26,8 +27,8 @@ export default function Appointments() {
               ></Image>
               <div className='each-appointment-text'>
                 <h2>{appointment.doctorAppointment?.name}</h2>
-                <p>{appointment.date}</p>
-                <p>{appointment.time}</p>
+                <p>{formatDate(appointment.date)}</p>
+                <p>{formatTime(appointment.time)}</p>
               </div>
             </div>
           ))}
