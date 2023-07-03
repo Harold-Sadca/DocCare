@@ -389,7 +389,10 @@ export default function PatientAppointment() {
                   </Radio.Group>
                 </Form.Item>
               </div>
-              <button className='next-button' type='submit'>
+              <button
+                className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 m-2 border border-tertiary hover:border-transparent rounded'
+                type='submit'
+              >
                 Next
               </button>
             </Form>
