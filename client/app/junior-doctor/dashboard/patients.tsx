@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setChatPatient } from "@/redux/features/chat-patient-slice";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useAppSelector } from "@/redux/store";
+import { useAppSelector} from '@/redux/store';
 import { TUser } from "@/types/types";
 import { toggleDisplayChat } from "@/redux/features/display-chat";
 import JuniorDoctorMessages from "./messages";
@@ -30,7 +30,9 @@ export default function AllPatients({ allPatients }: Props) {
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-  const filteredPatients = useAppSelector((state) => state.filteredPatients);
+  const filteredPatients = useAppSelector(
+    (state) => state.patients.filteredPatients
+  );
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -78,12 +80,13 @@ export default function AllPatients({ allPatients }: Props) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button onClick={handleSearch} >
-          <SearchOutlined/>
-            </button>
+          <button onClick={handleSearch}>
+            <SearchOutlined />
+          </button>
         </div>
       </div>
-      {allPatients &&
+      {searchQuery === "" ? (
+        allPatients &&
         allPatients.map((patient: TypePatient) => {
           return (
             <div className="discussion" key={patient.id}>
@@ -112,7 +115,39 @@ export default function AllPatients({ allPatients }: Props) {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        filteredPatients &&
+        filteredPatients?.map((patient: TypePatient) => {
+          return (
+            <div className="discussion" key={patient.id}>
+              <div className="desc-contact">
+                <h2 className="name">{patient.name}</h2>
+                <div className="buttons-see-more-detail">
+                  <button
+                    id={patient.id}
+                    name="patient-details"
+                    title={patient.name}
+                    onClick={(e) => {
+                      chatToPatient(e, patient);
+                    }}
+                  >
+                    Patient Details
+                  </button>
+                  <button
+                    id={patient.id}
+                    title={patient.name}
+                    name="chat"
+                    onClick={(e) => chatToPatient(e, patient)}
+                  >
+                    <MessageOutlined />
+                  </button>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      )}
     </section>
   );
-}
+      }
