@@ -121,9 +121,9 @@ export default function Register() {
     formData.append('upload_preset', 'jujbod4w');
 
     await apiService.saveImage(formData).then((data: any) => {
-      console.log(data);
-      console.log(data.data);
-      console.log(data.data.secure_url);
+      // console.log(data);
+      // console.log(data.data);
+      // console.log(data.data.secure_url);
       state.profilePicture = data.data.secure_url && data.data.secure_url;
     });
 
