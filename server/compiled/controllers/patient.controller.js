@@ -18,6 +18,7 @@ const index_1 = __importDefault(require(".././models/schema/index"));
 const PatientDB = index_1.default.Patient;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const logger_1 = __importDefault(require("../logger"));
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 function createPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -194,6 +195,7 @@ function createAppointment(req, res) {
         try {
             const patientId = req.params.id;
             const { doctorId, appointment } = req.body;
+            logger_1.default.warn(appointment);
             const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, appointment);
             res.status(201).json({
                 message: 'Appointment created successfully',

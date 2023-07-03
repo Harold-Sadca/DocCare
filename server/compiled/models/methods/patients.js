@@ -65,7 +65,7 @@ function getPatientModel(id) {
                 ],
             });
             patient.status = 'Online';
-            // patient?.save()
+            patient === null || patient === void 0 ? void 0 : patient.save();
             patient.password = null;
             return patient;
         }
@@ -199,6 +199,7 @@ function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log(appointment);
         try {
+            console.log(appointment);
             const newAppointment = yield AppointmentDB.create(appointment);
             console.log('whyyyyy');
             const doctor = (yield DoctorDB.findOne({
@@ -253,7 +254,7 @@ function logoutPatientModel(id) {
         try {
             const updatedPatient = yield PatientDB.findOne({ where: { id } });
             updatedPatient.status = 'Offline';
-            // await updatedPatient?.save()
+            yield (updatedPatient === null || updatedPatient === void 0 ? void 0 : updatedPatient.save());
             return updatedPatient;
         }
         catch (error) {

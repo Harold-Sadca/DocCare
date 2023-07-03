@@ -5,6 +5,7 @@ import { useAppSelector } from '@/redux/store';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { CldImage } from 'next-cloudinary';
+import { formatDate } from '@/app/helper';
 
 export default function Profile() {
   const [message, setMessage] = useState('');

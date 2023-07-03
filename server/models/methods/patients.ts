@@ -54,9 +54,9 @@ async function getPatientModel(id: string) {
         },
       ],
     });
-    patient!.status = 'Online';
-    // patient?.save()
-    patient!.password = null;
+    patient!.status = 'Online'
+    patient?.save()
+    patient!.password = null
     return patient;
   } catch (error) {
     throw new Error();
@@ -181,6 +181,7 @@ async function createAppointmentModel(
 ) {
   console.log(appointment);
   try {
+    console.log(appointment)
     const newAppointment = await AppointmentDB.create(appointment);
     console.log('whyyyyy');
     const doctor = (await DoctorDB.findOne({
@@ -233,9 +234,9 @@ async function deleteAppointmentModel(appointmentId: string) {
 
 async function logoutPatientModel(id: string) {
   try {
-    const updatedPatient = await PatientDB.findOne({ where: { id } });
-    updatedPatient!.status = 'Offline';
-    // await updatedPatient?.save()
+    const updatedPatient = await PatientDB.findOne({where:{id}})
+    updatedPatient!.status = 'Offline'
+    await updatedPatient?.save()
     return updatedPatient;
   } catch (error) {
     throw new Error();

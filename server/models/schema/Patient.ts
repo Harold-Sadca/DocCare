@@ -185,14 +185,14 @@ export class Patient extends Model<
       {
         hooks: {
           beforeValidate: async (patient) => {
-            patient.id = uuidv4();
-            const hashedPassword = await bcrypt.hash(
-              patient.password as string,
-              saltRounds
-            );
-            patient.password = hashedPassword;
-            patient.status = 'Online';
+            patient.id = uuidv4()
           },
+          afterCreate: async (patient) => {
+            const hashedPassword = await bcrypt.hash(patient.password as string, saltRounds);
+            patient.password = hashedPassword;
+            patient.status = 'Online'
+            await patient.save()
+          }
         },
         sequelize,
       }
