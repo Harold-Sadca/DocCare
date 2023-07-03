@@ -8,6 +8,7 @@ import toggleDisplayChat from './features/display-chat';
 import displayChat from './features/display-chat';
 import setAllPatientReducer from './features/all-patients-slice';
 import patientToViewReducer from './features/patient-to-view-slice';
+import allMessagesReducer from './features/messages-slice';
 import AvailableSpecialist from './features/available-doctors-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import searchPatientReducer from './features/search-patient'
@@ -28,6 +29,7 @@ export const store = configureStore({
     patientToViewReducer,
     patients: searchPatientReducer,
     filteredPatients: filteredPatientsReducer,
+    allMessagesReducer
   },
 });
 // type of store:

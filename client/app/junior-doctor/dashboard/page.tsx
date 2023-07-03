@@ -13,23 +13,34 @@ import { displayChat } from '@/redux/features/display-chat';
 import { setAllPatient } from '@/redux/features/all-patients-slice';
 import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
-import { io } from 'socket.io-client';
-const socket = io('ws://localhost:3001');
+import { io } from "socket.io-client";
+import LoadingSpinner from '@/app/(components)/loading';
+const socket = io("ws://localhost:3001");
+
+
 
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
-  const [logged, setLogged] = useState<Boolean>(true);
+  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([])
+  const [loaded, setLoaded] = useState<Boolean>(false)
+  const [logged, setLogged] = useState<Boolean>(true)
   const dispatch = useDispatch<AppDispatch>();
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value);
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
-  const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
+  
 
   async function getPatients(token: string) {
-    const patients = await apiService.getAllPatients(token);
-    setAllPatients(patients as TypePatient[]);
-    dispatch(setAllPatient(patients as TypePatient[]));
+    const patients = await apiService.getAllPatients(token) as TypePatient[];
+    setAllPatients(patients);
+    const ids = patients.map((patient) => {
+      if(patient.status === 'Online') {
+        return patient.id
+      }
+    })
+    setOnlinePatientsId(ids as string[])
+    setLoaded(true)
   }
 
   useEffect(() => {
@@ -58,14 +69,17 @@ export default function JuniorDoctorDashBoard() {
   });
 
   return (
-    <div>
+    <main>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <div className='messages-container-juniorDoctor'>
-        <AllPatients allPatients={allPatients} />
-        {displayChat && (
-          <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
-        )}
-      </div>
-    </div>
+      {loaded ? (<div className="messages-container-juniorDoctor">
+      <AllPatients allPatients={allPatients} />
+      {displayChat && (
+                   
+                    <JuniorDoctorMessages
+                      currentJunior={currentJunior as TUser}
+                    />
+                )}
+                  </div>) : <LoadingSpinner />}
+    </main>
   );
 }

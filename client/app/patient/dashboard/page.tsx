@@ -7,12 +7,21 @@ import DoctorList from './doctor-list';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import PatientMessages from './patient-messages';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import '../../css/globals.css';
 import '../../css/patient.css';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '@/redux/store';
+import LoadingSpinner from '@/app/(components)/loading';
+
+// import Cal from './calendar'
 
 export default function Patient() {
   const router = useRouter();
+  const [loaded, setLoaded] = useState<Boolean>(false)
+  const currentPatient = useAppSelector(
+    (state) => state.currentPatientReducer.value
+  );
+  const { id } = currentPatient;
 
   useEffect(() => {
     const userType = localStorage.getItem('userType');
@@ -22,16 +31,22 @@ export default function Patient() {
     }
   }, []);
 
+  useEffect(() => {
+    if (id !== '') {
+      console.log(id)
+      setLoaded(true)
+    }
+  }, [id])
+
   return (
     <div>
-      <AuthNavbar user={'patient'} auth={'login'} />
-      <main className='grid-container'>
+      {loaded ? (<main className='grid-container'>
         <Profile />
         <Appointments />
         <Prescriptions />
         <DoctorList />
         <PatientMessages />
-      </main>
+      </main>) : <LoadingSpinner />}
     </div>
-  );
+  )
 }

@@ -5,6 +5,10 @@ import { useEffect, useState } from "react";
 import { TypeChatUser, TypeMessage } from "../../../../server/types/types";
 import { useAppSelector } from "@/redux/store";
 import { TUser } from "@/types/types";
+import apiService from "@/services/APIservices";
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/redux/store';
+import { setAllMessages } from "@/redux/features/messages-slice";
 
 const socket = io("ws://localhost:3001");
 
@@ -14,8 +18,11 @@ interface Props {
 export default function JuniorDoctorMessages({ currentJunior }: Props) {
   const initialState = { message: "", user: "" };
   const [messageState, setMessageState] = useState(initialState);
-  const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
+  // const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
   const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([]);
+  const [messages, setMessages] = useState<TypeMessage[]>([]);
+  const allMessages = useAppSelector(state => state.allMessagesReducer.value)
+  const dispatch = useDispatch()
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -23,9 +30,17 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       [name]: value,
     }));
   };
+  const chatToPatient = useAppSelector(
+    (state) => state.chatPatientReducer.value
+  );
   const selectedPatient = useAppSelector(
     (state) => state.chatPatientReducer.value
   );
+
+  useEffect(() => {
+    setMessages(allMessages.filter(mes => mes.sender_id === selectedPatient.id || mes.receiver_id === selectedPatient.id))
+  }, [chatToPatient.name])
+
 
   function handleClick() {
     const newMessage = {
@@ -36,14 +51,16 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       receiver_name: selectedPatient.name,
     } as TypeMessage;
 
+    socket.auth = { name: "junior" };
+    socket.connect();
     socket.emit("from junior", newMessage, selectedPatient.id);
-    setAllMessages([...allMessages, newMessage]);
-    //added to clear input
+    setMessages([...messages, newMessage]);
+    dispatch(setAllMessages([...allMessages, newMessage]))
     setMessageState(initialState);
   }
 
   socket.on("patient message", (message) => {
-    setAllMessages([...allMessages, message]);
+    setMessages([...messages, message]);
   });
 
   return (
@@ -52,7 +69,7 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
         <p className="name">{selectedPatient.name}</p>
       </div>
       <div className="messages-chat">
-        {allMessages.map((mes) => {
+        {messages.map((mes) => {
           return mes.sender_name === "Doctor" ? (
             <div className="message text-only">
               <div className="response">

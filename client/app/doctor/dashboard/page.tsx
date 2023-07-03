@@ -5,16 +5,33 @@ import Patients from './patients';
 import Appointments from './appointments';
 import '../../css/globals.css';
 import '../../css/doctor.css';
+import { useAppSelector } from '@/redux/store';
+import LoadingSpinner from '@/app/(components)/loading';
+import { useEffect, useState } from 'react';
+
+// import Cal from './calendar'
 
 export default function Doctor() {
+  const [loaded, setLoaded] = useState<Boolean>(false)
+  const currentDoctor = useAppSelector(
+    (state) => state.currentDoctorReducer.value
+  );
+  const {name} = currentDoctor
+
+  useEffect(() => {
+    if (name !== '') {
+      setLoaded(true)
+    }
+  }, [name])
+
   return (
     <div>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <main className='grid-container'>
+      {loaded? (<main className='grid-container'>
         <Profile />
         <Patients />
         <Appointments />
-      </main>
+      </main>) : <LoadingSpinner />}
     </div>
   );
 }
