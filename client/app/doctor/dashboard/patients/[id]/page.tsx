@@ -23,7 +23,7 @@ export default function Patient({ params }: { params: { id: string } }) {
 
   console.log(currentPatient?.patientAppointments);
   return (
-    <div>
+    <>
       <AuthNavbar user={'doctor'} auth={'login'} />
 
       <main className='grid-container'>
@@ -99,7 +99,7 @@ export default function Patient({ params }: { params: { id: string } }) {
 
         <div className='small-medications-box'>
           <div className='dashboard-container prescriptions-container'>
-            <h3 id='heading-appointments'>Next appointments</h3>
+            <h3>Next appointments</h3>
             <div className='all-appointments'>
               {currentPatient?.patientAppointments
                 ?.filter(
@@ -126,6 +126,6 @@ export default function Patient({ params }: { params: { id: string } }) {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
