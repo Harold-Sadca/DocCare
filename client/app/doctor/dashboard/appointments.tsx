@@ -69,7 +69,7 @@ export default function Appointments() {
       <div className='dashboard-container doctor-patients-container'>
         <h3>My appointments</h3>
         {appointments
-          ?.filter((appointment) => !appointment.attended)
+          ?.filter((appointment) => new Date(`${appointment.date}`).valueOf() > Date.now().valueOf())
           .slice(0, 3)
           .map((appointment, idx) => (
             <div

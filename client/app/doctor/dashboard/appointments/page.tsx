@@ -16,7 +16,6 @@ export default function Appointments() {
     (state) => state.currentDoctorReducer.value
   );
   const appointments = currentDoctor.doctorAppointments;
-  console.log(appointments);
 
   return (
     <div className='patients-box'>
@@ -28,7 +27,7 @@ export default function Appointments() {
         </h2>
         {/* <div className='all-patients'> */}
         {appointments
-          ?.filter((appointment) => !appointment.attended)
+          ?.filter((appointment) => new Date(`${appointment.date}`).valueOf() > Date.now().valueOf())
           .map((appointment, idx) => (
             <div className='each-patient-profile' key={idx}>
               <p>{appointment?.patientAppointment?.name}</p>
@@ -44,7 +43,7 @@ export default function Appointments() {
                 {appointment?.patientAppointment?.summary}
               </p>
               <p>
-                <span>Appoitment</span>
+                <span>Appointment</span>
               </p>
               <p> Date: {appointment.date}</p>
               <p>Time: {appointment.time.slice(0, 5)}</p>
