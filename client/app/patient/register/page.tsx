@@ -4,7 +4,7 @@
 import { Button, Form, Input, Radio, RadioChangeEvent, message } from 'antd';
 const { TextArea } = Input;
 import React, { FormEvent, useEffect, useState } from 'react';
-
+import '../../css/globals.css'
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';

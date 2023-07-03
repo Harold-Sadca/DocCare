@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
+import '../../css/globals.css'
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 

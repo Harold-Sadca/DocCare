@@ -28,6 +28,13 @@ h3 {
 form {
   max-width: 900px;
 }
+
+form input::file-selector-button {
+  background-color: white;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
 /* ------------------ Grid dashboards ------------------ */
 .grid-container {
   display: grid;
