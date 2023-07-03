@@ -58,8 +58,6 @@ export default function AuthNavbar(props: Props) {
     }
   }
 
-  console.log('hey from auth navbar');
-
   useEffect(() => {
     getCurrentUser();
   }, []);

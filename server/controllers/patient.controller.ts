@@ -184,6 +184,7 @@ async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.id;
     const { doctorId, appointment } = req.body;
+    logger.warn(appointment)
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,

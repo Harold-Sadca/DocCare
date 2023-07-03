@@ -12,6 +12,7 @@ import {
 import apiService from '@/services/APIservices';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
+import { formatDate, formatTime } from '@/app/helper';
 
 export default function Appointments() {
   const router = useRouter();
@@ -69,7 +70,7 @@ export default function Appointments() {
       <div className='dashboard-container doctor-patients-container'>
         <h3>My appointments</h3>
         {appointments
-          ?.filter((appointment) => !appointment.attended)
+          ?.filter((appointment) => new Date(`${appointment.date}`).valueOf() > Date.now().valueOf())
           .slice(0, 3)
           .map((appointment, idx) => (
             <div
@@ -81,10 +82,10 @@ export default function Appointments() {
                 <p id='gender'>{appointment.patientAppointment?.gender}</p>
               </div>
               <div className='time-of-appointment'>
-                <p>{appointment.date}</p>
+                <p>{formatDate(appointment.date)}</p>
                 <p>
                   {' '}
-                  <FieldTimeOutlined /> {appointment.time.slice(0, 5)}
+                  <FieldTimeOutlined /> {formatTime(appointment.time.slice(0, 5))}
                 </p>
               </div>
               <div>
