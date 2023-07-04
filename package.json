@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "cypress": "^12.16.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "cypress": "cypress open"
+  }
+}
