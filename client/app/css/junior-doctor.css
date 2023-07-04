@@ -166,3 +166,7 @@
   display: flex;
   justify-content: space-between;
 }
+
+.messages-container-juniorDoctor-no-margin{
+grid-column: col-start 1 / span 6;
+}

@@ -20,6 +20,7 @@ const socket = io('ws://localhost:3001');
 export default function JuniorDoctorDashBoard() {
   const [allPatients, setAllPatients] = useState<TypePatient[]>([]);
   const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [loaded, setLoaded] = useState<Boolean>(false);
   const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
@@ -27,6 +28,19 @@ export default function JuniorDoctorDashBoard() {
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   async function getPatients(token: string) {
     const patients = (await apiService.getAllPatients(token)) as TypePatient[];
@@ -65,22 +79,24 @@ export default function JuniorDoctorDashBoard() {
     console.log('logged');
     setLogged(!logged);
   });
+  const hideAllPatients = windowWidth < 500;
+
 
   return (
     <div>
-      <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <div>
-        {loaded ? (
-          <div className='messages-container-juniorDoctor'>
-            <AllPatients allPatients={allPatients} />
-            {displayChat && (
-              <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
-            )}
-          </div>
-        ) : (
-          <LoadingSpinner />
-        )}
-      </div>
+    <AuthNavbar user={'junior-doctor'} auth={'login'} />
+    <div className={hideAllPatients ? 'messages-container-juniorDoctor-no-margin' : 'messages-container-juniorDoctor'}>
+      {loaded ? (
+        <>
+          {!hideAllPatients && <AllPatients allPatients={allPatients} />}
+          {displayChat && (
+            <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
+          )}
+        </>
+      ) : (
+        <LoadingSpinner />
+      )}
     </div>
-  );
+  </div>
+);
 }
