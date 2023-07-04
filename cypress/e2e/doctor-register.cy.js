@@ -27,7 +27,6 @@ describe('Patient Registration Form', () => {
     cy.get('#profilePicture').should('have.value','C:\\fakepath\\imnotperfectimawesome.jpg', { subjectType: 'input' })
     cy.get('#specialisation12').click()
     cy.get('#specialisation12').should('be.checked')
-    // cy.get('#submit-register').click()
-    // cy.url().should('include', '/patient/dashboard')
+    cy.get('#submit-register').click()
   })
 })

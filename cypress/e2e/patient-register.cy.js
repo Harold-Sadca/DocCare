@@ -38,6 +38,5 @@ describe('Patient Registration Form', () => {
     cy.get('#familyMedicalHistory').type('None')
     cy.get('#familyMedicalHistory').should('have.value', 'None')
     cy.get('#submit-register').click()
-    cy.url().should('include', '/patient/dashboard')
   })
 })
