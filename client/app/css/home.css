@@ -88,11 +88,46 @@
   align-items: center; */
 }
 
-.grid-home .home-right-image img{
-border-radius: 100%;
+.grid-home .home-right-image img {
+  border-radius: 100%;
 }
 
-.home-right-image{
-display:flex;
-align-self: center;
+.home-right-image {
+  display: flex;
+  align-self: center;
+}
+
+
+.about-info {
+  display: flex;
+  justify-content: center;
+}
+
+.about-doccare {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 1rem 0;
+  height: auto;
+  margin: 1rem 0;
+  width: 60%;
+  border-radius: 10px;
+  background-color: #a266b5;
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(101, 100, 100, 0.6);
+}
+
+.about-doccare h2 {
+  color: white;
+  margin: 0.7rem;
+  padding-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.about-doccare p {
+  color: white;
+  margin: 0.7rem;
+  width: 100%;
+  font-size: 1.2rem;
+  flex-shrink: 1;
 }
