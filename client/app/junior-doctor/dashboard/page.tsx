@@ -85,7 +85,6 @@ export default function JuniorDoctorDashBoard() {
   });
   const isMobile = windowWidth < 500;
 
-
   return (
     <div>
     <AuthNavbar user={'junior-doctor'} auth={'login'} />
