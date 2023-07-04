@@ -24,11 +24,14 @@ export default function JuniorDoctorDashBoard() {
   const [loaded, setLoaded] = useState<Boolean>(false);
   const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
+  const displaySection = useAppSelector((state) => state.toggleDisplaySection.value);
+
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value);
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
 
+ 
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,7 +43,7 @@ export default function JuniorDoctorDashBoard() {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [displaySection]);
 
   async function getPatients(token: string) {
     const patients = (await apiService.getAllPatients(token)) as TypePatient[];
@@ -79,17 +82,22 @@ export default function JuniorDoctorDashBoard() {
     console.log('logged');
     setLogged(!logged);
   });
-  const hideAllPatients = windowWidth < 500;
+  const isMobile = windowWidth < 500;
 
 
   return (
     <div>
     <AuthNavbar user={'junior-doctor'} auth={'login'} />
-    <div className={hideAllPatients ? 'messages-container-juniorDoctor-no-margin' : 'messages-container-juniorDoctor'}>
+    <div className={isMobile ? 'messages-container-juniorDoctor-no-margin' : 'messages-container-juniorDoctor'}>
       {loaded ? (
         <>
-          {!hideAllPatients && <AllPatients allPatients={allPatients} />}
-          {displayChat && (
+        {isMobile && displaySection && <AllPatients allPatients={allPatients} />}
+        {isMobile && displayChat && (
+            <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
+          )}
+
+          {!isMobile && <AllPatients allPatients={allPatients} /> }
+          {!isMobile && displayChat && (
             <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
           )}
         </>

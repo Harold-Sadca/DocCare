@@ -9,7 +9,11 @@ import apiService from "@/services/APIservices";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { setAllMessages } from "@/redux/features/messages-slice";
-import {SendOutlined} from "@ant-design/icons";
+import {LeftCircleOutlined, SendOutlined} from "@ant-design/icons";
+import { useRouter } from "next/navigation";
+import { toggleDisplaySection } from "@/redux/features/display-section";
+import { toggleDisplayChat } from "@/redux/features/display-chat";
+
 
 const socket = io("ws://localhost:3001");
 
@@ -17,6 +21,7 @@ interface Props {
   currentJunior: TUser;
 }
 export default function JuniorDoctorMessages({ currentJunior }: Props) {
+  const router = useRouter()
   const initialState = { message: "", user: "" };
   const [messageState, setMessageState] = useState(initialState);
   // const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
@@ -64,15 +69,21 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     setMessages([...messages, message]);
   });
 
+  function hideChat() {
+    dispatch(toggleDisplaySection(true));
+    dispatch(toggleDisplayChat(false));
+  }
+
   return (
     <section className="chat">
       <div className="header-chat">
+        <button onClick={hideChat}><LeftCircleOutlined /></button>
         <p className="name">{selectedPatient.name}</p>
       </div>
       <div className="messages-chat">
-        {messages.map((mes) => {
+        {messages.map((mes, idx) => {
           return mes.sender_name === "Doctor" ? (
-            <div className="message">
+            <div className="message" key={idx}>
             <div className="response">
                 <div className="text" key={mes.id}>
                   {mes.content}

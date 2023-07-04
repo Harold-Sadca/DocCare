@@ -5,14 +5,14 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  value: false,
+  value: true,
 };
 
-export const displayChat = createSlice({
-  name: 'displayChat',
+export const displaySection = createSlice({
+  name: 'displaySection',
   initialState,
   reducers: {
-    toggleDisplayChat: (state, action: PayloadAction<boolean>) => {
+    toggleDisplaySection: (state, action: PayloadAction<boolean>) => {
       console.log('hello')
       // console.log(state.value)
       state.value = action.payload;
@@ -20,5 +20,5 @@ export const displayChat = createSlice({
   },
 });
 
-export const { toggleDisplayChat } = displayChat.actions;
-export default displayChat.reducer;
+export const { toggleDisplaySection } = displaySection.actions;
+export default displaySection.reducer;
