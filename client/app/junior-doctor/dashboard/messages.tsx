@@ -1,6 +1,6 @@
 "use client";
 import { io } from "socket.io-client";
-import "../junior-doctor.css";
+import "../../css/junior-doctor.css";
 import { useEffect, useState } from "react";
 import { TypeChatUser, TypeMessage } from "../../../../server/types/types";
 import { useAppSelector } from "@/redux/store";

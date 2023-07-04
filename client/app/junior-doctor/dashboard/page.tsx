@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import '.././junior-doctor.css';
+import "../../css/junior-doctor.css";
 import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
