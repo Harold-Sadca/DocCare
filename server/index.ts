@@ -9,6 +9,7 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import logger from './logger';
 import dotenv from 'dotenv';
+import { router } from './routers';
 dotenv.config();
 
 const corsConfig = {
@@ -31,6 +32,7 @@ app.use(patientRouter);
 app.use(messagesRouter);
 app.use(juniorDoctorRouter);
 app.use(doctorRouter);
+// app.use(router);
 
 io.use((socket, next) => {
   // here we check if there is a name in the socket

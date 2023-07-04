@@ -102,9 +102,10 @@ export default function AuthNavbar(props: Props) {
     ...navItem,
   ];
 
-  function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(' ');
+  function combineStrings(...args: string[]) {
+    return args.filter(Boolean).join(' ');
   }
+
   return (
     <Disclosure as='nav' className='bg-primary'>
       {({ open }) => (
@@ -130,7 +131,7 @@ export default function AuthNavbar(props: Props) {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className={classNames(
+                        className={combineStrings(
                           item.current
                             ? 'bg-gray-950 text-white'
                             : 'text-gray-300 hover:bg-cyan-700 hover:text-white',
@@ -154,7 +155,7 @@ export default function AuthNavbar(props: Props) {
                   key={item.name}
                   as='a'
                   href={item.href}
-                  className={classNames(
+                  className={combineStrings(
                     item.current
                       ? 'bg-gray-950 text-white'
                       : 'text-gray-300 hover:bg-cyan-700 hover:text-white',
