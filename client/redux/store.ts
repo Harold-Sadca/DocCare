@@ -5,7 +5,7 @@ import currentDoctorReducer from './features/doctor-slice';
 import chatPatientReducer from './features/chat-patient-slice';
 import currentJuniorReducer from './features/junior-slice';
 import toggleDisplayChat from './features/display-chat';
-import displayChat from './features/display-chat';
+import toggleDisplaySection from './features/display-section';
 import setAllPatientReducer from './features/all-patients-slice';
 import patientToViewReducer from './features/patient-to-view-slice';
 import allMessagesReducer from './features/messages-slice';
@@ -24,7 +24,7 @@ export const store = configureStore({
     AvailableSpecialist,
     currentJuniorReducer,
     toggleDisplayChat,  
-    displayChat,    
+    toggleDisplaySection,
     setAllPatientReducer,
     patientToViewReducer,
     patients: searchPatientReducer,

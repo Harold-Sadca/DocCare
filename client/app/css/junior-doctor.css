@@ -1,11 +1,6 @@
-
 /* CHAT-BOX  */
-
-
-
- .messages-container-juniorDoctor {
+.messages-container-juniorDoctor {
   padding: 0;
-  /* box-shadow: 0 1.4vh 2.8vh rgba(0, 0, 0, 0.19), 0 0.8vh 0.8vh rgba(0, 0, 0, 0.2); */
   height: 100vh;
   width: 100%;
   display: grid;
@@ -28,7 +23,7 @@
   flex-direction: column;
 }
 
-.discussions .discussion {
+ .discussion {
   width: 100%;
   height: 7rem;
   background-color: #FAFAFA;
@@ -38,17 +33,16 @@
   flex-direction: column;
 }
 
-.discussions .search {
+ .search {
   display: flex;
   align-items: center;
   justify-content: center;
   color: #939090;
 }
 
-.discussions .search .searchbar {
+ .search .searchbar {
   height: 2.5rem;
   background-color: #FFF;
-  /* width: 44vw; */
   padding: 0 1.25rem;
   border-radius: 3rem;
   border: 0.1rem solid #EEEEEE;
@@ -57,8 +51,7 @@
   cursor: pointer;
 }
 
-.discussions .search .searchbar input {
-  /* margin-left: 0.9rem; */
+ .search .searchbar input {
   height: 2rem;
   width: 10vw;
   border: none;
@@ -66,20 +59,19 @@
 
 .desc-contact {
   width: 100%;
-  /* white-space: nowrap; */
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
 }
 
-.discussions .discussion .name {
+ .discussion .name {
   margin: 0 0 0 1.25rem;
   font-size: 1.2rem;
   color: #515151;
 }
 
+.buttons-see-more-detail {
+  font-size: 1rem;
+}
 
 
-/* DONE */
 .chat {
   z-index: 2;
   padding: 0;
@@ -110,6 +102,7 @@
 .chat .messages-chat {
   padding: 3.57vh 5vw;
 }
+
 .chat .messages-chat .message {
   display: flex;
   align-items: center;
@@ -130,12 +123,12 @@
 
 .response {
   float: right;
-  margin-right: 0rem !important;
+  margin-right: 0rem;
   margin-left: auto;
 }
 
 .response .text {
-  background-color: #F5ECF7 !important;
+  background-color: #F5ECF7;
 }
 
 
@@ -150,9 +143,9 @@
 }
 
 .write-message {
-  border: none !important;
+  border: none;
   width: 12rem;
-  height:  3rem;
+  height: 3rem;
   margin-right: 10vw;
   margin-left: 5vw;
   padding: 10px;
@@ -169,8 +162,17 @@
   cursor: pointer;
 }
 
-.send-container{
-display:flex;
-justify-content: space-between;
+.send-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.messages-container-juniorDoctor-no-margin{
+grid-column: col-start 1 / span 6;
+}
+
+.discussions-no-margin {
+  grid-column: col-start 1 / span 6;
+
 }
 

@@ -3,7 +3,7 @@ import { TypePatient } from "../../../../server/types/types";
 import { useDispatch } from "react-redux";
 import { setChatPatient } from "@/redux/features/chat-patient-slice";
 import { useRouter } from "next/navigation";
-import { ChangeEvent,useState } from "react";
+import { ChangeEvent,useEffect,useState } from "react";
 import { useAppSelector } from "@/redux/store";
 import { TUser } from "@/types/types";
 import { toggleDisplayChat } from "@/redux/features/display-chat";
@@ -12,6 +12,7 @@ import { MessageOutlined } from "@ant-design/icons";
 import { setPatientToView } from "@/redux/features/patient-to-view-slice";
 import { SearchOutlined } from "@ant-design/icons";
 import { setFilteredPatients } from "@/redux/features/search-patient";
+import { toggleDisplaySection } from "@/redux/features/display-section";
 
 interface Props {
   allPatients: TypePatient[];
@@ -26,6 +27,8 @@ export default function AllPatients({ allPatients }: Props) {
   // const [displayChat, setDisplayChat] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const displayChat = useAppSelector((state) => state.toggleDisplayChat.value);
+  const displaySection = useAppSelector((state) => state.toggleDisplaySection.value);
+
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
   );
@@ -50,7 +53,7 @@ export default function AllPatients({ allPatients }: Props) {
       router.push(`dashboard/patient/${target.id}`);
     } else if (target.name === "chat") {
       // set the selected patient
-      dispatch(toggleDisplayChat());
+      dispatch(toggleDisplayChat(true));
       console.log("chat");
       const patientToChat = {
         id: target.id,
@@ -58,7 +61,9 @@ export default function AllPatients({ allPatients }: Props) {
       };
       // console.log(patientToChat);
       dispatch(setChatPatient(patientToChat));
+      dispatch(toggleDisplaySection(false));
     }
+
   }
 
   function handleSearch(e: ChangeEvent<HTMLInputElement>) {
@@ -68,8 +73,25 @@ export default function AllPatients({ allPatients }: Props) {
     );
     dispatch(setFilteredPatients(filteredPatients));
   }
+
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  const hideAllPatients = windowWidth < 500;
+
   return (
-    <section className="discussions">
+    // <section className="discussions">
+    <section className={hideAllPatients ? 'discussions-no-margin' : 'discussions'}>
+      
       <div className="discussion search"> 
         <div className="searchbar">
           <input
@@ -136,6 +158,7 @@ export default function AllPatients({ allPatients }: Props) {
               </div>
             </div>
           ))}
+
     </section>
   );
 }
