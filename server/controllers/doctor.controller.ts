@@ -89,7 +89,7 @@ async function loginDoctor(req: Request, res: Response) {
     }
     const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
     const userAuthenticated = await getDoctorModel(doctor.id);
-    userAuthenticated!.password = null
+    userAuthenticated!.password = null;
     res.status(200).json({
       message: `Welcome, ${doctor?.name}!`,
       result: { accessToken, userAuthenticated },
@@ -124,7 +124,7 @@ async function getDoctors(req: Request, res: Response) {
 async function createMedicalInfo(req: Request, res: Response) {
   try {
     const { prescription, doctorNote, doctorName } = req.body;
-    const patientId = req.params.id;
+    const patientId = req.params.patientId;
     const newMedicalInfo = {
       prescription,
       doctorNote,
@@ -145,7 +145,7 @@ async function createMedicalInfo(req: Request, res: Response) {
 
 async function createPatientSummary(req: Request, res: Response) {
   try {
-    const patientId = req.params.id;
+    const patientId = req.params.patientId;
     const { summary, doctorName } = req.body;
     const newSummary = `${summary} by: ${doctorName}`;
     const createPatientSummary = await createPatientSummaryModel(
@@ -164,7 +164,7 @@ async function createPatientSummary(req: Request, res: Response) {
 async function attendAppointment(req: Request, res: Response) {
   console.log('working');
   try {
-    const appointmentId = req.params.id;
+    const appointmentId = req.params.appointmentId;
     const attendAppointment = await attendAppointmentModel(appointmentId);
     res.status(201).json({
       message: 'Mark appointment as attended successfully',
