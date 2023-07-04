@@ -1,5 +1,5 @@
 'use client';
-import { Form ,message } from 'antd';
+import { Form, message } from 'antd';
 
 import React, { useState } from 'react';
 import Footer from '@/app/(components)/footer';
@@ -11,6 +11,7 @@ import { logout } from '@/redux/features/auth-slice';
 import { io } from 'socket.io-client';
 import apiService from '@/services/APIservices';
 import { TypePatient } from '../../../server/types/types';
+import { clearLocalStorage } from '../helper';
 const socket = io('ws://localhost:3001');
 
 type SizeType = Parameters<typeof Form>[0]['size'];
@@ -48,23 +49,27 @@ export default function Logout() {
       });
     }, 1000);
   };
-  
 
   function handleClick() {
-    console.log(currentPatient, 'logout')
+    console.log(currentPatient, 'logout');
     if (currentPatient.name !== '') {
-      apiService.logoutPatient(currentPatient.id as string, currentPatient as TypePatient).then((res) => {
-        console.log(res)
-        setMessageContent(res?.message as string)
-        openMessage()
-        socket.emit('patient logged');
-      })
+      apiService
+        .logoutPatient(
+          currentPatient.id as string,
+          currentPatient as TypePatient
+        )
+        .then((res) => {
+          console.log(res);
+          setMessageContent(res?.message as string);
+          openMessage();
+          socket.emit('patient logged');
+        });
     }
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userType');
+    clearLocalStorage();
     dispatch(logout());
-    // setIsAuthenticated(false);
-    router.push('/');
+    router.push('/home');
   }
 
   return (

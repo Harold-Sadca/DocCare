@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import '../../../css/doctor.css';
 import '../../../css/globals.css';
+import { LeftCircleOutlined } from '@ant-design/icons';
 
 export default function Patients() {
   const router = useRouter();
@@ -19,7 +20,12 @@ export default function Patients() {
   return (
     <div className='patients-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      <h2 className='text-2xl text-primary text-black m-4'>My patients</h2>
+      <div className='button-and-title'>
+        <button onClick={() => router.back()}>
+          <LeftCircleOutlined />
+        </button>
+        <h2 className='text-2xl text-primary text-black m-4'>My patients</h2>
+      </div>
       <div className='all-patients'>
         {patients?.map((patient, idx) => (
           <div key={idx} className='each-patient-profile'>

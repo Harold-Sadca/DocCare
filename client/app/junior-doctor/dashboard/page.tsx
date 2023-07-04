@@ -15,7 +15,7 @@ import { TUser } from '@/types/types';
 import JuniorDoctorMessages from './messages';
 import { io } from 'socket.io-client';
 import LoadingSpinner from '@/app/(components)/loading';
-import { getAccessToken } from '@/app/helper';
+import { getAccessToken, getUserType } from '@/app/helper';
 const socket = io('ws://localhost:3001');
 
 export default function JuniorDoctorDashBoard() {
@@ -23,7 +23,7 @@ export default function JuniorDoctorDashBoard() {
   const [onlinePatientsId, setOnlinePatientsId] = useState<string[]>([]);
   const [loaded, setLoaded] = useState<Boolean>(false);
   const [windowWidth, setWindowWidth] = useState(
-    typeof window !== 'undefined' ? window.innerWidth : 0
+    typeof window !== 'undefined' ? window.innerWidth : 1000
   );
   const [logged, setLogged] = useState<Boolean>(true);
   const dispatch = useDispatch<AppDispatch>();
@@ -71,9 +71,11 @@ export default function JuniorDoctorDashBoard() {
 
   useEffect(() => {
     const token = typeof window !== 'undefined' && (getAccessToken() as string);
-    const userType =
-      typeof window !== 'undefined' &&
-      (window.localStorage.getItem('userType') as string);
+    // const userType =
+    //   typeof window !== 'undefined' &&
+    //   (window.localStorage.getItem('userType') as string);
+    const userType = typeof window !== 'undefined' && (getUserType() as string);
+
     if (token && userType === 'junior-doctor') {
       getPatients(token);
     }
@@ -103,7 +105,6 @@ export default function JuniorDoctorDashBoard() {
             {isMobile && displayChat && (
               <JuniorDoctorMessages currentJunior={currentJunior as TUser} />
             )}
-
             {!isMobile && <AllPatients allPatients={allPatients} />}
             {!isMobile && displayChat && (
               <JuniorDoctorMessages currentJunior={currentJunior as TUser} />

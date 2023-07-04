@@ -170,15 +170,3 @@
 .discussions-no-margin {
   grid-column: col-start 1 / span 6;
 }
-
-@media (max-width: 600px) {
-  .chat {
-    display: none;
-  }
-}
-
-@media (min-width: 601px) {
-  .discussions {
-    display: none;
-  }
-}

@@ -4,7 +4,7 @@ import { calculateAge, toFirstLetterUpperCase } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { PhoneOutlined } from '@ant-design/icons';
+import { LeftCircleOutlined, PhoneOutlined } from '@ant-design/icons';
 import { MailOutlined } from '@ant-design/icons';
 import { FieldTimeOutlined } from '@ant-design/icons';
 import '../../../../css/globals.css';
@@ -13,6 +13,7 @@ import '../../../../css/doctor.css';
 import Image from 'next/image';
 
 export default function Patient({ params }: { params: { id: string } }) {
+  const router = useRouter();
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );
@@ -25,11 +26,15 @@ export default function Patient({ params }: { params: { id: string } }) {
   return (
     <>
       <AuthNavbar user={'doctor'} auth={'login'} />
-
+      <div className='button-and-title'>
+        <button onClick={() => router.back()}>
+          <LeftCircleOutlined />
+        </button>
+      </div>
       <main className='grid-container'>
         <div className='patient-picture-box'>
           <Image
-            src='{currentPatient?.profilePicture}'
+            src={currentPatient?.profilePicture as string}
             className='profile-image-patient'
             alt='profile-image-patient'
             height={150}
