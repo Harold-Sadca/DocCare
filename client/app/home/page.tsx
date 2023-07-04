@@ -34,6 +34,7 @@ export default function Home() {
                 alt='Logo'
                 height={150}
                 width={150}
+                style={{ borderRadius: '50%' }}
               />
             </div>
             <div className='home-text'>
