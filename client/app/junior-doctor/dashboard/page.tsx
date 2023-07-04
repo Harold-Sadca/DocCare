@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import '.././junior-doctor.css';
+import "../../css/junior-doctor.css";
 import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
 import { TypePatient } from '../../../../server/types/types';
@@ -69,7 +69,7 @@ export default function JuniorDoctorDashBoard() {
   return (
     <div>
       <AuthNavbar user={'junior-doctor'} auth={'login'} />
-      <main>
+      <div>
         {loaded ? (
           <div className='messages-container-juniorDoctor'>
             <AllPatients allPatients={allPatients} />
@@ -80,7 +80,7 @@ export default function JuniorDoctorDashBoard() {
         ) : (
           <LoadingSpinner />
         )}
-      </main>
+      </div>
     </div>
   );
 }
