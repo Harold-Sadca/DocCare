@@ -76,26 +76,22 @@ async function loginDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
     const doctor = await Doctor.findOne({ where: { email } });
-    if (!doctor) {
-      throw new Error('Patient not found');
+    if (!doctor || doctor.password === null) {
+      res.status(401).json({ error: 'Password and email do not match' });
+    } else {
+      const validatedPass = await bcrypt.compare(password, doctor.password);
+      if (validatedPass) {
+        const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
+        const userAuthenticated = await getDoctorModel(doctor.id);
+        userAuthenticated!.password = null;
+        res.status(200).json({
+          message: `Welcome, ${doctor?.name}!`,
+          result: { accessToken, userAuthenticated },
+        });
+      }
     }
-    const DoctorPassword = doctor.password;
-    if (DoctorPassword === null) {
-      throw new Error('Patient password is null');
-    }
-    const validatedPass = await bcrypt.compare(password, DoctorPassword);
-    if (!validatedPass) {
-      throw new Error('Invalid password');
-    }
-    const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
-    const userAuthenticated = await getDoctorModel(doctor.id);
-    userAuthenticated!.password = null;
-    res.status(200).json({
-      message: `Welcome, ${doctor?.name}!`,
-      result: { accessToken, userAuthenticated },
-    });
   } catch (error) {
-    res.status(401).send({ error: 'Username or password is incorrect' });
+    res.status(500).send({ error: 'Failed to login' });
   }
 }
 

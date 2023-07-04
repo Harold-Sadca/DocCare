@@ -68,27 +68,23 @@ async function createPatient(req: Request, res: Response) {
 async function loginPatient(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    const patient = await PatientDB.findOne({ where: { email: email } });
-    if (!patient) {
-      return res.status(403).send({ error: 'Username or password not found' });
+    const patient = await PatientDB.findOne({ where: { email } });
+    if (!patient || patient.password === null) {
+      res.status(401).json({ error: 'Password and email do not match' });
+    } else {
+      const validatedPass = await bcrypt.compare(password, patient.password);
+      if (validatedPass) {
+        const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
+        const userAuthenticated = await getPatientModel(patient.id);
+        userAuthenticated!.password = null;
+        res.status(200).json({
+          message: `Welcome, ${patient?.name}!`,
+          result: { accessToken, userAuthenticated },
+        });
+      }
     }
-    const patientPassword = patient.password;
-    if (!patientPassword) {
-      return res.status(403).send({ error: 'Username or password not found' });
-    }
-    const validatedPass = await bcrypt.compare(password, patientPassword);
-    if (!validatedPass) {
-      return res.status(403).send({ error: 'Username or password not found' });
-    }
-    const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
-
-    const userAuthenticated = await getPatientModel(patient.id);
-    res.status(200).json({
-      message: `Welcome, ${patient?.name}!`,
-      result: { accessToken, userAuthenticated },
-    });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to login' });
+    res.status(500).send({ error: 'Failed to login' });
   }
 }
 
