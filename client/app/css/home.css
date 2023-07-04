@@ -8,6 +8,7 @@
   .grid-home .home-right,
   .grid-home .home-right-image {
     display: flex;
+    /* align-items: center; */
   }
 }
 
@@ -89,5 +90,11 @@
   align-items: center; */
 }
 
-.users-center {
+.grid-home .home-right-image img{
+border-radius: 100%;
+}
+
+.home-right-image{
+display:flex;
+align-self: center;
 }
