@@ -9,13 +9,14 @@ import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import '../css/home.css';
 import '../css/globals.css';
+import { getUserType } from '../helper';
 
 export default function Home() {
   const router = useRouter();
   const usersRef = useRef<HTMLElement | null>(null);
   const executeScroll = () => usersRef?.current?.scrollIntoView();
   useEffect(() => {
-    const userType = localStorage.getItem('userType') as string;
+    const userType = getUserType() as string;
     if (userType) {
       router.push(`/${userType}/dashboard`);
     } else {
