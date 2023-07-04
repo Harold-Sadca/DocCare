@@ -67,13 +67,11 @@
 @media (min-width: 700px) {
   .grid-users {
     display: grid;
+    background-color: white;
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.grid-users {
-  margin: 2rem;
-}
 
 .users {
   display: flex;
