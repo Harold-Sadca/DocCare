@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const patient_route_1 = require("./patient.route");
+const messages_route_1 = require("./messages.route");
+const junior_doctor_route_1 = require("./junior-doctor.route");
+const doctor_route_1 = require("./doctor.route");
+exports.router = (0, express_1.Router)();
+exports.router.use('/patient', patient_route_1.patientRouter);
+exports.router.use('/messages', messages_route_1.messagesRouter);
+exports.router.use('/juniorDoctor', junior_doctor_route_1.juniorDoctorRouter);
+exports.router.use('/doctor', doctor_route_1.doctorRouter);
