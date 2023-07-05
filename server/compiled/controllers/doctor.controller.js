@@ -74,6 +74,7 @@ function loginDoctor(req, res) {
                 if (validatedPass) {
                     const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
                     const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
+                    console.log(userAuthenticated);
                     userAuthenticated.password = null;
                     res.status(200).json({
                         message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
@@ -120,6 +121,7 @@ exports.getDoctors = getDoctors;
 function createMedicalInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            console.log(req.body);
             const { prescription, doctorNote, doctorName } = req.body;
             const patientId = req.params.patientId;
             const newMedicalInfo = {
@@ -143,9 +145,14 @@ function createPatientSummary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patientId = req.params.patientId;
-            const { summary, doctorName } = req.body;
-            const newSummary = `${summary} by: ${doctorName}`;
-            const createPatientSummary = yield (0, doctors_1.createPatientSummaryModel)(newSummary, patientId);
+            console.log(patientId);
+            // const { summary, doctorName } = req.body;
+            console.log('why?');
+            console.log(req.body);
+            const { newPatientSummary } = req.body;
+            console.log(newPatientSummary);
+            // const newPatientSummary = `${summary} by: ${doctorName}`;
+            const createPatientSummary = yield (0, doctors_1.createPatientSummaryModel)(newPatientSummary, patientId);
             res.status(201).json({
                 message: 'Patient summary created successfully',
                 result: createPatientSummary,

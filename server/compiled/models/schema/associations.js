@@ -44,8 +44,8 @@ function initModels(sequelize) {
         as: 'patientAppointments',
         foreignKey: 'patient_id',
     });
-    Patient_1.Patient.hasOne(MedicalInfo_1.MedicalInfo, {
-        as: 'medicalInfo',
+    Patient_1.Patient.hasMany(MedicalInfo_1.MedicalInfo, {
+        as: 'medicalInfos',
         foreignKey: 'patient_id',
     });
     JuniorDoctor_1.JuniorDoctor.hasMany(Message_1.Message, {

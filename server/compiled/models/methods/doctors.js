@@ -73,7 +73,8 @@ function getDoctorModel(id) {
                             },
                             {
                                 model: MedicalInfo_1.MedicalInfo,
-                                as: 'medicalInfo',
+                                as: 'medicalInfos',
+                                required: false,
                             },
                         ],
                     },
@@ -100,12 +101,19 @@ function getDoctorsModel() {
                             model: Patient_1.Patient,
                             as: 'patientAppointment',
                             required: false,
+                            include: [
+                                {
+                                    model: MedicalInfo_1.MedicalInfo,
+                                    as: 'medicalInfos',
+                                    required: false,
+                                },
+                            ],
                         },
                     ],
                 },
             });
             doctors.map((doctor) => {
-                return doctor.password = null;
+                return (doctor.password = null);
             });
             return doctors;
         }
@@ -122,8 +130,9 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
                 where: { id: patientId },
             }));
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
-            patient.setMedicalInfo(medicalInfo);
+            patient.addMedicalInfo(medicalInfo);
             yield medicalInfo.save();
+            // await patient.save();
             return medicalInfo;
         }
         catch (error) {
@@ -138,8 +147,10 @@ function createPatientSummaryModel(newPatientSummary, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
+            console.log(patient, 'before');
             patient.summary = newPatientSummary;
             yield patient.save();
+            console.log(patient, 'after');
             return patient;
         }
         catch (error) {
