@@ -22,8 +22,6 @@ export default function AvailableDoctorList() {
     (state) => state.currentPatientReducer.value
   );
 
-  console.log(availableSpecialists);
-
   async function makeAppointment(
     date: string,
     time: string,
@@ -38,17 +36,18 @@ export default function AvailableDoctorList() {
       attended: false,
     };
     if (currentPatient && currentPatient.id) {
-      console.log(currentPatient);
       const data = await apiService.createAppointment(
         currentPatient.id,
         appointment,
         doctorId
       );
       const { message, result } = data;
-      console.log(data);
       if (result) {
         setMessageContent(message as string);
         setFormError('');
+        setTimeout(() => {
+          router.push('/patient/appointment/confirmation');
+        }, 2000);
       } else {
         setFormError(`${data}`);
       }
