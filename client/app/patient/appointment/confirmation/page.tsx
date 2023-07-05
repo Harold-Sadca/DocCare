@@ -1,31 +1,32 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-'use client';
-import AuthNavbar from '@/app/(components)/auth-navbar';
-import '../../../css/patient.css';
-import '../../../css/globals.css';
-import { useAppSelector } from '@/redux/store';
-import apiService from '@/services/APIservices';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import {addAppointment} from '@/redux/features/appointmentSlice';
+"use client";
+import AuthNavbar from "@/app/(components)/auth-navbar";
+import "../../../css/patient.css";
+import "../../../css/globals.css";
+import { useAppSelector } from "@/redux/store";
+import apiService from "@/services/APIservices";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { addAppointment } from "@/redux/features/appointmentSlice";
 
 export default function AvailableDoctorList() {
   const router = useRouter();
-  const appointments = useAppSelector((state) => state.appointment.appointments);
-
+  const appointments = useAppSelector(
+    (state) => state.appointment.appointments
+  );
 
   const handleButtonClick = () => {
-    router.push('/patient/dashboard');
+    router.push("/patient/dashboard");
   };
 
   return (
-    <div>
-      <AuthNavbar user={'patient'} auth={'login'} />
-      <h1>You confirmed</h1>
+    <div className="confirmation">
+      <AuthNavbar user={"patient"} auth={"login"} />
+      <h1 className="confirmation-heading">Confirmation</h1>
       <div>
         {appointments.map((appointment, index) => (
-          <div key={index}>
+          <div key={index} className="confirmation-info">
             <h2>Appointment was made for</h2>
             <p>Date: {appointment.date}</p>
             <p>Time: {appointment.time}</p>
@@ -33,7 +34,17 @@ export default function AvailableDoctorList() {
           </div>
         ))}
       </div>
-      <button onClick={handleButtonClick}>Go to my Dashboard</button>
+      <button
+        onClick={handleButtonClick}
+     className="bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded"
+      style={{
+        position: 'fixed',
+        bottom: '2rem',
+        right: '2rem'
+      }}
+      >
+        Go to my Dashboard
+      </button>
     </div>
   );
 }
