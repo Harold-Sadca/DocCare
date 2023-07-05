@@ -4,7 +4,6 @@ interface Appointment {
   date: string;
   time: string;
   illness: string;
-  attended: boolean;
 }
 
 interface AppointmentState {

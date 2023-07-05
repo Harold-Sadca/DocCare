@@ -50,10 +50,9 @@ export default function AvailableDoctorList() {
       if (result) {
         setMessageContent(message as string);
         setFormError('');
+        //adding appoitment to redux to be able to view it in confirmation
      dispatch(addAppointment(appointment));
-        // setTimeout(() => {
-          router.push('/patient/appointment/confirmation');
-        // }, 2000);
+      router.push('/patient/appointment/confirmation');
       } else {
         setFormError(`${data}`);
       }

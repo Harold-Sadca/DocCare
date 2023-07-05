@@ -26,13 +26,14 @@ export default function AvailableDoctorList() {
       <div>
         {appointments.map((appointment, index) => (
           <div key={index}>
+            <h2>Appointment was made for</h2>
             <p>Date: {appointment.date}</p>
             <p>Time: {appointment.time}</p>
             <p>Illness: {appointment.illness}</p>
           </div>
         ))}
       </div>
-      <button onClick={handleButtonClick}>Go to Dashboard</button>
+      <button onClick={handleButtonClick}>Go to my Dashboard</button>
     </div>
   );
 }
