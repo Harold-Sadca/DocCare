@@ -27,14 +27,61 @@ import {
 const PORT = 'http://localhost:3001';
 const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
 
-async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
+// async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
+//   return axios
+//     .put(PORT + path, JSON.stringify(content), {
+//       headers: {
+//         'Content-type': 'application/json; charset=UTF-8',
+//       },
+//       withCredentials: true,
+//     })
+//     .then((res: AxiosResponse<TPatient>) => {
+//       return res.data;
+//     });
+// }
+
+async function editPatientDetails(
+  patientId: string,
+  patientDetails: TypePatient,
+  token: string
+): Promise<TPatient> {
   return axios
-    .put(PORT + path, JSON.stringify(content), {
+    .put(`${PORT}/patients/logout/${patientId}`, patientDetails, {
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
     })
+    .then((res: AxiosResponse<TPatient>) => {
+      return res.data;
+    });
+}
+
+async function addJuniorNote(patientId: string, note: string, token: string) {
+  return axios
+    .put(`${PORT}/patients/logout/${patientId}`, note, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res: AxiosResponse<TPatient>) => {
+      return res.data;
+    });
+}
+
+async function logoutPatient(patientId: string, patientDetails: TypePatient) {
+  return axios
+    .put(
+      `${PORT}/patients/logout/${patientId}`,
+      JSON.stringify(patientDetails),
+      {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+        withCredentials: true,
+      }
+    )
     .then((res: AxiosResponse<TPatient>) => {
       return res.data;
     });
@@ -173,17 +220,6 @@ async function getAllPatients(token: string) {
 //     });
 // }
 
-async function logoutPatient(patientId: string, patientDetails: TypePatient) {
-  return putData(`/patients/logout/${patientId}`, patientDetails);
-}
-
-async function editPatientDetails(
-  patientId: string,
-  patientDetails: TypePatient
-): Promise<TPatient> {
-  return putData(`/patient/${patientId}`, patientDetails);
-}
-
 async function deletePatient(patientId: string): Promise<TypeResponsePatient> {
   return axios
     .get(`${PORT}/patient/${patientId}`, {
@@ -316,6 +352,7 @@ const apiService = {
   attendAppointment,
   logoutPatient,
   getAllMessages,
+  addJuniorNote,
 };
 
 export default apiService;

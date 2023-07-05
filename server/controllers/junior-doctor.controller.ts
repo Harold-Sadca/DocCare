@@ -84,10 +84,10 @@ async function getJuniorDoctor(req: Request, res: Response) {
 }
 async function createJuniorNote(req: Request, res: Response) {
   try {
-    const juniorNote = req.body;
+    const { juniorNote } = req.body;
     const patientId = req.params.patientId;
-    const createJuniorNote = await createJuniorNoteModel(juniorNote, patientId);
-    res.status(201).json({
+    const createJuniorNote = await createJuniorNoteModel(patientId, juniorNote);
+    res.status(200).json({
       message: 'Junior note created successfully',
       result: createJuniorNote,
     });

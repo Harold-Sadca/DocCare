@@ -17,8 +17,8 @@ juniorDoctorRouter.get(
   juniorDoctorAuthMiddleware,
   getJuniorDoctor
 );
-juniorDoctorRouter.post(
-  '/junior-doctor/:patientId/note',
+juniorDoctorRouter.put(
+  '/junior-doctor/note/:patientId',
   juniorDoctorAuthMiddleware,
   createJuniorNote
 );

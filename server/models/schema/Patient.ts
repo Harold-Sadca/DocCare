@@ -46,7 +46,7 @@ export class Patient extends Model<
   declare dateOfBirth: string | null;
   declare gender: 'Male' | 'Female' | null;
   declare profilePicture: string | null;
-  declare juniorNotes: string | null;
+  declare juniorNotes?: string[];
   declare summary: string | null;
   declare allergies: string | null;
   declare bloodType: string | null;
@@ -161,7 +161,7 @@ export class Patient extends Model<
           type: DataTypes.STRING,
         },
         juniorNotes: {
-          type: DataTypes.STRING,
+          type: DataTypes.ARRAY(DataTypes.STRING),
         },
         summary: {
           type: DataTypes.STRING,

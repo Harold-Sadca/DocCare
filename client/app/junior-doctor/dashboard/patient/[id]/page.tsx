@@ -13,6 +13,7 @@ import '../../../../css/globals.css';
 import '../../../../css/patient.css';
 import '../../../../css/doctor.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -28,6 +29,8 @@ export default function Patient({ params }: { params: { id: string } }) {
     attended: boolean;
   }
 
+  console.log(selectedPatient);
+
   return (
     <>
       <AuthNavbar user={'doctor'} auth={'login'} />
@@ -35,12 +38,19 @@ export default function Patient({ params }: { params: { id: string } }) {
         <div className='grid-container'>
           <div className='patient-picture-box'>
             <Image
-              src={selectedPatient.profilePicture as string}
+              src={selectedPatient?.profilePicture as string}
               className='profile-image-patient'
               alt='profile-image-patient'
               height={150}
               width={150}
             />
+            <p>{selectedPatient?.summary}</p>
+            <Link
+              href={`/junior-doctor/dashboard/patient/${selectedPatient?.id}/add-info`}
+              className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-add-info'
+            >
+              Add information
+            </Link>
           </div>
 
           <div className='main-info-patient-box main-info-patient'>

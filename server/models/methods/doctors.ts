@@ -129,10 +129,8 @@ async function createPatientSummaryModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    console.log(patient, 'before');
     patient.summary = newPatientSummary;
     await patient.save();
-    console.log(patient, 'after');
     return patient;
   } catch (error) {
     throw new Error();

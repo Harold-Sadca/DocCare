@@ -7,7 +7,7 @@ const JuniorDoctorDB = db.JuniorDoctor;
 async function createJuniorDoctorModel(juniorDoctor: TypeJuniorDoctor) {
   try {
     const newJuniorDoctor = await JuniorDoctorDB.create(juniorDoctor);
-    newJuniorDoctor.password = null
+    newJuniorDoctor.password = null;
     return newJuniorDoctor;
   } catch (error) {
     throw new Error();
@@ -23,18 +23,21 @@ async function getJuniorDoctorModel(id: string) {
         required: false,
       },
     });
-    juniorDoctor!.password = null
+    juniorDoctor!.password = null;
     return juniorDoctor;
   } catch (error) {
     throw new Error();
   }
 }
-async function createJuniorNoteModel(juniorNote: string, patientId: string) {
+async function createJuniorNoteModel(patientId: string, juniorNote: string) {
   try {
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    patient.juniorNotes = juniorNote;
+    console.log(patient);
+    patient.juniorNotes = patient.juniorNotes || [];
+    patient.juniorNotes?.push(juniorNote);
+    console.log(patient.juniorNotes);
     await patient.save();
     return patient;
   } catch (error) {

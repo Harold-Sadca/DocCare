@@ -20,6 +20,8 @@ type CurrentPatientToView = {
   surgicalHistory: string;
   familyMedicalHistory: string;
   profilePicture?: string;
+  summary?: string;
+  juniorNotes?: string[];
   patientAppointments: TypeAppointment[] | undefined;
 };
 const initialState = {
