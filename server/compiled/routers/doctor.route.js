@@ -10,6 +10,6 @@ doctorRouter.post('/doctor/register', doctor_controller_1.createDoctor);
 doctorRouter.post('/doctor/login', doctor_controller_1.loginDoctor);
 doctorRouter.get('/doctor', authorization_1.doctorAuthMiddleware, doctor_controller_1.getDoctor);
 doctorRouter.get('/doctors', doctor_controller_1.getDoctors);
-doctorRouter.post('/doctor/:patientId/medical-info', authorization_1.doctorAuthMiddleware, doctor_controller_1.createMedicalInfo);
+doctorRouter.put('/doctor/medical-info/:patientId', authorization_1.doctorAuthMiddleware, doctor_controller_1.createMedicalInfo);
 doctorRouter.put('/doctor/summary/:patientId', authorization_1.doctorAuthMiddleware, doctor_controller_1.createPatientSummary);
 doctorRouter.put('/doctor/attend/:appointmentId', authorization_1.doctorAuthMiddleware, doctor_controller_1.attendAppointment);

@@ -156,7 +156,7 @@ h3 {
   color: #a266b5;
 }
 
-/* List of appointments */
+/* --------  List of appointments --------  */
 
 .appointment-container {
   height: 35vh;
@@ -177,7 +177,7 @@ h3 {
   margin-right: 0.2rem;
 }
 
-/* Messages */
+/* --------  Messages --------  */
 
 .messages-container-start-chat {
   height: 35vh;
@@ -310,6 +310,9 @@ input::placeholder {
   flex-wrap: wrap;
 }
 
+
+
+/* ------------------  Confirmation Page  ------------------ */
 
 .confirmation-heading {
   margin-left: 2rem;

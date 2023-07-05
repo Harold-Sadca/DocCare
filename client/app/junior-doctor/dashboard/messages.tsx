@@ -2,7 +2,7 @@
 'use client';
 import { io } from 'socket.io-client';
 import '../../css/junior-doctor.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 import { TypeChatUser, TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
@@ -29,6 +29,8 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   const [messages, setMessages] = useState<TypeMessage[]>([]);
   const allMessages = useAppSelector((state) => state.allMessagesReducer.value);
   const dispatch = useDispatch();
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -79,6 +81,13 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
     dispatch(toggleDisplayChat(false));
   }
 
+  useEffect(() => {
+    const chatContainer = chatContainerRef.current;
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <section className='chat'>
       <div className='header-chat'>
@@ -86,7 +95,7 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
 
         <p className='name'>{selectedPatient.name}</p>
       </div>
-      <div className='messages-chat'>
+      <div className='messages-chat' ref={chatContainerRef}>
         {messages.map((mes, idx) => {
           return mes.sender_name === 'Doctor' ? (
             <div className='message' key={idx}>

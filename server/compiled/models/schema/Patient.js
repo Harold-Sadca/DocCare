@@ -92,7 +92,7 @@ class Patient extends sequelize_1.Model {
                     patient.password = hashedPassword;
                     patient.status = 'Online';
                     yield patient.save();
-                })
+                }),
             },
             sequelize,
         });

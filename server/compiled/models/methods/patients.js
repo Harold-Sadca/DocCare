@@ -60,7 +60,8 @@ function getPatientModel(id) {
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
+                        as: 'medicalInfos',
+                        required: false,
                     },
                 ],
             });
@@ -100,7 +101,7 @@ function getPatientsModel() {
                     },
                     {
                         model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
+                        as: 'medicalInfos',
                         required: false,
                     },
                 ],
@@ -144,7 +145,7 @@ function deletePatientModel(patientId) {
 }
 exports.deletePatientModel = deletePatientModel;
 function getLastCheckupModel(patientId) {
-    var _a, _b;
+    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patient = yield PatientDB.findOne({
@@ -152,7 +153,7 @@ function getLastCheckupModel(patientId) {
                 include: [
                     {
                         model: MedicalInfo_1.MedicalInfo,
-                        as: 'medicalInfo',
+                        as: 'medicalInfos',
                     },
                     {
                         model: Appointment_1.Appointment,
@@ -169,7 +170,7 @@ function getLastCheckupModel(patientId) {
             });
             const appointmentsAttended = (_a = patient === null || patient === void 0 ? void 0 : patient.patientAppointments) === null || _a === void 0 ? void 0 : _a.filter((appointment) => appointment.attended);
             if (appointmentsAttended && appointmentsAttended.length > 0) {
-                const doctorNote = (_b = patient === null || patient === void 0 ? void 0 : patient.medicalInfo) === null || _b === void 0 ? void 0 : _b.doctorNote;
+                // const doctorNote = patient?.medicalInfos?.;
                 const sortedAppointments = appointmentsAttended === null || appointmentsAttended === void 0 ? void 0 : appointmentsAttended.sort((a, b) => {
                     const datesA = a.date;
                     const datesB = b.date;
@@ -178,7 +179,8 @@ function getLastCheckupModel(patientId) {
                     return dateA.getTime() - dateB.getTime();
                 });
                 const lastDate = sortedAppointments[0];
-                return { doctorNote, lastDate };
+                // return { doctorNote, lastDate };
+                return lastDate;
             }
             else
                 return undefined;
