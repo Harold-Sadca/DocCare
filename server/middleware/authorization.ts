@@ -9,7 +9,7 @@ const DoctorDB = db.Doctor;
 const JuniorDoctorDB = db.JuniorDoctor;
 const PatientDB = db.Patient;
 
-const SECRET_KEY = process.env.SECRET_KEY as string;
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
 declare module 'express' {
   interface Request {

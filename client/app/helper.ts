@@ -81,3 +81,8 @@ export function getUserType() {
   }
   return userType;
 }
+
+export function clearLocalStorage() {
+  accessToken = null;
+  userType = null;
+}

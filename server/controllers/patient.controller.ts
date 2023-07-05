@@ -68,27 +68,23 @@ async function createPatient(req: Request, res: Response) {
 async function loginPatient(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    const patient = await PatientDB.findOne({ where: { email: email } });
-    if (!patient) {
-      return res.status(403).send({ error: 'Username or password not found' });
+    const patient = await PatientDB.findOne({ where: { email } });
+    if (!patient || patient.password === null) {
+      res.status(401).json({ error: 'Password and email do not match' });
+    } else {
+      const validatedPass = await bcrypt.compare(password, patient.password);
+      if (validatedPass) {
+        const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
+        const userAuthenticated = await getPatientModel(patient.id);
+        userAuthenticated!.password = null;
+        res.status(200).json({
+          message: `Welcome, ${patient?.name}!`,
+          result: { accessToken, userAuthenticated },
+        });
+      }
     }
-    const patientPassword = patient.password;
-    if (!patientPassword) {
-      return res.status(403).send({ error: 'Username or password not found' });
-    }
-    const validatedPass = await bcrypt.compare(password, patientPassword);
-    if (!validatedPass) {
-      return res.status(403).send({ error: 'Username or password not found' });
-    }
-    const accessToken = jwt.sign({ id: patient.id }, SECRET_KEY);
-
-    const userAuthenticated = await getPatientModel(patient.id);
-    res.status(200).json({
-      message: `Welcome, ${patient?.name}!`,
-      result: { accessToken, userAuthenticated },
-    });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to login' });
+    res.status(500).send({ error: 'Failed to login' });
   }
 }
 
@@ -108,14 +104,14 @@ async function getPatient(req: Request, res: Response) {
 
 async function logoutPatient(req: Request, res: Response) {
   try {
-    const id = req.params.id
-    const patient = await logoutPatientModel(id)
+    const patientId = req.params.patientId;
+    const patient = await logoutPatientModel(patientId);
     res.status(200).json({
       message: `Goodbye, ${patient?.name}!`,
-      result: patient
-    })
+      result: patient,
+    });
   } catch (error) {
-    res.status(400).json({error: 'Unable to logout'})
+    res.status(400).json({ error: 'Unable to logout' });
   }
 }
 
@@ -152,8 +148,8 @@ async function updatePatient(req: Request, res: Response) {
 }
 async function deletePatient(req: Request, res: Response) {
   try {
-    const id = req.params.id;
-    const deletedPatient = await deletePatientModel(id);
+    const patientId = req.params.patientId;
+    const deletedPatient = await deletePatientModel(patientId);
     res.status(200).json({
       message: 'Patient account deleted successfully',
       result: deletedPatient,
@@ -165,8 +161,8 @@ async function deletePatient(req: Request, res: Response) {
 
 async function getLastCheckup(req: Request, res: Response) {
   try {
-    const id = req.params.id;
-    const patientLastCheckup = await getLastCheckupModel(id);
+    const patientId = req.params.patientIdid;
+    const patientLastCheckup = await getLastCheckupModel(patientId);
     if (patientLastCheckup?.lastDate === undefined) {
       res.status(200).json({ message: `You haven't had any appointments yet` });
     } else {
@@ -182,9 +178,9 @@ async function getLastCheckup(req: Request, res: Response) {
 
 async function createAppointment(req: Request, res: Response) {
   try {
-    const patientId = req.params.id;
+    const patientId = req.params.patientId;
     const { doctorId, appointment } = req.body;
-    logger.warn(appointment)
+    logger.warn(appointment);
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,

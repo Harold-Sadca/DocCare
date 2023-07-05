@@ -93,6 +93,18 @@
   }
 }
 
+.button-and-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.button-and-title button {
+  margin-left: 1rem;
+  align-self: flex-start;
+  font-size: 1.3rem;
+}
+
 /* My appointments */
 
 .all-patients {

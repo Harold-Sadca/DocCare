@@ -49,28 +49,26 @@ async function createJuniorDoctor(req: Request, res: Response) {
 async function loginJuniorDoctor(req: Request, res: Response) {
   const { email, password } = req.body;
   try {
-    const juniorDoctor = await JuniorDoctor.findOne({
-      where: { email },
-    });
-    if (!juniorDoctor) {
-      throw new Error('Junior doctor not found');
+    const juniorDoctor = await JuniorDoctor.findOne({ where: { email } });
+    if (!juniorDoctor || juniorDoctor.password === null) {
+      res.status(401).json({ error: 'Password and email do not match' });
+    } else {
+      const validatedPass = await bcrypt.compare(
+        password,
+        juniorDoctor.password
+      );
+      if (validatedPass) {
+        const accessToken = jwt.sign({ id: juniorDoctor.id }, SECRET_KEY);
+        const userAuthenticated = await getJuniorDoctorModel(juniorDoctor.id);
+        userAuthenticated!.password = null;
+        res.status(200).json({
+          message: `Welcome, ${juniorDoctor?.name}!`,
+          result: { accessToken, userAuthenticated },
+        });
+      }
     }
-    const juniorDoctorPassword = juniorDoctor.password;
-    if (juniorDoctorPassword === null) {
-      throw new Error('Invalid credentials');
-    }
-    const validatedPass = await bcrypt.compare(password, juniorDoctorPassword);
-    if (!validatedPass) {
-      throw new Error('Invalid credentials');
-    }
-    const accessToken = jwt.sign({ id: juniorDoctor.id }, SECRET_KEY);
-    const userAuthenticated = await getJuniorDoctorModel(juniorDoctor.id);
-    res.status(200).json({
-      message: `Welcome, ${juniorDoctor?.name}!`,
-      result: { accessToken, userAuthenticated },
-    });
   } catch (error) {
-    res.status(401).send({ error: 'Username or password is incorrect' });
+    res.status(500).send({ error: 'Failed to login' });
   }
 }
 
@@ -87,7 +85,7 @@ async function getJuniorDoctor(req: Request, res: Response) {
 async function createJuniorNote(req: Request, res: Response) {
   try {
     const juniorNote = req.body;
-    const patientId = req.params.id;
+    const patientId = req.params.patientId;
     const createJuniorNote = await createJuniorNoteModel(juniorNote, patientId);
     res.status(201).json({
       message: 'Junior note created successfully',

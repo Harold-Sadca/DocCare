@@ -8,6 +8,7 @@ import {
   CheckSquareOutlined,
   CheckSquareTwoTone,
   FieldTimeOutlined,
+  PhoneOutlined,
 } from '@ant-design/icons';
 import apiService from '@/services/APIservices';
 import { message } from 'antd';
@@ -67,14 +68,51 @@ export default function Appointments() {
   return (
     <main className='doctor-appointments-box'>
       {contextHolder}
+
       <div className='dashboard-container doctor-patients-container'>
+        <h3>Next appointment</h3>
+        {appointments
+          ?.filter(
+            (appointment) =>
+              new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
+          )
+          .slice(0, 1)
+          .map((appointment, idx) => (
+            <div
+              className='profile-boxes profile-boxes-violet each-item each-item-appointments'
+              key={idx}
+            >
+              <div>
+                <p id='name'>{appointment.patientAppointment?.name}</p>
+                <p id='gender'>{appointment.patientAppointment?.gender}</p>
+              </div>
+              <div className='time-of-appointment'>
+                <p>{formatDate(appointment.date)}</p>
+                <p>
+                  {' '}
+                  <FieldTimeOutlined />{' '}
+                  {formatTime(appointment.time.slice(0, 5))}
+                </p>
+              </div>
+              <div>
+                {' '}
+                <span className='attend-btn'>
+                  <a
+                    href={`tel:${appointment.patientAppointment?.phoneNumber}`}
+                  >
+                    <PhoneOutlined style={{ fontSize: '30px' }} />
+                  </a>
+                </span>
+              </div>
+            </div>
+          ))}
         <h3>My appointments</h3>
         {appointments
           ?.filter(
             (appointment) =>
               new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
           )
-          .slice(0, 3)
+          .slice(1, 3)
           .map((appointment, idx) => (
             <div
               className='profile-boxes profile-boxes-blue each-item each-item-appointments'

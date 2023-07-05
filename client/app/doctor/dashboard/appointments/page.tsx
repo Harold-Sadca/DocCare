@@ -9,6 +9,7 @@ import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import '../../../css/doctor.css';
 import '../../../css/globals.css';
+import { LeftCircleOutlined } from '@ant-design/icons';
 
 export default function Appointments() {
   const router = useRouter();
@@ -21,13 +22,21 @@ export default function Appointments() {
     <div className='patients-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
       {/* <main className='all-patients appointment-list-container'> */}
-      <div className='patients-grid'>
-        <h2 className='text-2xl text-primary text-black m-4'>
-          Next appointments
-        </h2>
+      <div>
+        <div className='button-and-title'>
+          <button onClick={() => router.back()}>
+            <LeftCircleOutlined />
+          </button>
+          <h2 className='text-2xl text-primary text-black m-4'>
+            Next appointments
+          </h2>
+        </div>
         {/* <div className='all-patients'> */}
         {appointments
-          ?.filter((appointment) => new Date(`${appointment.date}`).valueOf() > Date.now().valueOf())
+          ?.filter(
+            (appointment) =>
+              new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
+          )
           .map((appointment, idx) => (
             <div className='each-patient-profile' key={idx}>
               <p>{appointment?.patientAppointment?.name}</p>
@@ -54,7 +63,10 @@ export default function Appointments() {
           Previous appointments
         </h2>
         {appointments
-          ?.filter((appointment) => appointment.attended)
+          ?.filter(
+            (appointment) =>
+              new Date(`${appointment.date}`).valueOf() < Date.now().valueOf()
+          )
           .map((appointment, idx) => (
             <div
               className='each-patient-profile previous-appointments'

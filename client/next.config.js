@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverActions: true,
-    esmExternals: false
-  },
+  // experimental: {
+  //   serverActions: true,
+  //   esmExternals: false
+  // },
   images: {
     remotePatterns: [
       {
@@ -22,20 +22,20 @@ const nextConfig = {
   },
 
   // Specify the custom server file
-  server: {
-    // Custom server file path
-    webpackDevMiddleware: (config) => {
-      config.watchOptions = {
-        poll: 1000,
-        aggregateTimeout: 300,
-      };
-      return config;
-    },
-    // Custom server file path
-    webpackHotMiddleware: (config) => {
-      return config;
-    },
-  },
+  // server: {
+  //   // Custom server file path
+  //   webpackDevMiddleware: (config) => {
+  //     config.watchOptions = {
+  //       poll: 1000,
+  //       aggregateTimeout: 300,
+  //     };
+  //     return config;
+  //   },
+  //   // Custom server file path
+  //   webpackHotMiddleware: (config) => {
+  //     return config;
+  //   },
+  // },
 }
 
 module.exports = nextConfig

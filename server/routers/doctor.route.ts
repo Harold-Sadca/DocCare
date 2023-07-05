@@ -1,4 +1,3 @@
-import express from 'express';
 import { Router } from 'express';
 import {
   createDoctor,
@@ -18,15 +17,19 @@ doctorRouter.post('/doctor/login', loginDoctor);
 doctorRouter.get('/doctor', doctorAuthMiddleware, getDoctor);
 doctorRouter.get('/doctors', getDoctors);
 doctorRouter.post(
-  '/doctor/:id/medical-info',
+  '/doctor/:patientId/medical-info',
   doctorAuthMiddleware,
   createMedicalInfo
 );
 doctorRouter.put(
-  '/doctor/summary/:id',
+  '/doctor/summary/:patientId',
   doctorAuthMiddleware,
   createPatientSummary
 );
-doctorRouter.put('/doctor/attend/:id', doctorAuthMiddleware, attendAppointment);
+doctorRouter.put(
+  '/doctor/attend/:appointmentId',
+  doctorAuthMiddleware,
+  attendAppointment
+);
 
 export { doctorRouter };
