@@ -79,7 +79,7 @@ export default function Appointments() {
           .slice(0, 1)
           .map((appointment, idx) => (
             <div
-              className='profile-boxes profile-boxes-violet each-item each-item-appointments'
+              className='profile-boxes profile-boxes-violet each-item-appointments'
               key={idx}
             >
               <div>
@@ -115,7 +115,7 @@ export default function Appointments() {
           .slice(1, 3)
           .map((appointment, idx) => (
             <div
-              className='profile-boxes profile-boxes-blue each-item each-item-appointments'
+              className='profile-boxes-blue each-item each-item-appointments'
               key={idx}
             >
               <div>

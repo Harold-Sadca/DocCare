@@ -134,6 +134,8 @@ form input::file-selector-button {
 .profile-pic {
   object-fit: cover;
   border-radius: 50%;
+  height: 150px;
+  width: 150px;
 }
 
 .about-user {
@@ -160,7 +162,7 @@ form input::file-selector-button {
 }
 
 .profile-boxes {
-  flex-direction: column;
+  flex-direction: column !important;
   text-align: center;
   width: fit-content;
   color: #a266b5;
