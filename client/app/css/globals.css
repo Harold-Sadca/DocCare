@@ -176,6 +176,17 @@ form input::file-selector-button {
   background-color: #f0f6fc;
 }
 
+.profile-boxes-violet {
+  height: fit-content;
+  padding: 1rem;
+  background-color: #a266b5;
+}
+
+.profile-boxes-violet p,
+.profile-boxes-violet span {
+  color: #f5ecf7;
+}
+
 /* Each patient profile */
 
 @media (min-width: 700px) {
