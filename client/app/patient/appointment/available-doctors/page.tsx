@@ -3,16 +3,21 @@
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import '../../../css/patient.css';
 import '../../../css/globals.css';
-import { useAppSelector } from '@/redux/store';
 import apiService from '@/services/APIservices';
 import { IllnessOptions } from '../../../../../server/types/types';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, useAppSelector } from '@/redux/store';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
+import {addAppointment} from '@/redux/features/appointmentSlice';
+
+
 import Image from 'next/image';
 
 export default function AvailableDoctorList() {
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [formError, setFormError] = useState('');
   const availableSpecialists = useAppSelector(
@@ -45,6 +50,7 @@ export default function AvailableDoctorList() {
       if (result) {
         setMessageContent(message as string);
         setFormError('');
+     dispatch(addAppointment(appointment));
         // setTimeout(() => {
           router.push('/patient/appointment/confirmation');
         // }, 2000);

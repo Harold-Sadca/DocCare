@@ -8,6 +8,7 @@ import apiService from '@/services/APIservices';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import {addAppointment} from '@/redux/features/appointmentSlice';
 
 export default function AvailableDoctorList() {
   const router = useRouter();

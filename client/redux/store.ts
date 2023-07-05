@@ -13,6 +13,8 @@ import AvailableSpecialist from './features/available-doctors-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import searchPatientReducer from './features/search-patient'
 import filteredPatientsReducer from './features/search-patient';
+import appointmentReducer from './features/appointmentSlice';
+
 
 
 export const store = configureStore({
@@ -29,7 +31,9 @@ export const store = configureStore({
     patientToViewReducer,
     patients: searchPatientReducer,
     filteredPatients: filteredPatientsReducer,
-    allMessagesReducer
+    allMessagesReducer,
+    appointment: appointmentReducer,
+
   },
 });
 // type of store:
