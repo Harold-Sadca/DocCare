@@ -20,9 +20,6 @@ export default function Patient({ params }: { params: { id: string } }) {
 
   const selectedPatient = useAppSelector(
     (state) => state.patientToViewReducer.value
-  ) as TypePatient;
-  const currentJunior = useAppSelector(
-    (state) => state.currentJuniorReducer.value
   );
 
   const juniorNotes = selectedPatient.juniorNotes;

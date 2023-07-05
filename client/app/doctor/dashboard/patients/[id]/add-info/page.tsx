@@ -86,7 +86,6 @@ export default function AddInfo({ params }: { params: { id: string } }) {
   const handleSummarySubmit = async (
     e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(e.target, 'target');
     e.preventDefault();
 
     const data = await apiService.createPatientSummary(
@@ -94,9 +93,9 @@ export default function AddInfo({ params }: { params: { id: string } }) {
       summary,
       getAccessToken() as string
     );
-    console.log('data', data);
+
     const { message, result, error } = data;
-    console.log(result);
+
     if (error) {
       setMessageContent(error);
     } else {
@@ -124,14 +123,13 @@ export default function AddInfo({ params }: { params: { id: string } }) {
       newMedicalInfo,
       getAccessToken() as string
     );
-    console.log(data);
+
     const { message, result, error } = data;
-    console.log(result);
+
     if (error) {
       setMessageContent(error);
     } else {
       if (result) {
-        console.log(result);
         setMessageContent(message as string);
       }
     }

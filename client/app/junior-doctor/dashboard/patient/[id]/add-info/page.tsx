@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
-import { useAppSelector } from '@/redux/store';
+import { AppDispatch, useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { LeftCircleOutlined } from '@ant-design/icons';
 import '../../../../../css/globals.css';
@@ -12,10 +12,13 @@ import { FormEvent, useEffect, useState } from 'react';
 import apiService from '@/services/APIservices';
 import { getAccessToken } from '@/app/helper';
 // import { TypeSummary } from '@/types/types';
+import { useDispatch } from 'react-redux';
+import { setPatientToView } from '@/redux/features/patient-to-view-slice';
 
 export default function AddInfo({ params }: { params: { id: string } }) {
   const [juniorNote, setJuniorNote] = useState<string>('');
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const selectedPatient = useAppSelector(
     (state) => state.patientToViewReducer.value
   );
@@ -61,23 +64,22 @@ export default function AddInfo({ params }: { params: { id: string } }) {
   const handleNoteSubmit = async (
     e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log(e.target, 'target');
     e.preventDefault();
-    console.log('meh');
+
     const data = await apiService.addJuniorNote(
       selectedPatient?.id as string,
       juniorNote,
       getAccessToken() as string
     );
-    console.log('data', data);
+
     const { message, result, error } = data;
-    console.log(result);
+
     if (error) {
       setMessageContent(error);
     } else {
       if (result) {
-        console.log(result);
         setMessageContent(message as string);
+        dispatch(setPatientToView(result));
       }
     }
     setJuniorNote('');
