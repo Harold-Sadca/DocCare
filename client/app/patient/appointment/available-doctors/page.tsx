@@ -11,8 +11,7 @@ import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import {addAppointment} from '@/redux/features/appointmentSlice';
-
+import { addAppointment } from '@/redux/features/appointmentSlice';
 
 import Image from 'next/image';
 
@@ -51,8 +50,7 @@ export default function AvailableDoctorList() {
         setMessageContent(message as string);
         setFormError('');
         //adding appoitment to redux to be able to view it in confirmation
-     dispatch(addAppointment(appointment));
-      router.push('/patient/appointment/confirmation');
+        dispatch(addAppointment(appointment));
       } else {
         setFormError(`${data}`);
       }
@@ -94,6 +92,9 @@ export default function AvailableDoctorList() {
         content: messageContent,
         duration: 2,
       });
+      setTimeout(() => {
+        router.push('/patient/appointment/confirmation');
+      }, 2000);
     }, 1000);
   };
 
@@ -122,6 +123,7 @@ export default function AvailableDoctorList() {
               const illness = available.illness as IllnessOptions;
               const date = available.date;
               const slots = availableSlots(available.slots);
+              console.log(doctorProfilePic);
               return (
                 <div className='doctors-list each-doctor' key={idx}>
                   <Image
@@ -129,7 +131,8 @@ export default function AvailableDoctorList() {
                     alt={doctorProfilePic}
                     width={70}
                     height={70}
-                    className='profile-pic'
+                    className='profile-pic-70 mr-4'
+                    style={{ marginRight: '1rem' }}
                   ></Image>
                   <div className='each-doctor-name'>
                     <h2>{doctorName}</h2>

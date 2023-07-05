@@ -39,7 +39,7 @@ export default function Patient({ params }: { params: { id: string } }) {
         <div className='patient-picture-box'>
           <Image
             src={currentPatient?.profilePicture as string}
-            className='profile-image-patient'
+            className='profile-pic'
             alt='profile-image-patient'
             height={150}
             width={150}

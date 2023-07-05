@@ -26,7 +26,7 @@ export interface TypeDoctor {
   phoneNumber: string;
   address: string;
   licenseNumber: string;
-  gender: 'Male' | 'Female';
+  gender: 'Male' | 'Female' | 'Other';
   about: string;
   profilePicture?: string;
   availability?: TypeAvailability;
@@ -75,7 +75,7 @@ export interface TypeJuniorDoctor {
   phoneNumber: string;
   address: string;
   licenseNumber: string;
-  gender: 'Male' | 'Female';
+  gender: 'Male' | 'Female' | 'Other';
   profilePicture?: string;
   userType?: string;
   createdAt?: Date;
@@ -111,7 +111,7 @@ export interface TypePatient {
   phoneNumber: string;
   address: string;
   dateOfBirth: string;
-  gender: 'Male' | 'Female';
+  gender: 'Male' | 'Female' | 'Other';
   profilePicture?: string;
   juniorNotes?: string;
   summary?: string;

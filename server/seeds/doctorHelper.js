@@ -23,9 +23,22 @@ const doctorNames = [
   "Dr. Mia Martinez",
   "Dr. Noah Anderson",
   "Dr. Isabella Hernandez",
-  "Dr. Lucas Walker",
   "Dr. Sophia Lewis",
+  "Dr. Lucas Walker",
   "Dr. Elijah Garcia"
+];
+
+const doctorPictures = [
+  'https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576257/pexels-jeff-denlea-3714743_i5yqrh.jpg',
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576257/pexels-thirdman-5327656_tpjhik.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576256/pexels-domineves-anthony-12495583_mqt3go.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688556552/next/phrfhci2kx0nvd9roh6i.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688397150/next/jerj70oaecvixnjkutdu.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576257/pexels-thirdman-5327656_tpjhik.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576256/pexels-tima-miroshnichenko-5407206_zq6xfg.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576256/pexels-thirdman-5327585_d2i4tf.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576731/pexels-ivan-samkov-4989166_nlduud.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576731/pexels-los-muertos-crew-8460157_jcitx2.jpg"
 ];
 
 const doctorLicenseNumbers = [
@@ -93,6 +106,20 @@ const passwords = [
   "Passw0rd!567"
 ];
 
+const aboutDoctor = [
+  "Experienced family doctor, focused on your well-being.",
+  "Compassionate physician, dedicated to excellent care.",
+  "Skilled surgeon, specializing in minimally invasive procedures.",
+  "Preventive medicine expert, committed to your health.",
+  "Expert in diagnosing and treating complex conditions.",
+  "Caring doctor, providing personalized treatment for you.",
+  "Knowledgeable internist, offering comprehensive care.",
+  "Pediatrician dedicated to ensuring children's health.",
+  "Specialized cardiologist, focused on heart health.",
+  "Passionate dermatologist, promoting healthy skin."
+];
+
+
 module.exports = {
   specialisations,
   doctorNames,
@@ -100,5 +127,7 @@ module.exports = {
   addresses,
   phoneNumbers,
   doctorEmails,
-  passwords
+  passwords,
+  doctorPictures,
+  aboutDoctor
 }

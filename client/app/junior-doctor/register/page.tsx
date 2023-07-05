@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
-import '../../css/globals.css'
+import '../../css/globals.css';
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -236,6 +236,13 @@ export default function Register() {
                 onChange={(value) => handleChange(value)}
               >
                 Female
+              </Radio>
+              <Radio
+                id='other'
+                value='other'
+                onChange={(value) => handleChange(value)}
+              >
+                Other
               </Radio>
             </Radio.Group>
           </Form.Item>

@@ -6,10 +6,14 @@ const { specialisations,
   addresses,
   phoneNumbers,
   doctorEmails,
-  passwords } = require('./doctorHelper')
+  passwords,
+  doctorPictures,
+  aboutDoctor
+} = require('./doctorHelper')
 const {
   patientNames,
   patientEmails,
+  patientPictures
 } = require('./patientHelper')
 const {
   randomJuniorDoctorNames,
@@ -73,46 +77,47 @@ function generateRandomDate (from, to) {
 
 const seedDB = async () => {
   for (let i = 0; i < 10; i++) {
-    const num = Math.floor(Math.random() * 10);
-    const spec = Math.floor(Math.random() * specialisations.length);
-    const gen = Math.floor(Math.random() * 2)
+    // const num = Math.floor(Math.random() * 10);
+    // const spec = Math.floor(Math.random() * specialisations.length);
+    const gen = Math.floor(Math.random() * 3)
 
     const doctor = await Doctor.create({
-      name: doctorNames[num],
-      email: doctorEmails[num],
-      password: passwords[num],
-      specialisation: specialisations[spec],
-      phoneNumber: phoneNumbers[num],
-      address: addresses[num],
-      licenseNumber: doctorLicenseNumbers[num],
+      name: doctorNames[i],
+      email: doctorEmails[i],
+      password: passwords[i],
+      specialisation: specialisations[0],
+      phoneNumber: phoneNumbers[i],
+      address: addresses[i],
+      licenseNumber: doctorLicenseNumbers[i],
       gender: genders[gen],
-      profilePicture: '',
+      profilePicture: doctorPictures[i],
       about: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
       availability: createEmptyAvailability(),
-      userType: 'doctor'
+      userType: 'doctor',
+      about: aboutDoctor[i]
     })
 
     const juniorDoctor = await JuniorDoctor.create({
-      name: randomJuniorDoctorNames[num],
-      email: juniorDoctorEmails[num],
-      password: passwords[num],
-      licenseNumber: doctorLicenseNumbers[num],
-      phoneNumber: phoneNumbers[num],
-      address: addresses[num],
+      name: randomJuniorDoctorNames[i],
+      email: juniorDoctorEmails[i],
+      password: passwords[i],
+      licenseNumber: doctorLicenseNumbers[i],
+      phoneNumber: phoneNumbers[i],
+      address: addresses[i],
       gender: genders[gen],
-      profilePicture: '',
+      profilePicture: doctorPictures[i],
       userType: 'junior-doctor'
     })
 
     const patient = await Patient.create({
-      name: patientNames[num],
-      email: patientEmails[num],
-      password: passwords[num],
-      phoneNumber: phoneNumbers[num],
-      address: addresses[num],
+      name: patientNames[i],
+      email: patientEmails[i],
+      password: passwords[i],
+      phoneNumber: phoneNumbers[i],
+      address: addresses[i],
       dateOfBirth: generateRandomDate(new Date(1994, 0, 1), new Date()),
       gender: genders[gen],
-      profilePicture: '',
+      profilePicture: patientPictures[i],
       userType: 'patient',
       allergies: 'dairy, nuts',
       bloodType: 'AB-',

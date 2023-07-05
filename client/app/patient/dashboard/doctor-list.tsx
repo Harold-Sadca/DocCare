@@ -23,6 +23,7 @@ export default function DoctorList() {
                     src={
                       appointment.doctorAppointment?.profilePicture as string
                     }
+                    className='profile-pic-70 mr-4'
                     alt='Doctor Profile'
                     width={70}
                     height={70}

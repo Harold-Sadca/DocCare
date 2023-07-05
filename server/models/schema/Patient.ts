@@ -45,7 +45,7 @@ export class Patient extends Model<
   declare phoneNumber: string | null;
   declare address: string | null;
   declare dateOfBirth: string | null;
-  declare gender: 'Male' | 'Female' | null;
+  declare gender: 'Male' | 'Female' | 'Other' | null;
   declare profilePicture: string | null;
   declare juniorNotes?: string | null;
   declare summary: string | null;
@@ -156,7 +156,7 @@ export class Patient extends Model<
           type: DataTypes.DATEONLY,
         },
         gender: {
-          type: DataTypes.ENUM('Male', 'Female'),
+          type: DataTypes.ENUM('Male', 'Female', 'Other'),
         },
         profilePicture: {
           type: DataTypes.STRING,

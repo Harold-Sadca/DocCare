@@ -7,11 +7,15 @@ interface Appointment {
 }
 
 interface AppointmentState {
-  appointments: Appointment[];
+  value: Appointment;
 }
 
 const initialState: AppointmentState = {
-  appointments: [],
+  value: {
+    date: '',
+    time: '',
+    illness: '',
+  },
 };
 
 const appointmentSlice = createSlice({
@@ -19,7 +23,8 @@ const appointmentSlice = createSlice({
   initialState,
   reducers: {
     addAppointment: (state, action: PayloadAction<Appointment>) => {
-      state.appointments.push(action.payload);
+      state.value = action.payload;
+      return state;
     },
   },
 });

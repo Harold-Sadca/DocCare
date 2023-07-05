@@ -138,6 +138,13 @@ form input::file-selector-button {
   width: 150px;
 }
 
+.profile-pic-70 {
+  object-fit: cover;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
 .about-user {
   display: flex;
   flex-direction: column;

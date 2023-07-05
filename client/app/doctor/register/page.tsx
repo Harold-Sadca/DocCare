@@ -232,6 +232,13 @@ export default function Register() {
               >
                 Female
               </Radio>
+              <Radio
+                id='other'
+                value='other'
+                onChange={(value) => handleChange(value)}
+              >
+                Other
+              </Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item label='About' htmlFor='about'>
