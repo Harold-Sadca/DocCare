@@ -18,7 +18,7 @@ const index_1 = __importDefault(require("../models/schema/index"));
 const DoctorDB = index_1.default.Doctor;
 const JuniorDoctorDB = index_1.default.JuniorDoctor;
 const PatientDB = index_1.default.Patient;
-const SECRET_KEY = process.env.SECRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const authHeaders = req.headers['authorization'];
     if (!authHeaders)

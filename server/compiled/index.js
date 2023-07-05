@@ -25,14 +25,14 @@ const logger_1 = __importDefault(require("./logger"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const corsConfig = {
-    origin: ["http://localhost:3000", "http://localhost:8080"],
+    origin: ['http://localhost:3000', 'http://localhost:8080'],
     credentials: true,
 };
 const app = (0, express_1.default)();
-const port = process.env.PORT;
+const port = process.env.PORT || 3001;
 const server = (0, http_1.createServer)(app);
 const io = new socket_io_1.Server(server, {
-    cors: corsConfig
+    cors: corsConfig,
 });
 app.use((0, cors_1.default)(corsConfig));
 app.use(express_1.default.json());
@@ -40,13 +40,14 @@ app.use(patient_route_1.patientRouter);
 app.use(messages_route_1.messagesRouter);
 app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
+// app.use(router);
 io.use((socket, next) => {
     // here we check if there is a name in the socket
     // we assigned this property in the frontend
     const name = socket.handshake.auth.name;
     if (!name) {
         // if there isnt a name we throw an error and refuse the connection
-        return next(new Error("invalid username"));
+        return next(new Error('invalid username'));
     }
     // if we manage to get here it means they have been authenticated
     // so we call next to go to the next middleware

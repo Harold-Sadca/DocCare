@@ -58,27 +58,25 @@ function loginPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
         try {
-            const patient = yield PatientDB.findOne({ where: { email: email } });
-            if (!patient) {
-                return res.status(403).send({ error: 'Username or password not found' });
+            const patient = yield PatientDB.findOne({ where: { email } });
+            if (!patient || patient.password === null) {
+                res.status(401).json({ error: 'Password and email do not match' });
             }
-            const patientPassword = patient.password;
-            if (!patientPassword) {
-                return res.status(403).send({ error: 'Username or password not found' });
+            else {
+                const validatedPass = yield bcrypt_1.default.compare(password, patient.password);
+                if (validatedPass) {
+                    const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
+                    const userAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
+                    userAuthenticated.password = null;
+                    res.status(200).json({
+                        message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
+                        result: { accessToken, userAuthenticated },
+                    });
+                }
             }
-            const validatedPass = yield bcrypt_1.default.compare(password, patientPassword);
-            if (!validatedPass) {
-                return res.status(403).send({ error: 'Username or password not found' });
-            }
-            const accessToken = jsonwebtoken_1.default.sign({ id: patient.id }, SECRET_KEY);
-            const userAuthenticated = yield (0, patients_1.getPatientModel)(patient.id);
-            res.status(200).json({
-                message: `Welcome, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
-                result: { accessToken, userAuthenticated },
-            });
         }
         catch (error) {
-            res.status(500).json({ error: 'Failed to login' });
+            res.status(500).send({ error: 'Failed to login' });
         }
     });
 }
@@ -103,11 +101,11 @@ exports.getPatient = getPatient;
 function logoutPatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const id = req.params.id;
-            const patient = yield (0, patients_1.logoutPatientModel)(id);
+            const patientId = req.params.patientId;
+            const patient = yield (0, patients_1.logoutPatientModel)(patientId);
             res.status(200).json({
                 message: `Goodbye, ${patient === null || patient === void 0 ? void 0 : patient.name}!`,
-                result: patient
+                result: patient,
             });
         }
         catch (error) {
@@ -156,8 +154,8 @@ exports.updatePatient = updatePatient;
 function deletePatient(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const id = req.params.id;
-            const deletedPatient = yield (0, patients_1.deletePatientModel)(id);
+            const patientId = req.params.patientId;
+            const deletedPatient = yield (0, patients_1.deletePatientModel)(patientId);
             res.status(200).json({
                 message: 'Patient account deleted successfully',
                 result: deletedPatient,
@@ -172,8 +170,8 @@ exports.deletePatient = deletePatient;
 function getLastCheckup(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const id = req.params.id;
-            const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(id);
+            const patientId = req.params.patientIdid;
+            const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
             if ((patientLastCheckup === null || patientLastCheckup === void 0 ? void 0 : patientLastCheckup.lastDate) === undefined) {
                 res.status(200).json({ message: `You haven't had any appointments yet` });
             }
@@ -193,7 +191,7 @@ exports.getLastCheckup = getLastCheckup;
 function createAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patientId = req.params.id;
+            const patientId = req.params.patientId;
             const { doctorId, appointment } = req.body;
             logger_1.default.warn(appointment);
             const createAppointment = yield (0, patients_1.createAppointmentModel)(patientId, doctorId, appointment);

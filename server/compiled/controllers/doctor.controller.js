@@ -66,27 +66,24 @@ function loginDoctor(req, res) {
         const { email, password } = req.body;
         try {
             const doctor = yield Doctor_1.Doctor.findOne({ where: { email } });
-            if (!doctor) {
-                throw new Error('Patient not found');
+            if (!doctor || doctor.password === null) {
+                res.status(401).json({ error: 'Password and email do not match' });
             }
-            const DoctorPassword = doctor.password;
-            if (DoctorPassword === null) {
-                throw new Error('Patient password is null');
+            else {
+                const validatedPass = yield bcrypt_1.default.compare(password, doctor.password);
+                if (validatedPass) {
+                    const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
+                    const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
+                    userAuthenticated.password = null;
+                    res.status(200).json({
+                        message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
+                        result: { accessToken, userAuthenticated },
+                    });
+                }
             }
-            const validatedPass = yield bcrypt_1.default.compare(password, DoctorPassword);
-            if (!validatedPass) {
-                throw new Error('Invalid password');
-            }
-            const accessToken = jsonwebtoken_1.default.sign({ id: doctor.id }, SECRET_KEY);
-            const userAuthenticated = yield (0, doctors_1.getDoctorModel)(doctor.id);
-            userAuthenticated.password = null;
-            res.status(200).json({
-                message: `Welcome, ${doctor === null || doctor === void 0 ? void 0 : doctor.name}!`,
-                result: { accessToken, userAuthenticated },
-            });
         }
         catch (error) {
-            res.status(401).send({ error: 'Username or password is incorrect' });
+            res.status(500).send({ error: 'Failed to login' });
         }
     });
 }
@@ -124,7 +121,7 @@ function createMedicalInfo(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { prescription, doctorNote, doctorName } = req.body;
-            const patientId = req.params.id;
+            const patientId = req.params.patientId;
             const newMedicalInfo = {
                 prescription,
                 doctorNote,
@@ -145,7 +142,7 @@ exports.createMedicalInfo = createMedicalInfo;
 function createPatientSummary(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const patientId = req.params.id;
+            const patientId = req.params.patientId;
             const { summary, doctorName } = req.body;
             const newSummary = `${summary} by: ${doctorName}`;
             const createPatientSummary = yield (0, doctors_1.createPatientSummaryModel)(newSummary, patientId);
@@ -164,7 +161,7 @@ function attendAppointment(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log('working');
         try {
-            const appointmentId = req.params.id;
+            const appointmentId = req.params.appointmentId;
             const attendAppointment = yield (0, doctors_1.attendAppointmentModel)(appointmentId);
             res.status(201).json({
                 message: 'Mark appointment as attended successfully',
