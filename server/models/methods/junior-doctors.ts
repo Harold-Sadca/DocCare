@@ -1,3 +1,4 @@
+import logger from '../../logger';
 import { TypeJuniorDoctor } from '../../types/types';
 import { Message } from '../schema/Message';
 import { Patient } from '../schema/Patient';
@@ -34,10 +35,12 @@ async function createJuniorNoteModel(patientId: string, juniorNote: string) {
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
-    console.log(patient);
+    logger.warn(juniorNote);
     patient.juniorNotes = patient.juniorNotes || [];
-    patient.juniorNotes?.push(juniorNote);
-    console.log(patient.juniorNotes);
+    const notes = patient.juniorNotes as unknown as string;
+    patient.juniorNotes = [notes, juniorNote];
+    // console.log(patient.juniorNotes);
+    // patient.juniorNotes?.push(juniorNote);
     await patient.save();
     return patient;
   } catch (error) {

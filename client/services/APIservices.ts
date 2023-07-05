@@ -58,16 +58,20 @@ async function editPatientDetails(
 }
 
 async function addJuniorNote(patientId: string, note: string, token: string) {
+  console.log(patientId);
+  console.log(note);
+  console.log(token);
   return axios
-    .put(`${PORT}/patients/logout/${patientId}`, note, {
+    .put(`${PORT}/junior-doctor/note/${patientId}`, note, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TPatient>) => {
+    .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => console.log(error));
 }
 
 async function logoutPatient(patientId: string, patientDetails: TypePatient) {
@@ -84,7 +88,8 @@ async function logoutPatient(patientId: string, patientDetails: TypePatient) {
     )
     .then((res: AxiosResponse<TPatient>) => {
       return res.data;
-    });
+    })
+    .catch((error) => console.log(error));
 }
 
 async function fetchData(token: string, path: string) {

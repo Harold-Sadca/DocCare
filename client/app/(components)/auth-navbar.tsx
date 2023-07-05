@@ -43,7 +43,6 @@ export default function AuthNavbar(props: Props) {
   async function getCurrentUser() {
     // const token = localStorage.getItem('accessToken');
     const token = getAccessToken();
-    console.log(token, 'tokeeeeen');
     // const userType = localStorage.getItem('userType') as string;
     const userType = getUserType() as string;
     if (token) {

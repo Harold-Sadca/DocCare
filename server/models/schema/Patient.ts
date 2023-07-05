@@ -27,6 +27,7 @@ import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
 const saltRounds = 12;
 import bcrypt from 'bcrypt';
+import logger from '../../logger';
 
 type PatientAssociations =
   | 'patientMessages'
@@ -46,7 +47,7 @@ export class Patient extends Model<
   declare dateOfBirth: string | null;
   declare gender: 'Male' | 'Female' | null;
   declare profilePicture: string | null;
-  declare juniorNotes?: string[];
+  declare juniorNotes?: string[] | null;
   declare summary: string | null;
   declare allergies: string | null;
   declare bloodType: string | null;
@@ -196,16 +197,19 @@ export class Patient extends Model<
       },
       {
         hooks: {
-          beforeValidate: async (patient) => {
-            patient.id = uuidv4();
-          },
+          // beforeValidate: async (patient) => {
+          //   logger.info('does it come here???');
+          //   patient.id = uuidv4();
+          // },
           afterCreate: async (patient) => {
             const hashedPassword = await bcrypt.hash(
               patient.password as string,
               saltRounds
             );
+            patient.id = uuidv4();
             patient.password = hashedPassword;
             patient.status = 'Online';
+            patient.juniorNotes = [];
             await patient.save();
           },
         },

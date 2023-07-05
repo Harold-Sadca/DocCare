@@ -23,14 +23,6 @@ export default function Patient({ params }: { params: { id: string } }) {
   );
   console.log(selectedPatient);
 
-  interface Appointment {
-    date: string;
-    time: string;
-    attended: boolean;
-  }
-
-  console.log(selectedPatient);
-
   return (
     <>
       <AuthNavbar user={'doctor'} auth={'login'} />

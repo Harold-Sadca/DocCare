@@ -56,12 +56,14 @@ export default function AddInfo({ params }: { params: { id: string } }) {
     setJuniorNote(value);
   };
 
+  console.log(selectedPatient, 'PATIEEEENT');
+
   const handleNoteSubmit = async (
     e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
     console.log(e.target, 'target');
     e.preventDefault();
-
+    console.log('meh');
     const data = await apiService.addJuniorNote(
       selectedPatient?.id as string,
       juniorNote,

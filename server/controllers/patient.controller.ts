@@ -46,6 +46,7 @@ async function createPatient(req: Request, res: Response) {
       dateOfBirth,
       gender,
       profilePicture,
+      // juniorNotes: [],
       allergies,
       bloodType,
       medications,
