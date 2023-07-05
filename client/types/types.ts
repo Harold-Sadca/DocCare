@@ -7,8 +7,8 @@ import {
 } from '../../server/types/types';
 
 export interface TypeChatPatient {
-  id:string;
-  name:string;
+  id: string;
+  name: string;
 }
 
 export interface TypeLogin {
@@ -69,7 +69,6 @@ export interface TypeAvailableSpecialist {
 
 export interface TypeSummary {
   newPatientSummary: string;
-  patientId: string;
 }
 
 export interface TypeResponseLastCheckup extends TypeResponse {

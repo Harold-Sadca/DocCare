@@ -31,7 +31,7 @@ import bcrypt from 'bcrypt';
 type PatientAssociations =
   | 'patientMessages'
   | 'patientAppointments'
-  | 'medicalInfo';
+  | 'medicalInfos';
 
 export class Patient extends Model<
   InferAttributes<Patient, { omit: PatientAssociations }>,
@@ -106,15 +106,27 @@ export class Patient extends Model<
     number
   >;
   declare countPatientAppointments: HasManyCountAssociationsMixin;
-  // Patient hasOne MedicalInfo (as MedicalInfo)
-  declare medicalInfo?: NonAttribute<MedicalInfo>;
-  declare getMedicalInfo: HasOneGetAssociationMixin<MedicalInfo>;
-  declare setMedicalInfo: HasOneSetAssociationMixin<MedicalInfo, number>;
-  declare createMedicalInfo: HasOneCreateAssociationMixin<MedicalInfo>;
+
+  // Patient hasMany MedicalInfo (as MedicalInfo)
+  declare medicalInfos?: NonAttribute<MedicalInfo[]>;
+  declare getMedicalInfos: HasManyGetAssociationsMixin<MedicalInfo>;
+  declare setMedicalInfos: HasManySetAssociationsMixin<MedicalInfo, number>;
+  declare addMedicalInfo: HasManyAddAssociationMixin<MedicalInfo, number>;
+  declare addMedicalInfos: HasManyAddAssociationsMixin<MedicalInfo, number>;
+  declare createMedicalInfo: HasManyCreateAssociationMixin<MedicalInfo>;
+  declare removeMedicalInfo: HasManyRemoveAssociationMixin<MedicalInfo, number>;
+  declare removeMedicalInfos: HasManyRemoveAssociationsMixin<
+    MedicalInfo,
+    number
+  >;
+  declare hasMedicalInfo: HasManyHasAssociationMixin<MedicalInfo, number>;
+  declare hasMedicalInfos: HasManyHasAssociationsMixin<MedicalInfo, number>;
+  declare countMedicalInfos: HasManyCountAssociationsMixin;
+
   declare static associations: {
     patientMessages: Association<Patient, Message>;
     patientAppointments: Association<Patient, Appointment>;
-    medicalInfo: Association<Patient, MedicalInfo>;
+    medicalInfos: Association<Patient, MedicalInfo>;
   };
   static initModel(sequelize: Sequelize): typeof Patient {
     Patient.init(
@@ -185,14 +197,17 @@ export class Patient extends Model<
       {
         hooks: {
           beforeValidate: async (patient) => {
-            patient.id = uuidv4()
+            patient.id = uuidv4();
           },
           afterCreate: async (patient) => {
-            const hashedPassword = await bcrypt.hash(patient.password as string, saltRounds);
+            const hashedPassword = await bcrypt.hash(
+              patient.password as string,
+              saltRounds
+            );
             patient.password = hashedPassword;
-            patient.status = 'Online'
-            await patient.save()
-          }
+            patient.status = 'Online';
+            await patient.save();
+          },
         },
         sequelize,
       }

@@ -74,9 +74,10 @@ async function register(user: TUser, type: string) {
     .then((res: AxiosResponse<TypeRegister>) => {
       console.log(res.data);
       return res.data;
-    }).catch((error) => {
-      console.log(error)
-      return error
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
     });
 }
 
@@ -118,38 +119,39 @@ async function getAllDoctors(token: string) {
 
 async function getMedicalInfo(
   patientId: string,
-  medicalInfo: TypeMedicalInfo
+  medicalInfo: TypeMedicalInfo,
+  token: string
 ): Promise<TypeResponseMedicalInfo> {
   return axios
-    .put(
-      `${PORT}/doctor/medical-info/${patientId}`,
-      JSON.stringify(medicalInfo),
-      {
-        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
-        },
-        withCredentials: true,
-      }
-    )
-    .then((res: AxiosResponse<TypeResponseMedicalInfo>) => {
+    .put(`${PORT}/doctor/medical-info/${patientId}`, medicalInfo, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function createPatientSummary(
   patientId: string,
-  summary: TypeSummary
+  summary: TypeSummary,
+  token: string
 ): Promise<TypeResponseSummary> {
+  console.log(summary);
   return axios
-    .put(`${PORT}/doctor/summary/${patientId}`, JSON.stringify(summary), {
+    .put(`${PORT}/doctor/summary/${patientId}`, summary, {
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        Authorization: `Bearer ${token}`,
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TypeResponseSummary>) => {
+    .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function getAllPatients(token: string) {

@@ -11,6 +11,7 @@ import '../../../../css/globals.css';
 import '../../../../css/patient.css';
 import '../../../../css/doctor.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -21,8 +22,11 @@ export default function Patient({ params }: { params: { id: string } }) {
   const currentPatient = patients?.find((patient) => {
     return patient.id?.toString() == params.id;
   });
+  const medicalInfos = currentPatient?.medicalInfos;
+  const currentInfos = medicalInfos?.filter((medInfo) => {
+    return medInfo.doctorName == currentDoctor.name;
+  });
 
-  console.log(currentPatient?.patientAppointments);
   return (
     <>
       <AuthNavbar user={'doctor'} auth={'login'} />
@@ -40,6 +44,13 @@ export default function Patient({ params }: { params: { id: string } }) {
             height={150}
             width={150}
           />
+          <p>{currentPatient?.summary}</p>
+          <Link
+            href={`/doctor/dashboard/patients/${currentPatient?.id}/add-info`}
+            className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-add-info'
+          >
+            Add information
+          </Link>
         </div>
 
         <div className='main-info-patient-box main-info-patient'>
@@ -49,7 +60,9 @@ export default function Patient({ params }: { params: { id: string } }) {
             years old
           </h3>
           <p className='text-xl'>{currentPatient?.gender}</p>
-          <h3 className='text-base'>DOB: {currentPatient?.dateOfBirth}</h3>
+          <h3 className='text-base'>
+            Date of Birth: {currentPatient?.dateOfBirth}
+          </h3>
           <div className='phone-email-container'>
             <a href={`tel:${currentPatient?.phoneNumber}`}>
               {currentPatient?.phoneNumber}
@@ -74,16 +87,45 @@ export default function Patient({ params }: { params: { id: string } }) {
               )
               .map((appointment, idx) => (
                 <div className='illnesses-container' key={idx}>
-                  <h3>Illnesses</h3>
-                  <div>
-                    {appointment.illness.split(',').map((word, index) => (
-                      <p className='each-illness' key={index}>
-                        {toFirstLetterUpperCase(word) + word.slice(2)}
-                      </p>
-                    ))}
-                  </div>
+                  {idx === 0 && (
+                    <>
+                      <h3>Illnesses</h3>
+                      <div>
+                        {appointment.illness.split(',').map((word, index) => (
+                          <p className='each-illness' key={index}>
+                            {toFirstLetterUpperCase(word) + word.slice(2)}
+                          </p>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
+          </div>
+        </div>
+
+        <div className='small-notes-box'>
+          <div className='dashboard-container notes-container'>
+            <h3>Notes</h3>
+            <div className='all-appointments'>
+              {currentInfos?.map((medInfo, idx) => {
+                if (
+                  medInfo.doctorNote?.length &&
+                  medInfo.doctorNote?.length > 0
+                ) {
+                  return (
+                    <div
+                      key={idx}
+                      className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'
+                    >
+                      <div className='time-of-appointment'>
+                        <p>{medInfo.doctorNote}</p>
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
 
@@ -98,6 +140,20 @@ export default function Patient({ params }: { params: { id: string } }) {
                 height={100}
               ></Image>
               <p>{currentPatient?.medications.toString()}</p>
+
+              {medicalInfos?.map((medInfo, idx) => {
+                return (
+                  <div key={medInfo.id}>
+                    <Image
+                      src='/medicine-emoji.png'
+                      alt='medicine-emoji'
+                      width={100}
+                      height={100}
+                    ></Image>
+                    <p>{medInfo.prescription}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

@@ -40,11 +40,10 @@ export function initModels(sequelize: Sequelize) {
     as: 'patientAppointments',
     foreignKey: 'patient_id',
   });
-  Patient.hasOne(MedicalInfo, {
-    as: 'medicalInfo',
+  Patient.hasMany(MedicalInfo, {
+    as: 'medicalInfos',
     foreignKey: 'patient_id',
   });
-
   JuniorDoctor.hasMany(Message, {
     as: 'juniorMessages',
     foreignKey: 'junior_doctor_id',

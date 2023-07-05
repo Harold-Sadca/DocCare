@@ -14,7 +14,7 @@ const AppointmentDB = db.Appointment;
 async function createDoctorModel(doctor: TypeDoctor) {
   try {
     const newDoctor = await DoctorDB.create(doctor);
-    newDoctor.password = null
+    newDoctor.password = null;
     return newDoctor;
   } catch (error) {
     throw new Error();
@@ -58,7 +58,8 @@ async function getDoctorModel(id: string) {
             },
             {
               model: MedicalInfo,
-              as: 'medicalInfo',
+              as: 'medicalInfos',
+              required: false,
             },
           ],
         },
@@ -82,13 +83,20 @@ async function getDoctorsModel() {
             model: Patient,
             as: 'patientAppointment',
             required: false,
+            include: [
+              {
+                model: MedicalInfo,
+                as: 'medicalInfos',
+                required: false,
+              },
+            ],
           },
         ],
       },
     });
     doctors.map((doctor) => {
-      return doctor.password = null
-    })
+      return (doctor.password = null);
+    });
     return doctors;
   } catch (error) {
     throw new Error();
@@ -104,8 +112,9 @@ async function createMedicalInfoModel(
       where: { id: patientId },
     })) as Patient;
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
-    patient.setMedicalInfo(medicalInfo);
+    patient.addMedicalInfo(medicalInfo);
     await medicalInfo.save();
+    // await patient.save();
     return medicalInfo;
   } catch (error) {
     throw new Error();
@@ -120,8 +129,10 @@ async function createPatientSummaryModel(
     const patient = (await PatientDB.findOne({
       where: { id: patientId },
     })) as Patient;
+    console.log(patient, 'before');
     patient.summary = newPatientSummary;
     await patient.save();
+    console.log(patient, 'after');
     return patient;
   } catch (error) {
     throw new Error();

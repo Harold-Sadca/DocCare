@@ -83,6 +83,7 @@ async function loginDoctor(req: Request, res: Response) {
       if (validatedPass) {
         const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
         const userAuthenticated = await getDoctorModel(doctor.id);
+        console.log(userAuthenticated);
         userAuthenticated!.password = null;
         res.status(200).json({
           message: `Welcome, ${doctor?.name}!`,
@@ -119,6 +120,7 @@ async function getDoctors(req: Request, res: Response) {
 
 async function createMedicalInfo(req: Request, res: Response) {
   try {
+    console.log(req.body);
     const { prescription, doctorNote, doctorName } = req.body;
     const patientId = req.params.patientId;
     const newMedicalInfo = {
@@ -142,12 +144,18 @@ async function createMedicalInfo(req: Request, res: Response) {
 async function createPatientSummary(req: Request, res: Response) {
   try {
     const patientId = req.params.patientId;
-    const { summary, doctorName } = req.body;
-    const newSummary = `${summary} by: ${doctorName}`;
+    console.log(patientId);
+    // const { summary, doctorName } = req.body;
+    console.log('why?');
+    console.log(req.body);
+    const { newPatientSummary } = req.body;
+    console.log(newPatientSummary);
+    // const newPatientSummary = `${summary} by: ${doctorName}`;
     const createPatientSummary = await createPatientSummaryModel(
-      newSummary,
+      newPatientSummary,
       patientId
     );
+
     res.status(201).json({
       message: 'Patient summary created successfully',
       result: createPatientSummary,

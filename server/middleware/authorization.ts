@@ -49,17 +49,14 @@ const doctorAuthMiddleware = async (
   next: NextFunction
 ) => {
   console.log('hello from doctor middleware');
-  console.log(req.headers);
+
   const authHeaders = req.headers['authorization'];
   if (!authHeaders) return res.sendStatus(403);
   const token = authHeaders.split(' ')[1];
-  console.log(token);
+
   try {
-    console.log(token);
-    console.log(jwt.verify(token, SECRET_KEY));
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload;
 
-    console.log(id);
     const doctor = await DoctorDB.findOne({ where: { id } });
     if (!doctor) return res.sendStatus(401);
     req.doctor = doctor;

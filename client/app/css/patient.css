@@ -81,7 +81,8 @@ h3 {
 .prescriptions-container h3,
 .appointment-box h3,
 .doctor-list-box h3,
-.messages-container h3 {
+.messages-container h3,
+.notes-container h3 {
   font-size: 1.3rem;
   margin-top: 0.5rem;
 }
