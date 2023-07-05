@@ -87,14 +87,18 @@ export default function Patient({ params }: { params: { id: string } }) {
               )
               .map((appointment, idx) => (
                 <div className='illnesses-container' key={idx}>
-                  <h3>Illnesses</h3>
-                  <div>
-                    {appointment.illness.split(',').map((word, index) => (
-                      <p className='each-illness' key={index}>
-                        {toFirstLetterUpperCase(word) + word.slice(2)}
-                      </p>
-                    ))}
-                  </div>
+                  {idx === 0 && (
+                    <>
+                      <h3>Illnesses</h3>
+                      <div>
+                        {appointment.illness.split(',').map((word, index) => (
+                          <p className='each-illness' key={index}>
+                            {toFirstLetterUpperCase(word) + word.slice(2)}
+                          </p>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
           </div>
