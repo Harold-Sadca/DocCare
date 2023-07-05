@@ -51,29 +51,25 @@ function loginJuniorDoctor(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
         try {
-            const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({
-                where: { email },
-            });
-            if (!juniorDoctor) {
-                throw new Error('Junior doctor not found');
+            const juniorDoctor = yield JuniorDoctor_1.JuniorDoctor.findOne({ where: { email } });
+            if (!juniorDoctor || juniorDoctor.password === null) {
+                res.status(401).json({ error: 'Password and email do not match' });
             }
-            const juniorDoctorPassword = juniorDoctor.password;
-            if (juniorDoctorPassword === null) {
-                throw new Error('Invalid credentials');
+            else {
+                const validatedPass = yield bcrypt_1.default.compare(password, juniorDoctor.password);
+                if (validatedPass) {
+                    const accessToken = jsonwebtoken_1.default.sign({ id: juniorDoctor.id }, SECRET_KEY);
+                    const userAuthenticated = yield (0, junior_doctors_1.getJuniorDoctorModel)(juniorDoctor.id);
+                    userAuthenticated.password = null;
+                    res.status(200).json({
+                        message: `Welcome, ${juniorDoctor === null || juniorDoctor === void 0 ? void 0 : juniorDoctor.name}!`,
+                        result: { accessToken, userAuthenticated },
+                    });
+                }
             }
-            const validatedPass = yield bcrypt_1.default.compare(password, juniorDoctorPassword);
-            if (!validatedPass) {
-                throw new Error('Invalid credentials');
-            }
-            const accessToken = jsonwebtoken_1.default.sign({ id: juniorDoctor.id }, SECRET_KEY);
-            const userAuthenticated = yield (0, junior_doctors_1.getJuniorDoctorModel)(juniorDoctor.id);
-            res.status(200).json({
-                message: `Welcome, ${juniorDoctor === null || juniorDoctor === void 0 ? void 0 : juniorDoctor.name}!`,
-                result: { accessToken, userAuthenticated },
-            });
         }
         catch (error) {
-            res.status(401).send({ error: 'Username or password is incorrect' });
+            res.status(500).send({ error: 'Failed to login' });
         }
     });
 }
@@ -96,7 +92,7 @@ function createJuniorNote(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const juniorNote = req.body;
-            const patientId = req.params.id;
+            const patientId = req.params.patientId;
             const createJuniorNote = yield (0, junior_doctors_1.createJuniorNoteModel)(juniorNote, patientId);
             res.status(201).json({
                 message: 'Junior note created successfully',
