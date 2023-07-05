@@ -20,7 +20,12 @@ export default function Patient({ params }: { params: { id: string } }) {
 
   const selectedPatient = useAppSelector(
     (state) => state.patientToViewReducer.value
+  ) as TypePatient;
+  const currentJunior = useAppSelector(
+    (state) => state.currentJuniorReducer.value
   );
+
+  const juniorNotes = selectedPatient.juniorNotes;
   console.log(selectedPatient);
 
   return (
@@ -88,6 +93,19 @@ export default function Patient({ params }: { params: { id: string } }) {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className='small-notes-box'>
+            <div className='dashboard-container notes-container'>
+              <h3>Notes</h3>
+              <div className='all-appointments'>
+                <div className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'>
+                  <div className='time-of-appointment'>
+                    <p>{juniorNotes}</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 

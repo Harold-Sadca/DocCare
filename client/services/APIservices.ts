@@ -57,17 +57,25 @@ async function editPatientDetails(
     });
 }
 
-async function addJuniorNote(patientId: string, note: string, token: string) {
-  console.log(patientId);
-  console.log(note);
+async function addJuniorNote(
+  patientId: string,
+  juniorNote: string,
+  token: string
+) {
+  console.log({ patientId });
+  console.log({ juniorNote });
   console.log(token);
   return axios
-    .put(`${PORT}/junior-doctor/note/${patientId}`, note, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    })
+    .put(
+      `${PORT}/junior-doctor/note/${patientId}`,
+      { juniorNote },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    )
     .then((res) => {
       return res.data;
     })

@@ -113,7 +113,7 @@ export interface TypePatient {
   dateOfBirth: string;
   gender: 'Male' | 'Female';
   profilePicture?: string;
-  juniorNotes?: string[];
+  juniorNotes?: string;
   summary?: string;
   allergies: string;
   bloodType: string;

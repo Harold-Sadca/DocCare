@@ -21,7 +21,7 @@ type CurrentPatientToView = {
   familyMedicalHistory: string;
   profilePicture?: string;
   summary?: string;
-  juniorNotes?: string[];
+  juniorNotes?: string;
   patientAppointments: TypeAppointment[] | undefined;
 };
 const initialState = {
@@ -40,6 +40,7 @@ const initialState = {
     surgicalHistory: '',
     familyMedicalHistory: '',
     profilePicture: '',
+    juniorNotes: '',
     patientAppointments: [],
   } as CurrentPatientToView,
 } as InitialState;
@@ -62,6 +63,7 @@ export const patientToView = createSlice({
         bloodType,
         medications,
         surgicalHistory,
+        juniorNotes,
         familyMedicalHistory,
         profilePicture,
         patientAppointments,
@@ -80,6 +82,7 @@ export const patientToView = createSlice({
           bloodType,
           medications,
           surgicalHistory,
+          juniorNotes,
           familyMedicalHistory,
           profilePicture,
           patientAppointments,

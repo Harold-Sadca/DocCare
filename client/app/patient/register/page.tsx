@@ -36,7 +36,6 @@ export default function Register() {
     familyMedicalHistory: '',
     profilePicture: '',
     summary: '',
-    juniorNotes: [],
   };
   const [state, setState] = useState(initialState);
   const [images, setImages] = useState([]);
