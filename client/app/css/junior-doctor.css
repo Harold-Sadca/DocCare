@@ -1,4 +1,5 @@
-/* CHAT-BOX  */
+
+/* --------  Chat Box --------  */
 .messages-container-juniorDoctor {
   padding: 0;
   height: 100vh;
@@ -101,7 +102,11 @@
 
 .chat .messages-chat {
   padding: 3.57vh 5vw;
+  overflow-y: scroll; 
+  scrollbar-width: thin;
+  scroll-behavior: smooth; 
 }
+
 
 .chat .messages-chat .message {
   display: flex;
@@ -155,7 +160,7 @@
   border-radius: 50%;
   background-color: #d4a8fd;
   padding: 0.8rem;
-  border: none;/* CHAT-BOX  */
+  border: none;
 
 }
 
