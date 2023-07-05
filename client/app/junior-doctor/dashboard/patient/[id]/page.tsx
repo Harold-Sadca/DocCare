@@ -50,7 +50,9 @@ export default function Patient({ params }: { params: { id: string } }) {
               years old
             </h3>
             <p className='text-xl'>{selectedPatient?.gender}</p>
-            <h3 className='text-base'>DOB: {selectedPatient?.dateOfBirth}</h3>
+            <h3 className='text-base'>
+              Date of Birth: {selectedPatient?.dateOfBirth}
+            </h3>
             <p className='text-xl'>Allergies: {selectedPatient?.allergies}</p>
             <p className='text-xl'>Blood Type: {selectedPatient?.bloodType}</p>
             <p className='text-xl'>

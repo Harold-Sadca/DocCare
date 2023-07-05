@@ -211,6 +211,13 @@ form input::file-selector-button {
   }
 }
 
+.patient-picture-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .main-info-patient {
   display: flex;
   flex-direction: column;

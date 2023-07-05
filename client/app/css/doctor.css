@@ -4,7 +4,8 @@
   position: relative;
   height: 80vh;
 }
-.doctor-patients-container h3 {
+.doctor-patients-container h3,
+.add-info-container h3 {
   font-size: 1.3rem;
   margin-top: 0.5rem;
 }
@@ -23,6 +24,17 @@
 .btn-see-all {
   display: flex;
   align-self: self-end;
+}
+
+.btn-add-info {
+  display: flex;
+  align-self: center;
+}
+
+.add-info-container {
+  /* height: 35vh; */
+  flex-wrap: wrap;
+  overflow-y: scroll;
 }
 /* My appointments */
 

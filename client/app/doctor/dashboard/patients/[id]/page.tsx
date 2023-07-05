@@ -11,6 +11,7 @@ import '../../../../css/globals.css';
 import '../../../../css/patient.css';
 import '../../../../css/doctor.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -40,6 +41,12 @@ export default function Patient({ params }: { params: { id: string } }) {
             height={150}
             width={150}
           />
+          <Link
+            href={`/doctor/dashboard/patients/${currentPatient?.id}/add-info`}
+            className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-add-info'
+          >
+            Add information
+          </Link>
         </div>
 
         <div className='main-info-patient-box main-info-patient'>
