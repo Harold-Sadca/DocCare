@@ -12,15 +12,17 @@ import Image from 'next/image';
 export default function AvailableDoctorList() {
   const router = useRouter();
 
-//   router.push('/patient/dashboard');
+
+  const handleButtonClick = () => {
+    router.push('/patient/dashboard');
+  };
+
  
   return (
     <div>
       <AuthNavbar user={'patient'} auth={'login'} />
-    <h1>Helloo</h1>
-    <button>   
-    
-    </button>
+    <h1>You confirmed</h1>
+    <button onClick={handleButtonClick}>Go to Dashboard</button>
     </div>
   );
 }

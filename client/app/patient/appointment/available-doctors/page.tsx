@@ -45,9 +45,9 @@ export default function AvailableDoctorList() {
       if (result) {
         setMessageContent(message as string);
         setFormError('');
-        setTimeout(() => {
+        // setTimeout(() => {
           router.push('/patient/appointment/confirmation');
-        }, 2000);
+        // }, 2000);
       } else {
         setFormError(`${data}`);
       }
@@ -89,9 +89,6 @@ export default function AvailableDoctorList() {
         content: messageContent,
         duration: 2,
       });
-      setTimeout(() => {
-        router.push('/patient/dashboard');
-      }, 2000);
     }, 1000);
   };
 
