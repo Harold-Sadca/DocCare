@@ -131,7 +131,7 @@ export default function PatientAppointment() {
     // e.preventDefault();
 
     if (futureDate(state.date)) {
-      setFormError('Plase choose a future date.');
+      setFormError('Please choose a future date.');
       return;
     }
     if (state.date && state.illnesses) {

@@ -17,8 +17,18 @@ describe('Doctor Login', () => {
     cy.get('#password').type('null')
     cy.get('#password').should('have.value', 'null')
     cy.get('#submit-login').click()
+    cy.intercept('/doctor/login', { hostname: 'localhost' }, (req, res) => {
+      console.log(req)
+      // console.log(res)
+    })
     setTimeout(() => {
       cy.url().should('include', 'dashboard')
     }, 2000)
   })
+  // it('Should Intercept The Login', () => {
+  //   cy.intercept('**', { hostname: 'localhost' }, (req, res) => {
+  //     console.log(req)
+  //     console.log(res)
+  //   })
+  // })
 })
