@@ -53,31 +53,6 @@ export default function Patient({ params }: { params: { id: string } }) {
           </Link>
         </div>
 
-        <div className='small-notes-box'>
-          <div className='dashboard-container notes-container'>
-            <h3>Notes</h3>
-            <div className='all-appointments'>
-              {currentInfos?.map((medInfo, idx) => {
-                if (
-                  medInfo.doctorNote?.length &&
-                  medInfo.doctorNote?.length > 0
-                ) {
-                  return (
-                    <div
-                      key={idx}
-                      className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'
-                    >
-                      <div className='time-of-appointment'>
-                        <p>{medInfo.doctorNote}</p>
-                      </div>
-                    </div>
-                  );
-                }
-              })}
-            </div>
-          </div>
-        </div>
-
         <div className='main-info-patient-box main-info-patient'>
           <h3 className='text-3xl'>{currentPatient?.name}</h3>
           <h3 className='text-xl'>
@@ -122,6 +97,31 @@ export default function Patient({ params }: { params: { id: string } }) {
                   </div>
                 </div>
               ))}
+          </div>
+        </div>
+
+        <div className='small-notes-box'>
+          <div className='dashboard-container notes-container'>
+            <h3>Notes</h3>
+            <div className='all-appointments'>
+              {currentInfos?.map((medInfo, idx) => {
+                if (
+                  medInfo.doctorNote?.length &&
+                  medInfo.doctorNote?.length > 0
+                ) {
+                  return (
+                    <div
+                      key={idx}
+                      className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'
+                    >
+                      <div className='time-of-appointment'>
+                        <p>{medInfo.doctorNote}</p>
+                      </div>
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
 
