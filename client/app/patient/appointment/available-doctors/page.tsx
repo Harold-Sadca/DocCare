@@ -33,7 +33,7 @@ export default function AvailableDoctorList() {
     console.log(time);
     const appointment = {
       date,
-      time: `0${time}:00`,
+      time: `${time}:00`,
       illness,
       attended: false,
     };
