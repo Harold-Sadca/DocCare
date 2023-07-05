@@ -50,13 +50,14 @@ async function getPatientModel(id: string) {
         },
         {
           model: MedicalInfo,
-          as: 'medicalInfo',
+          as: 'medicalInfos',
+          required: false,
         },
       ],
     });
-    patient!.status = 'Online'
-    patient?.save()
-    patient!.password = null
+    patient!.status = 'Online';
+    patient?.save();
+    patient!.password = null;
     return patient;
   } catch (error) {
     throw new Error();
@@ -87,7 +88,7 @@ async function getPatientsModel() {
         },
         {
           model: MedicalInfo,
-          as: 'medicalInfo',
+          as: 'medicalInfos',
           required: false,
         },
       ],
@@ -132,7 +133,7 @@ async function getLastCheckupModel(patientId: string) {
       include: [
         {
           model: MedicalInfo,
-          as: 'medicalInfo',
+          as: 'medicalInfos',
         },
         {
           model: Appointment,
@@ -151,7 +152,7 @@ async function getLastCheckupModel(patientId: string) {
       (appointment) => appointment.attended
     );
     if (appointmentsAttended && appointmentsAttended.length > 0) {
-      const doctorNote = patient?.medicalInfo?.doctorNote;
+      // const doctorNote = patient?.medicalInfos?.;
       const sortedAppointments = appointmentsAttended?.sort((a, b) => {
         const datesA = a.date;
         const datesB = b.date;
@@ -160,7 +161,8 @@ async function getLastCheckupModel(patientId: string) {
         return dateA.getTime() - dateB.getTime();
       }) as Appointment[];
       const lastDate = sortedAppointments[0];
-      return { doctorNote, lastDate };
+      // return { doctorNote, lastDate };
+      return lastDate;
     } else return undefined;
   } catch (error) {
     throw new Error();
@@ -181,7 +183,7 @@ async function createAppointmentModel(
 ) {
   console.log(appointment);
   try {
-    console.log(appointment)
+    console.log(appointment);
     const newAppointment = await AppointmentDB.create(appointment);
     console.log('whyyyyy');
     const doctor = (await DoctorDB.findOne({
@@ -234,9 +236,9 @@ async function deleteAppointmentModel(appointmentId: string) {
 
 async function logoutPatientModel(id: string) {
   try {
-    const updatedPatient = await PatientDB.findOne({where:{id}})
-    updatedPatient!.status = 'Offline'
-    await updatedPatient?.save()
+    const updatedPatient = await PatientDB.findOne({ where: { id } });
+    updatedPatient!.status = 'Offline';
+    await updatedPatient?.save();
     return updatedPatient;
   } catch (error) {
     throw new Error();

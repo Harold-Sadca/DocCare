@@ -22,8 +22,8 @@ export default function Patient({ params }: { params: { id: string } }) {
   const currentPatient = patients?.find((patient) => {
     return patient.id?.toString() == params.id;
   });
+  const medicalInfos = currentPatient?.medicalInfos;
 
-  console.log(currentPatient?.patientAppointments);
   return (
     <>
       <AuthNavbar user={'doctor'} auth={'login'} />
@@ -41,6 +41,7 @@ export default function Patient({ params }: { params: { id: string } }) {
             height={150}
             width={150}
           />
+          <p>{currentPatient?.summary}</p>
           <Link
             href={`/doctor/dashboard/patients/${currentPatient?.id}/add-info`}
             className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-add-info'
@@ -56,7 +57,9 @@ export default function Patient({ params }: { params: { id: string } }) {
             years old
           </h3>
           <p className='text-xl'>{currentPatient?.gender}</p>
-          <h3 className='text-base'>DOB: {currentPatient?.dateOfBirth}</h3>
+          <h3 className='text-base'>
+            Date of Birth: {currentPatient?.dateOfBirth}
+          </h3>
           <div className='phone-email-container'>
             <a href={`tel:${currentPatient?.phoneNumber}`}>
               {currentPatient?.phoneNumber}
@@ -105,6 +108,20 @@ export default function Patient({ params }: { params: { id: string } }) {
                 height={100}
               ></Image>
               <p>{currentPatient?.medications.toString()}</p>
+
+              {medicalInfos?.map((medInfo, idx) => {
+                return (
+                  <div key={medInfo.id}>
+                    <Image
+                      src='/medicine-emoji.png'
+                      alt='medicine-emoji'
+                      width={100}
+                      height={100}
+                    ></Image>
+                    <p>{medInfo.prescription}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

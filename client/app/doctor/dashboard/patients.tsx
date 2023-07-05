@@ -17,16 +17,18 @@ export default function Patients() {
       <div className='dashboard-container doctor-patients-container'>
         <h3>My Patients</h3>
         {patients?.slice(0, 3).map((patient, idx) => (
-          <div className='profile-boxes each-item' key={idx}>
-            <Image
-              src={patient.profilePicture as string}
-              alt='patient-profile'
-              width={150}
-              height={150}
-              className='profile-pic mr-4'
-            ></Image>
-            <p>{patient.name}</p>
-          </div>
+          <Link href={`/doctor/dashboard/patients/${patient.id}`} key={idx}>
+            <div className='profile-boxes each-item'>
+              <Image
+                src={patient.profilePicture as string}
+                alt='patient-profile'
+                width={150}
+                height={150}
+                className='profile-pic mr-4'
+              ></Image>
+              <p>{patient.name}</p>
+            </div>
+          </Link>
         ))}
         <Link
           href='/doctor/dashboard/patients'

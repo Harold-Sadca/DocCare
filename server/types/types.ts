@@ -1,3 +1,5 @@
+import { MedicalInfo } from '../models/schema/MedicalInfo';
+
 export type TypeAvailability = { [month: number]: TypeMonth };
 export type TypeMonth = { [day: number]: number[] };
 
@@ -120,6 +122,7 @@ export interface TypePatient {
   familyMedicalHistory: string;
   status: 'Online' | 'Offline';
   patientAppointments?: TypeAppointment[];
+  medicalInfos?: MedicalInfo[];
   userType?: string;
   createdAt?: Date;
   updatedAt?: Date;

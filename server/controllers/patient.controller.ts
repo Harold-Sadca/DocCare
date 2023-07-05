@@ -163,7 +163,7 @@ async function getLastCheckup(req: Request, res: Response) {
   try {
     const patientId = req.params.patientIdid;
     const patientLastCheckup = await getLastCheckupModel(patientId);
-    if (patientLastCheckup?.lastDate === undefined) {
+    if (patientLastCheckup === undefined) {
       res.status(200).json({ message: `You haven't had any appointments yet` });
     } else {
       res.status(200).json({

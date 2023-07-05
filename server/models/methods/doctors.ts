@@ -58,7 +58,8 @@ async function getDoctorModel(id: string) {
             },
             {
               model: MedicalInfo,
-              as: 'medicalInfo',
+              as: 'medicalInfos',
+              required: false,
             },
           ],
         },
@@ -82,6 +83,13 @@ async function getDoctorsModel() {
             model: Patient,
             as: 'patientAppointment',
             required: false,
+            include: [
+              {
+                model: MedicalInfo,
+                as: 'medicalInfos',
+                required: false,
+              },
+            ],
           },
         ],
       },
@@ -104,8 +112,9 @@ async function createMedicalInfoModel(
       where: { id: patientId },
     })) as Patient;
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
-    patient.setMedicalInfo(medicalInfo);
+    patient.addMedicalInfo(medicalInfo);
     await medicalInfo.save();
+    // await patient.save();
     return medicalInfo;
   } catch (error) {
     throw new Error();

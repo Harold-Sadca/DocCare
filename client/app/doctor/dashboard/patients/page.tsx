@@ -32,6 +32,7 @@ export default function Patients() {
             <p>{patient.name}</p>
             <p>{patient.gender}</p>
             <p>Date of Birth: {patient.dateOfBirth}</p>
+            <p>{patient.summary}</p>
             <div className='button-see-patient'>
               <Link
                 href={`/doctor/dashboard/patients/${patient.id}`}
