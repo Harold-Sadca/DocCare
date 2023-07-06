@@ -4,7 +4,7 @@
 'use client';
 
 import AuthNavbar from '@/app/(components)/auth-navbar';
-import { calculateAge } from '@/app/helper';
+import { calculateAge, formatDate } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import '../../../css/doctor.css';
@@ -54,7 +54,7 @@ export default function Appointments() {
               <p>
                 <span>Appointment</span>
               </p>
-              <p> Date: {appointment.date}</p>
+              <p> Date: {formatDate(appointment.date)}</p>
               <p>Time: {appointment.time.slice(0, 5)}</p>
             </div>
           ))}
@@ -85,9 +85,9 @@ export default function Appointments() {
                 {appointment?.patientAppointment?.summary}
               </p>
               <p>
-                <span>Appoitment</span>
+                <span>Appointment</span>
               </p>
-              <p> Date: {appointment.date}</p>
+              <p> Date: {formatDate(appointment.date)}</p>
               <p>Time: {appointment.time.slice(0, 5)}</p>
             </div>
           ))}

@@ -53,7 +53,8 @@ export function formatDate(date: string) {
   let append;
   const dateSplit = date.split('-');
   const day = dateSplit[dateSplit.length - 1].split('');
-  const month = dateSplit[1].split('');
+  let month = dateSplit[1];
+  if (month.startsWith('0')) month = month[1];
   if (day[day.length - 1] == '1') {
     append = 'st';
   } else if (day[day.length - 1] == '2') {
@@ -63,7 +64,7 @@ export function formatDate(date: string) {
   } else {
     append = 'th';
   }
-  return `${day.join('') + append} of ${months[Number(month[1]) - 1]}`;
+  return `${day.join('') + append} of ${months[Number(month) - 1]}`;
 }
 
 let accessToken: string | null;
