@@ -44,7 +44,7 @@ class JuniorDoctor extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.STRING,
             },
             gender: {
-                type: sequelize_1.DataTypes.ENUM('Male', 'Female'),
+                type: sequelize_1.DataTypes.ENUM('Male', 'Female', 'Other'),
             },
             profilePicture: {
                 type: sequelize_1.DataTypes.STRING,

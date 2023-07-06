@@ -50,14 +50,20 @@ function getJuniorDoctorModel(id) {
     });
 }
 exports.getJuniorDoctorModel = getJuniorDoctorModel;
-function createJuniorNoteModel(juniorNote, patientId) {
+function createJuniorNoteModel(patientId, juniorNote) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
             patient.juniorNotes = juniorNote;
+            // patient.juniorNotes = patient.juniorNotes || [];
+            // const notes = patient.juniorNotes as unknown as string;
+            // patient.juniorNotes = [notes, juniorNote];
+            // console.log(patient.juniorNotes);
+            // patient.juniorNotes?.push(juniorNote);
             yield patient.save();
+            console.log(patient);
             return patient;
         }
         catch (error) {

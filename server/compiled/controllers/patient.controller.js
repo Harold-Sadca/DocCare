@@ -33,6 +33,7 @@ function createPatient(req, res) {
                 dateOfBirth,
                 gender,
                 profilePicture,
+                // juniorNotes: [],
                 allergies,
                 bloodType,
                 medications,

@@ -91,10 +91,13 @@ exports.getJuniorDoctor = getJuniorDoctor;
 function createJuniorNote(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const juniorNote = req.body;
+            console.log(req.body);
+            const { juniorNote } = req.body;
+            console.log({ juniorNote });
             const patientId = req.params.patientId;
-            const createJuniorNote = yield (0, junior_doctors_1.createJuniorNoteModel)(juniorNote, patientId);
-            res.status(201).json({
+            console.log(patientId);
+            const createJuniorNote = yield (0, junior_doctors_1.createJuniorNoteModel)(patientId, juniorNote);
+            res.status(200).json({
                 message: 'Junior note created successfully',
                 result: createJuniorNote,
             });

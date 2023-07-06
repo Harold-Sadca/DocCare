@@ -22,9 +22,9 @@ export default function Patients() {
               <Image
                 src={patient.profilePicture as string}
                 alt='patient-profile'
-                width={150}
-                height={150}
-                className='profile-pic mr-4'
+                width={70}
+                height={70}
+                className='profile-pic-70 mr-4'
               ></Image>
               <p>{patient.name}</p>
             </div>

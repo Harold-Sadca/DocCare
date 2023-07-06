@@ -162,7 +162,7 @@ async function deletePatient(req: Request, res: Response) {
 
 async function getLastCheckup(req: Request, res: Response) {
   try {
-    const patientId = req.params.patientIdid;
+    const patientId = req.params.patientId;
     const patientLastCheckup = await getLastCheckupModel(patientId);
     if (patientLastCheckup === undefined) {
       res.status(200).json({ message: `You haven't had any appointments yet` });

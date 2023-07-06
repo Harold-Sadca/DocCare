@@ -147,10 +147,8 @@ function createPatientSummaryModel(newPatientSummary, patientId) {
             const patient = (yield PatientDB.findOne({
                 where: { id: patientId },
             }));
-            console.log(patient, 'before');
             patient.summary = newPatientSummary;
             yield patient.save();
-            console.log(patient, 'after');
             return patient;
         }
         catch (error) {

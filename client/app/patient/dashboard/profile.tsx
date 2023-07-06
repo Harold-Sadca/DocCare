@@ -15,6 +15,8 @@ export default function Profile() {
     (state) => state.currentPatientReducer.value
   );
 
+  console.log(message);
+
   function calculateAge(dateOfBirth: string) {
     const today = new Date();
     const birthDate = new Date(dateOfBirth);
@@ -80,6 +82,7 @@ export default function Profile() {
             <div className='profile-boxes profile-boxes-blue'>
               <p className='date'>{lastDate}</p>
               <div className='doctor-notes'>
+                <p></p>
                 <p>{message}</p>
                 <p>{illness}</p>
               </div>

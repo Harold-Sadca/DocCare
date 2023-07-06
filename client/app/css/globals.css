@@ -169,7 +169,7 @@ form input::file-selector-button {
 }
 
 .profile-boxes {
-  flex-direction: column !important;
+  flex-direction: column;
   text-align: center;
   width: fit-content;
   color: #a266b5;

@@ -99,7 +99,11 @@ export default function Patient({ params }: { params: { id: string } }) {
               <div className='all-appointments'>
                 <div className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'>
                   <div className='time-of-appointment'>
-                    <p>{juniorNotes}</p>
+                    {juniorNotes ? (
+                      <p>{juniorNotes}</p>
+                    ) : (
+                      <p>No notable information yet</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -131,13 +135,15 @@ export default function Patient({ params }: { params: { id: string } }) {
                       key={idx}
                       className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'
                     >
-                      <div className='time-of-appointment'>
+                      <div className='time-of-appointment time-of-appointment-doctor'>
                         <p>{appointment.doctorAppointment?.name}</p>
-                        <p>{appointment.date}</p>
-                        <p>
-                          <FieldTimeOutlined />
-                          {appointment.time.slice(0, 5)}
-                        </p>
+                        <div className='time-and-date'>
+                          <p>{appointment.date}</p>
+                          <p>
+                            <FieldTimeOutlined />
+                            {appointment.time.slice(0, 5)}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   )

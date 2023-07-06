@@ -123,6 +123,8 @@ export default function Patient({ params }: { params: { id: string } }) {
                       </div>
                     </div>
                   );
+                } else {
+                  return <p key={idx}>No notable information yet</p>;
                 }
               })}
             </div>
@@ -133,26 +135,32 @@ export default function Patient({ params }: { params: { id: string } }) {
           <div className='dashboard-container prescriptions-container'>
             <h3>Medications</h3>
             <div className='each-medication-container'>
-              <Image
-                src='/medicine-emoji.png'
-                alt='medicine-emoji'
-                width={100}
-                height={100}
-              ></Image>
-              <p>{currentPatient?.medications.toString()}</p>
+              <div>
+                <Image
+                  src='/medicine-emoji.png'
+                  alt='medicine-emoji'
+                  width={100}
+                  height={100}
+                ></Image>
+                <p>{currentPatient?.medications.toString()}</p>
+              </div>
 
               {medicalInfos?.map((medInfo, idx) => {
-                return (
-                  <div key={medInfo.id}>
-                    <Image
-                      src='/medicine-emoji.png'
-                      alt='medicine-emoji'
-                      width={100}
-                      height={100}
-                    ></Image>
-                    <p>{medInfo.prescription}</p>
-                  </div>
-                );
+                if (
+                  medInfo.prescription?.length &&
+                  medInfo.prescription?.length > 0
+                )
+                  return (
+                    <div key={medInfo.id}>
+                      <Image
+                        src='/medicine-emoji.png'
+                        alt='medicine-emoji'
+                        width={100}
+                        height={100}
+                      ></Image>
+                      <p>{medInfo.prescription}</p>
+                    </div>
+                  );
               })}
             </div>
           </div>
@@ -171,15 +179,17 @@ export default function Patient({ params }: { params: { id: string } }) {
                 .map((appointment, idx) => (
                   <div
                     key={idx}
-                    className='profile-boxes profile-boxes-blue each-item doctor-appointment w-full'
+                    className='profile-boxes profile-boxes-blue each-item w-full'
                   >
-                    <div className='time-of-appointment'>
+                    <div className='time-of-appointment time-of-appointment-doctor'>
                       <p>{appointment.doctorAppointment?.name}</p>
-                      <p>{appointment.date}</p>
-                      <p>
-                        <FieldTimeOutlined />
-                        {appointment.time.slice(0, 5)}
-                      </p>
+                      <div className='time-and-date'>
+                        <p>{appointment.date}</p>
+                        <p>
+                          <FieldTimeOutlined />
+                          {appointment.time.slice(0, 5)}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}

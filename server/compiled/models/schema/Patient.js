@@ -17,6 +17,7 @@ const sequelize_1 = require("sequelize");
 const uuid_1 = require("uuid");
 const saltRounds = 12;
 const bcrypt_1 = __importDefault(require("bcrypt"));
+const logger_1 = __importDefault(require("../../logger"));
 class Patient extends sequelize_1.Model {
     static initModel(sequelize) {
         Patient.init({
@@ -44,12 +45,13 @@ class Patient extends sequelize_1.Model {
                 type: sequelize_1.DataTypes.DATEONLY,
             },
             gender: {
-                type: sequelize_1.DataTypes.ENUM('Male', 'Female'),
+                type: sequelize_1.DataTypes.ENUM('Male', 'Female', 'Other'),
             },
             profilePicture: {
                 type: sequelize_1.DataTypes.STRING,
             },
             juniorNotes: {
+                // type: DataTypes.ARRAY(DataTypes.STRING),
                 type: sequelize_1.DataTypes.STRING,
             },
             summary: {
@@ -85,12 +87,15 @@ class Patient extends sequelize_1.Model {
         }, {
             hooks: {
                 beforeValidate: (patient) => __awaiter(this, void 0, void 0, function* () {
+                    logger_1.default.info('does it come here???');
                     patient.id = (0, uuid_1.v4)();
                 }),
                 afterCreate: (patient) => __awaiter(this, void 0, void 0, function* () {
                     const hashedPassword = yield bcrypt_1.default.hash(patient.password, saltRounds);
+                    // patient.id = uuidv4();
                     patient.password = hashedPassword;
                     patient.status = 'Online';
+                    // patient.juniorNotes = [];
                     yield patient.save();
                 }),
             },
