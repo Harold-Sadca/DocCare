@@ -5,7 +5,7 @@ import { sendMessage, getMessages } from '../controllers/messages.controller';
 const app = express();
 const messagesRouter = Router();
 
-messagesRouter.post('/message', sendMessage);
+messagesRouter.post('/message/:senderId', sendMessage);
 messagesRouter.get('/messages', getMessages);
 
 export { messagesRouter };

@@ -42,10 +42,10 @@ async function getPatientModel(id: string) {
             },
           ],
         },
-        // {
-        //   model: MedicalInfo,
-        //   as: 'medicalInfo',
-        // },
+        {
+          model: MedicalInfo,
+          as: 'medicalInfo',
+        },
       ],
     });
     return patient;

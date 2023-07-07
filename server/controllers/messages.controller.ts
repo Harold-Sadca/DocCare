@@ -7,6 +7,7 @@ async function sendMessage(req: Request, res: Response) {
     // change based on the population
     // route: /:id of the sender
     // body: id of the receiver
+    const {senderId} = req.params
     const {
       content,
       sender_id,

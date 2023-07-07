@@ -115,7 +115,7 @@ function getLastCheckup(req, res) {
         try {
             const patientId = req.params.id;
             const patientLastCheckup = yield (0, patients_1.getLastCheckupModel)(patientId);
-            if (patientLastCheckup === undefined)
+            if ((patientLastCheckup === null || patientLastCheckup === void 0 ? void 0 : patientLastCheckup.lastDate) === undefined)
                 res
                     .status(200)
                     .json({ message: `You still didn't have any appointment` });

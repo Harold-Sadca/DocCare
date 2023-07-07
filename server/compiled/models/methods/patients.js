@@ -57,10 +57,10 @@ function getPatientModel(id) {
                             },
                         ],
                     },
-                    // {
-                    //   model: MedicalInfo,
-                    //   as: 'medicalInfo',
-                    // },
+                    {
+                        model: MedicalInfo_1.MedicalInfo,
+                        as: 'medicalInfo',
+                    },
                 ],
             });
             return patient;

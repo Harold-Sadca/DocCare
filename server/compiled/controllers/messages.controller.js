@@ -18,6 +18,7 @@ function sendMessage(req, res) {
             // change based on the population
             // route: /:id of the sender
             // body: id of the receiver
+            const { senderId } = req.params;
             const { content, sender_id, sender_name, receiver_id, receiver_name, date, } = req.body;
             const newMessage = {
                 content,
