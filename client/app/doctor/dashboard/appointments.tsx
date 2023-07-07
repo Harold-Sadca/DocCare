@@ -74,8 +74,13 @@ export default function Appointments() {
         {appointments
           ?.filter(
             (appointment) =>
-              new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
+              new Date(`${appointment.date}`).valueOf() < Date.now().valueOf()
           )
+          // .sort((a, b) => {
+          //   const first = Number(a.time.slice(0, 2));
+          //   const second = Number(b.time.slice(0, 2));
+          //   return first - second;
+          // })
           .slice(0, 1)
           .map((appointment, idx) => (
             <div

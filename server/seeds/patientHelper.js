@@ -10,6 +10,7 @@ const patientNames = [
   "Abigail Turner",
   "Henry Adams",
   "Emily Baker",
+  "Mia Baker",
 ];
 
 const patientEmails = [
@@ -22,7 +23,8 @@ const patientEmails = [
   "benjamin@example.com",
   "abigail@example.com",
   "henry@example.com",
-  "emily@example.com"
+  "emily@example.com",
+  "mia@example.com"
 ]
 
 const patientPictures = [
@@ -35,7 +37,8 @@ const patientPictures = [
   "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576055/pexels-serkan-go%CC%88ktay-64385_woibrs.jpg",
   "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576168/pexels-mikhail-nilov-8317651_gbetca.jpg",
   "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576168/pexels-andrea-piacquadio-3831645_gb87ld.jpg",
-  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576054/pexels-cottonbro-studio-10669639_w7powo.jpg"
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576054/pexels-cottonbro-studio-10669639_w7powo.jpg",
+  "https://res.cloudinary.com/ddm6kawa9/image/upload/v1688576055/pexels-andrea-piacquadio-3775087_danv6p.jpg",
 ]
 
 

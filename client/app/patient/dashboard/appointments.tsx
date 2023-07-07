@@ -9,8 +9,8 @@ export default function Appointments() {
   );
   const patientAppointments = currentPatient.patientAppointments;
   const futureAppointments = patientAppointments?.filter((appointment) => {
-    return new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
-  })
+    return new Date(`${appointment.date}`).valueOf() > Date.now().valueOf();
+  });
 
   return (
     <main className='appointment-box'>

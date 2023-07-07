@@ -105,8 +105,11 @@ h3 {
 
 .prescriptions-container {
   height: 35vh;
-  flex-wrap: wrap;
+  display: flex;
+  /* flex-wrap: wrap; */
   overflow-y: scroll;
+  /* flex-direction: row;
+  flex-wrap: wrap; */
 }
 
 @media (max-width: 600px) {

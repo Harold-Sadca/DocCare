@@ -130,10 +130,10 @@ export default function PatientAppointment() {
   function submitForm() {
     // e.preventDefault();
 
-    if (futureDate(state.date)) {
-      setFormError('Please choose a future date.');
-      return;
-    }
+    // if (futureDate(state.date)) {
+    //   setFormError('Please choose a future date.');
+    //   return;
+    // }
     if (state.date && state.illnesses) {
       const availableDoctors = displayAvailability(
         state.date,

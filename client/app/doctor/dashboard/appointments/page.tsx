@@ -35,7 +35,7 @@ export default function Appointments() {
         {appointments
           ?.filter(
             (appointment) =>
-              new Date(`${appointment.date}`).valueOf() > Date.now().valueOf()
+              new Date(`${appointment.date}`).valueOf() >= Date.now().valueOf()
           )
           .map((appointment, idx) => (
             <div className='each-patient-profile' key={idx}>
@@ -43,7 +43,7 @@ export default function Appointments() {
               <p>
                 {calculateAge(
                   appointment?.patientAppointment?.dateOfBirth as string
-                ).toString()}
+                ).toString()}{' '}
                 years old
               </p>
               <p>{appointment?.patientAppointment?.gender}</p>
