@@ -1,9 +1,7 @@
 'use client';
 import { useAppSelector } from '@/redux/store';
-import { useState } from 'react';
 import Image from 'next/image';
 export default function Profile() {
-  const [message, setMessage] = useState('');
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );

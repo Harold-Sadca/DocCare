@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 export default function Patients() {
-  const router = useRouter();
   const currentDoctor = useAppSelector(
     (state) => state.currentDoctorReducer.value
   );

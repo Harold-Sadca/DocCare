@@ -3,11 +3,11 @@ import Profile from './(dashboard)/profile';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import Patients from './(dashboard)/patients';
 import Appointments from './(dashboard)/appointments';
-import '../css/globals.css';
-import '../css/doctor.css';
 import { useAppSelector } from '@/redux/store';
 import LoadingSpinner from '@/app/(components)/loading';
 import { useEffect, useState } from 'react';
+import '../css/globals.css';
+import '../css/doctor.css';
 
 export default function Doctor() {
   const [loaded, setLoaded] = useState<Boolean>(false);

@@ -2,13 +2,12 @@ import { io } from "socket.io-client";
 import { Form, Input } from 'antd';
 import { useState } from "react";
 
-const socket = io("ws://localhost:3001");
+const socket = io(process.env.SOCKET_URL || 'ws://localhost:3001');
 
 export default function Messages () {
 
   const initialState = { message: '', sender_name: '' , receiver_name:''};
   const [messageState, setMessageState] = useState(initialState);
-  const [allMessages, setAllMessages] = useState<string[]>([])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
@@ -16,14 +15,6 @@ export default function Messages () {
       [name]: value,
     }));
   };
-
-  // // send a message to the server
-  // socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
-
-  // // receive a message from the server
-  // socket.on("hello from server", (...args) => {
-  //   // ...
-  // });
 
   function handleClick() {
     console.log('clicked')

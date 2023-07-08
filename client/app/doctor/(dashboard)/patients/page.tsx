@@ -4,9 +4,9 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import { useAppSelector } from '@/redux/store';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { LeftCircleOutlined } from '@ant-design/icons';
 import '../../../css/doctor.css';
 import '../../../css/globals.css';
-import { LeftCircleOutlined } from '@ant-design/icons';
 
 export default function Patients() {
   const router = useRouter();
@@ -14,8 +14,6 @@ export default function Patients() {
     (state) => state.currentDoctorReducer.value
   );
   const patients = currentDoctor.patients;
-  console.log(patients);
-  console.log('hello from /patients');
 
   return (
     <div className='patients-box'>
