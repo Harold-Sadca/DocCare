@@ -4,27 +4,26 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import { AppDispatch, useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
 import { LeftCircleOutlined } from '@ant-design/icons';
-import '../../../../../css/globals.css';
-import '../../../../../css/patient.css';
-import '../../../../../css/doctor.css';
 import { Form, Input, message } from 'antd';
 import { FormEvent, useEffect, useState } from 'react';
 import apiService from '@/services/APIservices';
 import { getAccessToken, openMessage } from '@/app/helper';
-// import { TypeSummary } from '@/types/types';
 import { useDispatch } from 'react-redux';
 import { setPatientToView } from '@/redux/features/patient-to-view-slice';
+import '../../../../../css/globals.css';
+import '../../../../../css/patient.css';
+import '../../../../../css/doctor.css';
 
 export default function AddInfo({ params }: { params: { id: string } }) {
-  const [juniorNote, setJuniorNote] = useState<string>('');
   const router = useRouter();
+  const [juniorNote, setJuniorNote] = useState<string>('');
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const selectedPatient = useAppSelector(
     (state) => state.patientToViewReducer.value
   );
 
-  const [messageApi, contextHolder] = message.useMessage();
-  const [messageContent, setMessageContent] = useState('');
 
   useEffect(() => {
     if (messageContent) {
@@ -45,21 +44,16 @@ export default function AddInfo({ params }: { params: { id: string } }) {
     setJuniorNote(value);
   };
 
-  console.log(selectedPatient, 'PATIEEEENT');
-
   const handleNoteSubmit = async (
     e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
     e.preventDefault();
-
     const data = await apiService.addJuniorNote(
       selectedPatient?.id as string,
       juniorNote,
       getAccessToken() as string
     );
-
     const { message, result, error } = data;
-
     if (error) {
       setMessageContent(error);
     } else {

@@ -8,12 +8,11 @@ import { useState } from 'react';
 import { PhoneOutlined } from '@ant-design/icons';
 import { MailOutlined } from '@ant-design/icons';
 import { FieldTimeOutlined } from '@ant-design/icons';
-// import '../../../junior-doctor.css';
+import Image from 'next/image';
+import Link from 'next/link';
 import '../../../../css/globals.css';
 import '../../../../css/patient.css';
 import '../../../../css/doctor.css';
-import Image from 'next/image';
-import Link from 'next/link';
 
 export default function Patient({ params }: { params: { id: string } }) {
   const router = useRouter();
@@ -21,9 +20,7 @@ export default function Patient({ params }: { params: { id: string } }) {
   const selectedPatient = useAppSelector(
     (state) => state.patientToViewReducer.value
   );
-
   const juniorNotes = selectedPatient.juniorNotes;
-  console.log(selectedPatient);
 
   return (
     <>

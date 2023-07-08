@@ -59,7 +59,6 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
       receiver_id: selectedPatient.id,
       receiver_name: selectedPatient.name,
     } as TypeMessage;
-
     socket.auth = { name: 'junior' };
     socket.connect();
     socket.emit('from junior', newMessage, selectedPatient.id);
@@ -90,7 +89,6 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
         <button onClick={hideChat} className='back-button'>
           <LeftCircleOutlined style={{ fontSize: '1.4rem' }} />
         </button>
-
         <p className='name'>{selectedPatient.name}</p>
       </div>
       <div className='messages-chat' ref={chatContainerRef}>
