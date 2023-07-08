@@ -13,8 +13,6 @@ export const displaySection = createSlice({
   initialState,
   reducers: {
     toggleDisplaySection: (state, action: PayloadAction<boolean>) => {
-      console.log('hello')
-      // console.log(state.value)
       state.value = action.payload;
     },
   },

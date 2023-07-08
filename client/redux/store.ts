@@ -11,11 +11,9 @@ import patientToViewReducer from './features/patient-to-view-slice';
 import allMessagesReducer from './features/messages-slice';
 import AvailableSpecialist from './features/available-doctors-slice';
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import searchPatientReducer from './features/search-patient'
-import filteredPatientsReducer from './features/search-patient';
-import appointmentReducer from './features/appointmentSlice';
-
-
+import searchPatientReducer from './features/search-patient-slice';
+import filteredPatientsReducer from './features/search-patient-slice';
+import appointmentReducer from './features/appointment-slice';
 
 export const store = configureStore({
   reducer: {
@@ -25,18 +23,17 @@ export const store = configureStore({
     chatPatientReducer,
     AvailableSpecialist,
     currentJuniorReducer,
-    toggleDisplayChat,  
+    toggleDisplayChat,
     toggleDisplaySection,
     setAllPatientReducer,
     patientToViewReducer,
-    patients: searchPatientReducer,
-    filteredPatients: filteredPatientsReducer,
+    searchPatientReducer,
+    filteredPatientsReducer,
     allMessagesReducer,
-    appointment: appointmentReducer,
-
+    appointmentReducer,
   },
 });
-// type of store:
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

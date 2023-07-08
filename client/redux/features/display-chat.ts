@@ -13,8 +13,6 @@ export const displayChat = createSlice({
   initialState,
   reducers: {
     toggleDisplayChat: (state, action: PayloadAction<boolean>) => {
-      console.log('hello')
-      // console.log(state.value)
       state.value = action.payload;
     },
   },

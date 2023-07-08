@@ -11,7 +11,7 @@ import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
-import { addAppointment } from '@/redux/features/appointmentSlice';
+import { addAppointment } from '@/redux/features/appointment-slice';
 
 import Image from 'next/image';
 

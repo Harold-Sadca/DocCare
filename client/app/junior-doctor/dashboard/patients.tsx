@@ -11,7 +11,7 @@ import JuniorDoctorMessages from './messages';
 import { MessageOutlined } from '@ant-design/icons';
 import { setPatientToView } from '@/redux/features/patient-to-view-slice';
 import { SearchOutlined } from '@ant-design/icons';
-import { setFilteredPatients } from '@/redux/features/search-patient';
+import { setFilteredPatients } from '@/redux/features/search-patient-slice';
 import { toggleDisplaySection } from '@/redux/features/display-section';
 import { getAccessToken, getUserType } from '@/app/helper';
 
