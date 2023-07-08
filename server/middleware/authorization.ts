@@ -32,13 +32,11 @@ const patientAuthMiddleware = async (
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
     const patient = await PatientDB.findOne({ where: { id } });
     if (!patient) {
-      console.log('no patient!');
       return res.sendStatus(401);
     }
     req.patient = patient;
     next();
   } catch (error) {
-    console.log(error);
     res.sendStatus(401);
   }
 };
@@ -48,7 +46,6 @@ const doctorAuthMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log('hello from doctor middleware');
 
   const authHeaders = req.headers['authorization'];
   if (!authHeaders) return res.sendStatus(403);

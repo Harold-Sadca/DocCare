@@ -105,5 +105,3 @@ export {
   createJuniorNote,
   loginJuniorDoctor,
 };
-
-//Very well done Ati- Ali <3

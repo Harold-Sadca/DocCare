@@ -11,9 +11,7 @@ import {
   logoutPatient,
 } from '../controllers/patient.controller';
 import {
-  patientAuthMiddleware,
-  anyDoctorAuthMiddleware,
-  doctorAuthMiddleware,
+  patientAuthMiddleware
 } from '../middleware/authorization';
 
 const patientRouter = Router();

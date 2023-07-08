@@ -51,10 +51,6 @@ const { Doctor, JuniorDoctor, Patient } = initModels(db);
   })
 })
 
-// seedDB().then(() => {
-//   db.close();
-// })
-
 const genders = ['Male', 'Female']
 function createEmptyAvailability () {
   const availability = {};
