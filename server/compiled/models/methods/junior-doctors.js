@@ -58,7 +58,6 @@ function createJuniorNoteModel(patientId, juniorNote) {
             }));
             patient.juniorNotes = juniorNote;
             yield patient.save();
-            console.log(patient);
             return patient;
         }
         catch (error) {

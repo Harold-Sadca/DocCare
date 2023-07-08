@@ -62,11 +62,8 @@ const juniorDoctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0,
         return res.sendStatus(403);
     const token = authHeaders.split(' ')[1];
     try {
-        console.log(token);
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
-        console.log(id);
         const juniorDoctor = yield JuniorDoctorDB.findOne({ where: { id } });
-        console.log(juniorDoctor);
         if (!juniorDoctor)
             return res.sendStatus(401);
         req.juniorDoctor = juniorDoctor;

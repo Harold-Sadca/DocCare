@@ -80,7 +80,6 @@ export default function Register() {
 
     const data = await apiService.register(state, 'doctor');
     const { message, result, error, accessToken } = data;
-    console.log(result);
     if (error) {
       setMessageContent(error);
     } else {

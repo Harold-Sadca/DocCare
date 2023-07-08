@@ -199,11 +199,8 @@ function formatStateDate(date) {
 }
 function createAppointmentModel(patientId, doctorId, appointment) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(appointment);
         try {
-            console.log(appointment);
             const newAppointment = yield AppointmentDB.create(appointment);
-            console.log('whyyyyy');
             const doctor = (yield DoctorDB.findOne({
                 where: { id: doctorId },
             }));

@@ -176,7 +176,6 @@ async function createPatientSummary(
   summary: TypeSummary,
   token: string
 ): Promise<TypeResponseSummary> {
-  console.log(summary);
   return axios
     .put(`${PORT}/doctor/summary/${patientId}`, summary, {
       headers: {
@@ -250,7 +249,6 @@ async function attendAppointment(
   appointmentId: string,
   token: string
 ): Promise<TypeResponseJuniorNotes> {
-  console.log(token);
   return axios
     .put(`${PORT}/doctor/attend/${appointmentId}`, JSON.stringify({}), {
       headers: {
