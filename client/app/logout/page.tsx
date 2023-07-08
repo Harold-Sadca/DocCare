@@ -22,6 +22,7 @@ export default function Logout() {
   const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
     'default'
   );
+  const [messageContent, setMessageContent] = useState('');
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
