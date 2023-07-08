@@ -17,7 +17,7 @@ export default function Patients() {
       <div className='dashboard-container doctor-patients-container'>
         <h3>My Patients</h3>
         {patients?.slice(0, 3).map((patient, idx) => (
-          <Link href={`/doctor/dashboard/patients/${patient.id}`} key={idx}>
+          <Link href={`/doctor/patients/${patient.id}`} key={idx}>
             <div className='profile-boxes each-item'>
               <Image
                 src={patient.profilePicture as string}
@@ -31,7 +31,7 @@ export default function Patients() {
           </Link>
         ))}
         <Link
-          href='/doctor/dashboard/patients'
+          href='/doctor/patients'
           className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-see-all'
         >
           See all

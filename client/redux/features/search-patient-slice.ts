@@ -6,10 +6,7 @@ interface PatientsState {
   filteredPatients: TypePatient[];
 }
 
-const initialState: PatientsState = {
-  allPatients: [],
-  filteredPatients: [],
-};
+const initialState: PatientsState = { allPatients: [], filteredPatients: [] };
 
 const patientsSlice = createSlice({
   name: 'patients',
@@ -17,7 +14,6 @@ const patientsSlice = createSlice({
   reducers: {
     setAllPatients: (state, action: PayloadAction<TypePatient[]>) => {
       state.allPatients = action.payload;
-      state.filteredPatients = action.payload; 
     },
     setFilteredPatients: (state, action: PayloadAction<TypePatient[]>) => {
       state.filteredPatients = action.payload;

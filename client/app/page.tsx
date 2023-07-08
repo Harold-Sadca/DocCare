@@ -10,7 +10,7 @@ export default function Main() {
   useEffect(() => {
     const userType = getUserType() as string;
     if (userType) {
-      router.push(`/${userType}/dashboard`);
+      router.push(`/${userType}`);
     } else {
       router.push('/home');
     }

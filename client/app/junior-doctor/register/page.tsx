@@ -51,7 +51,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/junior-doctor/dashboard');
+        router.push('/junior-doctor');
       }, 2000);
     }, 1000);
   };

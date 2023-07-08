@@ -57,7 +57,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/patient/dashboard');
+        router.push('/patient');
       }, 2000);
     }, 1000);
   };

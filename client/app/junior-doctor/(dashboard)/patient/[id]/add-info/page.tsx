@@ -41,7 +41,7 @@ export default function AddInfo({ params }: { params: { id: string } }) {
         duration: 2,
       });
       setTimeout(() => {
-        router.push(`/junior-doctor/dashboard/patient/${selectedPatient?.id}`);
+        router.push(`/junior-doctor/patient/${selectedPatient?.id}`);
       }, 2000);
     }, 1000);
   };

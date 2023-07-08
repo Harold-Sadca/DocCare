@@ -53,7 +53,7 @@ export default function Login(props: Props) {
       });
       setTimeout(() => {
         const userType = getUserType() as string;
-        router.push(`/${userType}/dashboard`);
+        router.push(`/${userType}`);
       }, 2000);
     }, 1000);
   };

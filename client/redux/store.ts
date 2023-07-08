@@ -27,10 +27,10 @@ export const store = configureStore({
     toggleDisplaySection,
     setAllPatientReducer,
     patientToViewReducer,
-    searchPatientReducer,
-    filteredPatientsReducer,
+    patients: searchPatientReducer,
+    filteredPatients: filteredPatientsReducer,
     allMessagesReducer,
-    appointmentReducer,
+    appointment: appointmentReducer,
   },
 });
 

@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import {
   CheckSquareOutlined,
-  CheckSquareTwoTone,
   FieldTimeOutlined,
   PhoneOutlined,
 } from '@ant-design/icons';
@@ -21,7 +20,6 @@ export default function Appointments() {
     (state) => state.currentDoctorReducer.value
   );
   const appointments = currentDoctor.doctorAppointments;
-  console.log(appointments);
 
   function handleAttendAppointment(clickedId: string) {
     console.log('clicked');
@@ -54,7 +52,7 @@ export default function Appointments() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/doctor/dashboard');
+        router.push('/doctor');
       }, 2000);
     }, 1000);
   };
@@ -150,7 +148,7 @@ export default function Appointments() {
           ))}
 
         <Link
-          href='/doctor/dashboard/appointments'
+          href='/doctor/appointments'
           className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-see-all'
         >
           See all

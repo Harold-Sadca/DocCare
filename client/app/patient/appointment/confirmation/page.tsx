@@ -15,7 +15,7 @@ export default function AvailableDoctorList() {
   const appointment = useAppSelector((state) => state.appointment.value);
 
   const handleButtonClick = () => {
-    router.push('/patient/dashboard');
+    router.push('/patient');
   };
 
   return (

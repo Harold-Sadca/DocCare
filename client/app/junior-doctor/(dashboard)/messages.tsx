@@ -2,7 +2,7 @@
 'use client';
 import { io } from 'socket.io-client';
 import '../../css/junior-doctor.css';
-import { useEffect, useState,useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { TypeChatUser, TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
@@ -91,7 +91,9 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   return (
     <section className='chat'>
       <div className='header-chat'>
-      <button onClick={hideChat} className="back-button"><LeftCircleOutlined style={{ fontSize: '1.4rem' }}/></button>
+        <button onClick={hideChat} className='back-button'>
+          <LeftCircleOutlined style={{ fontSize: '1.4rem' }} />
+        </button>
 
         <p className='name'>{selectedPatient.name}</p>
       </div>

@@ -40,7 +40,7 @@ export default function Patient({ params }: { params: { id: string } }) {
             />
             <p>{selectedPatient?.summary}</p>
             <Link
-              href={`/junior-doctor/dashboard/patient/${selectedPatient?.id}/add-info`}
+              href={`/junior-doctor/patient/${selectedPatient?.id}/add-info`}
               className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-add-info'
             >
               Add information

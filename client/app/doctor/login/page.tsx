@@ -1,10 +1,10 @@
 import Login from '@/app/(components)/login';
-import Navbar from './navbar';
+import AuthNavbar from '@/app/(components)/auth-navbar';
 
 export default function DoctorLogin() {
   return (
     <>
-      <Navbar />
+      <AuthNavbar user={'doctor'} auth={'register'} />
       <Login user={'doctor'} />
     </>
   );

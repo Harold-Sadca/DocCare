@@ -35,7 +35,7 @@ export default function Patients() {
             <p>{patient.summary}</p>
             <div className='button-see-patient'>
               <Link
-                href={`/doctor/dashboard/patients/${patient.id}`}
+                href={`/doctor/patients/${patient.id}`}
                 className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded'
               >
                 See patient

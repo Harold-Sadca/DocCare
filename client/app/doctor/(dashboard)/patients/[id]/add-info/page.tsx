@@ -52,7 +52,7 @@ export default function AddInfo({ params }: { params: { id: string } }) {
         duration: 2,
       });
       setTimeout(() => {
-        router.push(`/doctor/dashboard/patients/${currentPatient?.id}`);
+        router.push(`/doctor/patients/${currentPatient?.id}`);
       }, 2000);
     }, 1000);
   };

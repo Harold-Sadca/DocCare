@@ -44,10 +44,9 @@ describe('<Login>', () => {
             res.body.result.userAuthenticated.userType
           );
           setTimeout(() => {
-            cy.location('pathname').should('eq', '/doctor/dashboard');
+            cy.location('pathname').should('eq', '/doctor');
           }, 2000);
         });
       });
   });
 });
-

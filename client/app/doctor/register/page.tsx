@@ -52,7 +52,7 @@ export default function Register() {
         duration: 2,
       });
       setTimeout(() => {
-        router.push('/doctor/dashboard');
+        router.push('/doctor');
       }, 2000);
     }, 1000);
   };

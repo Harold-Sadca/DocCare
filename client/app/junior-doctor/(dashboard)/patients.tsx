@@ -11,7 +11,10 @@ import JuniorDoctorMessages from './messages';
 import { MessageOutlined } from '@ant-design/icons';
 import { setPatientToView } from '@/redux/features/patient-to-view-slice';
 import { SearchOutlined } from '@ant-design/icons';
-import { setFilteredPatients } from '@/redux/features/search-patient-slice';
+import {
+  setFilteredPatients,
+  setAllPatients,
+} from '@/redux/features/search-patient-slice';
 import { toggleDisplaySection } from '@/redux/features/display-section';
 import { getAccessToken, getUserType } from '@/app/helper';
 
@@ -19,7 +22,7 @@ interface Props {
   allPatients: TypePatient[];
 }
 
-export default function AllPatients({ allPatients }: Props) {
+export default function AllPatients() {
   const token = typeof window !== 'undefined' && getAccessToken();
   const userType = typeof window !== 'undefined' && (getUserType() as string);
   // const [displayChat, setDisplayChat] = useState(false);
@@ -31,6 +34,9 @@ export default function AllPatients({ allPatients }: Props) {
 
   const currentJunior = useAppSelector(
     (state) => state.currentJuniorReducer.value
+  );
+  const allPatients = useAppSelector(
+    (state) => state.setAllPatientReducer.value
   );
   const filteredPatients = useAppSelector(
     (state) => state.patients.filteredPatients
@@ -88,7 +94,6 @@ export default function AllPatients({ allPatients }: Props) {
   const hideAllPatients = windowWidth < 500;
 
   return (
-    // <section className="discussions">
     <section
       className={hideAllPatients ? 'discussions-no-margin' : 'discussions'}
     >

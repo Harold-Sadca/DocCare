@@ -1,3 +1,7 @@
-export default function Doctor({ children }: { children: React.ReactNode }) {
+export default function DoctorLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return <section>{children}</section>;
 }
