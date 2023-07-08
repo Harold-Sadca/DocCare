@@ -24,27 +24,14 @@ import {
   TypeResponseJuniorNotes,
 } from '@/types/types';
 
-const PORT = 'http://localhost:3001';
+const PORT = process.env.PORT || 'http://localhost:3001';
 const endpoint = `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`;
-
-// async function putData(path: string, content: TypePatient | TypeMedicalInfo) {
-//   return axios
-//     .put(PORT + path, JSON.stringify(content), {
-//       headers: {
-//         'Content-type': 'application/json; charset=UTF-8',
-//       },
-//       withCredentials: true,
-//     })
-//     .then((res: AxiosResponse<TPatient>) => {
-//       return res.data;
-//     });
-// }
 
 async function editPatientDetails(
   patientId: string,
   patientDetails: TypePatient,
   token: string
-): Promise<TPatient> {
+) {
   return axios
     .put(`${PORT}/patients/logout/${patientId}`, patientDetails, {
       headers: {
@@ -52,9 +39,10 @@ async function editPatientDetails(
       },
       withCredentials: true,
     })
-    .then((res: AxiosResponse<TPatient>) => {
+    .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => console.log(error));
 }
 
 async function addJuniorNote(
@@ -62,9 +50,6 @@ async function addJuniorNote(
   juniorNote: string,
   token: string
 ) {
-  console.log({ patientId });
-  console.log({ juniorNote });
-  console.log(token);
   return axios
     .put(
       `${PORT}/junior-doctor/note/${patientId}`,
@@ -101,7 +86,6 @@ async function logoutPatient(patientId: string, patientDetails: TypePatient) {
 }
 
 async function fetchData(token: string, path: string) {
-  console.log(token, path);
   return axios
     .get(`${PORT}/${path}`, {
       headers: {
@@ -218,21 +202,6 @@ async function getAllPatients(token: string) {
   return fetchData(token, 'patients');
 }
 
-// async function getAllPatients(): Promise<TypeResponsePatient> {
-//   console.log('hey from api service getallpatients');
-//   return axios
-//     .get(`${PORT}/patients`, {
-//       headers: {
-//         'Content-type': 'application/json; charset=UTF-8',
-//       },
-//       withCredentials: true,
-//     })
-//     .then((res: AxiosResponse<TypeResponsePatient>) => {
-//       console.log(res);
-//       return res.data;
-//     });
-// }
-
 async function deletePatient(patientId: string): Promise<TypeResponsePatient> {
   return axios
     .get(`${PORT}/patient/${patientId}`, {
@@ -243,7 +212,8 @@ async function deletePatient(patientId: string): Promise<TypeResponsePatient> {
     })
     .then((res: AxiosResponse<TypeResponsePatient>) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function getLastCheckup(
@@ -258,7 +228,8 @@ async function getLastCheckup(
     })
     .then((res: AxiosResponse<TypeResponseLastCheckup>) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function createAppointment(
@@ -266,7 +237,6 @@ async function createAppointment(
   appointment: TypeAppointment,
   doctorId: string
 ) {
-  console.log(appointment);
   return axios
     .post(
       `${PORT}/patient/appointment/${patientId}`,
@@ -312,7 +282,8 @@ async function getUser(token: string, user: string) {
     })
     .then((res) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function createJuniorNote(
@@ -332,7 +303,8 @@ async function createJuniorNote(
     )
     .then((res: AxiosResponse<TypeResponseJuniorNotes>) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 async function getAllMessages() {
@@ -345,7 +317,8 @@ async function getAllMessages() {
     })
     .then((res: AxiosResponse<TypeMessage[]>) => {
       return res.data;
-    });
+    })
+    .catch((error) => error.response.data.error);
 }
 
 const apiService = {
