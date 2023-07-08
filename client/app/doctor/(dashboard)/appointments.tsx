@@ -27,12 +27,9 @@ export default function Appointments() {
   const appointments = currentDoctor.doctorAppointments;
 
   function handleAttendAppointment(clickedId: string) {
-    console.log('clicked');
-    console.log(clickedId);
     const token = getAccessToken() as string;
     return appointments?.map(async (appointment) => {
       if (appointment.id === clickedId) {
-        console.log(appointment.id);
         await apiService.attendAppointment(appointment.id, token);
         setMessageContent('Appointment maked as attended');
       }
