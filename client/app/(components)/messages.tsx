@@ -8,7 +8,6 @@ export default function Messages () {
 
   const initialState = { message: '', sender_name: '' , receiver_name:''};
   const [messageState, setMessageState] = useState(initialState);
-  const [allMessages, setAllMessages] = useState<string[]>([])
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setMessageState((prevState) => ({
