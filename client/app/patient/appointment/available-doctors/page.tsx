@@ -1,8 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
-import '../../../css/patient.css';
-import '../../../css/globals.css';
 import apiService from '@/services/APIservices';
 import { IllnessOptions } from '../../../../../server/types/types';
 import { useDispatch } from 'react-redux';
@@ -12,14 +10,17 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ExclamationCircleTwoTone } from '@ant-design/icons';
 import { addAppointment } from '@/redux/features/appointment-slice';
-
 import Image from 'next/image';
 import { openMessage } from '@/app/helper';
+import '../../../css/patient.css';
+import '../../../css/globals.css';
 
 export default function AvailableDoctorList() {
-  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const dispatch = useDispatch<AppDispatch>();
   const [formError, setFormError] = useState('');
+  const [messageApi, contextHolder] = message.useMessage();
+  const [messageContent, setMessageContent] = useState('');
   const availableSpecialists = useAppSelector(
     (state) => state.AvailableSpecialist.value
   );
@@ -33,7 +34,6 @@ export default function AvailableDoctorList() {
     illness: IllnessOptions,
     doctorId: string
   ) {
-    console.log(time);
     const appointment = {
       date,
       time: `${time}:00`,
@@ -50,7 +50,6 @@ export default function AvailableDoctorList() {
       if (result) {
         setMessageContent(message as string);
         setFormError('');
-        //adding appoitment to redux to be able to view it in confirmation
         dispatch(addAppointment(appointment));
       } else {
         setFormError(`${data}`);
@@ -75,9 +74,6 @@ export default function AvailableDoctorList() {
       return newSlots;
     }
   }
-
-  const [messageApi, contextHolder] = message.useMessage();
-  const [messageContent, setMessageContent] = useState('');
 
   useEffect(() => {
     if (messageContent) {

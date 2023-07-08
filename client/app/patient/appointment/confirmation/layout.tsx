@@ -1,8 +1,7 @@
 export default function PatientAppointmentConfirmationLayout({
-    children,
-  }: {
-    children: React.ReactNode;
-  }) {
-    return <section>{children}</section>;
-  }
-  
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return <section>{children}</section>;
+}

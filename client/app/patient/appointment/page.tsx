@@ -2,11 +2,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 'use client';
-import AuthNavbar from '@/app/(components)/auth-navbar';
-import '../../css/patient.css';
-import { Form, Input, Radio, RadioChangeEvent } from 'antd';
 import React, { useEffect, useState } from 'react';
-const { TextArea } = Input;
+import { Form, Input, Radio, RadioChangeEvent } from 'antd';
+import AuthNavbar from '@/app/(components)/auth-navbar';
 import { useRouter } from 'next/navigation';
 import apiService from '@/services/APIservices';
 import { TypeDoctor } from '@/../server/types/types';
@@ -14,8 +12,9 @@ import { TypeAvailableSpecialist } from '@/types/types';
 import { AppDispatch } from '@/redux/store';
 import { useDispatch } from 'react-redux';
 import { setAvailableSpecialist } from '@/redux/features/available-doctors-slice';
-import Image from 'next/image';
 import { futureDate, getAccessToken } from '@/app/helper';
+import Image from 'next/image';
+import '../../css/patient.css';
 
 const initialState = {
   date: '',
@@ -76,7 +75,6 @@ export default function PatientAppointment() {
     const allTheDoctors = await apiService
       .getAllDoctors(token)
       .then((doctors) => {
-        console.log(doctors);
         setAllDoctors(doctors as TypeDoctor[]);
       });
   }
@@ -125,15 +123,12 @@ export default function PatientAppointment() {
       setAvailableSpecialists(availableDoctors);
     }
   }, [state]);
-  console.log({ availableSpecialists });
 
   function submitForm() {
-    // e.preventDefault();
-
-    // if (futureDate(state.date)) {
-    //   setFormError('Please choose a future date.');
-    //   return;
-    // }
+    if (futureDate(state.date)) {
+      setFormError('Please choose a future date.');
+      return;
+    }
     if (state.date && state.illnesses) {
       const availableDoctors = displayAvailability(
         state.date,

@@ -1,43 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
-import { Button, Form, Input, Radio, RadioChangeEvent, message } from 'antd';
-const { TextArea } = Input;
+import { Form, Input, Radio, RadioChangeEvent, message } from 'antd';
 import React, { FormEvent, useEffect, useState } from 'react';
-import '../../css/globals.css';
-import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
 import { useRouter } from 'next/navigation';
 import { openMessage } from '@/app/helper';
+import AuthNavbar from '@/app/(components)/auth-navbar';
+import '../../css/globals.css';
 
-type SizeType = Parameters<typeof Form>[0]['size'];
+const { TextArea } = Input;
+const initialState = {
+  email: '',
+  password: '',
+  name: '',
+  address: '',
+  phoneNumber: '',
+  dateOfBirth: '',
+  bloodType: '',
+  medications: '',
+  allergies: '',
+  surgicalHistory: '',
+  familyMedicalHistory: '',
+  profilePicture: '',
+  summary: '',
+};
 
 export default function Register() {
   const router = useRouter();
-  const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
-    'default'
-  );
-
-  // const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-  //   setComponentSize(size);
-  // };
-
-  const initialState = {
-    email: '',
-    password: '',
-    name: '',
-    address: '',
-    phoneNumber: '',
-    dateOfBirth: '',
-    bloodType: '',
-    medications: '',
-    allergies: '',
-    surgicalHistory: '',
-    familyMedicalHistory: '',
-    profilePicture: '',
-    summary: '',
-  };
   const [state, setState] = useState(initialState);
   const [images, setImages] = useState([]);
   const [messageApi, contextHolder] = message.useMessage();
@@ -101,7 +92,6 @@ export default function Register() {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('userType', result.userType as string);
         setMessageContent(message as string);
-        // setIsAuthenticated(true);
       }
     }
     setState(initialState);
@@ -109,7 +99,7 @@ export default function Register() {
 
   return (
     <>
-      <Navbar />
+      <AuthNavbar user={'patient'} auth={'login'} />
       {contextHolder}
       <main className='flex min-h-screen flex-col items-center justify-center my-6'>
         <h2 className='font-bold text-2xl text-primary'>Register</h2>

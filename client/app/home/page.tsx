@@ -7,9 +7,9 @@ import Users from './users';
 import About from './info-about';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { getUserType } from '../helper';
 import '../css/home.css';
 import '../css/globals.css';
-import { getUserType } from '../helper';
 
 export default function Home() {
   const router = useRouter();

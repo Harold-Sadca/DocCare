@@ -7,12 +7,12 @@ import DoctorList from './(dashboard)/doctor-list';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import PatientMessages from './(dashboard)/patient-messages';
 import { useRouter } from 'next/navigation';
-import '../css/globals.css';
-import '../css/patient.css';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '@/redux/store';
 import LoadingSpinner from '@/app/(components)/loading';
 import { getAccessToken, getUserType } from '@/app/helper';
+import '../css/globals.css';
+import '../css/patient.css';
 
 export default function Patient() {
   const router = useRouter();
@@ -31,10 +31,7 @@ export default function Patient() {
   }, []);
 
   useEffect(() => {
-    if (id !== '') {
-      console.log(id);
-      setLoaded(true);
-    }
+    if (id) setLoaded(true);
   }, [id]);
 
   return (

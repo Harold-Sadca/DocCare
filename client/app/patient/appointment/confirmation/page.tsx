@@ -1,22 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import AuthNavbar from '@/app/(components)/auth-navbar';
+import { useAppSelector } from '@/redux/store';
+import { useRouter } from 'next/navigation';
 import '../../../css/patient.css';
 import '../../../css/globals.css';
-import { useAppSelector } from '@/redux/store';
-import apiService from '@/services/APIservices';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
-import { addAppointment } from '@/redux/features/appointment-slice';
 
 export default function AvailableDoctorList() {
   const router = useRouter();
   const appointment = useAppSelector((state) => state.appointment.value);
-
-  const handleButtonClick = () => {
-    router.push('/patient');
-  };
 
   return (
     <div className='confirmation'>
@@ -31,7 +23,7 @@ export default function AvailableDoctorList() {
         </div>
       </div>
       <button
-        onClick={handleButtonClick}
+        onClick={() => router.push('/patient')}
         className='bg-tertiary hover:bg-tertiary-dark text-white font-bold py-2 px-4 m-2 rounded'
         style={{
           position: 'fixed',

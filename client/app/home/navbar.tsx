@@ -1,30 +1,6 @@
-// export default function Navbar () {
-
-//   return (
-//     <div>
-//       <div>
-//         <p>DocCare</p>
-//       </div>
-//       <div>
-//         <ul>
-//           <li>Home</li>
-//           <li>Patient</li>
-//           <li>Doctor</li>
-//           <li>Junior Doctor</li>
-//         </ul>
-//       </div>
-//     </div>
-//   );
-// }
-
 'use client';
-
-import apiService from '@/services/APIservices';
-
-import { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
+import { Disclosure } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 const navigation = [
@@ -34,12 +10,9 @@ const navigation = [
   { name: 'Junior Doctor', href: '/junior-doctor/login', current: false },
 ];
 
-function classNames(...classes: any[]) {
-  return classes.filter(Boolean).join(' ');
+function combineStrings(...args: string[]) {
+  return args.filter(Boolean).join(' ');
 }
-
-// apiService.getAllPatients();
-// apiService.getAllDoctors();
 
 export default function Navbar() {
   return (
@@ -67,7 +40,7 @@ export default function Navbar() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className={classNames(
+                        className={combineStrings(
                           item.current
                             ? 'bg-gray-950 text-white'
                             : 'text-gray-300 hover:bg-cyan-700 hover:text-white',
@@ -91,7 +64,7 @@ export default function Navbar() {
                   key={item.name}
                   as='a'
                   href={item.href}
-                  className={classNames(
+                  className={combineStrings(
                     item.current
                       ? 'bg-gray-950 text-white'
                       : 'text-gray-300 hover:bg-cyan-700 hover:text-white',
