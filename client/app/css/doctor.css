@@ -1,4 +1,4 @@
-/* Profile */
+/* ------------------ Profile ------------------ */
 
 .doctor-patients-container {
   position: relative;
@@ -10,17 +10,17 @@
   margin-top: 0.5rem;
 }
 
-/* Notes */
+/* ------------------ Notes ------------------ */
+
 
 .notes-container {
   height: 35vh;
   display: flex;
-  /* flex-direction: row;
-  flex-wrap: wrap; */
   overflow-y: scroll;
 }
 
-/* My patients */
+/* ------------------ My Patients ------------------ */
+
 .each-item {
   display: flex;
   flex-direction: row;
@@ -42,11 +42,11 @@
 }
 
 .add-info-container {
-  /* height: 35vh; */
   flex-wrap: wrap;
   overflow-y: scroll;
 }
-/* My appointments */
+
+/* ------------------ My Appointments ------------------ */
 
 .each-item-appointments {
   justify-content: space-between;
@@ -73,7 +73,7 @@
   font-size: 1.5rem;
 }
 
-/* Appointments */
+/* ------------------ Appointments ------------------ */
 
 .all-patients {
   height: 100vh;
@@ -138,7 +138,8 @@
   font-size: 1.3rem;
 }
 
-/* My appointments */
+/* ------------------ My appointments ------------------ */
+
 
 .all-patients {
   height: 100vh;

@@ -91,7 +91,7 @@ form input::file-selector-button {
   width: 100%;
 }
 
-/* -------- Doctor -------- */
+/* ------------------ Doctor ------------------ */
 
 @media (min-width: 600px) {
   .doctor-appointments-box {
@@ -109,13 +109,6 @@ form input::file-selector-button {
   justify-self: center;
   align-self: center;
 }
-/*
-.appointments-box {
-  grid-column: col-start 3 / span 1;
-  grid-row: col-start 1 / span 1;
-  justify-self: center;
-  align-self: center;
-} */
 
 /* -------- Patient -------- */
 
@@ -196,7 +189,7 @@ form input::file-selector-button {
   color: #f5ecf7;
 }
 
-/* Each patient profile */
+/* ------------------ Each Patient Profile ------------------ */
 
 @media (min-width: 700px) {
   .patient-picture-box {
