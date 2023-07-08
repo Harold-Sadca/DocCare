@@ -1,6 +1,5 @@
 'use client';
 import { Form, message } from 'antd';
-
 import React, { useState } from 'react';
 import Footer from '@/app/(components)/footer';
 import Link from 'next/link';
@@ -32,7 +31,6 @@ export default function Logout() {
   };
 
   function handleClick() {
-    console.log(currentPatient, 'logout');
     if (currentPatient.name !== '') {
       apiService
         .logoutPatient(
@@ -40,7 +38,6 @@ export default function Logout() {
           currentPatient as TypePatient
         )
         .then((res) => {
-          console.log(res);
           setMessageContent(res?.message as string);
           socket.emit('patient logged');
         });

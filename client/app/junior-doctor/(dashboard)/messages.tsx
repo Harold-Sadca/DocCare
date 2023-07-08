@@ -1,19 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client';
 import { io } from 'socket.io-client';
-import '../../css/junior-doctor.css';
 import { useEffect, useState, useRef } from 'react';
 import { TypeChatUser, TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
-import apiService from '@/services/APIservices';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/redux/store';
 import { setAllMessages } from '@/redux/features/messages-slice';
 import { LeftCircleOutlined, SendOutlined } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
 import { toggleDisplaySection } from '@/redux/features/display-section';
 import { toggleDisplayChat } from '@/redux/features/display-chat';
+import '../../css/junior-doctor.css';
 
 const socket = io('ws://localhost:3001');
 
@@ -24,8 +22,6 @@ export default function JuniorDoctorMessages({ currentJunior }: Props) {
   const router = useRouter();
   const initialState = { message: '', user: '' };
   const [messageState, setMessageState] = useState(initialState);
-  // const [allMessages, setAllMessages] = useState<TypeMessage[]>([]);
-  const [onlinePatients, seOnlinePatients] = useState<TypeChatUser[]>([]);
   const [messages, setMessages] = useState<TypeMessage[]>([]);
   const allMessages = useAppSelector((state) => state.allMessagesReducer.value);
   const dispatch = useDispatch();
