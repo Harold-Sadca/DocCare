@@ -2,24 +2,19 @@ import axios, { AxiosResponse } from 'axios';
 import {
   TypeDoctor,
   TypePatient,
-  TypeJuniorDoctor,
   TypeMedicalInfo,
   TypeAppointment,
   TypeMessage,
 } from '../../server/types/types';
 import {
-  TypeResponseDoctor,
-  TypeResponseJuniorDoctor,
   TypeResponsePatient,
   TypeResponseMedicalInfo,
   TypeResponseSummary,
   TypeLogin,
   TypeSummary,
   TPatient,
-  TResponseUser,
   TypeRegister,
   TypeResponseLastCheckup,
-  TypeResponseAppointment,
   TUser,
   TypeResponseJuniorNotes,
 } from '@/types/types';

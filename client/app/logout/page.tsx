@@ -12,7 +12,7 @@ import { io } from 'socket.io-client';
 import apiService from '@/services/APIservices';
 import { TypePatient } from '../../../server/types/types';
 import { clearLocalStorage } from '../helper';
-const socket = io('ws://localhost:3001');
+const socket = io(process.env.SOCKET_URL || 'ws://localhost:3001')
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
@@ -28,7 +28,6 @@ export default function Logout() {
   const currentPatient = useAppSelector(
     (state) => state.currentPatientReducer.value
   );
-  // const userType = typeof window !== 'undefined' && localStorage.getItem('userType') as string;
 
   const onFormLayoutChange = ({ size }: { size: SizeType }) => {
     setComponentSize(size);

@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { Form, Input } from 'antd';
 import { useState } from "react";
 
-const socket = io(process.env.SOCKET_URL as string);
+const socket = io(process.env.SOCKET_URL || 'ws://localhost:3001');
 
 export default function Messages () {
 
