@@ -36,12 +36,6 @@ async function createJuniorNoteModel(patientId: string, juniorNote: string) {
       where: { id: patientId },
     })) as Patient;
     patient.juniorNotes = juniorNote;
-    // patient.juniorNotes = patient.juniorNotes || [];
-    // const notes = patient.juniorNotes as unknown as string;
-    // patient.juniorNotes = [notes, juniorNote];
-
-    // console.log(patient.juniorNotes);
-    // patient.juniorNotes?.push(juniorNote);
     await patient.save();
     console.log(patient);
     return patient;

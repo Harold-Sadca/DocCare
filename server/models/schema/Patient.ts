@@ -12,9 +12,6 @@ import {
   HasManyHasAssociationMixin,
   HasManyHasAssociationsMixin,
   HasManyCountAssociationsMixin,
-  HasOneGetAssociationMixin,
-  HasOneSetAssociationMixin,
-  HasOneCreateAssociationMixin,
   InferCreationAttributes,
   InferAttributes,
   Model,
@@ -27,7 +24,6 @@ import type { MedicalInfo } from './MedicalInfo';
 import type { Message } from './Message';
 const saltRounds = 12;
 import bcrypt from 'bcrypt';
-import logger from '../../logger';
 
 type PatientAssociations =
   | 'patientMessages'
@@ -162,7 +158,6 @@ export class Patient extends Model<
           type: DataTypes.STRING,
         },
         juniorNotes: {
-          // type: DataTypes.ARRAY(DataTypes.STRING),
           type: DataTypes.STRING,
         },
         summary: {
@@ -199,7 +194,6 @@ export class Patient extends Model<
       {
         hooks: {
           beforeValidate: async (patient) => {
-            logger.info('does it come here???');
             patient.id = uuidv4();
           },
           afterCreate: async (patient) => {
@@ -207,10 +201,8 @@ export class Patient extends Model<
               patient.password as string,
               saltRounds
             );
-            // patient.id = uuidv4();
             patient.password = hashedPassword;
             patient.status = 'Online';
-            // patient.juniorNotes = [];
             await patient.save();
           },
         },

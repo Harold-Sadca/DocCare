@@ -144,13 +144,7 @@ async function createMedicalInfo(req: Request, res: Response) {
 async function createPatientSummary(req: Request, res: Response) {
   try {
     const patientId = req.params.patientId;
-    console.log(patientId);
-    // const { summary, doctorName } = req.body;
-    console.log('why?');
-    console.log(req.body);
     const { newPatientSummary } = req.body;
-    console.log(newPatientSummary);
-    // const newPatientSummary = `${summary} by: ${doctorName}`;
     const createPatientSummary = await createPatientSummaryModel(
       newPatientSummary,
       patientId
@@ -166,7 +160,6 @@ async function createPatientSummary(req: Request, res: Response) {
 }
 
 async function attendAppointment(req: Request, res: Response) {
-  console.log('working');
   try {
     const appointmentId = req.params.appointmentId;
     const attendAppointment = await attendAppointmentModel(appointmentId);

@@ -15,7 +15,6 @@ import db from '.././models/schema/index';
 const PatientDB = db.Patient;
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import logger from '../logger';
 
 const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
 
@@ -46,7 +45,6 @@ async function createPatient(req: Request, res: Response) {
       dateOfBirth,
       gender,
       profilePicture,
-      // juniorNotes: [],
       allergies,
       bloodType,
       medications,
@@ -181,7 +179,6 @@ async function createAppointment(req: Request, res: Response) {
   try {
     const patientId = req.params.patientId;
     const { doctorId, appointment } = req.body;
-    logger.warn(appointment);
     const createAppointment = await createAppointmentModel(
       patientId,
       doctorId,
