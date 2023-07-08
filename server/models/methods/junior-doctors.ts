@@ -37,7 +37,6 @@ async function createJuniorNoteModel(patientId: string, juniorNote: string) {
     })) as Patient;
     patient.juniorNotes = juniorNote;
     await patient.save();
-    console.log(patient);
     return patient;
   } catch (error) {
     throw new Error();

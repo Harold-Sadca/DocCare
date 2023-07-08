@@ -65,8 +65,6 @@ export default function PatientAppointment() {
     const [year, month, day] = date.split('-');
     const formattedMonth = month.startsWith('0') ? month.substring(1) : month;
     const formattedDay = day.startsWith('0') ? day.substring(1) : day;
-    console.log(year);
-    console.log([year, formattedMonth, formattedDay]);
     return [Number(year), Number(formattedMonth), Number(formattedDay)];
   }
 
@@ -96,7 +94,6 @@ export default function PatientAppointment() {
   ) {
     const [stateYear, stateMonth, stateDay] = formatedDate;
     return specialists.map((docs) => {
-      console.log(docs.availability && docs.availability[stateMonth][stateDay]);
       return (
         docs.availability && {
           doctorName: docs.name,

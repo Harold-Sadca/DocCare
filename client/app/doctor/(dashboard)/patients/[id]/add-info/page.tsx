@@ -61,8 +61,6 @@ export default function AddInfo({ params }: { params: { id: string } }) {
 
   const handleSummaryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log({ name });
-    console.log({ value });
     setSummary((prevState) => ({
       ...prevState,
       [name as string]: value,
@@ -86,7 +84,6 @@ export default function AddInfo({ params }: { params: { id: string } }) {
       setMessageContent(error);
     } else {
       if (result) {
-        console.log(result);
         setMessageContent(message as string);
       }
     }
