@@ -132,7 +132,6 @@ function createMedicalInfoModel(newMedicalInfo, patientId) {
             const medicalInfo = yield MedicalInfoDB.create(newMedicalInfo);
             patient.addMedicalInfo(medicalInfo);
             yield medicalInfo.save();
-            // await patient.save();
             return medicalInfo;
         }
         catch (error) {

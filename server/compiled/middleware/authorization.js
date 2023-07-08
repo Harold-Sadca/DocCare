@@ -28,20 +28,17 @@ const patientAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void
         const { id } = jsonwebtoken_1.default.verify(token, SECRET_KEY);
         const patient = yield PatientDB.findOne({ where: { id } });
         if (!patient) {
-            console.log('no patient!');
             return res.sendStatus(401);
         }
         req.patient = patient;
         next();
     }
     catch (error) {
-        console.log(error);
         res.sendStatus(401);
     }
 });
 exports.patientAuthMiddleware = patientAuthMiddleware;
 const doctorAuthMiddleware = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('hello from doctor middleware');
     const authHeaders = req.headers['authorization'];
     if (!authHeaders)
         return res.sendStatus(403);
