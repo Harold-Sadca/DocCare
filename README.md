@@ -40,6 +40,15 @@ SECRET_KEY=example
 
 By incorporating these configurations, we optimize the performance and security of our private healthcare platform, providing a reliable and efficient user experience.
 
+## Starting MySQL
+
+If MySQL is not running, you will need to start it before running the application. Follow the steps below to start MySQL using the terminal:
+
+- Open a new terminal window.
+- Run the command `mysql.server start`.
+
+This will start the MySQL server, allowing the application to connect to the database seamlessly.
+
 ## Cloudinary
 
 We utilise Cloudinary, a cloud-based image and video management, to enhance our platform's multimedia capabilities.
@@ -72,3 +81,9 @@ By running these scripts, you will ensure that the necessary data is seeded in t
 
 Run `npm start` from the Client folder.
 Run `nodemon index.ts` from the Server folder.
+
+## Contributors
+
+- [Mylena Vendramini](https://github.com/mylenavendramini)
+- [Harold Sadca](https://github.com/Harold-Sadca)
+- [Ateja Janciukaite](https://github.com/Atejan07)
