@@ -46,7 +46,6 @@ const doctorAuthMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-
   const authHeaders = req.headers['authorization'];
   if (!authHeaders) return res.sendStatus(403);
   const token = authHeaders.split(' ')[1];
@@ -73,11 +72,8 @@ const juniorDoctorAuthMiddleware = async (
   const token = authHeaders.split(' ')[1];
 
   try {
-    console.log(token);
     const { id } = jwt.verify(token, SECRET_KEY) as JwtPayload & { id: string };
-    console.log(id);
     const juniorDoctor = await JuniorDoctorDB.findOne({ where: { id } });
-    console.log(juniorDoctor);
     if (!juniorDoctor) return res.sendStatus(401);
     req.juniorDoctor = juniorDoctor;
     next();

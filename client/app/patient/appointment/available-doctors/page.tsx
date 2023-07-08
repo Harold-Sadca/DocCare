@@ -106,7 +106,6 @@ export default function AvailableDoctorList() {
               const illness = available.illness as IllnessOptions;
               const date = available.date;
               const slots = availableSlots(available.slots);
-              console.log(doctorProfilePic);
               return (
                 <div className='doctors-list each-doctor' key={idx}>
                   <Image

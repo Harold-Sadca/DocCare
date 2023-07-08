@@ -111,11 +111,9 @@ async function register(user: TUser, type: string) {
       withCredentials: true,
     })
     .then((res: AxiosResponse<TypeRegister>) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((error) => {
-      console.log(error);
       return error;
     });
 }
@@ -124,7 +122,6 @@ async function saveImage(imageData: {}) {
   return axios
     .post(endpoint, imageData)
     .then((res) => {
-      console.log(res);
       return res;
     })
     .catch((error) => console.log(error));
