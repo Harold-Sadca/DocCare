@@ -1,22 +1,17 @@
 'use client';
-import { TypePatient } from '@/../server/types/types';
 import AuthNavbar from '@/app/(components)/auth-navbar';
 import { calculateAge, toFirstLetterUpperCase } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { PhoneOutlined } from '@ant-design/icons';
 import { MailOutlined } from '@ant-design/icons';
 import { FieldTimeOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import '../../../../css/globals.css';
-import '../../../../css/patient.css';
-import '../../../../css/doctor.css';
+import '../../../css/globals.css';
+import '../../../css/patient.css';
+import '../../../css/doctor.css';
 
-export default function Patient({ params }: { params: { id: string } }) {
-  const router = useRouter();
-
+export default function Patient() {
   const selectedPatient = useAppSelector(
     (state) => state.patientToViewReducer.value
   );
@@ -37,7 +32,7 @@ export default function Patient({ params }: { params: { id: string } }) {
             />
             <p>{selectedPatient?.summary}</p>
             <Link
-              href={`/junior-doctor/patient/${selectedPatient?.id}/add-info`}
+              href={`/junior-doctor/${selectedPatient?.id}/add-info`}
               className='bg-transparent hover:bg-tertiary text-tertiary-dark font-semibold hover:text-white py-2 px-4 my-2 border border-tertiary hover:border-transparent rounded btn-add-info'
             >
               Add information

@@ -2,7 +2,7 @@
 'use client';
 import { io } from 'socket.io-client';
 import { useEffect, useState, useRef } from 'react';
-import { TypeChatUser, TypeMessage } from '../../../../server/types/types';
+import { TypeMessage } from '../../../../server/types/types';
 import { useAppSelector } from '@/redux/store';
 import { TUser } from '@/types/types';
 import { useDispatch } from 'react-redux';
@@ -13,7 +13,7 @@ import { toggleDisplaySection } from '@/redux/features/display-section';
 import { toggleDisplayChat } from '@/redux/features/display-chat';
 import '../../css/junior-doctor.css';
 
-const socket = io('ws://localhost:3001');
+const socket = io(process.env.SOCKET_PORT || 'ws://localhost:3001');
 
 interface Props {
   currentJunior: TUser;

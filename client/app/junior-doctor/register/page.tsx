@@ -3,24 +3,16 @@
 import { Form, Input, Radio, RadioChangeEvent, message } from 'antd';
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from './navbar';
 import Footer from '@/app/(components)/footer';
 import apiService from '@/services/APIservices';
 import { openMessage } from '@/app/helper';
+import AuthNavbar from '@/app/(components)/auth-navbar';
 import '../../css/globals.css';
-const { TextArea } = Input;
+
 type SizeType = Parameters<typeof Form>[0]['size'];
 
 export default function Register() {
   const router = useRouter();
-  const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
-    'default'
-  );
-
-  const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-    setComponentSize(size);
-  };
-
   const initialState = {
     email: '',
     password: '',
@@ -85,7 +77,7 @@ export default function Register() {
     formData.append('upload_preset', 'jujbod4w');
 
     await apiService.saveImage(formData).then((data: any) => {
-    state.profilePicture = data.data.secure_url && data.data.secure_url;
+      state.profilePicture = data.data.secure_url && data.data.secure_url;
     });
 
     const data = await apiService.register(state, 'junior-doctor');
@@ -103,14 +95,12 @@ export default function Register() {
   };
   return (
     <>
-      <Navbar />
+      <AuthNavbar user={'junior-doctor'} auth={'login'} />
       {contextHolder}
       <main className='flex min-h-screen flex-col items-center justify-center my-6'>
         <h2 className='font-bold text-2xl text-primary'>Register</h2>
         <h3>Explore the future with us.</h3>
-        <form
-          onSubmit={handleFormSubmit}
-        >
+        <form onSubmit={handleFormSubmit}>
           <Form.Item label='Name' htmlFor='name'>
             <Input
               type='text'

@@ -10,11 +10,11 @@ import apiService from '@/services/APIservices';
 import { getAccessToken, openMessage } from '@/app/helper';
 import { useDispatch } from 'react-redux';
 import { setPatientToView } from '@/redux/features/patient-to-view-slice';
-import '../../../../../css/globals.css';
-import '../../../../../css/patient.css';
-import '../../../../../css/doctor.css';
+import '../../../../css/globals.css';
+import '../../../../css/patient.css';
+import '../../../../css/doctor.css';
 
-export default function AddInfo({ params }: { params: { id: string } }) {
+export default function AddInfo() {
   const router = useRouter();
   const [juniorNote, setJuniorNote] = useState<string>('');
   const [messageApi, contextHolder] = message.useMessage();
@@ -24,7 +24,6 @@ export default function AddInfo({ params }: { params: { id: string } }) {
     (state) => state.patientToViewReducer.value
   );
 
-
   useEffect(() => {
     if (messageContent) {
       openMessage(
@@ -32,7 +31,7 @@ export default function AddInfo({ params }: { params: { id: string } }) {
         'updatable',
         messageContent,
         router,
-        `/junior-doctor/patient/${selectedPatient?.id}`
+        `/junior-doctor/${selectedPatient?.id}`
       );
     }
   }, [messageContent]);

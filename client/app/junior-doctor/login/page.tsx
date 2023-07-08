@@ -1,13 +1,13 @@
-"use client";
-import React from "react";
-import Login from "@/app/(components)/login";
-import Navbar from "./navbar";
+'use client';
+import React from 'react';
+import Login from '@/app/(components)/login';
+import AuthNavbar from '@/app/(components)/auth-navbar';
 
 export default function JuniorDoctorLogin() {
   return (
     <>
-      <Navbar />
-      <Login user={"junior-doctor"} />
+      <AuthNavbar user={'junior-doctor'} auth={'register'} />
+      <Login user={'junior-doctor'} />
     </>
   );
 }
