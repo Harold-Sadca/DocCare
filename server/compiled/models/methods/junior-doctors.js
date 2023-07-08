@@ -57,11 +57,6 @@ function createJuniorNoteModel(patientId, juniorNote) {
                 where: { id: patientId },
             }));
             patient.juniorNotes = juniorNote;
-            // patient.juniorNotes = patient.juniorNotes || [];
-            // const notes = patient.juniorNotes as unknown as string;
-            // patient.juniorNotes = [notes, juniorNote];
-            // console.log(patient.juniorNotes);
-            // patient.juniorNotes?.push(juniorNote);
             yield patient.save();
             console.log(patient);
             return patient;

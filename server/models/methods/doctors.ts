@@ -114,7 +114,6 @@ async function createMedicalInfoModel(
     const medicalInfo = await MedicalInfoDB.create(newMedicalInfo);
     patient.addMedicalInfo(medicalInfo);
     await medicalInfo.save();
-    // await patient.save();
     return medicalInfo;
   } catch (error) {
     throw new Error();

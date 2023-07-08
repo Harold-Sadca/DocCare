@@ -40,25 +40,15 @@ app.use(patient_route_1.patientRouter);
 app.use(messages_route_1.messagesRouter);
 app.use(junior_doctor_route_1.juniorDoctorRouter);
 app.use(doctor_route_1.doctorRouter);
-// app.use(router);
 io.use((socket, next) => {
-    // here we check if there is a name in the socket
-    // we assigned this property in the frontend
     const name = socket.handshake.auth.name;
     if (!name) {
-        // if there isnt a name we throw an error and refuse the connection
         return next(new Error('invalid username'));
     }
-    // if we manage to get here it means they have been authenticated
-    // so we call next to go to the next middleware
     next();
 });
 io.on('connection', (socket) => {
     socket.broadcast.emit('patient logged');
-    // socket.to('junior').emit('patient logged')
-    // 'socket.join(room name)' would let us join the private room
-    // but if its not there it will create it so in this case
-    // we are using it to create a private room
     const newRoom = socket.handshake.auth.name;
     if (newRoom === 'junior') {
         socket.join('junior');
@@ -66,28 +56,16 @@ io.on('connection', (socket) => {
     else {
         socket.join(newRoom);
     }
-    // here we check the events that are coming in from the frontend
-    // we have created this 'from junior' from frontend
-    // so this means when you detect an event called 'from junior' do the following
     socket.on('from junior', (message, receiver) => __awaiter(void 0, void 0, void 0, function* () {
-        //this saves it to the database
         const newMessage = yield (0, messages_1.sendMessageModel)(message);
-        logger_1.default.warn(newMessage);
-        // socket.to(room name) would send a message only to that room
-        // to all clients on the socket in room 'receiver' except the sender
         socket.to(receiver).emit('from junior', newMessage);
-        // socket.to('junior').emit('junior sent', newMessage)
     }));
     socket.on('patient message', (message) => __awaiter(void 0, void 0, void 0, function* () {
         const newMessage = yield (0, messages_1.sendMessageModel)(message);
-        logger_1.default.warn(newMessage);
         socket.to('junior').emit('patient message', newMessage);
-        // socket.to(message.sender_name).emit('patient sent', newMessage)
         socket.broadcast.emit('patient logged');
     }));
-    logger_1.default.warn(newRoom);
     socket.on('patient logged', (args) => {
-        logger_1.default.info('logged', args);
         socket.broadcast.emit('patient logged');
     });
 });

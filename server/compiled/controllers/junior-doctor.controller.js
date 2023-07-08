@@ -108,4 +108,3 @@ function createJuniorNote(req, res) {
     });
 }
 exports.createJuniorNote = createJuniorNote;
-//Very well done Ati- Ali <3
