@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { Form, Input } from 'antd';
 import { useState } from "react";
 
-const socket = io("ws://localhost:3001");
+const socket = io(process.env.SOCKET_URL as string);
 
 export default function Messages () {
 
@@ -16,14 +16,6 @@ export default function Messages () {
       [name]: value,
     }));
   };
-
-  // // send a message to the server
-  // socket.emit("hello from client", 5, "6", { 7: Uint8Array.from([8]) });
-
-  // // receive a message from the server
-  // socket.on("hello from server", (...args) => {
-  //   // ...
-  // });
 
   function handleClick() {
     console.log('clicked')
