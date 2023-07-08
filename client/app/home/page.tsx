@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Footer from '../(components)/footer';
 import Navbar from './navbar';
 import Users from './users';
-import About from './info-about';
+import About from './Info-about';
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import '../css/home.css';
