@@ -7,9 +7,9 @@ import AuthNavbar from '@/app/(components)/auth-navbar';
 import { calculateAge, formatDate } from '@/app/helper';
 import { useAppSelector } from '@/redux/store';
 import { useRouter } from 'next/navigation';
+import { LeftCircleOutlined } from '@ant-design/icons';
 import '../../../css/doctor.css';
 import '../../../css/globals.css';
-import { LeftCircleOutlined } from '@ant-design/icons';
 
 export default function Appointments() {
   const router = useRouter();
@@ -21,7 +21,6 @@ export default function Appointments() {
   return (
     <div className='patients-box'>
       <AuthNavbar user={'doctor'} auth={'login'} />
-      {/* <main className='all-patients appointment-list-container'> */}
       <div>
         <div className='button-and-title'>
           <button onClick={() => router.back()}>
@@ -31,7 +30,6 @@ export default function Appointments() {
             Next appointments
           </h2>
         </div>
-        {/* <div className='all-patients'> */}
         {appointments
           ?.filter(
             (appointment) =>
@@ -58,7 +56,6 @@ export default function Appointments() {
               <p>Time: {appointment.time.slice(0, 5)}</p>
             </div>
           ))}
-        {/* </div> */}
         <h2 className='text-2xl text-primary text-black m-4'>
           Previous appointments
         </h2>
@@ -91,62 +88,6 @@ export default function Appointments() {
               <p>Time: {appointment.time.slice(0, 5)}</p>
             </div>
           ))}
-
-        {/* {appointments
-          ?.filter((appointment) => !appointment.attended)
-          .map((appointment, idx) => (
-            <div className='each-patient-profile' key={idx}>
-              <div className='each-appointment appoinment-list'>
-                <div className='about-user-appointment'>
-                  <p>{appointment?.patientAppointment?.name}</p>
-                  <p>
-                    {calculateAge(
-                      appointment?.patientAppointment?.dateOfBirth as string
-                    ).toString()}
-                    years old
-                  </p>
-                  <p>{appointment?.patientAppointment?.gender}</p>
-                  <p>Summary: {appointment?.patientAppointment?.summary}</p>
-                </div>
-                <div className='appoitment-patient'>
-                  <h3>Appoitment</h3>
-                  <p> Date: {appointment.date}</p>
-                  <p>Time: {appointment.time.slice(0, 5)}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        <h2 className='text-2xl text-primary text-black m-4'>
-          Previous appointments
-        </h2>
-        {appointments
-          ?.filter((appointment) => appointment.attended)
-          .map((appointment, idx) => (
-            <div className='each-patient-profile' key={idx}>
-              <div className='each-appointment appoinment-list'>
-                <div className='about-user-appointment'>
-                  <p id='name'>{appointment?.patientAppointment?.name}</p>
-                  <p>
-                    {calculateAge(
-                      appointment?.patientAppointment?.dateOfBirth as string
-                    ).toString()}
-                    years old
-                  </p>
-                  <p>{appointment?.patientAppointment?.gender}</p>
-                  <p>Summary: {appointment?.patientAppointment?.summary}</p>
-                </div>
-                <div className='appoitment-patient'>
-                  <h3>Appoitment</h3>
-                  <p> Date: {appointment.date}</p>
-                  <p>Time: {appointment.time.slice(0, 5)}</p>
-                </div>
-              </div>
-            </div>
-          ))}
-        <div className='male-doctor'>
-          <img src='/appointment-vector.png' id='appointment-vector'></img>
-        </div>
-        </main> */}
       </div>
     </div>
   );

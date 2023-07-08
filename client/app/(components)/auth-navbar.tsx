@@ -29,9 +29,6 @@ function toFirstLetterUpperCase(text: string) {
 export default function AuthNavbar(props: Props) {
   const isAuth = useAppSelector((state) => state.authReducer.value.isAuth);
   const dispatch = useDispatch<AppDispatch>();
-  const currentJuniorDoctor = useAppSelector(
-    (state) => state.currentJuniorReducer.value
-  );
 
   async function getCurrentUser() {
     const token = getAccessToken();

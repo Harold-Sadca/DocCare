@@ -11,17 +11,8 @@ import apiService from '@/services/APIservices';
 import '../../css/globals.css';
 import { openMessage } from '@/app/helper';
 
-type SizeType = Parameters<typeof Form>[0]['size'];
-
 export default function Register() {
   const router = useRouter();
-  const [componentSize, setComponentSize] = useState<SizeType | 'default'>(
-    'default'
-  );
-
-  // const onFormLayoutChange = ({ size }: { size: SizeType }) => {
-  //   setComponentSize(size);
-  // };
 
   const initialState = {
     email: '',
@@ -61,8 +52,6 @@ export default function Register() {
       | RadioChangeEvent
   ) => {
     const { name, value } = e.target;
-    console.log({ name });
-    console.log({ value });
     setState((prevState) => ({
       ...prevState,
       [name as string]: value,
@@ -72,9 +61,6 @@ export default function Register() {
   const handleFormSubmit = async (
     e: FormEvent<HTMLFormElement> | React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log('please work');
-    console.log(e.target);
-    console.log('got here');
     e.preventDefault();
     const fileInput = e.currentTarget.querySelector(
       'input[type="file"]'
@@ -83,16 +69,12 @@ export default function Register() {
 
     const file = fileInput.files[0];
     const formData = new FormData();
-    console.log({ file });
     formData.append('file', file);
     formData.append('api_key', process.env.CLOUDINARY_API_KEY as string);
     formData.append('folder', 'next');
     formData.append('upload_preset', 'jujbod4w');
 
     await apiService.saveImage(formData).then((data: any) => {
-      console.log(data);
-      console.log(data.data);
-      console.log(data.data.secure_url);
       state.profilePicture = data.data.secure_url && data.data.secure_url;
     });
 
@@ -105,30 +87,12 @@ export default function Register() {
       if (result) {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('userType', result.userType as string);
-        console.log(result);
         setMessageContent(message as string);
       }
     }
     setState(initialState);
   };
 
-  // const submitForm = async (e: FormEvent<HTMLFormElement>) => {
-  //   // e.preventDefault();
-  // const data = await apiService.register(state, 'doctor');
-  // const { message, result, error, accessToken } = data;
-  // console.log(result);
-  // if (error) {
-  //   setMessageContent(error);
-  // } else {
-  //   if (result) {
-  //     localStorage.setItem('accessToken', accessToken);
-  //     localStorage.setItem('userType', result.userType as string);
-  //     console.log(result);
-  //     setMessageContent(message as string);
-  //   }
-  // }
-  // setState(initialState);
-  // };
   return (
     <>
       <Navbar />
