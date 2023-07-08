@@ -181,11 +181,8 @@ async function createAppointmentModel(
   doctorId: string,
   appointment: TypeAppointment
 ) {
-  console.log(appointment);
   try {
-    console.log(appointment);
     const newAppointment = await AppointmentDB.create(appointment);
-    console.log('whyyyyy');
     const doctor = (await DoctorDB.findOne({
       where: { id: doctorId },
     })) as Doctor;

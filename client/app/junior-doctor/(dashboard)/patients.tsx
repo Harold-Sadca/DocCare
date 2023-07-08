@@ -50,7 +50,7 @@ export default function AllPatients() {
     if (target.name === "patient-details") {
       dispatch(setPatientToView(patient));
       router.push(`dashboard/patient/${target.id}`);
-    } else if (target.name === "chat") {
+    } else if (target.name === 'chat') {
       dispatch(toggleDisplayChat(true));
       const patientToChat = {
         id: target.id,

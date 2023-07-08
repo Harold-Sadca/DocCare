@@ -83,7 +83,6 @@ async function loginDoctor(req: Request, res: Response) {
       if (validatedPass) {
         const accessToken = jwt.sign({ id: doctor.id }, SECRET_KEY);
         const userAuthenticated = await getDoctorModel(doctor.id);
-        console.log(userAuthenticated);
         userAuthenticated!.password = null;
         res.status(200).json({
           message: `Welcome, ${doctor?.name}!`,
@@ -120,7 +119,6 @@ async function getDoctors(req: Request, res: Response) {
 
 async function createMedicalInfo(req: Request, res: Response) {
   try {
-    console.log(req.body);
     const { prescription, doctorNote, doctorName } = req.body;
     const patientId = req.params.patientId;
     const newMedicalInfo = {

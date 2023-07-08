@@ -11,7 +11,7 @@ import { io } from 'socket.io-client';
 import apiService from '@/services/APIservices';
 import { TypePatient } from '../../../server/types/types';
 import { clearLocalStorage } from '../helper';
-const socket = io(process.env.SOCKET_URL || 'ws://localhost:3001')
+const socket = io(process.env.SOCKET_URL || 'ws://localhost:3001');
 
 type SizeType = Parameters<typeof Form>[0]['size'];
 
