@@ -1,4 +1,4 @@
-import { Express, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { sendMessageModel, getMessagesModel } from '../models/methods/messages';
 
 async function sendMessage(req: Request, res: Response) {
@@ -19,7 +19,7 @@ async function sendMessage(req: Request, res: Response) {
       receiver_id,
       receiver_name,
       date,
-    }
+    };
     const createMessage = await sendMessageModel(newMessage);
     res.status(201).json({
       message: 'Message sent successfully',

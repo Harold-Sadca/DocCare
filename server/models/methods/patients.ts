@@ -9,7 +9,6 @@ import { Appointment } from '../schema/Appointment';
 import { Message } from '../schema/Message';
 import { MedicalInfo } from '../schema/MedicalInfo';
 import { Doctor } from '../schema/Doctor';
-import logger from '../../logger';
 
 const PatientDB = db.Patient;
 const AppointmentDB = db.Appointment;

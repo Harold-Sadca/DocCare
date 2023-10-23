@@ -1,4 +1,3 @@
-import logger from '../../logger';
 import { TypeJuniorDoctor } from '../../types/types';
 import { Message } from '../schema/Message';
 import { Patient } from '../schema/Patient';

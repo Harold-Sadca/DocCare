@@ -24,9 +24,6 @@ export default function Messages() {
       receiver_name: messageState.receiver_name,
     };
     socket.emit('click', newMessage);
-    socket.on('hello back', (...args) => {
-      console.log(args);
-    });
   }
   return (
     <>

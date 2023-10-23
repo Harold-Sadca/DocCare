@@ -2,7 +2,6 @@ import db from '../schema/index';
 import { TypeDoctor, TypeMedicalInfo } from '../../types/types';
 import { Patient } from '../schema/Patient';
 import { Appointment } from '../schema/Appointment';
-import logger from '../../logger';
 import { Doctor } from '../schema/Doctor';
 import { MedicalInfo } from '../schema/MedicalInfo';
 
